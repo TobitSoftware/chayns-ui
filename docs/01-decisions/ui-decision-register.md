@@ -32,6 +32,9 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | CORE-004 | CORE | Native Web-Semantik hat Vorrang; ARIA ergänzt nur bei Bedarf. | CONFIRMED | Philosophy, AGENTS.md | |
 | CORE-005 | CORE | Native HTML-Props und Standardevents werden soweit möglich durchgereicht. | CONFIRMED | Architecture, AGENTS.md | |
 | CORE-006 | CORE | Core darf notwendige lokale UI-Zustände verwalten. | CONFIRMED | Architecture | |
+| CORE-007 | CORE | Eine Core-, Layout- oder Business-Komponente darf nicht implementiert werden, solange implementierungsrelevante Interpretationsspielräume oder ungeklärte Anforderungen bestehen. Diese müssen vor der Implementierung explizit geklärt und dokumentiert werden. | CONFIRMED | Planning | Component Development Standard, AI Development Rules, Quality Gates |
+| CORE-008 | CORE | Wiederverwendbare Komponenten ermöglichen locale-aware Inhalte und Formate, ohne Locale, Sprache, Region, Währung, Zeitzone, RTL-Verhalten oder Translation-Infrastruktur selbst anzunehmen. Implementierungsrelevante ungeklärte i18n/l10n-Entscheidungen blockieren die Komponente bis zur dokumentierten Klärung. | SUPERSEDED | Planning | Superseded by CORE-009. |
+| CORE-009 | CORE | Für allgemeine chayns-Anwendungs-/Produkttexte ist das bestehende zentrale Textstring-System die vorgesehene Translation Infrastructure; chayns UI baut kein paralleles Übersetzungssystem. Core Components bleiben grundsätzlich von Textstring-Details entkoppelt und konsumieren aufgelöste Inhalte. Translation und locale-aware Formatting sind getrennte Verantwortlichkeiten. | CONFIRMED | Planning | Internationalization/Localization Foundation, Component Development Standard, AI Development Rules, Quality Gates |
 
 ## Business Components
 
@@ -103,6 +106,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | A11Y-004 | A11Y | Core ist vollständig per Tastatur bedienbar. | CONFIRMED | AGENTS.md | |
 | A11Y-005 | A11Y | Screenreader, sichtbarer Fokus und Fokusführung sind verpflichtend. | CONFIRMED | AGENTS.md | |
 | A11Y-006 | A11Y | Informationen werden nicht ausschließlich über Farbe vermittelt. | CONFIRMED | Philosophy | |
+| A11Y-007 | A11Y | Eine Core-, Layout- oder Business-Komponente darf nur implementiert oder als fertig betrachtet werden, wenn ihre relevanten Accessibility-Anforderungen eindeutig spezifiziert und prüfbar sind. Mehrdeutige Interaction Patterns blockieren die Implementierung bis zur dokumentierten Klärung. | CONFIRMED | Planning | Accessibility, Component Development Standard, Quality Gates |
 
 ## Motion
 
@@ -186,6 +190,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | AI-003 | AI | KI-Code bleibt menschlich verständlich und wartbar. | CONFIRMED | Philosophy, Vision | |
 | AI-004 | AI | Dokumentation und maschinenlesbare Spezifikationen gehören zum Produkt. | CONFIRMED | Vision, Philosophy | |
 | AI-005 | AI | Das maschinenlesbare Komponenten-Specification-Format ist offen. | OPEN | Architecture | AI Specification Design. |
+| AI-006 | AI | Ein KI-Agent muss bei implementierungsrelevanter Mehrdeutigkeit stoppen und eine konkrete Klärungsfrage formulieren; eine plausible Annahme oder Best-Guess-Implementierung ist nicht zulässig. | CONFIRMED | Planning | AI Development Rules |
 
 ## Distribution
 
@@ -226,6 +231,16 @@ Alle folgenden Punkte haben den Status **OPEN**. Sie werden nicht durch Implemen
 | OPEN-015 | OPEN | Komponenten-Datei- und Ordnerstruktur. | OPEN | Planning | |
 | OPEN-016 | OPEN | Öffentliche Form-Control-Composition/API. | OPEN | Planning | |
 | OPEN-017 | OPEN | Technische Overlay-Primitives. | OPEN | Planning | |
+| OPEN-018 | OPEN | Quelle und Vertrag der aktiven Locale für locale-sensitive Formatierung sowie unterstützte Formatting-Locales. | OPEN | Planning | Vor produktiver locale-sensitive Formatierung entscheiden. |
+| OPEN-019 | OPEN | Produktweite Timezone-Policy für benutzerseitig dargestellte Zeitwerte. | OPEN | Planning | Vor Komponenten mit fachlicher Zeitdarstellung entscheiden. |
+| OPEN-020 | OPEN | Ob RTL als Produktanforderung unterstützt wird und welche Produktpatterns dadurch betroffen sind. | OPEN | Planning | Vor RTL-relevanter Komponentenimplementierung entscheiden. |
+| OPEN-022 | OPEN | Strategie für von chayns UI selbst verantwortete sichtbare Standardtexte, falls eine Core Component solche Texte benötigt. | OPEN | Planning | Vor der ersten betroffenen Component entscheiden. |
+
+# Superseded Decisions
+
+| ID | Category | Decision | Status | Source | Follow-up |
+|---|---|---|---|---|---|
+| OPEN-021 | OPEN | Translation-Infrastruktur einschließlich Missing-Translation-Policy und stabiler Message-ID-/Key-Konvention. | SUPERSEDED | Planning | Superseded by CORE-009: Textstring-System ist die bestehende Translation Infrastructure; Fallbacks und IDs liegen dort. |
 
 # Design Follow-ups
 

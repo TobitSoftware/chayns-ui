@@ -102,6 +102,39 @@ Verbindliche Anforderungen:
 
 Eine Core-Komponente darf später nicht veröffentlicht werden, solange bekannte WCAG-2.2-AA-Verstöße bestehen.
 
+Für implementierte UI gilt zusätzlich:
+
+* Native HTML-Semantik hat vor ARIA Vorrang; ARIA ergänzt sie nur bei tatsächlichem Bedarf.
+* Interaktive Funktionen sind vollständig per Tastatur bedienbar, haben logische Fokusreihenfolge, keinen Keyboard Trap und keinen positiven `tabindex`.
+* Focus ist sichtbar; programmatischer Fokus und Fokuswiederherstellung benötigen einen funktionalen, spezifizierten Grund.
+* Zustände, Fehler und Statusinformationen werden nicht ausschließlich durch Farbe oder Motion vermittelt.
+* `prefers-reduced-motion`, Zoom, Reflow, längere beziehungsweise lokalisierte Texte sowie WCAG-2.2-AA-Target-Size-Anforderungen werden berücksichtigt.
+* Automatisierte Prüfungen allein sind kein vollständiger Accessibility-Nachweis; Keyboard-, Screenreader-/Semantik- sowie visuelle Prüfungen sind zusätzlich erforderlich.
+
+### Accessibility Implementation Gate
+
+Eine Core-, Layout- oder Business-Komponente darf nur implementiert oder als fertig betrachtet werden, wenn ihre relevanten Accessibility-Anforderungen eindeutig bestimmt, spezifiziert und prüfbar sind. Das umfasst mindestens Semantik, Accessible Name, Keyboard-Verhalten, Focus, States, Screenreader-/ARIA-Verhalten, Kontrast, Reduced Motion sowie erforderliche Zoom-/Reflow- und Pointer-Anforderungen.
+
+Bei komplexen Interaction Patterns wie Dialog, Menu, Combobox, Tabs, Tooltip, Disclosure oder Drag-and-drop gilt: Native Semantik und bestehende Projektpatterns haben Vorrang. Etablierte Accessibility-Patterns dürfen technische Referenz sein, ersetzen aber keine fehlende Produktentscheidung.
+
+Ist Keyboard-Verhalten, Fokusmanagement, State oder semantische Bedeutung mehrdeutig, greift das Component Implementation Readiness Gate: nicht implementieren beziehungsweise den betroffenen Schritt stoppen, konkrete Klärung einholen und dokumentieren. Kein Agent darf dafür einen Best Guess treffen.
+
+### Internationalization and Localization
+
+Für allgemeine übersetzbare chayns-Anwendungs-/Produkttexte nutzt das Ökosystem das bestehende zentrale Textstring-System. chayns UI führt dafür keine parallele Translation Infrastructure und keine zusätzliche generische Translation Library ein, solange das Textstring-System den Anwendungsfall abdeckt.
+
+Core Components konsumieren grundsätzlich bereits aufgelöste sprachliche Inhalte über ihre bestätigte API oder Composition und kennen keine fachlichen Textstring IDs. Application beziehungsweise zuständige Product-/Business-Schicht wählen und lösen die passenden Textstrings auf. Sichtbare Texte, Accessible Names, Fehlermeldungen, Statusmeldungen, Tooltips und dynamische natürliche Sprache bleiben lokalisierbar.
+
+Textstring-Übersetzung und locale-aware Formatting sind getrennt. Locale, Sprache, Region, Währung und Zeitzone werden nicht voneinander abgeleitet. Komponenten nehmen keine unterstützten Locales, Locale-Quelle, Währung, Zeitzone oder RTL-Unterstützung an. Übersetzbare Sätze werden nicht aus sprachabhängigen Fragmenten zusammengesetzt.
+
+Längere beziehungsweise lokalisierte Texte dürfen nicht durch lokale Schriftverkleinerung oder unspezifizierte feste Textcontainer abgefangen werden. Accessible Names und Screenreader-Texte sind genauso lokalisierbar wie sichtbare Texte.
+
+### Internationalization Implementation Gate
+
+Eine Core-, Layout- oder Business-Komponente ist nicht implementation-ready, wenn ihre korrekte Umsetzung von einer ungeklärten i18n/l10n-Produktentscheidung abhängt, etwa Locale-Quelle, selbst verantwortetem Systemtext, Textstring-Fähigkeit für erforderliche Grammatik, Währung, Zeitzone oder bei geforderter RTL-Unterstützung das richtungsabhängige Verhalten. Das Gate greift nur für tatsächlich relevante Abhängigkeiten.
+
+Kein Agent darf dafür eine Locale, Textstring-Fallback-Policy, Translation Library, Textstring-ID-Konvention, Währung, Zeitzone oder RTL-Anforderung erfinden. Die konkrete Lücke wird gemäß Component Implementation Readiness Gate geklärt und dokumentiert.
+
 ### Density
 
 Es existieren drei globale Nutzerdichten:
@@ -236,6 +269,95 @@ Wenn eine Entscheidung fehlt:
 3. auf Klärung warten.
 
 Der Agent soll bestehende Regeln lieber wiederverwenden als neue Sonderfälle einzuführen.
+
+## Component Implementation Readiness Gate
+
+### No implementation with unresolved interpretation
+
+Vor der Implementierung jeder Core Component, Layout Component oder Business Component müssen sämtliche für die konkrete Umsetzung relevanten Anforderungen eindeutig feststehen. Eine Komponente darf nicht implementiert werden, solange bei einem implementierungsrelevanten Punkt mehrere plausible Interpretationen bestehen.
+
+### Interpretation gaps include
+
+Je Komponente wird geprüft, soweit relevant:
+
+* Zweck und Verantwortung der Komponente,
+* Abgrenzung zu anderen Komponenten,
+* Use When und Do Not Use When,
+* Anatomy und Composition,
+* öffentliche API und Props,
+* native HTML-Semantik,
+* States, Variants und lokale Size Variants,
+* Density-Verhalten,
+* Tokens, Farben und State-Farben,
+* Typography,
+* Spacing, Geometrie, Radius, Borders und Shadows,
+* Icons,
+* Motion,
+* Keyboard-, Focus- sowie Screenreader-/ARIA-Verhalten,
+* Responsive-/Layout-Verhalten,
+* Controlled-/Uncontrolled- und Context-Verhalten,
+* Error-, Loading- und Disabled-Verhalten,
+* Tests und Acceptance Criteria,
+* Abhängigkeiten zu Core, Layout und Business,
+* bekannte Edge Cases.
+
+Nicht jeder Punkt ist für jede Komponente relevant. Nicht relevante Punkte dürfen als `not applicable` dokumentiert werden. Kein für die Implementierung relevanter Punkt darf stillschweigend undefiniert bleiben.
+
+### Ambiguity is a blocker
+
+**Ambiguity is an implementation blocker.** Eine implementation-relevant ambiguity liegt beispielsweise vor, wenn:
+
+* zwei oder mehr regelkonforme APIs denkbar sind,
+* mehrere visuelle Interpretationen möglich sind,
+* mehrere Accessibility-Verhalten plausibel sind,
+* unklar ist, welcher Token verwendet werden soll,
+* ein fehlender Token neu erfunden werden müsste,
+* der richtige State nicht eindeutig bestimmt ist,
+* unklar ist, ob Verhalten in Core, Layout, Business oder Application gehört,
+* eine Component Specification keine eindeutige Antwort liefert,
+* DesignSystem und Repository widersprüchlich sind,
+* bestehende Dokumente denselben Fall unterschiedlich beschreiben.
+
+Auch mehrere technisch gleichwertig sinnvolle Lösungen sind eine blockierende Mehrdeutigkeit, solange keine autorisierte Source of Truth eine davon festlegt.
+
+### Required response to ambiguity
+
+Wenn eine solche Mehrdeutigkeit erkannt wird:
+
+1. Implementierung nicht beginnen beziehungsweise den betroffenen Implementierungsschritt stoppen.
+2. Keine Annahme treffen.
+3. Bestehende Dokumentation und das Decision Register prüfen.
+4. Falls dadurch nicht lösbar: die konkrete Frage formulieren.
+5. Die Frage der zuständigen menschlichen Rolle oder einer bereits autorisierten Source of Truth zur Klärung vorlegen.
+6. Das Ergebnis in den geeigneten Repository-Dokumenten dokumentieren.
+7. Erst nach dokumentierter Klärung weiterarbeiten.
+
+### No “best guess” implementation
+
+Ein technisch plausibler Best Guess ist bei implementierungsrelevanten Systementscheidungen nicht zulässig. Dies gilt für KI-Agenten, menschliche Entwickler und Prototypen, die später produktiv übernommen werden sollen.
+
+Ein experimenteller technischer Spike kann später separat erlaubt werden, wenn ausdrücklich dokumentiert ist, dass daraus keine öffentliche API oder Designentscheidung abgeleitet wird. Dieses Dokument legt keine Spike-Regeln fest.
+
+### Definition of Ready for Component Implementation
+
+Eine Core-, Layout- oder Business-Komponente ist erst implementierungsbereit, wenn mindestens gilt:
+
+* ihre Component Specification ist vollständig genug für die Umsetzung,
+* alle implementierungsrelevanten Decisions sind CONFIRMED oder technisch innerhalb eines ausdrücklich freigegebenen Rahmens entschieden,
+* kein blockierender OPEN-, DESIGN REVIEW- oder TECH REVIEW-Punkt besteht,
+* Foundation-Abhängigkeiten eindeutig sind,
+* Accessibility-Anforderungen eindeutig sind,
+* Test- und Acceptance-Anforderungen definiert sind.
+
+Nicht jeder globale OPEN-Punkt des Projekts muss geschlossen sein. Blockierend sind nur Punkte, die die konkrete Komponente oder ihre notwendigen Grundlagen betreffen.
+
+### Implementation discovered ambiguity
+
+Wird während einer bereits freigegebenen Implementierung ein bislang unbekannter Interpretationsspielraum sichtbar, wird nicht lokal entschieden. Der betroffene Implementierungsschritt wird gestoppt, die Lücke dokumentiert, geklärt und in Specification beziehungsweise Decision Register aktualisiert. Erst danach wird fortgesetzt.
+
+Der bereits begonnene Implementierungsstand ist keine Erlaubnis, eine Entscheidung im Code zu treffen.
+
+Component Development Standard, Component Specification Format, AI Development Rules, Quality Gates und Design-to-Code Process konkretisieren dieses Gate später, dürfen es jedoch nicht abschwächen.
 
 ## Documentation Strategy
 
