@@ -32,7 +32,7 @@
     "node": ">=24"
   },
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json",
+    "build": "vite build && node ../../tooling/copy-core-css.mjs && tsc -p tsconfig.build.json",
     "clean": "node ../../tooling/clean-package.mjs core",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

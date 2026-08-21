@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "rootDir": "src",
+    "rootDir": ".",
     "tsBuildInfoFile": "./node_modules/.cache/tsconfig.tsbuildinfo",
     "types": ["vitest/globals"]
   },
