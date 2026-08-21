@@ -12,6 +12,10 @@ temp/
 # Coverage and test output
 coverage/
 .nyc_output/
+storybook-static/
+test-results/
+playwright-report/
+*.tgz
 
 # Logs
 *.log
@@ -50,3 +54,7 @@ Desktop.ini
 *.swp
 *.swo
 *~
+
+# Local package verification artifacts
+.pack/
+.consumer/

@@ -1,0 +1,8 @@
+packages:
+  - packages/*
+  - fixtures/*
+
+allowBuilds:
+  esbuild: true
+
+confirmModulesPurge: false

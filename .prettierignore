@@ -1,0 +1,15 @@
+coverage
+dist
+node_modules
+pnpm-lock.yaml
+storybook-static
+test-results
+AGENTS.md
+README.md
+docs
+packages/README.md
+tooling/README.md
+.editorconfig
+.node-version
+.npmrc
+.prettierignore
