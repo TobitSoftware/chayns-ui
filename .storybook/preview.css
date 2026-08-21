@@ -1,0 +1,41 @@
+html,
+body,
+#storybook-root {
+  min-block-size: 100%;
+}
+
+html {
+  background: var(--surface);
+  color: var(--text);
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: inherit;
+  color: inherit;
+}
+
+.chayns-storybook-preview {
+  box-sizing: border-box;
+  min-block-size: 100vh;
+  padding: var(--sp-6);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.chayns-storybook-preview--docs {
+  min-block-size: auto;
+  padding: var(--sp-4);
+}
+
+.chayns-storybook-example-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.chayns-storybook-example-constrained {
+  max-inline-size: 24rem;
+}
