@@ -14,7 +14,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint . --max-warnings 0",
-    "lint:css": "stylelint 'packages/**/*.css'",
+    "lint:css": "stylelint 'packages/**/src/**/*.css'",
     "package:check": "node tooling/verify-package.mjs",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build --output-dir storybook-static",

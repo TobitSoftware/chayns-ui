@@ -1,0 +1,254 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "density": {
+    "scale-factor": {
+      "$type": "number",
+      "$value": 1,
+      "$description": "Global density scale factor.",
+      "$extensions": {
+        "chayns": { "cssName": "--sf", "density": { "s": 0.9, "m": 1, "l": 1.125 } }
+      }
+    },
+    "unit": {
+      "$type": "string",
+      "$value": "calc(1px * var(--sf))",
+      "$description": "Source unit required by confirmed density formulas.",
+      "$extensions": { "chayns": { "cssName": "--u" } }
+    }
+  },
+  "spacing": {
+    "1": {
+      "$type": "string",
+      "$value": "calc(4 * var(--u))",
+      "$extensions": { "chayns": { "cssName": "--sp-1" } }
+    },
+    "2": {
+      "$type": "string",
+      "$value": "calc(8 * var(--u))",
+      "$extensions": { "chayns": { "cssName": "--sp-2" } }
+    },
+    "3": {
+      "$type": "string",
+      "$value": "calc(12 * var(--u))",
+      "$extensions": { "chayns": { "cssName": "--sp-3" } }
+    },
+    "4": {
+      "$type": "string",
+      "$value": "calc(16 * var(--u))",
+      "$extensions": { "chayns": { "cssName": "--sp-4" } }
+    },
+    "5": {
+      "$type": "string",
+      "$value": "calc(20 * var(--u))",
+      "$extensions": { "chayns": { "cssName": "--sp-5" } }
+    },
+    "6": {
+      "$type": "string",
+      "$value": "calc(24 * var(--u))",
+      "$extensions": { "chayns": { "cssName": "--sp-6" } }
+    }
+  },
+  "button": {
+    "padding-block": {
+      "$type": "string",
+      "$value": "calc(11 * var(--u))",
+      "$extensions": { "chayns": { "cssName": "--btn-py" } }
+    },
+    "padding-inline": {
+      "$type": "string",
+      "$value": "calc(22 * var(--u))",
+      "$extensions": { "chayns": { "cssName": "--btn-px" } }
+    },
+    "control-height": {
+      "$type": "string",
+      "$value": "calc(42 * var(--u))",
+      "$extensions": { "chayns": { "cssName": "--ctrl-h" } }
+    }
+  },
+  "typography": {
+    "body-size": {
+      "$type": "string",
+      "$value": "calc(14 * var(--u))",
+      "$extensions": { "chayns": { "cssName": "--fs-body" } }
+    }
+  },
+  "color": {
+    "surface": {
+      "$type": "color",
+      "$value": "#ffffff",
+      "$extensions": { "chayns": { "cssName": "--surface", "dark": "#16242a" } }
+    },
+    "surface-alt": {
+      "$type": "color",
+      "$value": "#e9f0f2",
+      "$extensions": { "chayns": { "cssName": "--surface-alt", "dark": "#263a43" } }
+    },
+    "text": {
+      "$type": "color",
+      "$value": "#191919",
+      "$extensions": { "chayns": { "cssName": "--text", "dark": "#f3f8f8" } }
+    },
+    "text-secondary": {
+      "$type": "color",
+      "$value": "#3f3f3f",
+      "$extensions": { "chayns": { "cssName": "--text-2", "dark": "#d4e0e1" } }
+    },
+    "accent": {
+      "$type": "color",
+      "$value": "#0f6d7e",
+      "$extensions": { "chayns": { "cssName": "--accent", "dark": "#55bfd4" } }
+    },
+    "accent-hover": {
+      "$type": "color",
+      "$value": "#0c5b6a",
+      "$extensions": { "chayns": { "cssName": "--accent-hover", "dark": "#6eccdd" } }
+    },
+    "accent-active": {
+      "$type": "color",
+      "$value": "#0a4e5b",
+      "$extensions": { "chayns": { "cssName": "--accent-active", "dark": "#3eaec4" } }
+    },
+    "on-accent": {
+      "$type": "color",
+      "$value": "#ffffff",
+      "$extensions": { "chayns": { "cssName": "--on-accent", "dark": "#0d161a" } }
+    },
+    "accent-rgb": {
+      "$type": "string",
+      "$value": "15, 109, 126",
+      "$extensions": { "chayns": { "cssName": "--accent-rgb", "dark": "85, 191, 212" } }
+    },
+    "danger": {
+      "$type": "color",
+      "$value": "#d92d20",
+      "$extensions": {
+        "chayns": {
+          "cssName": "--danger",
+          "dark": "#f97066",
+          "highContrast": { "light": "#a31919", "dark": "#ffb3ae" },
+          "colorDeficiency": { "light": "#b4237a", "dark": "#ff8bc4" }
+        }
+      }
+    },
+    "danger-background": {
+      "$type": "color",
+      "$value": "#fdeceb",
+      "$extensions": { "chayns": { "cssName": "--danger-bg", "dark": "rgba(249, 112, 102, 0.22)" } }
+    },
+    "danger-background-hover": {
+      "$type": "color",
+      "$value": "#f7d3cf",
+      "$extensions": {
+        "chayns": { "cssName": "--danger-bg-hover", "dark": "rgba(249, 112, 102, 0.34)" }
+      }
+    },
+    "disabled-background": {
+      "$type": "color",
+      "$value": "#cdd6d8",
+      "$extensions": {
+        "chayns": {
+          "cssName": "--disabled-bg",
+          "dark": "#2d3f46",
+          "highContrast": { "light": "#c1ced1", "dark": "#3b4d54" }
+        }
+      }
+    },
+    "disabled-foreground": {
+      "$type": "color",
+      "$value": "#9bb0b4",
+      "$extensions": {
+        "chayns": {
+          "cssName": "--disabled-fg",
+          "dark": "#789197",
+          "highContrast": { "light": "#62787d", "dark": "#91a6ab" }
+        }
+      }
+    },
+    "disabled-border": {
+      "$type": "color",
+      "$value": "#d3e0e4",
+      "$extensions": {
+        "chayns": {
+          "cssName": "--disabled-border",
+          "dark": "#4a626a",
+          "highContrast": { "light": "#b1c1c5", "dark": "#6a838a" }
+        }
+      }
+    },
+    "focus-ring-rgb": {
+      "$type": "string",
+      "$value": "15, 109, 126",
+      "$extensions": { "chayns": { "cssName": "--focus-ring-rgb", "dark": "110, 211, 230" } }
+    }
+  },
+  "focus": {
+    "ring-size": {
+      "$type": "dimension",
+      "$value": { "value": 3, "unit": "px" },
+      "$extensions": {
+        "chayns": {
+          "cssName": "--focus-ring-size",
+          "highContrast": { "light": "4px", "dark": "4px" }
+        }
+      }
+    },
+    "ring-alpha-soft": {
+      "$type": "number",
+      "$value": 0.1,
+      "$extensions": {
+        "chayns": {
+          "cssName": "--focus-ring-alpha-soft",
+          "dark": 0.18,
+          "highContrast": { "light": 0.34, "dark": 0.42 },
+          "colorDeficiency": { "light": 0.2, "dark": 0.28 }
+        }
+      }
+    },
+    "ring-alpha-strong": {
+      "$type": "number",
+      "$value": 0.15,
+      "$extensions": {
+        "chayns": {
+          "cssName": "--focus-ring-alpha-strong",
+          "dark": 0.26,
+          "highContrast": { "light": 0.46, "dark": 0.56 },
+          "colorDeficiency": { "light": 0.3, "dark": 0.4 }
+        }
+      }
+    }
+  },
+  "shadow": {
+    "button": {
+      "$type": "shadow",
+      "$value": {
+        "color": "rgba(var(--accent-rgb), 0.45)",
+        "offsetX": "0",
+        "offsetY": "4px",
+        "blur": "12px",
+        "spread": "-4px"
+      },
+      "$extensions": {
+        "chayns": {
+          "cssName": "--shadow-btn",
+          "cssValue": "0 4px 12px -4px rgba(var(--accent-rgb), 0.45)"
+        }
+      }
+    },
+    "button-hover": {
+      "$type": "shadow",
+      "$value": {
+        "color": "rgba(var(--accent-rgb), 0.6)",
+        "offsetX": "0",
+        "offsetY": "8px",
+        "blur": "20px",
+        "spread": "-6px"
+      },
+      "$extensions": {
+        "chayns": {
+          "cssName": "--shadow-btn-hover",
+          "cssValue": "0 8px 20px -6px rgba(var(--accent-rgb), 0.6)"
+        }
+      }
+    }
+  }
+}
