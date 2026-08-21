@@ -83,6 +83,23 @@ describe('Button', () => {
     },
   );
 
+  it('renders an optional leading icon with internally managed weights', () => {
+    render(
+      <Button icon="fa-plus" variant="primary">
+        Create
+      </Button>,
+    );
+
+    const button = screen.getByRole('button', { name: 'Create' });
+    const icon = button.querySelector('.chayns-button-icon');
+
+    expect(icon).toHaveAttribute('aria-hidden', 'true');
+    expect(icon?.children).toHaveLength(2);
+    expect(icon?.children[0]?.querySelector('i')).toHaveClass('far', 'fa-plus');
+    expect(icon?.children[1]).toHaveClass('chayns-button-icon__weight--active');
+    expect(icon?.children[1]?.querySelector('i')).toHaveClass('fas', 'fa-plus');
+  });
+
   it('renders safely on the server', () => {
     const markup = renderToString(<Button variant="primary">Server action</Button>);
 
@@ -94,13 +111,13 @@ describe('Button', () => {
 
 describe('IconButton', () => {
   it('uses the explicit accessible name and hides icon content from accessibility', () => {
-    render(<IconButton aria-label="Attach file" icon={<span>regular</span>} variant="ghost" />);
+    render(<IconButton aria-label="Attach file" icon="fa-paperclip" variant="ghost" />);
 
     const button = screen.getByRole('button', { name: 'Attach file' });
-    const iconWrapper = button.querySelector('.chayns-icon-button__icon');
+    const icon = button.querySelector('.chayns-button-icon');
 
     expect(button).toHaveAttribute('type', 'button');
-    expect(iconWrapper).toHaveAttribute('aria-hidden', 'true');
+    expect(icon).toHaveAttribute('aria-hidden', 'true');
     expect(button).toHaveClass('chayns-icon-button--ghost');
   });
 
@@ -116,7 +133,7 @@ describe('IconButton', () => {
           aria-labelledby="icon-button-label"
           className="consumer-class"
           data-purpose="example"
-          icon={<span>regular</span>}
+          icon="fa-ellipsis"
           onClick={handleClick}
           ref={ref}
           type="submit"
@@ -135,39 +152,16 @@ describe('IconButton', () => {
     expect(button).toHaveClass('consumer-class');
   });
 
-  it('renders regular and active icons as decorative paired slots', () => {
-    render(
-      <IconButton
-        activeIcon={<span>solid</span>}
-        aria-label="Favorite"
-        icon={<span>regular</span>}
-        variant="primary"
-      />,
-    );
+  it('renders regular and solid weights from one icon name', () => {
+    render(<IconButton aria-label="Favorite" icon="fa-star" variant="primary" />);
 
     const button = screen.getByRole('button', { name: 'Favorite' });
-    const icons = button.querySelectorAll('.chayns-icon-button__icon');
+    const icons = button.querySelectorAll('.chayns-button-icon__weight');
 
-    expect(button).toHaveClass('chayns-icon-button--paired');
     expect(icons).toHaveLength(2);
-    expect(icons[0]).toHaveAttribute('aria-hidden', 'true');
-    expect(icons[1]).toHaveClass('chayns-icon-button__icon--active');
-  });
-
-  it.each([undefined, null])('uses one icon when the active pair is %s', (activeIcon) => {
-    render(
-      <IconButton
-        activeIcon={activeIcon}
-        aria-label="Settings"
-        icon={<span>regular</span>}
-        variant="danger"
-      />,
-    );
-
-    const button = screen.getByRole('button', { name: 'Settings' });
-
-    expect(button.querySelectorAll('.chayns-icon-button__icon')).toHaveLength(1);
-    expect(button).not.toHaveClass('chayns-icon-button--paired');
+    expect(icons[0]?.querySelector('i')).toHaveClass('far', 'fa-star');
+    expect(icons[1]).toHaveClass('chayns-button-icon__weight--active');
+    expect(icons[1]?.querySelector('i')).toHaveClass('fas', 'fa-star');
   });
 
   it('uses native disabled behavior', async () => {
@@ -178,7 +172,7 @@ describe('IconButton', () => {
       <IconButton
         aria-label="Unavailable"
         disabled
-        icon={<span>regular</span>}
+        icon="fa-lock"
         onClick={handleClick}
         variant="primary"
       />,
@@ -193,10 +187,11 @@ describe('IconButton', () => {
 
   it('renders safely on the server', () => {
     const markup = renderToString(
-      <IconButton aria-label="Server icon action" icon={<span>regular</span>} variant="ghost" />,
+      <IconButton aria-label="Server icon action" icon="fa-server" variant="ghost" />,
     );
 
     expect(markup).toContain('<button');
     expect(markup).toContain('aria-label="Server icon action"');
+    expect(markup).toContain('fa-server');
   });
 });

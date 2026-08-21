@@ -11,7 +11,9 @@ if (!root) throw new Error('Missing consumer root');
 
 createRoot(root).render(
   <StrictMode>
-    <Button variant="primary">Packed consumer</Button>
-    <IconButton aria-label="Consumer icon action" icon={<span>☆</span>} variant="ghost" />
+    <Button icon="fa-plus" variant="primary">
+      Packed consumer
+    </Button>
+    <IconButton aria-label="Consumer icon action" icon="fa-star" variant="ghost" />
   </StrictMode>,
 );

@@ -8,8 +8,7 @@ const meta = {
   tags: ['autodocs'],
   args: {
     'aria-label': 'Anhang hinzufügen',
-    icon: <i className="far fa-paperclip" />,
-    activeIcon: <i className="fas fa-paperclip" />,
+    icon: 'fa-paperclip',
     variant: 'ghost',
   },
   argTypes: {
@@ -25,12 +24,6 @@ const meta = {
         'ID of an external element that provides the localized accessible name. Use this or aria-label.',
       table: { category: 'Accessibility', type: { summary: 'string' } },
     },
-    activeIcon: {
-      control: false,
-      description:
-        'Optional decorative solid icon displayed on hover and while the button is active.',
-      table: { category: 'Content', type: { summary: 'ReactNode' } },
-    },
     disabled: {
       control: 'boolean',
       description: 'Disables focus and activation using the native disabled attribute.',
@@ -41,9 +34,10 @@ const meta = {
       },
     },
     icon: {
-      control: false,
-      description: 'Required decorative regular icon displayed in the resting state.',
-      table: { category: 'Content', type: { summary: 'ReactNode' } },
+      control: 'text',
+      description:
+        'Required FontAwesome Classic icon name. The component renders Regular at rest and Solid on hover or active.',
+      table: { category: 'Content', type: { summary: '`fa-${string}`' } },
     },
     type: {
       control: 'inline-radio',
@@ -68,15 +62,7 @@ const meta = {
   parameters: {
     a11y: { test: 'error' },
     controls: {
-      include: [
-        'variant',
-        'icon',
-        'activeIcon',
-        'aria-label',
-        'aria-labelledby',
-        'type',
-        'disabled',
-      ],
+      include: ['variant', 'icon', 'aria-label', 'aria-labelledby', 'type', 'disabled'],
     },
   },
 } satisfies Meta<typeof IconButton>;
@@ -84,6 +70,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const RegularAndSolidPair: Story = {};
-export const SingleAvailableIcon: Story = { args: { activeIcon: null } };
+export const Attachment: Story = {};
+export const Highlighted: Story = {
+  args: {
+    'aria-label': 'Sidekick öffnen',
+    icon: 'fa-wand-magic-sparkles',
+    variant: 'primary',
+  },
+};
 export const Disabled: Story = { args: { disabled: true } };

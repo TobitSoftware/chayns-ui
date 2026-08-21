@@ -26,6 +26,15 @@ const meta = {
         type: { summary: 'boolean' },
       },
     },
+    icon: {
+      control: 'text',
+      description:
+        'Optional leading FontAwesome Classic icon name. The component renders Regular at rest and Solid on hover or active.',
+      table: {
+        category: 'Content',
+        type: { summary: '`fa-${string}`' },
+      },
+    },
     type: {
       control: 'inline-radio',
       description: 'Native button type. Defaults to button to prevent accidental form submission.',
@@ -48,7 +57,7 @@ const meta = {
   },
   parameters: {
     a11y: { test: 'error' },
-    controls: { include: ['variant', 'children', 'type', 'disabled'] },
+    controls: { include: ['variant', 'icon', 'children', 'type', 'disabled'] },
   },
 } satisfies Meta<typeof Button>;
 
@@ -56,13 +65,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: { onClick: fn() },
-  render: ({ children, ...buttonProps }) => (
-    <Button {...buttonProps}>
-      <i aria-hidden="true" className="far fa-plus" />
-      {children}
-    </Button>
-  ),
+  args: { icon: 'fa-plus', onClick: fn() },
   play: async ({ args, canvasElement }) => {
     const button = within(canvasElement).getByRole('button', { name: 'Erstellen' });
     const target = button.getBoundingClientRect();
@@ -77,24 +80,14 @@ export const Primary: Story = {
     await expect(args.onClick).toHaveBeenCalledTimes(2);
   },
 };
-export const Outline: Story = { args: { children: 'Antworten', variant: 'outline' } };
+export const Outline: Story = {
+  args: { children: 'Antworten', icon: 'fa-reply-all', variant: 'outline' },
+};
 export const Ghost: Story = {
-  args: { children: 'Optionen', variant: 'ghost' },
-  render: ({ children, ...buttonProps }) => (
-    <Button {...buttonProps}>
-      <i aria-hidden="true" className="far fa-gear" />
-      {children}
-    </Button>
-  ),
+  args: { children: 'Optionen', icon: 'fa-gear', variant: 'ghost' },
 };
 export const Danger: Story = {
-  args: { children: 'Löschen', variant: 'danger' },
-  render: ({ children, ...buttonProps }) => (
-    <Button {...buttonProps}>
-      <i aria-hidden="true" className="far fa-trash" />
-      {children}
-    </Button>
-  ),
+  args: { children: 'Löschen', icon: 'fa-trash', variant: 'danger' },
 };
 export const Disabled: Story = { args: { children: 'Aktion', disabled: true } };
 
@@ -116,8 +109,7 @@ export const FormBehavior: Story = {
   render: () => (
     <form className="chayns-storybook-example-row" onSubmit={(event) => event.preventDefault()}>
       <Button variant="ghost">Optionen</Button>
-      <Button type="submit" variant="primary">
-        <i aria-hidden="true" className="far fa-plus" />
+      <Button icon="fa-plus" type="submit" variant="primary">
         Erstellen
       </Button>
     </form>

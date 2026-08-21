@@ -116,26 +116,33 @@
     background: transparent;
   }
 
-  .chayns-icon-button__icon {
+  .chayns-button-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     inline-size: 1em;
     block-size: 1em;
+    flex: none;
     line-height: 1;
   }
 
-  .chayns-icon-button__icon--active {
+  .chayns-button-icon__weight {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .chayns-button-icon__weight--active {
     display: none;
   }
 
-  :where(.chayns-icon-button--paired:hover, .chayns-icon-button--paired:active):not(:disabled)
-    .chayns-icon-button__icon:not(.chayns-icon-button__icon--active) {
+  :where(.chayns-button, .chayns-icon-button):active:not(:disabled)
+    .chayns-button-icon__weight:not(.chayns-button-icon__weight--active) {
     display: none;
   }
 
-  :where(.chayns-icon-button--paired:hover, .chayns-icon-button--paired:active):not(:disabled)
-    .chayns-icon-button__icon--active {
+  :where(.chayns-button, .chayns-icon-button):active:not(:disabled)
+    .chayns-button-icon__weight--active {
     display: inline-flex;
   }
 
@@ -158,6 +165,16 @@
 
     :where(.chayns-button--danger, .chayns-icon-button--danger):hover:not(:disabled) {
       background: var(--danger-bg-hover);
+    }
+
+    :where(.chayns-button, .chayns-icon-button):hover:not(:disabled)
+      .chayns-button-icon__weight:not(.chayns-button-icon__weight--active) {
+      display: none;
+    }
+
+    :where(.chayns-button, .chayns-icon-button):hover:not(:disabled)
+      .chayns-button-icon__weight--active {
+      display: inline-flex;
     }
   }
 

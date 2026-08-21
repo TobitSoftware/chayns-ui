@@ -2,17 +2,21 @@ import { createRef } from 'react';
 
 import { Button, IconButton } from './index.js';
 
-export const validButton = <Button variant="primary">Create</Button>;
+export const validButton = (
+  <Button icon="fa-plus" variant="primary">
+    Create
+  </Button>
+);
 export const validSubmitButton = (
   <Button ref={createRef<HTMLButtonElement>()} type="submit" variant="outline">
     Submit
   </Button>
 );
 export const validLabelledIconButton = (
-  <IconButton aria-label="Settings" icon={<span />} variant="ghost" />
+  <IconButton aria-label="Settings" icon="fa-gear" variant="ghost" />
 );
 export const validReferencedIconButton = (
-  <IconButton aria-labelledby="settings-label" icon={<span />} variant="danger" />
+  <IconButton aria-labelledby="settings-label" icon="fa-gear" variant="danger" />
 );
 
 // @ts-expect-error variant is required
@@ -21,6 +25,12 @@ export const missingVariant = <Button>Create</Button>;
 export const missingContent = <Button variant="primary" />;
 // @ts-expect-error unsupported variant
 export const invalidVariant = <Button variant="secondary">Create</Button>;
+export const invalidButtonIcon = (
+  // @ts-expect-error icon names require the FontAwesome fa- prefix
+  <Button icon="plus" variant="primary">
+    Create
+  </Button>
+);
 export const loadingButton = (
   // @ts-expect-error Loading is not a Milestone 1 API
   <Button loading variant="primary">
@@ -34,19 +44,21 @@ export const polymorphicButton = (
   </Button>
 );
 // @ts-expect-error IconButton requires exactly one accessible-name mechanism
-export const unnamedIconButton = <IconButton icon={<span />} variant="ghost" />;
+export const unnamedIconButton = <IconButton icon="fa-gear" variant="ghost" />;
+// @ts-expect-error IconButton requires an icon
+export const iconlessIconButton = <IconButton aria-label="Settings" variant="ghost" />;
 export const duplicateNameIconButton = (
   // @ts-expect-error accessible-name mechanisms are mutually exclusive
   <IconButton
     aria-label="Settings"
     aria-labelledby="settings-label"
-    icon={<span />}
+    icon="fa-gear"
     variant="ghost"
   />
 );
 export const iconButtonWithChildren = (
   // @ts-expect-error IconButton does not accept children
-  <IconButton aria-label="Settings" icon={<span />} variant="ghost">
+  <IconButton aria-label="Settings" icon="fa-gear" variant="ghost">
     Settings
   </IconButton>
 );

@@ -41,8 +41,8 @@ import '@chayns-ui/tokens/baseline.css';
 import '@chayns-ui/tokens/patch.css';
 import '@chayns-ui/core/button.css';
 
-<Button variant="primary">Speichern</Button>;
-<IconButton aria-label="Optionen" icon={<ApprovedRegularIcon />} variant="ghost" />;
+<Button icon="fa-floppy-disk" variant="primary">Speichern</Button>;
+<IconButton aria-label="Optionen" icon="fa-ellipsis" variant="ghost" />;
 ```
 
 Anwendungen importieren aufgelöste Token-CSS und Komponenten-CSS ausdrücklich. Die Bibliothek lädt keine Fonts, injiziert kein CSS und kalibriert keine Accent-Farbe zur Laufzeit.
