@@ -7,7 +7,7 @@
 - Specification Status: READY FOR IMPLEMENTATION
 - Owner / Responsible Area: chayns UI Core
 - Design Reference: chayns Design System “Buttons & Aktionen”, inspected 2026-08-21
-- Relevant Decision IDs: CORE-001–007, BUTTON-001–011, ICON-001–003, A11Y-001–007, DENSITY-001–005, PLATFORM-001–003, DIST-012–013
+- Relevant Decision IDs: CORE-001–007, BUTTON-001–006, BUTTON-008–013, ICON-001–003, A11Y-001–007, DENSITY-001–005, PLATFORM-001–003, DIST-012–013
 - Foundation Dependencies: token catalogue Milestone 1 transfer, density matrix, typography, motion, accessibility, generated `@chayns-ui/tokens` subset
 - Related Components: future Link (navigation; not part of this milestone)
 - Last Reviewed: 2026-08-21
@@ -31,10 +31,12 @@ Button is an action, never an anchor. IconButton is not a compressed text Button
 ## Anatomy — Conditional
 
 - Button root: one native `<button>` and no wrapper.
-- Button content: required consumer content; it must provide a non-empty visible label. Decorative content inside it remains the consumer's responsibility.
+- Button content: required consumer content; it must provide a non-empty visible label.
+- Button icon: optional leading FontAwesome-Classic icon identified by one `fa-*` name. The component renders its Regular and Solid weights decoratively.
 - IconButton root: one native `<button>` and no external wrapper.
-- Regular icon slot: required consumer React node, rendered inside an `aria-hidden` internal span.
-- Active icon slot: optional consumer React node, rendered inside an `aria-hidden` internal span and shown on hover/active. When absent, the regular icon remains visible.
+- IconButton icon: required FontAwesome-Classic icon identified by one `fa-*` name. The component renders its Regular weight at rest and Solid weight on hover/active inside an `aria-hidden` internal span.
+
+Milestone 1 supports interactive FontAwesome-Classic icons with an available Regular/Solid pair. Single-weight, Brand and Custom icons are outside this contract.
 
 ## Semantic Contract — Conditional
 
@@ -65,16 +67,18 @@ There is no loading, selected, toggled, read-only, error or success state.
 
 ## State Priority and Combination Matrix — Conditional
 
-`disabled` has highest priority and suppresses hover/active behavior. `focus-visible` can coexist with default, hover or active while enabled. `active` overrides the applicable enabled default/hover color where specified. The active icon appears for enabled IconButton hover and active states; disabled always shows the regular icon.
+`disabled` has highest priority and suppresses hover/active behavior. `focus-visible` can coexist with default, hover or active while enabled. `active` overrides the applicable enabled default/hover color where specified. Solid icons appear for enabled Button and IconButton hover/active states; disabled always shows Regular.
 
 ## Public API Contract — Required
 
 ```ts
 type ButtonVariant = 'primary' | 'outline' | 'ghost' | 'danger';
+type ButtonIcon = `fa-${string}`;
 
 interface ButtonProps extends Omit<React.ComponentPropsWithRef<'button'>, 'children'> {
   variant: ButtonVariant;
   children: React.ReactNode;
+  icon?: ButtonIcon;
 }
 
 type IconButtonAccessibleName =
@@ -87,8 +91,7 @@ type IconButtonProps = Omit<
 > &
   IconButtonAccessibleName & {
     variant: ButtonVariant;
-    icon: React.ReactNode;
-    activeIcon?: React.ReactNode;
+    icon: ButtonIcon;
   };
 ```
 
@@ -96,11 +99,11 @@ Compatible native props, `data-*`, `aria-*`, handlers and `className` are forwar
 
 ## Native Props and DOM Contract — Conditional
 
-Each component emits exactly one native root button. Button has no internal wrapper imposed by the component. IconButton has only the two documented decorative icon spans inside its root. The ref is stable and targets `HTMLButtonElement`. Native form behavior, name/value, autofocus, event and ARIA props remain browser/React behavior.
+Each component emits exactly one native root button. Button adds only its documented decorative icon span when `icon` is present. IconButton has one documented decorative icon span inside its root. Each icon span contains the internally weighted Regular and Solid FontAwesome elements. The ref is stable and targets `HTMLButtonElement`. Native form behavior, name/value, autofocus, event and ARIA props remain browser/React behavior.
 
 ## Composition — Required
 
-Button composes required consumer `children`; content must include a meaningful visible label and remain robust when localized. IconButton does not accept children and composes only `icon` plus optional `activeIcon`. Neither exposes subcomponents or Context.
+Button composes required consumer `children` as its meaningful visible label and accepts an optional leading `icon`. IconButton does not accept children and requires `icon`. Consumers provide only the `fa-*` icon name; both components own the decorative markup and Regular/Solid state transfer. Neither exposes subcomponents or Context.
 
 ## Context Dependencies — Required
 
@@ -112,7 +115,7 @@ No React state. Hover, active, focus and disabled are native/CSS states. Busines
 
 ## Design Tokens — Conditional
 
-Shared: `--fs-body`, `--sp-2`, `--btn-py`, `--focus-ring-size`, `--focus-ring-rgb`, semantic variant colors and disabled roles. Button uses `--btn-px`; Ghost uses `--sp-4`; IconButton uses `--ctrl-h`. Primary uses `--shadow-btn` and `--shadow-btn-hover`. Outline border width `1.5px`, Pill radius `999px`, IconButton `50%`, weight `500`, line-height `1.1`, Button active scale `.97` and IconButton active scale `.9` are confirmed component property evidence.
+Shared: `--fs-body`, `--sp-2`, `--btn-py`, `--focus-ring-size`, `--focus-ring-rgb`, semantic variant colors and disabled roles. Button uses `--btn-px`; Ghost uses `--sp-4`; IconButton uses `--ctrl-h`. Primary uses `--shadow-btn` and `--shadow-btn-hover`. Outline border width `1.5px`, Pill radius `999px`, IconButton `50%`, weight `500`, line-height `1.1`, Button active scale `.97`, IconButton active scale `.9` and a `1em` icon box are confirmed component property evidence.
 
 ## Density Contract — Conditional
 
@@ -168,11 +171,11 @@ Stateless function components with deterministic markup, no effects, IDs, DOM re
 
 ## Dependencies — Required
 
-Core peer: React `>=19.2 <20`. Runtime dependencies: none. CSS dependency: consumer explicitly loads resolved token CSS and Core Button or aggregate CSS. No icon-library runtime is bundled; consumer icons must come from the approved project icon system.
+Core peer: React `>=19.2 <20`. Runtime dependencies: none. CSS dependency: consumer explicitly loads resolved token CSS and Core Button or aggregate CSS. No icon-library runtime is bundled. The host supplies FontAwesome Classic; consumers pass a paired icon's `fa-*` name while Core owns its Regular/Solid classes.
 
 ## Non-Goals — Required
 
-Navigation, loading, toggle/selected state, local sizing, polymorphism, tooltip, menu, split button, icon-library integration, business logic, theme resolution and margins.
+Navigation, loading, toggle/selected state, local sizing, polymorphism, tooltip, menu, split button, bundled icon-library runtime, Single-Weight-/Brand-/Custom-Icons, business logic, theme resolution and margins.
 
 ## Escape Hatches and Overrides — Required
 
@@ -180,7 +183,7 @@ Native props and `className` are the only general escape hatches. There is no va
 
 ## Examples — Recommended
 
-Canonical: `<Button variant="primary">Erstellen</Button>`. Icon-only: `<IconButton variant="ghost" icon={<RegularIcon />} activeIcon={<SolidIcon />} aria-label="Anhang hinzufügen" />`.
+Canonical: `<Button variant="primary" icon="fa-plus">Erstellen</Button>`. Icon-only: `<IconButton variant="ghost" icon="fa-paperclip" aria-label="Anhang hinzufügen" />`.
 
 ## Do / Don't — Recommended
 
@@ -188,11 +191,11 @@ Do begin visible labels with a clear verb, keep one Primary per semantic scope a
 
 ## Test Contract — Required
 
-Unit tests cover native role/name, required variant rendering, default/explicit type, native prop/event/data/ARIA forwarding, ref target, disabled suppression, class merging, all variants, IconButton naming and icon-pair fallback. Type fixtures reject missing/invalid variants, missing Button content, missing IconButton name, both name forms together, children on IconButton and unsupported APIs. SSR render/import is tested. Stories cover variants, states, icon pair/fallback, form use, long localized/Unicode content, constrained width and every density/theme/accessibility mode. Axe errors fail. Manual verification covers keyboard, accessibility tree/screenreader, focus, Forced Colors, contrast, 200% zoom/reflow, text spacing, pointer targets and Reduced Motion.
+Unit tests cover native role/name, required variant rendering, default/explicit type, native prop/event/data/ARIA forwarding, ref target, disabled suppression, class merging, all variants, optional Button icon, required IconButton icon and internally generated Regular/Solid states. Type fixtures reject missing/invalid variants, invalid icon names, missing Button content, missing IconButton icon/name, both name forms together, children on IconButton and unsupported APIs. SSR render/import is tested. Stories cover the four DesignSystem Button examples, both documented IconButton backgrounds, disabled state, form use and long localized content. Axe errors fail. Manual verification covers keyboard, accessibility tree/screenreader, focus, Forced Colors, contrast, 200% zoom/reflow, text spacing, pointer targets and Reduced Motion.
 
 ## Visual Verification Contract — Conditional
 
-Canonical Chromium screenshots cover four variants and IconButton across light/dark, S/M/L, high contrast and color deficiency; enabled default/hover/active/focus-visible/disabled states; long text; constrained width; icon pair and fallback. CI uses pinned Chromium and does not assert host font loading.
+Canonical Chromium screenshots cover four variants and both documented IconButton backgrounds across light/dark, S/M/L, high contrast and color deficiency; enabled default/hover/active/focus-visible/disabled states; long text; constrained width and internal Regular/Solid transfer. CI uses pinned Chromium and does not assert host font loading.
 
 ## AI Usage Contract — Required
 
@@ -214,7 +217,7 @@ Do not infer a default variant, local size, loading state, tooltip, icon library
 
 ### Related decisions
 
-BUTTON-001–011, ICON-001–003, CORE-004–007, A11Y-001–007, DENSITY-001–005.
+BUTTON-001–006, BUTTON-008–013, ICON-001–003, CORE-004–007, A11Y-001–007, DENSITY-001–005.
 
 ## Open Decisions — Required
 

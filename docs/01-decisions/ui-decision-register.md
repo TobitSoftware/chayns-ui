@@ -218,11 +218,13 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | PLATFORM-002 | PLATFORM | Der Browservertrag entspricht Vite 8 Baseline Widely Available: Chrome/Edge 111, Firefox 114 und Safari 16.4 oder neuer; keine Legacy-Polyfills. | CONFIRMED | ADR 0001 | |
 | PLATFORM-003 | PLATFORM | Library-Module sind import-time SSR-safe und erzeugen deterministisches Markup; eventtragende Nutzung liegt in der Client Boundary des Consumers. | CONFIRMED | ADR 0001 | |
 | BUTTON-006 | BUTTON | Milestone 1 unterstützt genau `primary`, `outline`, `ghost` und `danger`; `variant` ist erforderlich. | CONFIRMED | Approved M1 plan | |
-| BUTTON-007 | BUTTON | `IconButton` ist ein separater Export mit zugänglichem Namen und Consumer-geliefertem Regular-/optionalem Active-Icon. | CONFIRMED | Approved M1 plan | |
+| BUTTON-007 | BUTTON | `IconButton` ist ein separater Export mit zugänglichem Namen und Consumer-geliefertem Regular-/optionalem Active-Icon. | SUPERSEDED | Approved M1 plan | Superseded by BUTTON-012. |
 | BUTTON-008 | BUTTON | Button und IconButton sind native Buttons, verwenden standardmäßig `type="button"`, reichen kompatible native Props/Events und den Ref zum Button durch und verwenden natives `disabled`. | CONFIRMED | Approved M1 plan | |
 | BUTTON-009 | BUTTON | Loading, lokale S/M/L-Prop, Polymorphie, Navigation, Toggle und Selected State sind in Milestone 1 nicht Teil der API. | CONFIRMED | Approved M1 plan | |
 | BUTTON-010 | BUTTON | Button und IconButton verwenden den vollständigen aufgelösten Focus-Ring-Farbwert mit bestätigter Ringgröße; teiltransparente Referenzringe werden nicht als alleiniger Focus Indicator verwendet. | CONFIRMED | Button foundation transfer, Accessibility | |
 | BUTTON-011 | BUTTON | Milestone 1 verwendet keine zeitgesteuerte Button-Motion; Active-Transform ist unmittelbar und die Disabled-Zuordnung je Variante ist in der Button Specification festgelegt. | CONFIRMED | Button foundation transfer, Button Specification | |
+| BUTTON-012 | BUTTON | `IconButton` erhält genau einen FontAwesome-Classic-Icon-Namen wie `fa-paperclip` und erzeugt Regular für Ruhe sowie Solid für Hover/Active selbst. Milestone 1 setzt dafür ein vorhandenes Regular-/Solid-Paar voraus. | CONFIRMED | User decision, DesignSystem prototype “Buttons & Aktionen” | Single-Weight-, Brand- und Custom-Icons sind nicht Teil des Milestone-1-Vertrags. |
+| BUTTON-013 | BUTTON | Button erhält sichtbaren Label-Inhalt über `children` und optional genau ein führendes FontAwesome-Classic-Icon über `icon`; Regular-/Solid-Gewichte werden wie beim IconButton intern gesetzt. | CONFIRMED | User decision, DesignSystem prototype “Buttons & Aktionen” | |
 
 # Open Technical Decisions
 
