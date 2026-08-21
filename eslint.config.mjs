@@ -25,7 +25,12 @@ export default tseslint.config(
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       globals: { ...globals.browser, ...globals.node },
-      parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },
+      parserOptions: {
+        projectService: {
+          allowDefaultProject: ['*.config.ts', '*.setup.ts', '.storybook/*.ts', '.storybook/*.tsx'],
+        },
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     plugins: { react, 'react-hooks': reactHooks, 'jsx-a11y': jsxA11y },
     rules: {

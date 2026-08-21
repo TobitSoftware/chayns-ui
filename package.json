@@ -8,8 +8,8 @@
     "node": "24.19.0"
   },
   "scripts": {
-    "build": "pnpm --recursive --if-present run build",
-    "clean": "pnpm --recursive --if-present run clean",
+    "build": "corepack pnpm --recursive --if-present run build",
+    "clean": "corepack pnpm --recursive --if-present run clean",
     "consumer:check": "node tooling/verify-consumer.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -17,15 +17,15 @@
     "lint:css": "stylelint 'packages/**/src/**/*.css'",
     "package:check": "node tooling/verify-package.mjs",
     "storybook": "storybook dev -p 6006",
-    "storybook:build": "storybook build --output-dir storybook-static",
+    "storybook:build": "corepack pnpm build && storybook build --output-dir storybook-static",
     "test": "vitest run",
-    "test:storybook": "vitest run --project storybook",
+    "test:storybook": "corepack pnpm build && vitest run --project storybook",
     "test:types": "tsc -p packages/core/tsconfig.type-tests.json --noEmit",
     "test:unit": "vitest run --project unit --coverage",
     "tokens:check": "node tooling/verify-tokens.mjs",
     "tree-shaking:check": "node tooling/verify-tree-shaking.mjs",
     "typecheck": "tsc -b --pretty false",
-    "verify": "pnpm format:check && pnpm lint && pnpm lint:css && pnpm typecheck && pnpm test:unit && pnpm test:types && pnpm build && pnpm tokens:check && pnpm storybook:build && pnpm package:check && pnpm tree-shaking:check && pnpm consumer:check"
+    "verify": "corepack pnpm format:check && corepack pnpm lint && corepack pnpm lint:css && corepack pnpm typecheck && corepack pnpm test:unit && corepack pnpm test:types && corepack pnpm build && corepack pnpm tokens:check && corepack pnpm storybook:build && corepack pnpm package:check && corepack pnpm tree-shaking:check && corepack pnpm consumer:check"
   },
   "devDependencies": {
     "@eslint/js": "9.39.5",
