@@ -1,6 +1,6 @@
 import { createRef } from 'react';
 
-import { Button, IconButton } from './index';
+import { Button, IconButton } from './index.js';
 
 export const validButton = <Button variant="primary">Create</Button>;
 export const validSubmitButton = (

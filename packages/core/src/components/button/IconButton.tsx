@@ -1,5 +1,5 @@
-import type { IconButtonProps } from './Button.types';
-import { getButtonClassName } from './buttonClassName';
+import type { IconButtonProps } from './Button.types.js';
+import { getButtonClassName } from './buttonClassName.js';
 
 function IconButton({
   activeIcon,

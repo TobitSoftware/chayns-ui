@@ -1,5 +1,5 @@
-import type { ButtonProps } from './Button.types';
-import { getButtonClassName } from './buttonClassName';
+import type { ButtonProps } from './Button.types.js';
+import { getButtonClassName } from './buttonClassName.js';
 
 function Button({ children, className, type = 'button', variant, ...buttonProps }: ButtonProps) {
   const resolvedClassName = getButtonClassName('chayns-button', variant, className);

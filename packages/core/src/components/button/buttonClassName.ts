@@ -1,4 +1,4 @@
-import type { ButtonVariant } from './Button.types';
+import type { ButtonVariant } from './Button.types.js';
 
 export function getButtonClassName(
   componentClassName: 'chayns-button' | 'chayns-icon-button',

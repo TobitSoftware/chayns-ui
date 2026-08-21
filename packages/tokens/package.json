@@ -2,6 +2,7 @@
   "name": "@chayns-ui/tokens",
   "version": "0.1.0",
   "description": "Resolved CSS design tokens for chayns UI",
+  "license": "MIT",
   "type": "module",
   "sideEffects": [
     "**/*.css"

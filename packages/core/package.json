@@ -2,13 +2,13 @@
   "name": "@chayns-ui/core",
   "version": "0.1.0",
   "description": "Accessible React core components for chayns UI",
+  "license": "MIT",
   "type": "module",
   "sideEffects": [
     "**/*.css"
   ],
   "files": [
     "dist",
-    "src",
     "LICENSE",
     "README.md"
   ],
@@ -32,7 +32,7 @@
     "node": ">=24"
   },
   "scripts": {
-    "build": "vite build && node ../../tooling/copy-core-css.mjs && tsc -p tsconfig.build.json",
+    "build": "vite build && node ../../tooling/copy-core-css.mjs && tsc -b tsconfig.build.json --force",
     "clean": "node ../../tooling/clean-package.mjs core",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

@@ -4,8 +4,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
-import Button from './Button';
-import IconButton from './IconButton';
+import Button from './Button.js';
+import IconButton from './IconButton.js';
 
 describe('Button', () => {
   it('renders one named native button with a safe default type', () => {
