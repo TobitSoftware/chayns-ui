@@ -701,20 +701,22 @@ Wenn die Verantwortung nicht eindeutig bestimmt werden kann, muss die Frage vor 
 
 # Open Technical Decisions
 
-Die folgenden technischen Entscheidungen sind **OPEN** und werden in diesem Schritt nicht entschieden:
+## Milestone 1 technical realization
 
-* **OPEN:** konkrete npm-Paketgrenzen,
-* **OPEN:** konkrete Package-Namen,
-* **OPEN:** Package Manager,
-* **OPEN:** Workspace-/Monorepo-Tooling,
-* **OPEN:** Bundler,
-* **OPEN:** konkrete CSS-Build-Pipeline,
-* **OPEN:** konkrete Token-Quelldatei und Token-Build-Technologie,
-* **OPEN:** konkrete Art des CSS-Ladens durch Komponenten,
+Milestone 1 realizes the existing logical layers with a private pnpm workspace and two independently distributable packages. `@chayns-ui/tokens` owns generated resolved Baseline/Patch CSS without a JavaScript runtime. `@chayns-ui/core` owns generic React UI and explicit component CSS while depending on React only as a peer. Storybook, tests and package validation remain private root tooling.
+
+Core is ESM-only and exposes typed root and component subpaths. JavaScript does not inject or import global CSS. Consumers explicitly load a resolved token stylesheet and the required Core stylesheet. Vite preserves ESM module boundaries, emits source maps, externalizes React and produces no CommonJS or legacy-browser output. Declaration generation is a separate TypeScript step.
+
+Library modules are import-time SSR-safe and render deterministic native markup. This does not make an event-bearing component a React Server Component: consumers place interactive use inside their framework's client boundary.
+
+The complete accent/theme resolver, CDN hosting, generic Context mechanism and machine-readable specification format remain open. The Milestone 1 token package supplies only evidenced reference/resolved values and selectors; it does not infer host inputs or calculate arbitrary colors.
+
+Detailed rationale and version decisions are recorded in ADRs 0001–0003.
+
+Die folgenden technischen Entscheidungen bleiben **OPEN** und werden durch Milestone 1 nicht entschieden:
+
 * **OPEN:** Hosting-/CDN-/AWS-Struktur,
 * **OPEN:** konkrete Theme-Resolver-Implementierung,
 * **OPEN:** technische Context-Mechanismen,
 * **OPEN:** konkrete maschinenlesbare Specification-Formate,
-* **OPEN:** Storybook-/Dokumentationsplattform,
-* **OPEN:** Testing-Stack,
-* **OPEN:** Release-Automatisierung.
+* **OPEN:** produktweite Locale-, Timezone- und RTL-Verträge für später betroffene Komponenten.

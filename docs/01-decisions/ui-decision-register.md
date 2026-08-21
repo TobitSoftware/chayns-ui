@@ -207,28 +207,42 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | DIST-009 | DIST | Vor Majors kann es eine Preview-/Release-Candidate-Phase geben. | CONFIRMED | Meeting | |
 | DIST-010 | DIST | Die vorherige Major erhält danach nur kritische Bugfixes. | CONFIRMED | Meeting | |
 | DIST-011 | DIST | CSS-Hosting, Cache, Preload und Versionierung sind offen. | OPEN | Architecture | |
+| DIST-012 | DIST | Milestone 1 liefert die ESM-only Pakete `@chayns-ui/core` und `@chayns-ui/tokens` mit expliziten JavaScript-, Typ- und CSS-Subpath-Exports. | CONFIRMED | ADR 0002 | npm-Scope-Berechtigung bleibt externe Publish-Voraussetzung. |
+| DIST-013 | DIST | Core-JavaScript ist side-effect-frei; CSS wird ausschließlich über dokumentierte CSS-Exports explizit importiert. | CONFIRMED | ADR 0002 | |
 
-# Open Technical Decisions
-
-Alle folgenden Punkte haben den Status **OPEN**. Sie werden nicht durch Implementierungsentscheidungen stillschweigend gelöst.
+## Milestone 1 Platform and Button
 
 | ID | Category | Decision | Status | Source | Follow-up |
 |---|---|---|---|---|---|
-| OPEN-001 | OPEN | Konkrete npm-Paketgrenzen und Package-Namen. | OPEN | Architecture | |
-| OPEN-002 | OPEN | Package Manager. | OPEN | Architecture | |
-| OPEN-003 | OPEN | Workspace-/Monorepo-Tooling. | OPEN | Architecture | |
-| OPEN-004 | OPEN | Bundler. | OPEN | Architecture | |
-| OPEN-005 | OPEN | CSS-Build-Pipeline. | OPEN | Architecture | |
-| OPEN-006 | OPEN | Design-Token-Quelldatei und Token-Build-Technologie. | OPEN | Architecture | |
-| OPEN-007 | OPEN | Mechanismus zum Laden benötigter CSS-Chunks. | OPEN | Architecture | |
+| PLATFORM-001 | PLATFORM | Node 24.19.0, pnpm 11.22.0, TypeScript 6.0.3, React 19.2 und Vite 8 bilden die moderne Milestone-1-Baseline. | CONFIRMED | ADR 0001 | TypeScript 7 nach Toolchain-Support erneut prüfen. |
+| PLATFORM-002 | PLATFORM | Der Browservertrag entspricht Vite 8 Baseline Widely Available: Chrome/Edge 111, Firefox 114 und Safari 16.4 oder neuer; keine Legacy-Polyfills. | CONFIRMED | ADR 0001 | |
+| PLATFORM-003 | PLATFORM | Library-Module sind import-time SSR-safe und erzeugen deterministisches Markup; eventtragende Nutzung liegt in der Client Boundary des Consumers. | CONFIRMED | ADR 0001 | |
+| BUTTON-006 | BUTTON | Milestone 1 unterstützt genau `primary`, `outline`, `ghost` und `danger`; `variant` ist erforderlich. | CONFIRMED | Approved M1 plan | |
+| BUTTON-007 | BUTTON | `IconButton` ist ein separater Export mit zugänglichem Namen und Consumer-geliefertem Regular-/optionalem Active-Icon. | CONFIRMED | Approved M1 plan | |
+| BUTTON-008 | BUTTON | Button und IconButton sind native Buttons, verwenden standardmäßig `type="button"`, reichen kompatible native Props/Events und den Ref zum Button durch und verwenden natives `disabled`. | CONFIRMED | Approved M1 plan | |
+| BUTTON-009 | BUTTON | Loading, lokale S/M/L-Prop, Polymorphie, Navigation, Toggle und Selected State sind in Milestone 1 nicht Teil der API. | CONFIRMED | Approved M1 plan | |
+
+# Open Technical Decisions
+
+Diese Tabelle bewahrt die ursprünglichen OPEN-IDs. Geschlossene Punkte zeigen ihre bestätigte Auflösung; verbleibende OPENs werden nicht durch Implementierung stillschweigend gelöst.
+
+| ID | Category | Decision | Status | Source | Follow-up |
+|---|---|---|---|---|---|
+| OPEN-001 | OPEN | Konkrete npm-Paketgrenzen und Package-Namen. | CONFIRMED | ADR 0002 | `@chayns-ui/core`, `@chayns-ui/tokens`. |
+| OPEN-002 | OPEN | Package Manager. | CONFIRMED | ADR 0001 | pnpm. |
+| OPEN-003 | OPEN | Workspace-/Monorepo-Tooling. | CONFIRMED | ADR 0001 | pnpm Workspaces ohne Orchestrator. |
+| OPEN-004 | OPEN | Bundler. | CONFIRMED | ADR 0001, ADR 0002 | Vite Library Mode, ES-only. |
+| OPEN-005 | OPEN | CSS-Build-Pipeline. | CONFIRMED | ADR 0002 | Standard-CSS; explizite Artefakte/Exports. |
+| OPEN-006 | OPEN | Design-Token-Quelldatei und Token-Build-Technologie. | CONFIRMED | ADR 0002 | DTCG-shaped JSON und Style-Dictionary-kompatible Generierung. |
+| OPEN-007 | OPEN | Mechanismus zum Laden benötigter CSS-Chunks. | CONFIRMED | ADR 0002 | Explizite Consumer-Imports der CSS-Subpaths. |
 | OPEN-008 | OPEN | Hosting-/CDN-/AWS-Struktur. | OPEN | Architecture | |
 | OPEN-009 | OPEN | Theme-Resolver-Implementierung. | OPEN | Architecture | |
 | OPEN-010 | OPEN | Technische Context-Mechanismen zwischen Containern und Children. | OPEN | Architecture | |
 | OPEN-011 | OPEN | Maschinenlesbares Komponenten-Specification-Format. | OPEN | Architecture | |
-| OPEN-012 | OPEN | Storybook-/Dokumentationsplattform und Integration. | OPEN | Architecture | |
-| OPEN-013 | OPEN | Testing-Stack. | OPEN | Architecture | |
-| OPEN-014 | OPEN | Release-Automatisierung. | OPEN | Architecture | |
-| OPEN-015 | OPEN | Komponenten-Datei- und Ordnerstruktur. | OPEN | Planning | |
+| OPEN-012 | OPEN | Storybook-/Dokumentationsplattform und Integration. | CONFIRMED | ADR 0003 | Storybook 10.4 React-Vite. |
+| OPEN-013 | OPEN | Testing-Stack. | CONFIRMED | ADR 0003 | Vitest, Testing Library, Storybook browser tests und manuelle A11Y-Evidenz. |
+| OPEN-014 | OPEN | Release-Automatisierung. | CONFIRMED | ADR 0003 | Changesets für Intent/Changelog; kein Publish-Workflow in M1. |
+| OPEN-015 | OPEN | Komponenten-Datei- und Ordnerstruktur. | CONFIRMED | ADR 0002, Component Development Standard | Colocated domain folder, public root/subpath barrels, CSS und Tests. |
 | OPEN-016 | OPEN | Öffentliche Form-Control-Composition/API. | OPEN | Planning | |
 | OPEN-017 | OPEN | Technische Overlay-Primitives. | OPEN | Planning | |
 | OPEN-018 | OPEN | Quelle und Vertrag der aktiven Locale für locale-sensitive Formatierung sowie unterstützte Formatting-Locales. | OPEN | Planning | Vor produktiver locale-sensitive Formatierung entscheiden. |
