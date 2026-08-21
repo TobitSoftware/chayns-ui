@@ -1,1 +1,169 @@
-/* Button styles are added only after the component readiness gate passes. */
+@layer chayns.components {
+  :where(.chayns-button, .chayns-icon-button) {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-inline-size: 100%;
+    margin: 0;
+    border: 0;
+    font: inherit;
+    font-size: var(--fs-body);
+    font-weight: 500;
+    line-height: 1.1;
+    text-align: center;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .chayns-button {
+    gap: var(--sp-2);
+    padding-block: var(--btn-py);
+    padding-inline: var(--btn-px);
+    border-radius: 999px;
+  }
+
+  .chayns-button--ghost {
+    padding-inline: var(--sp-4);
+  }
+
+  :where(.chayns-icon-button) {
+    flex: none;
+    inline-size: var(--ctrl-h);
+    block-size: var(--ctrl-h);
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  :where(.chayns-button--primary, .chayns-icon-button--primary) {
+    background: var(--accent);
+    color: var(--on-accent);
+    box-shadow: var(--shadow-btn);
+  }
+
+  :where(.chayns-button--outline, .chayns-icon-button--outline) {
+    border: 1.5px solid var(--accent);
+    background: var(--surface);
+    color: var(--accent);
+  }
+
+  :where(.chayns-button--ghost, .chayns-icon-button--ghost) {
+    background: transparent;
+    color: var(--text-2);
+  }
+
+  :where(.chayns-button--danger, .chayns-icon-button--danger) {
+    background: var(--danger-bg);
+    color: var(--danger);
+  }
+
+  :where(.chayns-button, .chayns-icon-button):focus-visible {
+    outline: var(--focus-ring-size) solid rgb(var(--focus-ring-rgb));
+  }
+
+  :where(.chayns-button, .chayns-icon-button):focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  :where(.chayns-button, .chayns-icon-button):active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  :where(.chayns-icon-button):active:not(:disabled) {
+    transform: scale(0.9);
+  }
+
+  :where(.chayns-button--primary, .chayns-icon-button--primary):active:not(:disabled) {
+    background: var(--accent-active);
+  }
+
+  :where(.chayns-button--outline, .chayns-icon-button--outline):active:not(:disabled) {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  :where(.chayns-button--ghost, .chayns-icon-button--ghost):active:not(:disabled) {
+    background: var(--surface-alt);
+    color: var(--accent);
+  }
+
+  :where(.chayns-button--danger, .chayns-icon-button--danger):active:not(:disabled) {
+    background: var(--danger-bg-hover);
+  }
+
+  :where(.chayns-button, .chayns-icon-button):disabled {
+    color: var(--disabled-fg);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+
+  :where(
+    .chayns-button--primary,
+    .chayns-button--danger,
+    .chayns-icon-button--primary,
+    .chayns-icon-button--danger
+  ):disabled {
+    background: var(--disabled-bg);
+  }
+
+  :where(.chayns-button--outline, .chayns-icon-button--outline):disabled {
+    border-color: var(--disabled-border);
+    background: var(--surface);
+  }
+
+  :where(.chayns-button--ghost, .chayns-icon-button--ghost):disabled {
+    background: transparent;
+  }
+
+  .chayns-icon-button__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 1em;
+    block-size: 1em;
+    line-height: 1;
+  }
+
+  .chayns-icon-button__icon--active {
+    display: none;
+  }
+
+  :where(.chayns-icon-button--paired:hover, .chayns-icon-button--paired:active):not(:disabled)
+    .chayns-icon-button__icon:not(.chayns-icon-button__icon--active) {
+    display: none;
+  }
+
+  :where(.chayns-icon-button--paired:hover, .chayns-icon-button--paired:active):not(:disabled)
+    .chayns-icon-button__icon--active {
+    display: inline-flex;
+  }
+
+  @media (hover: hover) {
+    :where(.chayns-button--primary, .chayns-icon-button--primary):hover:not(:disabled) {
+      background: var(--accent-hover);
+      box-shadow: var(--shadow-btn-hover);
+    }
+
+    :where(.chayns-button--outline, .chayns-icon-button--outline):hover:not(:disabled) {
+      background: var(--accent);
+      color: var(--on-accent);
+      box-shadow: var(--shadow-btn-hover);
+    }
+
+    :where(.chayns-button--ghost, .chayns-icon-button--ghost):hover:not(:disabled) {
+      background: var(--surface-alt);
+      color: var(--accent);
+    }
+
+    :where(.chayns-button--danger, .chayns-icon-button--danger):hover:not(:disabled) {
+      background: var(--danger-bg-hover);
+    }
+  }
+
+  @media (forced-colors: active) {
+    :where(.chayns-button, .chayns-icon-button):focus-visible {
+      outline-color: ButtonText;
+    }
+  }
+}
