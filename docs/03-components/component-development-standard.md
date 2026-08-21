@@ -269,12 +269,12 @@ Folgende Muster sind mit den bestehenden Projektregeln unvereinbar:
 
 ## 20. Existing Open Decisions Affecting Component Work
 
-Dieser Standard schließt keine bestehenden Open Decisions:
+Die Milestone-1-ADRs schließen Testing-Stack und Component-Dateistruktur für den freigegebenen Scope. Weiterhin offen bleiben:
 
-* **OPEN DECISION: OPEN-013 – Testing-Stack.** Bis zur Entscheidung gelten die framework-agnostischen Testanforderungen dieses Dokuments.
 * **OPEN DECISION: OPEN-011 / AI-005 – maschinenlesbares Component-Specification-Format.** Bis zur Entscheidung gelten die in diesem Dokument beschriebenen Inhaltsanforderungen.
 * **OPEN DECISION: OPEN-010 – technischer Context-Mechanismus.** Component Specifications dürfen fachlichen Context beschreiben, aber keinen technischen Mechanismus voraussetzen.
-* **OPEN DECISION: OPEN-015 – Component-Datei- und Ordnerstruktur.** Dieser Standard definiert keine Verzeichnis-, Export- oder Dateinamenskonvention.
+
+Für Milestone 1 liegen Component-Implementierung, Typen, CSS, Tests und Stories gemeinsam im domain-orientierten Component-Ordner. Implementierungen verwenden intern Default Exports; öffentliche Root- und Component-Subpath-Barrels stellen Named Exports und öffentliche Types bereit. Diese Konvention wird erst nach weiterer Erfahrung auf andere Paketarten erweitert.
 
 Weitere Foundation- und Component-spezifische Lücken bleiben gemäß Decision Register, Foundation-Dokumenten und den Readiness Gates blockierend, sobald sie die konkrete Component betreffen.
 

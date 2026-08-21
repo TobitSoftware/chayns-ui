@@ -221,6 +221,8 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | BUTTON-007 | BUTTON | `IconButton` ist ein separater Export mit zugänglichem Namen und Consumer-geliefertem Regular-/optionalem Active-Icon. | CONFIRMED | Approved M1 plan | |
 | BUTTON-008 | BUTTON | Button und IconButton sind native Buttons, verwenden standardmäßig `type="button"`, reichen kompatible native Props/Events und den Ref zum Button durch und verwenden natives `disabled`. | CONFIRMED | Approved M1 plan | |
 | BUTTON-009 | BUTTON | Loading, lokale S/M/L-Prop, Polymorphie, Navigation, Toggle und Selected State sind in Milestone 1 nicht Teil der API. | CONFIRMED | Approved M1 plan | |
+| BUTTON-010 | BUTTON | Button und IconButton verwenden den vollständigen aufgelösten Focus-Ring-Farbwert mit bestätigter Ringgröße; teiltransparente Referenzringe werden nicht als alleiniger Focus Indicator verwendet. | CONFIRMED | Button foundation transfer, Accessibility | |
+| BUTTON-011 | BUTTON | Milestone 1 verwendet keine zeitgesteuerte Button-Motion; Active-Transform ist unmittelbar und die Disabled-Zuordnung je Variante ist in der Button Specification festgelegt. | CONFIRMED | Button foundation transfer, Button Specification | |
 
 # Open Technical Decisions
 

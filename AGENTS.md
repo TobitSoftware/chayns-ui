@@ -8,15 +8,17 @@ Das Ziel ist nicht nur eine Komponentenbibliothek, sondern ein konsistentes, dok
 
 ## Current Phase
 
-**The project is currently in PLANNING AND SPECIFICATION PHASE.**
+**The project remains generally in PLANNING AND SPECIFICATION PHASE, with a gate-scoped Milestone 1 implementation exception for Button and IconButton.**
 
-Bis zu einer ausdrücklichen Änderung dieser Regel darf ein Agent:
+Außerhalb einer dokumentierten READY-Bewertung darf ein Agent:
 
 * keine produktiven React-Komponenten implementieren,
 * keine technische Architektur eigenmächtig festlegen,
 * keine fehlenden Designentscheidungen erfinden,
 * keine Dependencies hinzufügen,
 * keine Build-Infrastruktur einführen.
+
+Die auf den 21.08.2026 datierte READY-Bewertung unter `docs/03-components/button/` erlaubt ausschließlich die dort spezifizierte Implementierung von Button und IconButton auf der in ADR 0001–0003 bestätigten Milestone-1-Infrastruktur. Sie ist keine allgemeine Freigabe für weitere Komponenten, APIs, Varianten, Tokens oder Architekturentscheidungen.
 
 Die aktuelle Aufgabe besteht darin:
 
