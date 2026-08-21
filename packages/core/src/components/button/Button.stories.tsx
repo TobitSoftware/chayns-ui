@@ -6,14 +6,50 @@ import Button from './Button.js';
 const meta = {
   title: 'Core/Button',
   component: Button,
+  tags: ['autodocs'],
   args: {
-    children: 'Create',
+    children: 'Erstellen',
     variant: 'primary',
   },
   argTypes: {
-    variant: { control: 'select', options: ['primary', 'outline', 'ghost', 'danger'] },
+    children: {
+      control: 'text',
+      description: 'Visible, non-empty content that labels the native button.',
+      table: { category: 'Content', type: { summary: 'ReactNode' } },
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disables focus and activation using the native disabled attribute.',
+      table: {
+        category: 'Native button',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
+    type: {
+      control: 'inline-radio',
+      description: 'Native button type. Defaults to button to prevent accidental form submission.',
+      options: ['button', 'submit', 'reset'],
+      table: {
+        category: 'Native button',
+        defaultValue: { summary: 'button' },
+        type: { summary: 'button | submit | reset' },
+      },
+    },
+    variant: {
+      control: 'select',
+      description: 'Required visual emphasis that communicates the action’s role.',
+      options: ['primary', 'outline', 'ghost', 'danger'],
+      table: {
+        category: 'Appearance',
+        type: { summary: 'primary | outline | ghost | danger' },
+      },
+    },
   },
-  parameters: { a11y: { test: 'error' } },
+  parameters: {
+    a11y: { test: 'error' },
+    controls: { include: ['variant', 'children', 'type', 'disabled'] },
+  },
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -21,8 +57,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: { onClick: fn() },
+  render: ({ children, ...buttonProps }) => (
+    <Button {...buttonProps}>
+      <i aria-hidden="true" className="far fa-plus" />
+      {children}
+    </Button>
+  ),
   play: async ({ args, canvasElement }) => {
-    const button = within(canvasElement).getByRole('button', { name: 'Create' });
+    const button = within(canvasElement).getByRole('button', { name: 'Erstellen' });
     const target = button.getBoundingClientRect();
 
     await expect(target.width).toBeGreaterThanOrEqual(24);
@@ -35,21 +77,26 @@ export const Primary: Story = {
     await expect(args.onClick).toHaveBeenCalledTimes(2);
   },
 };
-export const Outline: Story = { args: { children: 'Reply', variant: 'outline' } };
-export const Ghost: Story = { args: { children: 'Options', variant: 'ghost' } };
-export const Danger: Story = { args: { children: 'Delete', variant: 'danger' } };
-export const Disabled: Story = { args: { children: 'Unavailable', disabled: true } };
-
-export const Variants: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--sp-3)' }}>
-      <Button variant="primary">Create</Button>
-      <Button variant="outline">Reply</Button>
-      <Button variant="ghost">Options</Button>
-      <Button variant="danger">Delete</Button>
-    </div>
+export const Outline: Story = { args: { children: 'Antworten', variant: 'outline' } };
+export const Ghost: Story = {
+  args: { children: 'Optionen', variant: 'ghost' },
+  render: ({ children, ...buttonProps }) => (
+    <Button {...buttonProps}>
+      <i aria-hidden="true" className="far fa-gear" />
+      {children}
+    </Button>
   ),
 };
+export const Danger: Story = {
+  args: { children: 'Löschen', variant: 'danger' },
+  render: ({ children, ...buttonProps }) => (
+    <Button {...buttonProps}>
+      <i aria-hidden="true" className="far fa-trash" />
+      {children}
+    </Button>
+  ),
+};
+export const Disabled: Story = { args: { children: 'Aktion', disabled: true } };
 
 export const LongLocalizedContent: Story = {
   args: {
@@ -58,59 +105,21 @@ export const LongLocalizedContent: Story = {
   },
   decorators: [
     (StoryComponent) => (
-      <div style={{ inlineSize: '12rem' }}>
+      <div className="chayns-storybook-example-constrained">
         <StoryComponent />
       </div>
     ),
   ],
 };
 
-export const UnicodeContent: Story = {
-  args: { children: '更新を保存 🌍', variant: 'primary' },
-};
-
-export const FormSubmit: Story = {
+export const FormBehavior: Story = {
   render: () => (
-    <form>
+    <form className="chayns-storybook-example-row" onSubmit={(event) => event.preventDefault()}>
+      <Button variant="ghost">Optionen</Button>
       <Button type="submit" variant="primary">
-        Submit form
+        <i aria-hidden="true" className="far fa-plus" />
+        Erstellen
       </Button>
     </form>
-  ),
-};
-
-export const DensityMatrix: Story = {
-  render: () => (
-    <div style={{ display: 'grid', gap: 'var(--sp-4)' }}>
-      {(['s', 'm', 'l'] as const).map((density) => (
-        <div className={`chayns-density--${density}`} key={density}>
-          <Button variant="primary">Density {density.toUpperCase()}</Button>
-        </div>
-      ))}
-    </div>
-  ),
-};
-
-export const ThemeAndAccessibilityModes: Story = {
-  render: () => (
-    <div style={{ display: 'grid', gap: 'var(--sp-4)' }}>
-      {[
-        { className: 'chayns-theme--light', label: 'Light' },
-        { className: 'chayns-theme--dark', label: 'Dark' },
-        { className: 'chayns-theme--light chayns-contrast--high', label: 'High contrast' },
-        {
-          className: 'chayns-theme--light chayns-theme--color-deficiency',
-          label: 'Color deficiency',
-        },
-      ].map(({ className, label }) => (
-        <div
-          className={className}
-          key={label}
-          style={{ background: 'var(--surface)', padding: 'var(--sp-4)' }}
-        >
-          <Button variant="danger">{label}</Button>
-        </div>
-      ))}
-    </div>
   ),
 };
