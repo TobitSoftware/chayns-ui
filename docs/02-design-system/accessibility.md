@@ -98,7 +98,7 @@ Accessibility-Nachweise sind mehrstufig:
 | D. Manual screenreader / semantic | Struktur, Names, Roles, States, Fehler und dynamische Rückmeldungen prüfen. |
 | E. Visual | Focus, Kontrast, Zoom/Reflow, längere Texte und Reduced Motion prüfen. |
 
-Automatisierte Accessibility-Tests allein sind kein Nachweis vollständiger Accessibility. Die konkrete Tool-Auswahl, Testbibliothek und Automationsplattform bleiben OPEN. Die Infrastrukturprüfung dieses Repositorys ergab keine vorhandene Package-, Lint- oder Testkonfiguration; für diese Dokumentationsänderung sind daher keine automatisierten Produktchecks anwendbar und keine Dependencies erforderlich.
+Automatisierte Accessibility-Tests allein sind kein Nachweis vollständiger Accessibility. Für Milestone 1 sind Storybook addon-a11y mit Fehlerlevel, Vitest Browser Mode und Playwright Chromium bestätigt. Component-nahe Verhaltensprüfungen verwenden Vitest, Testing Library und user-event. Die konkrete Component Specification bestimmt weiterhin die relevanten automatischen und manuellen Fälle.
 
 ## 13. Accessibility Implementation Gate
 
@@ -128,11 +128,11 @@ Component Specifications referenzieren diese Foundations, duplizieren aber weder
 
 | Topic | Status | Required outcome |
 |---|---|---|
-| Accessibility test tooling and automation | OPEN | Testing-Stack und Automationsplattform gemäß OPEN-013 festlegen. |
-| Accessibility quality-gate process | TECH REVIEW | Nachweisformat, Review- und Release-Gates festlegen. |
-| Focus rendering and focus-visible mapping | TECH REVIEW | Focus-Ring-Tokens und Rendering-Regeln in Token-/Accessibility-Dokumentation zuordnen. |
+| Accessibility test tooling and automation | CONFIRMED FOR M1 | Storybook axe, Vitest Browser Mode, Playwright Chromium und component-nahe Tests. |
+| Accessibility quality-gate process | CONFIRMED FOR M1 | Automatische Fehler blockieren; manuelle Evidenz bleibt vor Veröffentlichung erforderlich. |
+| Focus rendering and focus-visible mapping | CONFIRMED FOR BUTTON | Full-color Focus-Ring aus aufgelösten Focus-Tokens. |
 | Complex interaction patterns | DESIGN REVIEW / TECH REVIEW | Produktsemantik und danach Keyboard-/Focus-/ARIA-Vertrag je Pattern spezifizieren. |
-| Token contrast verification | TECH REVIEW | Belegte Theme-/Token-Kombinationen gegen die Baseline prüfen, ohne Werte eigenmächtig zu ändern. |
+| Token contrast verification | CONFIRMED FOR BUTTON | Button-relevante Referenzmodi sind übertragen und kontrastgeprüft; weitere Komponenten bleiben separat zu prüfen. |
 
 ## 17. AI Rules
 

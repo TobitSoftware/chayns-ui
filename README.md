@@ -14,9 +14,40 @@ Das Projekt verfolgt insbesondere folgende Ziele:
 
 ## Aktueller Projektstatus
 
-> Das Projekt befindet sich aktuell in der Planungs- und Spezifikationsphase. Es werden zunächst Architektur, Designregeln, Komponentenstandards und KI-Regeln definiert, bevor mit der eigentlichen Implementierung begonnen wird.
+Das Projekt bleibt grundsätzlich gate-gesteuert in der Planungs- und Spezifikationsphase. Milestone 1 stellt die freigegebene technische Basis sowie die vollständig spezifizierten Core-Komponenten `Button` und `IconButton` bereit. Weitere Komponenten benötigen weiterhin eine dokumentierte READY-Bewertung vor der Implementierung.
 
-## Geplante logische Bereiche
+## Workspace
+
+Voraussetzungen sind Node 24.19.0 und das über `packageManager` gepinnte pnpm 11.22.0. Der Workspace enthält:
+
+* `@chayns-ui/core`: ESM-only React-Komponenten mit expliziten CSS-Exports,
+* `@chayns-ui/tokens`: generierte Baseline- und Patch-CSS ohne JavaScript-Runtime,
+* Storybook und die repository-weiten Qualitätsprüfungen als private Root-Infrastruktur.
+
+```sh
+corepack pnpm install --frozen-lockfile
+corepack pnpm verify
+```
+
+## Consumer-Nutzung
+
+```sh
+pnpm add @chayns-ui/core @chayns-ui/tokens react
+```
+
+```tsx
+import { Button, IconButton } from '@chayns-ui/core';
+import '@chayns-ui/tokens/baseline.css';
+import '@chayns-ui/tokens/patch.css';
+import '@chayns-ui/core/button.css';
+
+<Button variant="primary">Speichern</Button>;
+<IconButton aria-label="Optionen" icon={<ApprovedRegularIcon />} variant="ghost" />;
+```
+
+Anwendungen importieren aufgelöste Token-CSS und Komponenten-CSS ausdrücklich. Die Bibliothek lädt keine Fonts, injiziert kein CSS und kalibriert keine Accent-Farbe zur Laufzeit.
+
+## Logische Bereiche
 
 * Core UI
 * Business Components

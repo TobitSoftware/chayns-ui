@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, fn, userEvent, within } from 'storybook/test';
 
 import Button from './Button.js';
 
@@ -18,7 +19,22 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {};
+export const Primary: Story = {
+  args: { onClick: fn() },
+  play: async ({ args, canvasElement }) => {
+    const button = within(canvasElement).getByRole('button', { name: 'Create' });
+    const target = button.getBoundingClientRect();
+
+    await expect(target.width).toBeGreaterThanOrEqual(24);
+    await expect(target.height).toBeGreaterThanOrEqual(24);
+    await userEvent.tab();
+    await expect(button).toHaveFocus();
+    await expect(getComputedStyle(button).outlineStyle).not.toBe('none');
+    await userEvent.keyboard('{Enter}');
+    await userEvent.keyboard(' ');
+    await expect(args.onClick).toHaveBeenCalledTimes(2);
+  },
+};
 export const Outline: Story = { args: { children: 'Reply', variant: 'outline' } };
 export const Ghost: Story = { args: { children: 'Options', variant: 'ghost' } };
 export const Danger: Story = { args: { children: 'Delete', variant: 'danger' } };
