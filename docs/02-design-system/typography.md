@@ -271,3 +271,7 @@ Ein KI-Agent darf nicht:
 * typische Roboto-Metriken als Ersatz für fehlende Daten einsetzen.
 
 Fehlt eine benötigte Rolle oder Zuordnung, wird nicht improvisiert. Der Agent meldet einen Foundation Gap.
+
+## Milestone 1 Button mapping
+
+Button and IconButton use the directly evidenced Body font-size token `--fs-body`, `font-weight: 500` and `line-height: 1.1`. Letter spacing remains inherited because the authoritative Button CSS declares none. This narrow property mapping is confirmed for these two components only and does not create a general Button Typography token or complete the wider Typography role catalogue.

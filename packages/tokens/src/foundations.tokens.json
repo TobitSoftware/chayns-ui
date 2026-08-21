@@ -120,11 +120,11 @@
     },
     "danger": {
       "$type": "color",
-      "$value": "#d92d20",
+      "$value": "#a31919",
       "$extensions": {
         "chayns": {
           "cssName": "--danger",
-          "dark": "#f97066",
+          "dark": "#ffb3ae",
           "highContrast": { "light": "#a31919", "dark": "#ffb3ae" },
           "colorDeficiency": { "light": "#b4237a", "dark": "#ff8bc4" }
         }
@@ -139,7 +139,11 @@
       "$type": "color",
       "$value": "#f7d3cf",
       "$extensions": {
-        "chayns": { "cssName": "--danger-bg-hover", "dark": "rgba(249, 112, 102, 0.34)" }
+        "chayns": {
+          "cssName": "--danger-bg-hover",
+          "dark": "rgba(249, 112, 102, 0.34)",
+          "colorDeficiency": { "light": "#f2d7e7", "dark": "rgba(249, 112, 102, 0.22)" }
+        }
       }
     },
     "disabled-background": {

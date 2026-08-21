@@ -285,3 +285,7 @@ Ein KI-Agent darf nicht:
 * aus einer bestätigten Layout-Animation eine allgemeine Erlaubnis für Layout Motion ableiten.
 
 Fehlt eine benötigte Motion-Regel, wird nicht improvisiert. Der Agent meldet einen Foundation Gap.
+
+## Milestone 1 Button mapping
+
+Button and IconButton add no CSS transition or animation. Hover, focus, disabled and color changes are immediate. The directly evidenced active feedback uses only the allowed `transform` property and no duration or easing. Because there is no timed or continuous component Motion, no special `prefers-reduced-motion` branch is needed. This decision is limited to Milestone 1 Button and does not resolve the general Motion-token work.

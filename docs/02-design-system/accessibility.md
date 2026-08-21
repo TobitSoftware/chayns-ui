@@ -137,3 +137,9 @@ Component Specifications referenzieren diese Foundations, duplizieren aber weder
 ## 17. AI Rules
 
 Ein KI-Agent verwendet bestätigte Semantik, Tokens und spezifizierte Interaction Patterns. Er darf keine ARIA-Rollen, Keyboard-Modelle, Focus-Strategien, Target-Size-Ausnahmen oder Screenreader-Verhalten erfinden. Bei implementierungsrelevanter Mehrdeutigkeit stoppt er, formuliert die konkrete Frage und meldet einen Foundation Gap.
+
+## Milestone 1 Button focus and verification mapping
+
+Button and IconButton use native `<button>` semantics and `:focus-visible`. Their focus indicator is a ring with `--focus-ring-size` and the full resolved `rgb(var(--focus-ring-rgb))` color. It is not replaced by a low-alpha shadow. This technical mapping preserves the evidenced geometry and centrally resolved color while meeting the WCAG 2.2 focus visibility and contrast gate across supported reference modes.
+
+Automated story-level axe checks run as errors. Release evidence additionally records keyboard activation and focus order, accessible names/roles/states, disabled focus exclusion, visible focus, forced colors, 200% zoom/reflow, text spacing, long/localized content, pointer target size and Reduced Motion. Automated results do not replace this manual matrix.

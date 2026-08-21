@@ -365,6 +365,10 @@ This document defines neither React Context, Theme Provider, CSS Architecture, R
 
 ## 29. Final Readiness Summary
 
+### Milestone 1 Button consumption
+
+Button consumes `--btn-py`, `--btn-px`, `--sp-2`, `--sp-4` and `--fs-body`; IconButton consumes `--ctrl-h` and `--fs-body`. All formulas resolve through global `--sf`. Neither component exposes a local S/M/L prop, and all other Button properties are density-independent.
+
 | Area | Density relationship known | S/M/L values complete | Component-spec ready |
 |---|---|---|---|
 | Spacing | yes | yes | yes |

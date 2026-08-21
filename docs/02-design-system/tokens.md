@@ -194,4 +194,8 @@ Für diese bestehenden Themen werden keine neuen Decision-IDs angelegt. Falls ei
 
 # Non-Goals
 
+## Milestone 1 machine source
+
+Milestone 1 establishes `packages/tokens/src/foundations.tokens.json` as the DTCG-shaped machine source for the confirmed subset needed by Button and IconButton. The Style Dictionary-compatible build emits resolved `baseline.css` and a declaration-free `patch.css`. The source intentionally omits unconfirmed tokens and does not implement OPEN-009 Theme Resolver behavior.
+
 Dieses Dokument entscheidet weder Token-Dateiformat noch Build-Library, Package Manager, Bundler, CSS-Pipeline, Package-Grenzen, vollständigen Katalog, konkrete Werte, Theme-Resolver, Color-Palette, Density-Matrix oder Consumer-Override-API.

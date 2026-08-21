@@ -277,7 +277,18 @@ Each is directly mapped in DesignSystem CSS as `calc(<documented number> * var(-
 | motion | partial | Density is not a concern; public Motion-token and Button-state mapping remain TECH REVIEW. |
 | density | sufficient | All Button-relevant density-dependent values now have direct S/M/L mappings or are confirmed density-independent. |
 
-Overall Button-relevant token readiness: **partial**. This is a Foundation readiness snapshot, not a Button Specification or API.
+### Milestone 1 Button transfer resolution — 2026-08-21
+
+For the Milestone 1 Button and IconButton only, the remaining technical transfer is resolved as follows:
+
+* Typography uses the directly evidenced `--fs-body`, `font-weight: 500` and unitless `line-height: 1.1`. No Button letter-spacing is introduced.
+* Standard Button radius is the directly evidenced Pill value `999px`. MD and SM do not become public Button props in Milestone 1.
+* Internal content gap uses public `--sp-2`, which has the same confirmed `calc(8 * var(--u))` mapping as source-only `--k8`. Ghost inline padding uses public `--sp-4`, which has the same confirmed `calc(16 * var(--u))` mapping as source-only `--k16`.
+* Focus uses `--focus-ring-size` and the full resolved `--focus-ring-rgb` color as a `:focus-visible` ring. The soft/strong alpha values remain available foundation evidence but are not used for Button because the partially transparent reference ring does not meet the required non-text contrast in every supported reference combination.
+* State changes are immediate. Active uses directly evidenced `transform` property values (`scale(.97)` for Button and `scale(.9)` for IconButton) without a transition. No duration, easing or Motion token is introduced.
+* The shipped resolved reference theme calibrates Danger foreground to the already evidenced High Contrast values (`#a31919` light, `#ffb3ae` dark) because the literal standard source pair is below 4.5:1 for 14px Button text. Color-Deficiency hover receives the evidenced resolver result `#f2d7e7` in light mode and retains the non-hover alpha in dark mode so text contrast remains at least 4.5:1. This is a resolved-reference accessibility correction under COLOR-004–005, not a general Theme Resolver.
+
+The resulting Button-relevant foundation status is **sufficient for the Milestone 1 Button specification**. This does not close the remaining general Typography, Motion, Radius, Theme Resolver or non-Button token work.
 
 ## Remaining Token Catalogue Gaps
 
