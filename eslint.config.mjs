@@ -27,7 +27,12 @@ export default tseslint.config(
       globals: { ...globals.browser, ...globals.node },
       parserOptions: {
         projectService: {
-          allowDefaultProject: ['*.config.ts', '*.setup.ts', '.storybook/*.ts', '.storybook/*.tsx'],
+          allowDefaultProject: [
+            '*.config.ts',
+            '*.setup.ts',
+            '.storybook/*.ts',
+            '.storybook/*.tsx',
+          ],
         },
         tsconfigRootDir: import.meta.dirname,
       },
