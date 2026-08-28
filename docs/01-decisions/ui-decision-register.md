@@ -225,10 +225,34 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | BUTTON-007 | BUTTON | `IconButton` ist ein separater Export mit zugänglichem Namen und Consumer-geliefertem Regular-/optionalem Active-Icon. | SUPERSEDED | Approved M1 plan | Superseded by BUTTON-012. |
 | BUTTON-008 | BUTTON | Button und IconButton sind native Buttons, verwenden standardmäßig `type="button"`, reichen kompatible native Props/Events und den Ref zum Button durch und verwenden natives `disabled`. | CONFIRMED | Approved M1 plan | |
 | BUTTON-009 | BUTTON | Loading, lokale S/M/L-Prop, Polymorphie, Navigation, Toggle und Selected State sind in Milestone 1 nicht Teil der API. | CONFIRMED | Approved M1 plan | |
-| BUTTON-010 | BUTTON | Button und IconButton verwenden den vollständigen aufgelösten Focus-Ring-Farbwert mit bestätigter Ringgröße; teiltransparente Referenzringe werden nicht als alleiniger Focus Indicator verwendet. | CONFIRMED | Button foundation transfer, Accessibility | |
+| BUTTON-010 | BUTTON | Button und IconButton verwenden den vollständigen aufgelösten Focus-Ring-Farbwert mit bestätigter Ringgröße; teiltransparente Referenzringe werden nicht als alleiniger Focus Indicator verwendet. | SUPERSEDED | Button foundation transfer, Accessibility | Superseded by BUTTON-014 (DesignSystem-konformer abgesetzter box-shadow-Ring). |
 | BUTTON-011 | BUTTON | Milestone 1 verwendet keine zeitgesteuerte Button-Motion; Active-Transform ist unmittelbar und die Disabled-Zuordnung je Variante ist in der Button Specification festgelegt. | CONFIRMED | Button foundation transfer, Button Specification | |
 | BUTTON-012 | BUTTON | `IconButton` erhält genau einen FontAwesome-Classic-Icon-Namen wie `fa-paperclip` und erzeugt Regular für Ruhe sowie Solid für Hover/Active selbst. Milestone 1 setzt dafür ein vorhandenes Regular-/Solid-Paar voraus. | CONFIRMED | User decision, DesignSystem prototype “Buttons & Aktionen” | Single-Weight-, Brand- und Custom-Icons sind nicht Teil des Milestone-1-Vertrags. |
 | BUTTON-013 | BUTTON | Button erhält sichtbaren Label-Inhalt über `children` und optional genau ein führendes FontAwesome-Classic-Icon über `icon`; Regular-/Solid-Gewichte werden wie beim IconButton intern gesetzt. | CONFIRMED | User decision, DesignSystem prototype “Buttons & Aktionen” | |
+| BUTTON-014 | BUTTON | Der Fokus-Indikator ist ein abgesetzter `box-shadow`-Ring mit abgeschwächter Akzentfarbe (`--focus-ring-size`, `rgba(var(--focus-ring-rgb), var(--focus-ring-alpha-strong))`) statt eines vollflächigen `outline`; Primary kombiniert Ring und `--shadow-btn`, Forced Colors nutzt einen `ButtonText`-Outline-Fallback. Der Ring liegt außerhalb der Buttonfläche und hebt sich sichtbar ab. Entspricht der DesignSystem-Referenz. | CONFIRMED | User decision (Q1), DesignSystem | Ersetzt BUTTON-010. |
+
+## Card
+
+| ID | Category | Decision | Status | Source | Follow-up |
+|---|---|---|---|---|---|
+| CARD-001 | CARD | Card ist eine rein präsentationale Fläche: nativer `<div>` mit `--surface`, 1px `--border` und Radius 16, ohne intrinsisches Padding und ohne Interaktions-/Business-Logik. | CONFIRMED | DesignSystem `.card`, User decision | |
+| CARD-002 | CARD | Der einzige optionale visuelle Modifier ist `elevated` (fügt `--shadow-card` hinzu); es gibt keine Farb-/Emphasis-Varianten. | CONFIRMED | Card Specification | |
+| CARD-003 | CARD | Interaktive Card-Muster werden vom Consumer über ein natives interaktives Kind komponiert; Card selbst besitzt keine Klick-/Keyboard-Semantik. | CONFIRMED | Card Specification, Accessibility | |
+
+## List
+
+| ID | Category | Decision | Status | Source | Follow-up |
+|---|---|---|---|---|---|
+| LIST-001 | LIST | List ist ein nativer `<ul>`, ListItem ein `<li>`; die Zeilenaktion ist genau ein natives Element (`<a>` bei `href`, `<button>` bei `onClick`, sonst `<div>`). `href` hat Vorrang vor `onClick`. | CONFIRMED | DesignSystem row treatment, List Specification | |
+| LIST-002 | LIST | Sekundäre Zeilen-Controls liegen im `trailing`-Slot als Geschwister der Zeilenaktion, niemals verschachtelt in ihr (gültige interaktive Semantik). | CONFIRMED | List Specification, Accessibility | |
+| LIST-003 | LIST | Der Unread-Indikator wird nicht nur über Farbe vermittelt; bei Bedeutung liefert `unreadLabel` einen lokalisierten visually-hidden Namen. Titel und Subtitle sind einzeilig und kürzen per Ellipsis statt Schrift zu verkleinern. | CONFIRMED | List Specification, Accessibility | |
+| LIST-004 | LIST | Milestone 1 hat kein Selection-, Virtualisierungs-, Mehrspalten-, Drag-and-drop- oder Swipe-Modell. | CONFIRMED | List Specification | |
+
+## Milestone 1 Token Transfer
+
+| ID | Category | Decision | Status | Source | Follow-up |
+|---|---|---|---|---|---|
+| TOKEN-007 | TOKEN | Zusätzlich zur Button-Grundlage wurden für Card/List/Accordion benötigte Foundation-Tokens 1:1 aus der kanonischen `tobit-ds.css` übernommen (u. a. k-Skala, `--surface`, `--border`, `--text-3`, `--muted`, `--hover`, `--accent`, `--shadow-card`, `--fs-body`/`--fs-caption`/`--fs-meta`, `--icon`), inklusive Light-/Dark-Werten. Kalibrierte Bestandsfarben (z. B. `--danger`) wurden nicht überschrieben. | CONFIRMED | DesignSystem `tobit-ds.css`, Token catalogue | |
 
 # Open Technical Decisions
 
