@@ -151,12 +151,16 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 
 | ID | Category | Decision | Status | Source | Follow-up |
 |---|---|---|---|---|---|
-| ACC-001 | ACC | „Wrapped“ wird nicht als Komponentenlogik verwendet. | CONFIRMED | AGENTS.md | |
+| ACC-001 | ACC | „Wrapped“ wird nicht als Komponentenlogik verwendet. | SUPERSEDED | AGENTS.md | Superseded by ACC-007 (DesignSystem korrigierte Wrapped). |
 | ACC-002 | ACC | Grouped Accordions schließen innerhalb der Gruppe gegenseitig. | CONFIRMED | AGENTS.md | |
 | ACC-003 | ACC | Standalone Accordions beeinflussen andere nicht. | CONFIRMED | AGENTS.md | |
-| ACC-004 | ACC | Verschachtelung ändert Gruppenverhalten nicht automatisch. | CONFIRMED | AGENTS.md | |
+| ACC-004 | ACC | Verschachtelung ändert Gruppenverhalten nicht automatisch. | SUPERSEDED | AGENTS.md | Superseded by ACC-008 (Wrapped wird automatisch aus Verschachtelung erkannt). |
 | ACC-005 | ACC | Öffnen und Schließen verwendet die `grid-template-rows`-Motion. | CONFIRMED | AGENTS.md | |
 | ACC-006 | ACC | Das DesignSystem beschreibt Grouped vs. Standalone eindeutig. | DESIGN REVIEW | AGENTS.md | Mit Design vorgesehen. |
+| ACC-007 | ACC | Es existieren drei Darstellungen: Standalone (Radius 12), Grouped (gemeinsame Fläche Radius 12, Trennlinien, exklusiv) und Wrapped (Radius 10, kompakter, eingerückt). Quelle ist die korrigierte DesignSystem-Fassung. | CONFIRMED | DesignSystem (korrigiert), User decision | |
+| ACC-008 | ACC | Wrapped ist keine eigene Komponente und keine explizite Prop; ein Accordion erkennt per React-Context automatisch, dass es innerhalb eines anderen Accordion liegt, und stellt sich dann als Wrapped dar. Gruppierung (Exklusivität) und Wrapped (Verschachtelung) sind unabhängige Mechanismen. | CONFIRMED | User decision | |
+| ACC-009 | ACC | Der Header ist ein nativer `<button aria-expanded aria-controls>`; das Panel ist eine `role="region"` mit `aria-labelledby`; eingeklappter Inhalt wird aus Fokusreihenfolge und A11y-Baum entfernt; Disabled nutzt natives `disabled`. | CONFIRMED | Accordion Specification, Accessibility | |
+| ACC-010 | ACC | AccordionGroup besitzt den exklusiven Open-Zustand (controlled `openId` / uncontrolled `defaultOpenId`); ein Standalone-/verschachteltes Accordion besitzt seinen Zustand selbst (controlled `open` / uncontrolled `defaultOpen`). | CONFIRMED | Accordion Specification | |
 
 ## Dialogs
 

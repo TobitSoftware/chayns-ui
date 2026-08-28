@@ -243,14 +243,20 @@ Das native `title`-Attribut darf ergänzend verwendet werden, ersetzt aber nicht
 
 ### Accordions
 
-Es wird nicht nach „Wrapped“ unterschieden.
+Es werden drei Darstellungen unterschieden (Quelle: DesignSystem, korrigierte Fassung):
 
-Stattdessen gilt:
+* Standalone Accordion: unabhängig von anderen Accordions; eigener Rahmen, Radius 12.
+* Grouped Accordion: mehrere Items in einer `AccordionGroup`; ein gemeinsamer Rahmen (Radius 12),
+  Items durch Trennlinien getrennt, gegenseitig exklusiv (nur eines offen).
+* Wrapped Accordion: ein Accordion, das innerhalb des Inhalts eines anderen Accordion liegt;
+  eingerückt, Radius 10, kompaktere Abstände.
 
-* Grouped Accordion: mehrere Items hängen logisch zusammen und schließen sich innerhalb der Gruppe gegenseitig.
-* Standalone Accordion: unabhängig von anderen Accordions.
+Wrapped ist keine eigene Komponente und keine explizite Prop. Ein Accordion erkennt automatisch
+über React-Context, dass es innerhalb eines anderen Accordion gerendert wird, und stellt sich dann
+als Wrapped dar. Verschachtelung verändert das Verhalten also bewusst automatisch.
 
-Verschachtelung verändert dieses Verhalten nicht automatisch.
+`AccordionGroup` (Gruppierung/Exklusivität) und die automatische Wrapped-Erkennung
+(Verschachtelung) sind voneinander unabhängige Mechanismen.
 
 ### Input / Form Control
 
