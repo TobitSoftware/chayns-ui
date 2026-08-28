@@ -1,0 +1,13 @@
+@layer chayns.components {
+  .chayns-card {
+    box-sizing: border-box;
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+  }
+
+  .chayns-card--elevated {
+    box-shadow: var(--shadow-card);
+  }
+}
