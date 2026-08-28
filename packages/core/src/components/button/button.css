@@ -57,14 +57,6 @@
     color: var(--danger);
   }
 
-  :where(.chayns-button, .chayns-icon-button):focus-visible {
-    outline: var(--focus-ring-size) solid rgb(var(--focus-ring-rgb));
-  }
-
-  :where(.chayns-button, .chayns-icon-button):focus:not(:focus-visible) {
-    outline: none;
-  }
-
   :where(.chayns-button, .chayns-icon-button):active:not(:disabled) {
     transform: scale(0.97);
   }
@@ -178,9 +170,22 @@
     }
   }
 
+  :where(.chayns-button, .chayns-icon-button):focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 var(--focus-ring-size)
+      rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-strong));
+  }
+
+  :where(.chayns-button--primary, .chayns-icon-button--primary):focus-visible {
+    box-shadow:
+      0 0 0 var(--focus-ring-size) rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-strong)),
+      var(--shadow-btn);
+  }
+
   @media (forced-colors: active) {
     :where(.chayns-button, .chayns-icon-button):focus-visible {
-      outline-color: ButtonText;
+      outline: var(--focus-ring-size) solid ButtonText;
+      outline-offset: 1px;
     }
   }
 }

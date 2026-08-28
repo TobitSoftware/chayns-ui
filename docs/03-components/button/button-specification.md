@@ -60,7 +60,7 @@ None. Button and IconButton have no S/M/L prop. Global S/M/L density controls th
 - default: variant presentation and native availability.
 - hover: pointer-only visual feedback; never the only access to meaning.
 - active: native press state plus immediate evidenced scale feedback; Primary also uses `--accent-active`.
-- focus-visible: full-color resolved focus ring using `--focus-ring-size` and `--focus-ring-rgb`.
+- focus-visible: softened-accent focus ring drawn as a `box-shadow` using `--focus-ring-size` and `rgba(var(--focus-ring-rgb), var(--focus-ring-alpha-strong))`. This matches the DesignSystem reference (accent ring with reduced opacity so the ring stands off the button surface). Primary composes the ring with its resting `--shadow-btn` elevation. Forced-colors mode falls back to a solid `ButtonText` outline.
 - disabled: native `disabled`, no focus or activation. Primary and Danger use disabled background/foreground; Outline uses surface, disabled foreground and disabled border; Ghost stays transparent with disabled foreground. Hover/active styling does not apply.
 
 There is no loading, selected, toggled, read-only, error or success state.

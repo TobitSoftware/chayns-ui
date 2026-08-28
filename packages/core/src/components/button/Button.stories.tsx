@@ -72,9 +72,15 @@ export const Primary: Story = {
 
     await expect(target.width).toBeGreaterThanOrEqual(24);
     await expect(target.height).toBeGreaterThanOrEqual(24);
+
+    const restingShadow = getComputedStyle(button).boxShadow;
     await userEvent.tab();
     await expect(button).toHaveFocus();
-    await expect(getComputedStyle(button).outlineStyle).not.toBe('none');
+    const focusedShadow = getComputedStyle(button).boxShadow;
+    await expect(getComputedStyle(button).outlineStyle).toBe('none');
+    await expect(focusedShadow).not.toBe('none');
+    await expect(focusedShadow).not.toBe(restingShadow);
+
     await userEvent.keyboard('{Enter}');
     await userEvent.keyboard(' ');
     await expect(args.onClick).toHaveBeenCalledTimes(2);
@@ -90,6 +96,26 @@ export const Danger: Story = {
   args: { children: 'Löschen', icon: 'fa-trash', variant: 'danger' },
 };
 export const Disabled: Story = { args: { children: 'Aktion', disabled: true } };
+
+export const AllVariants: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div className="chayns-storybook-example-row">
+      <Button icon="fa-plus" variant="primary">
+        Erstellen
+      </Button>
+      <Button icon="fa-reply-all" variant="outline">
+        Antworten
+      </Button>
+      <Button icon="fa-gear" variant="ghost">
+        Optionen
+      </Button>
+      <Button icon="fa-trash" variant="danger">
+        Löschen
+      </Button>
+    </div>
+  ),
+};
 
 export const LongLocalizedContent: Story = {
   args: {

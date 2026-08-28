@@ -38,7 +38,7 @@
 | 19 | Typography | PASS | Direct Body size, weight and line-height evidence; no letter-spacing invention. |
 | 20 | Accessibility | PASS | Name, role, state, target, zoom/reflow, contrast and manual matrix specified. |
 | 21 | Keyboard | PASS | Native Tab/Shift+Tab/Space/Enter and disabled behavior specified. |
-| 22 | Focus | PASS | `:focus-visible` full-color token ring and no programmatic focus. |
+| 22 | Focus | PASS | `:focus-visible` softened-accent `box-shadow` ring (`--focus-ring-alpha-strong`) with forced-colors outline fallback and no programmatic focus. |
 | 23 | Motion | PASS | No timed motion; immediate allowed active transform only. |
 | 24 | Internationalization and Content | PASS | Consumer-resolved localizable content; no locale inference or fragments. |
 | 25 | Responsive and Layout Behavior | PASS | Wrapping, constrained width and square IconButton are explicit. |
