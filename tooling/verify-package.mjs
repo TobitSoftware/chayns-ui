@@ -15,6 +15,12 @@ const packages = [
       'package/dist/index.d.ts',
       'package/dist/components/button/index.js',
       'package/dist/button.css',
+      'package/dist/components/card/index.js',
+      'package/dist/card.css',
+      'package/dist/components/list/index.js',
+      'package/dist/list.css',
+      'package/dist/components/accordion/index.js',
+      'package/dist/accordion.css',
       'package/dist/styles.css',
     ],
   },
@@ -58,6 +64,9 @@ run('corepack', [
   '--entrypoints',
   '.',
   './button',
+  './card',
+  './list',
+  './accordion',
 ]);
 
 const coreManifest = JSON.parse(

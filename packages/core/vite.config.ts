@@ -12,6 +12,12 @@ export default defineConfig({
       entry: {
         index: resolve(import.meta.dirname, 'src/index.ts'),
         'components/button/index': resolve(import.meta.dirname, 'src/components/button/index.ts'),
+        'components/card/index': resolve(import.meta.dirname, 'src/components/card/index.ts'),
+        'components/list/index': resolve(import.meta.dirname, 'src/components/list/index.ts'),
+        'components/accordion/index': resolve(
+          import.meta.dirname,
+          'src/components/accordion/index.ts',
+        ),
       },
       formats: ['es'],
     },

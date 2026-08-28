@@ -22,6 +22,21 @@
       "import": "./dist/components/button/index.js"
     },
     "./button.css": "./dist/button.css",
+    "./card": {
+      "types": "./dist/components/card/index.d.ts",
+      "import": "./dist/components/card/index.js"
+    },
+    "./card.css": "./dist/card.css",
+    "./list": {
+      "types": "./dist/components/list/index.d.ts",
+      "import": "./dist/components/list/index.js"
+    },
+    "./list.css": "./dist/list.css",
+    "./accordion": {
+      "types": "./dist/components/accordion/index.d.ts",
+      "import": "./dist/components/accordion/index.js"
+    },
+    "./accordion.css": "./dist/accordion.css",
     "./styles.css": "./dist/styles.css",
     "./package.json": "./package.json"
   },
