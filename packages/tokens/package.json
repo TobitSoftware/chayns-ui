@@ -27,6 +27,6 @@
     "test": "vitest run"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   }
 }

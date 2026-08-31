@@ -33,13 +33,12 @@ wird `storybook.yml` auf die entsprechenden Actions/Secrets umgestellt.
 1. **npm-Organisation/Scope `@chayns-ui` sicherstellen.**
    - Die Pakete heißen `@chayns-ui/core` und `@chayns-ui/tokens`.
    - Prüfe, ob die npm-Organisation `chayns-ui` existiert und Dein Publish-Account Mitglied ist.
-2. **Zugriffsart entscheiden (Produktentscheidung).**
-   - Aktuell steht in `packages/core/package.json`, `packages/tokens/package.json` und
-     `.changeset/config.json` `access: "restricted"` (privat).
-   - **Öffentlich installierbar?** → in beiden `package.json` `publishConfig.access` auf
-     `"public"` und in `.changeset/config.json` `"access": "public"` ändern.
-   - **Privat/Scoped?** → so lassen. Dann in `.github/workflows/release.yml` die Zeile
-     `NPM_CONFIG_PROVENANCE: true` entfernen (Provenance funktioniert nur bei öffentlichem Publish).
+2. **Zugriffsart: `public` (entschieden).**
+   - In `packages/core/package.json`, `packages/tokens/package.json` und
+     `.changeset/config.json` steht `access: "public"`; die Pakete sind damit
+     öffentlich installierbar.
+   - `NPM_CONFIG_PROVENANCE: true` in `.github/workflows/release.yml` bleibt aktiv –
+     npm-Provenance funktioniert nur bei öffentlichem Publish.
 3. **npm-Automation-Token erstellen** (Typ „Automation“, Publish-Rechte für den Scope).
 4. **GitHub-Secret hinterlegen:** Repository → Settings → Secrets and variables → Actions →
    „New repository secret“ → Name `NPM_TOKEN`, Wert = das npm-Token.
@@ -97,5 +96,6 @@ Der Release läuft über Changesets in zwei Stufen:
 
 ## Offene Produktentscheidungen (bewusst nicht vom Agenten entschieden)
 
-- **Paket-Sichtbarkeit** `public` vs. `restricted` (siehe A.2).
 - **Deploy-Ziel** GitHub Pages vs. interne AWS/CF-Infrastruktur (siehe Abschnitt „Deploy-Ansatz“).
+
+Entschieden: Paket-Sichtbarkeit ist `public`.
