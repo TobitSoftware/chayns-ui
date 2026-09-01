@@ -9,6 +9,7 @@ const meta = {
   component: Accordion,
   subcomponents: { AccordionGroup: AccordionGroup as never },
   tags: ['autodocs'],
+  args: { title: 'Accordion' },
   parameters: {
     a11y: { test: 'error' },
     controls: { disable: true },
