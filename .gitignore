@@ -33,6 +33,7 @@ lerna-debug.log*
 !.env.*.example
 
 # Editor and IDE files
+.air/
 .idea/
 .vscode/*
 !.vscode/extensions.json
