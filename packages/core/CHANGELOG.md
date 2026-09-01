@@ -1,5 +1,12 @@
 # @chayns-ui/core
 
+## 0.2.1
+
+### Patch Changes
+
+- b32cfff: Refresh the package README with the live Storybook link, the full CSS export
+  matrix and clearer usage guidance. No runtime or API changes.
+
 ## 0.2.0
 
 ### Minor Changes
