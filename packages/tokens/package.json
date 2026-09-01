@@ -4,6 +4,11 @@
   "description": "Resolved CSS design tokens for chayns UI",
   "license": "MIT",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TobitSoftware/chayns-ui.git",
+    "directory": "packages/tokens"
+  },
   "sideEffects": [
     "**/*.css"
   ],
