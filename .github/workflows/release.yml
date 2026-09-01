@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 # Needed for the Changesets action to open the "Version Packages" PR
-# and for npm provenance via OIDC on publish.
+# and for npm Trusted Publishing (OIDC) — no long-lived npm token required.
 permissions:
   contents: write
   pull-requests: write
@@ -24,13 +24,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Install pnpm before setup-node so the pnpm store cache can be resolved.
+      - uses: pnpm/action-setup@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
           registry-url: https://registry.npmjs.org
           cache: pnpm
 
-      - name: Enable pinned pnpm
+      - name: Enable Corepack
         run: corepack enable
 
       - name: Install dependencies
@@ -39,6 +42,11 @@ jobs:
       # Opens/updates a "Version Packages" PR when changesets are pending.
       # When that PR is merged (versions bumped, changesets consumed), the same
       # action runs `pnpm release` to build and publish to npm.
+      #
+      # Publishing uses npm Trusted Publishing (OIDC): npm authenticates via the
+      # workflow's id-token instead of a stored NPM_TOKEN, and attaches build
+      # provenance automatically. The publisher must be configured once on
+      # npmjs.com for each package (see docs/04-release/first-release-checklist.md).
       - name: Create release PR or publish
         uses: changesets/action@v1
         with:
@@ -48,5 +56,3 @@ jobs:
           title: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
