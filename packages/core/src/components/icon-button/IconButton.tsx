@@ -1,6 +1,5 @@
-import type { IconButtonProps } from './Button.types.js';
-import ButtonIcon from './ButtonIcon.js';
-import { getButtonClassName } from './buttonClassName.js';
+import type { IconButtonProps } from './IconButton.types.js';
+import ButtonIcon from '../button/ButtonIcon.js';
 
 function IconButton({
   className,
@@ -9,7 +8,9 @@ function IconButton({
   variant,
   ...buttonProps
 }: IconButtonProps) {
-  const resolvedClassName = getButtonClassName('chayns-icon-button', variant, className);
+  const resolvedClassName = ['chayns-icon-button', `chayns-icon-button--${variant}`, className]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <button {...buttonProps} className={resolvedClassName} type={type}>

@@ -1,6 +1,5 @@
 import type { ButtonProps } from './Button.types.js';
 import ButtonIcon from './ButtonIcon.js';
-import { getButtonClassName } from './buttonClassName.js';
 
 function Button({
   children,
@@ -10,7 +9,9 @@ function Button({
   variant,
   ...buttonProps
 }: ButtonProps) {
-  const resolvedClassName = getButtonClassName('chayns-button', variant, className);
+  const resolvedClassName = ['chayns-button', `chayns-button--${variant}`, className]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <button {...buttonProps} className={resolvedClassName} type={type}>
