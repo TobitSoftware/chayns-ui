@@ -1,15 +1,15 @@
 import type { ButtonProps } from './Button.types.js';
-import ButtonIcon from './ButtonIcon.js';
+import ButtonIcon from './button-icon/ButtonIcon.js';
 import { getButtonClassName } from './buttonClassName.js';
 
-function Button({
+const Button = ({
   children,
   className,
   icon,
   type = 'button',
   variant,
   ...buttonProps
-}: ButtonProps) {
+}: ButtonProps) => {
   const resolvedClassName = getButtonClassName('chayns-button', variant, className);
 
   return (
@@ -18,6 +18,6 @@ function Button({
       {children}
     </button>
   );
-}
+};
 
 export default Button;

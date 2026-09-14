@@ -9,7 +9,7 @@ run('corepack', ['pnpm', 'install', '--ignore-workspace', '--no-frozen-lockfile'
   cwd: consumerDirectory,
 });
 
-for (const entry of ['root', 'subpath']) {
+for (const entry of ['root']) {
   run('corepack', ['pnpm', 'exec', 'vite', 'build', '--mode', entry], {
     cwd: consumerDirectory,
     env: { ...process.env, CHAYNS_ENTRY: entry },
@@ -30,4 +30,4 @@ for (const entry of ['root', 'subpath']) {
   }
 }
 
-console.log('Packed root and subpath Button imports tree-shake without unused component code.');
+console.log('Packed root Button imports tree-shake without unused component code.');

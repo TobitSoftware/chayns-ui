@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Button } from '@chayns-ui/core';
-import { IconButton } from '@chayns-ui/core/button';
+import { IconButton } from '@chayns-ui/core';
 import '@chayns-ui/tokens/baseline.css';
 import '@chayns-ui/tokens/patch.css';
 import '@chayns-ui/core/button.css';

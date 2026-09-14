@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import type { AvatarProps } from './Avatar.types.js';
 
-function getInitials(name: string) {
+const getInitials = (name: string) => {
   const words = name.trim().split(/\s+/).filter(Boolean);
   if (words.length === 0) {
     return '';
@@ -11,18 +11,18 @@ function getInitials(name: string) {
   const first = words[0]?.charAt(0) ?? '';
   const last = words.length > 1 ? (words.at(-1)?.charAt(0) ?? '') : '';
   return `${first}${last}`.toUpperCase();
-}
+};
 
-function getTone(name: string) {
+const getTone = (name: string) => {
   let hash = 0;
   for (const character of name) {
     hash = (hash * 31 + character.codePointAt(0)!) >>> 0;
   }
 
   return hash % 3;
-}
+};
 
-function Avatar({ alt, badge, className, id, name, size = 'default', src }: AvatarProps) {
+const Avatar = ({ alt, badge, className, id, name, size = 'default', src }: AvatarProps) => {
   const [failedSource, setFailedSource] = useState<string>();
   const showImage = Boolean(src) && failedSource !== src;
   const initials = getInitials(name);
@@ -61,6 +61,6 @@ function Avatar({ alt, badge, className, id, name, size = 'default', src }: Avat
       ) : null}
     </span>
   );
-}
+};
 
 export default Avatar;
