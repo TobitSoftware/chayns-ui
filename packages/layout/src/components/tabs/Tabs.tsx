@@ -16,7 +16,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(function Tabs(
   ref,
 ) {
   const baseId = useId();
-  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const activeIndex = Math.max(
     0,
     tabs.findIndex((tab) => tab.isActive),
@@ -62,44 +62,44 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(function Tabs(
     <div {...rootProps} className={rootClassName} ref={ref}>
       <div className="chayns-tabs__bar">
         <div className="chayns-tabs__list" role="tablist">
-        {tabs.map((tab, index) => {
-          const tabId = `${baseId}-tab-${index}`;
-          const panelId = `${baseId}-panel-${index}`;
-          const isSelected = index === activeIndex;
+          {tabs.map((tab, index) => {
+            const tabId = `${baseId}-tab-${index}`;
+            const panelId = `${baseId}-panel-${index}`;
+            const isSelected = index === activeIndex;
 
-          return (
-            <div className="chayns-tabs__item" key={tabId} role="presentation">
-              <button
-                aria-controls={isSelected ? panelId : undefined}
-                aria-selected={isSelected}
-                className={`chayns-tabs__tab${isSelected ? ' chayns-tabs__tab--active' : ''}`}
-                id={tabId}
-                onClick={(event) => {
-                  if ((event.target as HTMLElement).closest('[data-tabs-remove]')) {
-                    tab.onRemove?.();
-                    return;
-                  }
-                  tab.onClick();
-                }}
-                onKeyDown={(event) => handleKeyDown(event, index)}
-                ref={(element) => {
-                  tabRefs.current[index] = element;
-                }}
-                role="tab"
-                tabIndex={isSelected ? 0 : -1}
-                type="button"
-              >
-                <TabsIcon icon={tab.icon} />
-                <span className="chayns-tabs__label">{tab.name}</span>
-                {tab.onRemove ? (
-                  <span aria-hidden="true" className="chayns-tabs__remove" data-tabs-remove>
-                    <TabsIcon icon="fa-xmark" />
-                  </span>
-                ) : null}
-              </button>
-            </div>
-          );
-        })}
+            return (
+              <div className="chayns-tabs__item" key={tabId} role="presentation">
+                <button
+                  aria-controls={isSelected ? panelId : undefined}
+                  aria-selected={isSelected}
+                  className={`chayns-tabs__tab${isSelected ? ' chayns-tabs__tab--active' : ''}`}
+                  id={tabId}
+                  onClick={(event) => {
+                    if ((event.target as HTMLElement).closest('[data-tabs-remove]')) {
+                      tab.onRemove?.();
+                      return;
+                    }
+                    tab.onClick();
+                  }}
+                  onKeyDown={(event) => handleKeyDown(event, index)}
+                  ref={(element) => {
+                    tabRefs.current[index] = element;
+                  }}
+                  role="tab"
+                  tabIndex={isSelected ? 0 : -1}
+                  type="button"
+                >
+                  <TabsIcon icon={tab.icon} />
+                  <span className="chayns-tabs__label">{tab.name}</span>
+                  {tab.onRemove ? (
+                    <span aria-hidden="true" className="chayns-tabs__remove" data-tabs-remove>
+                      <TabsIcon icon="fa-xmark" />
+                    </span>
+                  ) : null}
+                </button>
+              </div>
+            );
+          })}
         </div>
         {onAdd && addLabel ? (
           <button aria-label={addLabel} className="chayns-tabs__add" onClick={onAdd} type="button">

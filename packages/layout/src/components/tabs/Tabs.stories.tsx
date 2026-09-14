@@ -84,7 +84,9 @@ export const WithAddAndRemove: Story = {
 
     const removeTab = (id: string) => {
       setTabIds((current) => current.filter((tabId) => tabId !== id));
-      setActiveId((current) => (current === id ? (tabIds.find((tabId) => tabId !== id) ?? '') : current));
+      setActiveId((current) =>
+        current === id ? (tabIds.find((tabId) => tabId !== id) ?? '') : current,
+      );
     };
 
     const tabs: TabsEntry[] = tabIds.map((id) => {
@@ -135,22 +137,22 @@ export const InAppLayout: Story = {
 
     const removeTab = (id: string) => {
       setTabIds((current) => current.filter((tabId) => tabId !== id));
-      setActiveId((current) => (current === id ? (tabIds.find((tabId) => tabId !== id) ?? '') : current));
+      setActiveId((current) =>
+        current === id ? (tabIds.find((tabId) => tabId !== id) ?? '') : current,
+      );
     };
 
     const tabs = tabIds
       .map((id) => navigation.find((item) => item.id === id))
       .filter((item): item is (typeof navigation)[number] => item !== undefined)
-      .map(
-        (item): TabsEntry => ({
-          content: <p>{item.name} content</p>,
-          icon: item.icon,
-          isActive: item.id === activeId,
-          name: item.name,
-          onClick: () => selectItem(item.id),
-          onRemove: () => removeTab(item.id),
-        }),
-      );
+      .map((item): TabsEntry => ({
+        content: <p>{item.name} content</p>,
+        icon: item.icon,
+        isActive: item.id === activeId,
+        name: item.name,
+        onClick: () => selectItem(item.id),
+        onRemove: () => removeTab(item.id),
+      }));
 
     return (
       <div style={{ blockSize: '36rem' }}>

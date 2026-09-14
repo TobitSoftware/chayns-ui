@@ -217,7 +217,7 @@
   .chayns-app-layout__item:hover,
   .chayns-app-layout__item:focus-within,
   .chayns-app-layout__item--active {
-    background: color-mix(in srgb, var(--on-accent) 16%, transparent);
+    background: color-mix(in srgb, var(--on-accent) 12%, transparent);
   }
 
   .chayns-app-layout__action,
@@ -288,7 +288,7 @@
   }
 
   .chayns-app-layout__collapse:hover {
-    background: color-mix(in srgb, var(--on-accent) 16%, transparent);
+    background: color-mix(in srgb, var(--on-accent) 12%, transparent);
   }
 
   :where(
