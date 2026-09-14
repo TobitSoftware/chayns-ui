@@ -2,19 +2,37 @@ import type { ReactNode } from 'react';
 
 import type { AvatarProps } from './Avatar.types.js';
 
+/**
+ * @description Props for a compact, overlapping stack of `Avatar` children
+ * with an overflow tile once `max` is exceeded.
+ */
 export interface AvatarGroupProps {
-  /** Avatar children displayed with overlap. */
+  /**
+   * @description `Avatar` children displayed with overlap, in order.
+   */
   children?: ReactNode;
 
-  /** Maximum number of visible tiles, including the overflow tile. */
+  /**
+   * @description Maximum number of visible tiles, including the overflow
+   * tile shown for any remaining avatars beyond this count. Omit to render
+   * every child without an overflow tile.
+   */
   max?: number;
 
-  /** Size applied to every Avatar child and the overflow tile. */
+  /**
+   * @description Size applied uniformly to every `Avatar` child and to the
+   * overflow tile; overrides each child's own `size`.
+   * @default 'default'
+   */
   size?: AvatarProps['size'];
 
-  /** Additional class names on the group root. */
+  /**
+   * @description Additional class names appended to the group root element.
+   */
   className?: string;
 
-  /** Optional id on the group root. */
+  /**
+   * @description Optional id on the group root element.
+   */
   id?: string;
 }
