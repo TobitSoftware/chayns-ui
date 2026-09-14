@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, fn, userEvent, within } from 'storybook/test';
 
+import Avatar from '../avatar/Avatar.js';
 import List from './List.js';
 import ListItem from './ListItem.js';
 
@@ -23,14 +24,18 @@ export const Default: Story = {
     <div style={{ maxInlineSize: '28rem' }}>
       <List>
         <ListItem
+          leading={<Avatar name="Eva Sommer" />}
           subtitle="Das Q3-Budget ist freigegeben, Personalkosten bleiben wie geplant."
           title="Eva Sommer"
+          trailing={<time dateTime="08:40">08:40</time>}
           unread
           unreadLabel="Ungelesen"
         />
         <ListItem
+          leading={<Avatar badge={<span aria-hidden="true">✉</span>} name="Thomas Wolf" />}
           subtitle="Ich aktualisiere die Projektübersicht bis Freitag."
           title="Thomas Wolf"
+          trailing={<time dateTime="08:18">08:18</time>}
         />
         <ListItem subtitle="Termin für das Review am Donnerstag um 10:00 Uhr." title="Sidekick" />
       </List>

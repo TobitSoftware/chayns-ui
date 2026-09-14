@@ -32,6 +32,11 @@
       "import": "./dist/components/card/index.js"
     },
     "./card.css": "./dist/card.css",
+    "./avatar": {
+      "types": "./dist/components/avatar/index.d.ts",
+      "import": "./dist/components/avatar/index.js"
+    },
+    "./avatar.css": "./dist/avatar.css",
     "./list": {
       "types": "./dist/components/list/index.d.ts",
       "import": "./dist/components/list/index.js"

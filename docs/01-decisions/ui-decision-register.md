@@ -272,6 +272,18 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | LIST-002 | LIST | Sekundäre Zeilen-Controls liegen im `trailing`-Slot als Geschwister der Zeilenaktion, niemals verschachtelt in ihr (gültige interaktive Semantik). | CONFIRMED | List Specification, Accessibility | |
 | LIST-003 | LIST | Der Unread-Indikator wird nicht nur über Farbe vermittelt; bei Bedeutung liefert `unreadLabel` einen lokalisierten visually-hidden Namen. Titel und Subtitle sind einzeilig und kürzen per Ellipsis statt Schrift zu verkleinern. | CONFIRMED | List Specification, Accessibility | |
 | LIST-004 | LIST | Milestone 1 hat kein Selection-, Virtualisierungs-, Mehrspalten-, Drag-and-drop- oder Swipe-Modell. | CONFIRMED | List Specification | |
+| LIST-005 | LIST | Der bestehende `trailing`-Slot ist die öffentliche API für Metadaten oder sekundäre Controls auf der rechten Seite und bleibt Geschwister der Zeilenaktion. | CONFIRMED | User input 2026-09-14, List specification | |
+
+## Avatar
+
+| ID | Category | Decision | Status | Source | Follow-up |
+|---|---|---|---|---|---|
+| AVATAR-001 | AVATAR | Avatar bildet aus dem ersten und letzten Namenswort maximal zwei großgeschriebene Initialen; bei einem Namenswort wird nur dessen erster Buchstabe verwendet. | CONFIRMED | User input 2026-09-14 | |
+| AVATAR-002 | AVATAR | Avatar unterstützt optional `src`; ohne verwendbares Bild werden die Initialen angezeigt. | CONFIRMED | User input 2026-09-14 | Bildfehler- und Accessible-Name-Verhalten spezifizieren. |
+| AVATAR-003 | AVATAR | Avatar unterstützt einen frei komponierbaren optionalen Badge-/Bottom-Slot. | CONFIRMED | User input 2026-09-14 | Dekorative versus interaktive Badge-Semantik spezifizieren. |
+| AVATAR-004 | AVATAR | Der Initialen-Fallback verwendet eine deterministisch aus dem Namen abgeleitete Farbe aus `--accent`, `--accent-hover` oder `--accent-active` mit `--on-accent` als Vordergrund. | CONFIRMED | User input 2026-09-14, Avatar specification | |
+| AVATAR-005 | AVATAR | Avatar unterstützt die expliziten Größen `default` und `small`, gemappt auf `--avatar` beziehungsweise `--avatar-sm`; dies ist keine S/M/L-API. | CONFIRMED | User input 2026-09-14, Avatar specification | |
+| AVATAR-006 | AVATAR | `AvatarGroup` komponiert Avatar-Children überlappend, begrenzt mit `max` die sichtbaren Tiles auf `max - 1` Avatare plus eine dekorative `+N`-Restkachel und wendet `size` auf alle Children an. | CONFIRMED | User input 2026-09-14, Avatar specification | |
 
 ## Milestone 1 Token Transfer
 

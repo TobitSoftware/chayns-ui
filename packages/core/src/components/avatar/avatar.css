@@ -1,0 +1,104 @@
+@layer chayns.components {
+  .chayns-avatar {
+    position: relative;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--avatar);
+    block-size: var(--avatar);
+    overflow: visible;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-size: var(--fs-body);
+    font-weight: 600;
+    line-height: 1;
+    vertical-align: middle;
+  }
+
+  .chayns-avatar--tone-0 {
+    background: var(--accent);
+  }
+
+  .chayns-avatar--tone-1 {
+    background: var(--accent-hover);
+  }
+
+  .chayns-avatar--tone-2 {
+    background: var(--accent-active);
+  }
+
+  .chayns-avatar--small {
+    inline-size: var(--avatar-sm);
+    block-size: var(--avatar-sm);
+    font-size: var(--fs-meta);
+  }
+
+  .chayns-avatar__image {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+  }
+
+  .chayns-avatar__initials {
+    display: block;
+  }
+
+  .chayns-avatar__badge {
+    position: absolute;
+    inset-inline-end: -2px;
+    inset-block-end: -2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--k16);
+    block-size: var(--k16);
+    border: 2px solid var(--surface);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--accent);
+    font-size: var(--fs-micro);
+    line-height: 1;
+  }
+
+  .chayns-avatar-group {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+  }
+
+  .chayns-avatar-group > .chayns-avatar,
+  .chayns-avatar-group__overflow {
+    position: relative;
+    margin-inline-start: calc(-1 * var(--k8));
+    border: 2px solid var(--surface);
+  }
+
+  .chayns-avatar-group > :first-child {
+    margin-inline-start: 0;
+  }
+
+  .chayns-avatar-group__overflow {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--avatar);
+    block-size: var(--avatar);
+    border-radius: 50%;
+    background: var(--surface-alt);
+    color: var(--accent);
+    font-size: var(--fs-meta);
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .chayns-avatar-group--small .chayns-avatar-group__overflow {
+    inline-size: var(--avatar-sm);
+    block-size: var(--avatar-sm);
+    font-size: var(--fs-micro);
+  }
+}

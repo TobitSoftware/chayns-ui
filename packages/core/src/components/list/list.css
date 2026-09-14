@@ -89,10 +89,17 @@
 
   .chayns-list-item__trailing {
     flex: none;
+    align-self: flex-start;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: flex-end;
     gap: var(--k8);
+    padding-block-start: var(--k10);
     padding-inline-end: var(--k16);
+    color: var(--text-3);
+    font-size: var(--fs-meta);
+    text-align: end;
+    white-space: nowrap;
   }
 
   .chayns-visually-hidden {

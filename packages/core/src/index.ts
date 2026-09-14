@@ -10,6 +10,9 @@ export type {
 export { Card } from './components/card/index.js';
 export type { CardProps } from './components/card/index.js';
 
+export { Avatar, AvatarGroup } from './components/avatar/index.js';
+export type { AvatarGroupProps, AvatarProps } from './components/avatar/index.js';
+
 export { List, ListItem } from './components/list/index.js';
 export type { ListItemProps, ListProps } from './components/list/index.js';
 
