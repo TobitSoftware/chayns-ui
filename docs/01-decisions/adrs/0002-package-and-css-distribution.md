@@ -31,3 +31,17 @@ CSS inclusion is deterministic and independently cacheable. Importing JavaScript
 - Runtime CSS-in-JS and JavaScript-triggered CSS imports: rejected because they couple runtime code and styling.
 - A monolithic bundle: rejected because explicit entries and preserved modules improve inspection and future tree shaking.
 - Shipping an accent resolver: rejected because its algorithm and host integration remain open.
+
+## Addendum (2026-09-14): automatic CSS loading investigated, not adopted yet
+
+Developer feedback asked whether importing a component could also automatically load its CSS,
+removing the need for a separate `import '@chayns-ui/core/button.css'` per component. This was
+investigated and, per DIST-014 (UI Decision Register), the straightforward approach — a
+side-effect `import './button.css'` inside the component source — was reproduced to break the
+existing `verify-consumer` SSR contract: plain Node.js cannot import `.css` files
+(`ERR_UNKNOWN_FILE_EXTENSION`), and `verify-consumer.mjs` runs the packed output with
+`node src/ssr.mjs` without a bundler, per the import-time SSR-safety requirement in ADR 0001. The
+explicit, side-effect-free CSS export model from this ADR therefore remains in effect (DIST-013)
+until a concrete alternative distribution mechanism (e.g. bundler-only vs. Node-safe conditional
+exports) is designed and confirmed as its own decision. This ADR is not superseded by this
+addendum; it only records the investigated and rejected naive approach.
