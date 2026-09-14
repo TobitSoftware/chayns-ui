@@ -1,15 +1,8 @@
 import { forwardRef, useId, useRef } from 'react';
 import type { KeyboardEvent } from 'react';
 
-import type { TabsEntry, TabsProps } from './Tabs.types.js';
-
-function TabsIcon({ icon }: { icon: TabsEntry['icon'] }) {
-  return (
-    <span aria-hidden="true" className="chayns-tabs__icon">
-      <i className={`far ${icon}`} />
-    </span>
-  );
-}
+import type { TabsProps } from './Tabs.types.js';
+import TabsIcon from './tabs-icon/TabsIcon.js';
 
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>(function Tabs(
   { addLabel, className, onAdd, tabs, ...rootProps },
@@ -121,3 +114,5 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(function Tabs(
     </div>
   );
 });
+
+Tabs.displayName = 'Tabs';

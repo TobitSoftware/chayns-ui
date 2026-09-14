@@ -3,7 +3,7 @@ import { useContext, useId, useState } from 'react';
 import { AccordionDepthContext, AccordionGroupContext } from './AccordionContext.js';
 import type { AccordionProps } from './Accordion.types.js';
 
-function Accordion({
+const Accordion = ({
   children,
   className,
   defaultOpen = false,
@@ -12,7 +12,7 @@ function Accordion({
   onOpenChange,
   open,
   title,
-}: AccordionProps) {
+}: AccordionProps) => {
   const depth = useContext(AccordionDepthContext);
   const group = useContext(AccordionGroupContext);
   const generatedId = useId();
@@ -90,6 +90,6 @@ function Accordion({
       </div>
     </div>
   );
-}
+};
 
 export default Accordion;

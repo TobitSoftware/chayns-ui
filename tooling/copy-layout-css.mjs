@@ -6,6 +6,6 @@ const outputDirectory = resolve(packageDirectory, 'dist');
 
 await mkdir(outputDirectory, { recursive: true });
 await copyFile(
-  resolve(packageDirectory, 'src/app-layout.css'),
+  resolve(packageDirectory, 'src/components/app-layout/app-layout.css'),
   resolve(outputDirectory, 'app-layout.css'),
 );

@@ -1,5 +1,5 @@
 import type { ButtonProps } from './Button.types.js';
-import ButtonIcon from './ButtonIcon.js';
+import ButtonIcon from './button-icon/ButtonIcon.js';
 
 function Button({
   children,

@@ -1,6 +1,6 @@
 import type { ListProps } from './List.types.js';
 
-function List({ children, className, ...listProps }: ListProps) {
+const List = ({ children, className, ...listProps }: ListProps) => {
   const resolvedClassName = ['chayns-list', className].filter(Boolean).join(' ');
 
   return (
@@ -8,6 +8,6 @@ function List({ children, className, ...listProps }: ListProps) {
       {children}
     </ul>
   );
-}
+};
 
 export default List;

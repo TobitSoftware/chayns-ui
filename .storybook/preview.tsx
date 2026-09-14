@@ -4,7 +4,7 @@ import type { Preview } from '@storybook/react-vite';
 import '../packages/tokens/dist/baseline.css';
 import '../packages/tokens/dist/patch.css';
 import '../packages/core/src/styles.css';
-import '../packages/layout/src/app-layout.css';
+import '../packages/layout/src/components/app-layout/app-layout.css';
 import './preview.css';
 
 const COLOR_MODE_CLASSES = ['chayns-theme--light', 'chayns-theme--dark'];

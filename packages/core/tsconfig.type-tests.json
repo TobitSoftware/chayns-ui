@@ -7,5 +7,5 @@
     "types": ["react"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["src/**/*.test.tsx", "src/**/*.stories.tsx"]
+  "exclude": ["src/**/*.test.tsx", "stories/**/*.stories.tsx"]
 }

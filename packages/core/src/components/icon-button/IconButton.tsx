@@ -1,5 +1,5 @@
 import type { IconButtonProps } from './IconButton.types.js';
-import ButtonIcon from '../button/ButtonIcon.js';
+import ButtonIcon from '../button/button-icon/ButtonIcon.js';
 
 function IconButton({
   className,

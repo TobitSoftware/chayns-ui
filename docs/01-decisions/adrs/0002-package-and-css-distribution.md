@@ -45,3 +45,17 @@ explicit, side-effect-free CSS export model from this ADR therefore remains in e
 until a concrete alternative distribution mechanism (e.g. bundler-only vs. Node-safe conditional
 exports) is designed and confirmed as its own decision. This ADR is not superseded by this
 addendum; it only records the investigated and rejected naive approach.
+
+## Addendum (2026-09-14): JavaScript subpath exports removed
+
+Milestone 1 originally shipped explicit JavaScript subpath exports (`./button`) alongside the root
+export, as recorded above and in DIST-012. A subsequent, self-contained restructuring on
+`feature/app-layout` removed all JavaScript subpath exports in favor of a single root export (`.`)
+per package, and was merged into `main` on 2026-09-14 per explicit user instruction. Only the root
+JavaScript export remains; CSS subpath exports (`./button.css`, `./card.css`, `./avatar.css`,
+`./list.css`, `./accordion.css`, `./styles.css`) are unaffected and continue exactly as before.
+Side-effect-free JavaScript and `preserveModules` output remain the tree-shaking guarantee, now
+verified for the root import only (`tooling/verify-tree-shaking.mjs`). This is tracked as DIST-015
+(CONFIRMED) in the UI Decision Register, which supersedes DIST-012. DIST-013 (side-effect-free
+JavaScript, explicit CSS exports) is unchanged by this addendum.
+
