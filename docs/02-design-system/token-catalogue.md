@@ -207,8 +207,8 @@ The direct values are confirmed. Local size variants and global Density remain s
 |---|---|---|---|---|---|---|---|---|---|
 | `--icon` | Icon Geometry | Primitive | Standard documented icon geometry. | `calc(16 * var(--u))` | density-dependent | S / M / L | PARTIAL | DesignSystem CSS; ICON-001–003 | Local icon-variant contract remains DESIGN REVIEW. |
 | `--icon-lg` | Icon Geometry | Primitive | Larger documented icon geometry. | `calc(19 * var(--u))` | density-dependent | S / M / L | PARTIAL | DesignSystem CSS | Does not create a general icon-size API. |
-| `--avatar` | Avatar Geometry | Component-specific | Documented default avatar geometry. | `calc(42 * var(--u))` | density-dependent | S / M / L | PARTIAL | DesignSystem CSS; DENSITY-005–006 | Relation to local Avatar variants is not confirmed. |
-| `--avatar-sm` | Avatar Geometry | Component-specific | Documented smaller avatar geometry. | `calc(34 * var(--u))` | density-dependent | S / M / L | PARTIAL | DesignSystem CSS; DENSITY-005–006 | Relation to local Avatar variants is not confirmed. |
+| `--avatar` | Avatar Geometry | Component-specific | Documented default avatar geometry. | `calc(42 * var(--u))` | density-dependent | S / M / L | CONFIRMED | DesignSystem CSS; DENSITY-005–006; AVATAR-005 | Used by Avatar `size="default"`. |
+| `--avatar-sm` | Avatar Geometry | Component-specific | Documented smaller avatar geometry. | `calc(34 * var(--u))` | density-dependent | S / M / L | CONFIRMED | DesignSystem CSS; DENSITY-005–006; AVATAR-005 | Used by Avatar `size="small"`. |
 
 ## 17. Motion
 

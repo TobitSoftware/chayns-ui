@@ -7,10 +7,10 @@
 - Specification Status: READY FOR IMPLEMENTATION
 - Owner / Responsible Area: chayns UI Core
 - Design Reference: chayns Design System list rows (`.row-anim` row treatment, surface/border/hover language from `tobit-ds.css`), inspected 2026-08-21
-- Relevant Decision IDs: CORE-001–007, LIST-001–004, A11Y-001–007, DENSITY-001–005, DIST-012–013
+- Relevant Decision IDs: CORE-001–007, LIST-001–005, A11Y-001–007, DENSITY-001–005, DIST-012–013
 - Foundation Dependencies: token catalogue transfer (`--text`, `--text-3`, `--accent`, `--hover`, `--disabled-fg`, `--fs-body`, `--fs-meta`, `--k8`, `--k12`, `--k16`, focus-ring tokens), density matrix, generated `@chayns-ui/tokens` subset
 - Related Components: Card (surface), Accordion (disclosure)
-- Last Reviewed: 2026-08-21
+- Last Reviewed: 2026-09-14
 
 ## Purpose — Required
 
@@ -18,7 +18,7 @@ List renders a vertical collection of rows. ListItem renders a single row with a
 
 ## Use When — Required
 
-Use List + ListItem to present a vertical sequence of comparable rows (messages, entries, settings). Use `href` for a row that navigates and `onClick` for a row that performs an action. Use the `trailing` slot for row-level secondary controls or metadata.
+Use List + ListItem to present a vertical sequence of comparable rows (messages, entries, settings). Use `href` for a row that navigates and `onClick` for a row that performs an action. Use the `trailing` slot for row-level metadata or secondary controls displayed on the right, outside the row action.
 
 ## Do Not Use When — Required
 
@@ -36,11 +36,11 @@ Card is a plain surface; List adds row structure. Accordion adds disclosure. A r
 - Optional unread indicator: `chayns-list-item__unread` (accent dot) with an optional visually-hidden localized label.
 - Optional leading slot: `chayns-list-item__leading`.
 - Body: `chayns-list-item__body` containing `chayns-list-item__title` and optional `chayns-list-item__subtitle`.
-- Optional trailing slot: `chayns-list-item__trailing`, a sibling of the row action inside the `<li>`.
+- Optional trailing/right slot: `chayns-list-item__trailing`, a sibling of the row action inside the `<li>`.
 
 ## Semantic Contract — Conditional
 
-List is a native `<ul>`; each ListItem is a native `<li>`. A row that navigates is a native `<a>`; a row that acts is a native `<button type="button">`; a static row is a non-interactive `<div>`. Trailing interactive controls are never nested inside the row action element. The unread indicator exposes a localized accessible name via a visually-hidden span when `unreadLabel` is provided and is otherwise `aria-hidden`.
+List is a native `<ul>`; each ListItem is a native `<li>`. A row that navigates is a native `<a>`; a row that acts is a native `<button type="button">`; a static row is a non-interactive `<div>`. Trailing/right-slot interactive controls are never nested inside the row action element. The unread indicator exposes a localized accessible name via a visually-hidden span when `unreadLabel` is provided and is otherwise `aria-hidden`.
 
 ## Variants — Required
 
@@ -89,11 +89,11 @@ List forwards all native `ul` props, `className` and `ref`. ListItem exposes an 
 
 ## Native Props and DOM Contract — Conditional
 
-List emits one `<ul>`. ListItem emits one `<li>` containing exactly one row action element and, when provided, one trailing element as its sibling. The row action is `<a>`, `<button>` or `<div>` per the rules above.
+List emits one `<ul>`. ListItem emits one `<li>` containing exactly one row action element and, when provided, one right element as its sibling. The row action is `<a>`, `<button>` or `<div>` per the rules above.
 
 ## Composition — Required
 
-List composes ListItem children (or arbitrary `<li>` content). ListItem composes `leading`, `title`, `subtitle` and `trailing` content provided by the consumer. Trailing controls are the consumer's responsibility to make accessible; the component only positions them outside the row action.
+List composes ListItem children (or arbitrary `<li>` content). ListItem composes `leading`, `title`, `subtitle` and `trailing` content provided by the consumer. Trailing/right-slot controls are the consumer's responsibility to make accessible; the component only positions them outside the row action. `Avatar` is a supported consumer composition for `leading`.
 
 ## Context Dependencies — Required
 
@@ -125,7 +125,7 @@ List/ListItem use native list semantics. Interactive rows are native links/butto
 
 ## Keyboard Contract — Conditional
 
-Native: Tab/Shift+Tab move between interactive rows and trailing controls; Enter activates links and buttons; Space activates buttons. Static rows are not focusable. Disabled action rows are skipped.
+Native: Tab/Shift+Tab move between interactive rows and trailing/right-slot controls; Enter activates links and buttons; Space activates buttons. Static rows are not focusable. Disabled action rows are skipped.
 
 ## Focus Contract — Conditional
 
@@ -145,7 +145,7 @@ List fills its container's inline size. Rows are single-line with truncating tex
 
 ## Container Interaction — Conditional
 
-The container owns List placement and external spacing. Within a row, the row action owns its internal padding and the trailing slot owns its own end padding.
+The container owns List placement and external spacing. Within a row, the row action owns its internal padding and the trailing/right slot is aligned to the title line, right-aligned, uses the subtitle typography/color (`--fs-meta`/`--text-3`), and owns its own end padding.
 
 ## Loading and Async Contract — Required
 
@@ -178,7 +178,7 @@ Consumers may extend List via native `ul` props/`className` and provide custom `
 
 ## Do / Don't — Recommended
 
-- Do put row-level secondary actions in `trailing`.
+- Do put row-level secondary actions in `trailing` (the visual right slot).
 - Don't wrap the whole row action and a trailing button in one interactive element.
 
 ## Test Contract — Required
@@ -188,7 +188,7 @@ Consumers may extend List via native `ul` props/`className` and provide custom `
 - Action row renders a `<button>` and forwards clicks; disabled action row does not activate.
 - Link row renders an `<a href>`.
 - Unread indicator exposes a localized visually-hidden label.
-- Trailing controls are siblings of, not inside, the row action.
+- Trailing/right-slot controls are siblings of, not inside, the row action.
 - Server-renders without error.
 
 ## Visual Verification Contract — Conditional
@@ -214,7 +214,7 @@ LIST-001–004.
 
 ## Open Decisions — Required
 
-None blocking. Selection, virtualization and swipe actions are explicitly out of Milestone 1 scope.
+Selection, virtualization and swipe actions are explicitly out of Milestone 1 scope. The existing `trailing` prop is the public API for the visual right slot.
 
 ## Readiness Assessment — Required
 

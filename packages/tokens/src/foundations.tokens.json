@@ -76,6 +76,16 @@
       "$value": "calc(19 * var(--u))",
       "$extensions": { "chayns": { "cssName": "--icon-lg" } }
     },
+    "avatar": {
+      "$type": "string",
+      "$value": "calc(42 * var(--u))",
+      "$extensions": { "chayns": { "cssName": "--avatar" } }
+    },
+    "avatar-sm": {
+      "$type": "string",
+      "$value": "calc(34 * var(--u))",
+      "$extensions": { "chayns": { "cssName": "--avatar-sm" } }
+    },
     "k2": {
       "$type": "string",
       "$value": "calc(2 * var(--u))",

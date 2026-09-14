@@ -6,7 +6,7 @@
 - Component Category: Core
 - Component Specification: `list-specification.md`
 - Specification Status: READY FOR IMPLEMENTATION
-- Relevant Decision IDs: CORE-001–007, LIST-001–004, A11Y-001–007, DENSITY-001–005, DIST-012–013
+- Relevant Decision IDs: CORE-001–007, LIST-001–005, A11Y-001–007, DENSITY-001–005, DIST-012–013
 - Foundation Dependencies: token transfer for `--text`, `--text-3`, `--accent`, `--hover`, `--disabled-fg`, `--fs-body`, `--fs-meta`, `--k8`–`--k16`, focus-ring tokens
 - Related Components: Card, Accordion
 - Review Context: Design System row language transferred from `tobit-ds.css`; user authorized Milestone-1 implementation of Card/List/Accordion
@@ -18,14 +18,14 @@
 | # | Check | Result | Evidence / Reason |
 |---|---|---|---|
 | 01 | Specification Exists | PASS | Normative List/ListItem specification exists in this directory. |
-| 02 | Specification Status | PASS | READY FOR IMPLEMENTATION with zero blockers. |
-| 03 | Source Decisions | PASS | Design System row treatment and repository decisions cited. |
+| 02 | Specification Status | PASS | The revised specification is READY FOR IMPLEMENTATION. |
+| 03 | Source Decisions | PASS | LIST-005 confirms the existing trailing API as the visual right slot. |
 | 04 | Component Category and Boundary | PASS | Generic visible rows are Core; no business/chayns API behavior. |
 | 05 | Purpose and Selection Boundary | PASS | List vs Card vs Accordion boundaries are explicit. |
-| 06 | Anatomy and Composition | PASS | `ul` > `li` > row action (+ trailing sibling); slots defined. |
-| 07 | Semantic Contract | PASS | Native list; `<a>`/`<button>`/`<div>` row modes; trailing never nested. |
-| 08 | Public API Contract | PASS | `ListProps`/`ListItemProps`, mutually exclusive `href`/`onClick`, defaults. |
-| 09 | DOM Contract | PASS | One `ul`; one `li` with a single row action and optional trailing sibling. |
+| 06 | Anatomy and Composition | PASS | `ul` > `li` > row action (+ right sibling); slots defined. |
+| 07 | Semantic Contract | PASS | Native list; `<a>`/`<button>`/`<div>` row modes; right controls never nested. |
+| 08 | Public API Contract | PASS | Existing `trailing` remains the public right-slot API. |
+| 09 | DOM Contract | PASS | One `ul`; one `li` with a single row action and optional right sibling. |
 | 10 | Variants | PASS | Three prop-derived row modes; no invented color variants. |
 | 11 | Local Size Variants vs Density | PASS | No local S/M/L; spacing/text resolve via density tokens. |
 | 12 | State Model | PASS | default/hover/focus-visible/disabled scoped to interactive rows. |
@@ -41,23 +41,24 @@
 | 22 | Focus | PASS | `:focus-visible` softened-accent `box-shadow` ring; no programmatic focus. |
 | 23 | Motion | PASS | Short background transition only; disabled under reduced motion. |
 | 24 | Internationalization and Content | PASS | Consumer-resolved localizable title/subtitle/unreadLabel; no fragments; truncation visual only. |
-| 25 | Responsive and Layout | PASS | Fills inline size; body shrinks, leading/trailing keep size. |
+| 25 | Responsive and Layout | PASS | Fills inline size; body shrinks, leading/right keep size. |
 | 26 | Container Interaction | PASS | Container owns placement and external spacing. |
 | 27 | Loading and Async | N/A | Not supported by a static list. |
 | 28 | Error / Invalid | N/A | List owns no validation/error state. |
 | 29 | Dependencies | PASS | React peer only; explicit token/Core CSS; no runtime deps. |
 | 30 | Escape Hatches and Overrides | PASS | Native props/className and slots allowed; no interactive nesting. |
-| 31 | Test Contract | PASS | Render, row modes, disabled, unread label, trailing-sibling and SSR cases implemented. |
+| 31 | Test Contract | PASS | Render, row modes, disabled, unread label, right-sibling and SSR cases are specified. |
 | 32 | Visual Verification Contract | PASS | Row modes across states and light/dark defined. |
 | 33 | AI Usage Contract | PASS | Selection, context and forbidden assumptions are explicit. |
-| 34 | Open Decisions | PASS | No blocking OPENs; selection/virtualization out of scope. |
+| 34 | Open Decisions | PASS | No blocking ListItem API decisions remain. |
 | 35 | Repository Preconditions | PASS | Workspace, tokens, Core build, tests and Storybook are green. |
 | 36 | Required Reviews / Approvals | PASS | User authorized Milestone-1 List implementation. |
 | 37 | Implementation Plan Is Decision-Free | PASS | Tasks map directly to the complete specification. |
 
 ## Blocking Items
 
-No blocking items.
+The existing `trailing` prop remains the public API and is documented as the
+visual right slot.
 
 ## N/A Justifications
 
@@ -70,4 +71,5 @@ No blocking items.
 - Total BLOCK: 0
 - Gate Result: READY
 
-This READY result authorizes implementation only for the List and ListItem contracts in the referenced specification.
+This READY result authorizes implementation of the documented List/ListItem
+contract, including Avatar composition through `leading`.

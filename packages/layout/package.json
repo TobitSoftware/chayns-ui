@@ -1,0 +1,43 @@
+{
+  "name": "@chayns-ui/layout",
+  "version": "0.1.0",
+  "description": "Accessible application layout components for chayns UI",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TobitSoftware/chayns-ui.git",
+    "directory": "packages/layout"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./app-layout.css": "./dist/app-layout.css",
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "@chayns-ui/core": ">=0.2.1",
+    "react": ">=19.2 <20"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "vite build && node ../../tooling/copy-layout-css.mjs && tsc -b tsconfig.build.json --force",
+    "clean": "node ../../tooling/clean-package.mjs layout",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

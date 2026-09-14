@@ -53,6 +53,31 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | LAYOUT-002 | LAYOUT | Layout darf Core-Komponenten verwenden. | CONFIRMED | Architecture | |
 | LAYOUT-003 | LAYOUT | Produktübergreifende App-, Grid- und Workspace-Layouts werden zentral abgebildet. | CONFIRMED | Architecture, Vision | |
 | LAYOUT-004 | LAYOUT | Komplexe Layout-Designregeln benötigen eine eindeutige DesignSystem-Beschreibung. | DESIGN REVIEW | Architecture | App-Layout/Product-Pattern mit Design abstimmen. |
+| LAYOUT-005 | LAYOUT | AppLayout ist eine wiederverwendbare Layout-Komponente für 64px-Header, linke Navigation und Content-Fläche; sie enthält keine Routing-, Business- oder Persistenzlogik. | CONFIRMED | AppLayout specification, User input | |
+| LAYOUT-006 | LAYOUT | AppLayout erhält Logo-URL, rekursive Items, `onClick(id)`, optionales `activeItemId` und Consumer-`children`; Header-Aktionen sind zunächst nicht Teil der API. | CONFIRMED | AppLayout specification, User input | |
+| LAYOUT-007 | LAYOUT | Parent- und Child-Navigationseinträge sind jeweils klickbar; Items sind rekursiv. | CONFIRMED | User input | Disclosure- und Dual-Action-Semantik separat klären. |
+| LAYOUT-008 | LAYOUT | Sidebar-Collapse unterstützt interne Standardsteuerung und optional kontrollierte Steuerung; der Toggle sitzt unten links. | CONFIRMED | User input | |
+| LAYOUT-009 | LAYOUT | Logo wird als Bild- oder SVG-URL übergeben; `items[].icon` ist ein Font-Awesome-String. | CONFIRMED | User input | Exaktes Stringformat und Rendergrenze offen. |
+| LAYOUT-010 | LAYOUT | Aktiver Navigationseintrag wird über `activeItemId` von außen geliefert. | CONFIRMED | User input | Verhalten aktiver Ancestors und Disclosure offen. |
+| LAYOUT-011 | LAYOUT | Die AppLayout-Implementierung bleibt blockiert, bis Semantik, Tokens, Responsive-Verhalten und Accessibility eindeutig bestätigt sind. | CONFIRMED | Component Implementation Readiness Gate | |
+| LAYOUT-012 | LAYOUT | AppLayout verwendet denselben Font-Awesome-Vertrag wie IconButton: `fa-*`-Name; Regular ist der Ruhezustand, Solid wird bei Interaktion verwendet. | CONFIRMED | IconButton contract, User input | |
+| LAYOUT-013 | LAYOUT | Parent-Items verwenden einen separaten nativen Action-Button und Disclosure-Button; Action löst `onClick(id)` aus, Disclosure ändert nur den offenen Zustand. | CONFIRMED | User input, AppLayout specification | |
+| LAYOUT-014 | LAYOUT | Die Sidebar bleibt auf kleinen Viewports eine feste linke Spalte; eine automatische Overlay-/Drawer-Variante ist nicht Teil der Implementierung. | CONFIRMED | User input | |
+| LAYOUT-015 | LAYOUT | Eingeklappte Items bleiben tastaturerreichbar und behalten ihren Accessible Name; nur sichtbare Labels werden ausgeblendet. | CONFIRMED | User input | |
+| LAYOUT-016 | LAYOUT | Das Logo ist dekorativ und wird mit leerem `alt` gerendert. | CONFIRMED | User input | |
+| LAYOUT-017 | LAYOUT | Collapse- und Expand-Labels werden als lokalisierbare Pflicht-Props übergeben. | CONFIRMED | User input, Internationalization | |
+| LAYOUT-018 | LAYOUT | AppLayout wird als `@chayns-ui/layout` mit React- und `@chayns-ui/core`-Peer-Dependencies veröffentlicht. | CONFIRMED | User input | |
+| LAYOUT-019 | LAYOUT | AppLayout animiert den Wechsel zwischen expandierter und eingeklappter Sidebar über `grid-template-columns`; die Content-Fläche verschiebt sich synchron. | CONFIRMED | User input | AppLayout-spezifische Motion-Ausnahme. |
+| LAYOUT-020 | LAYOUT | Tabs ist als Layout-Komponente mit einem `tabs`-Array vorgesehen; jeder Eintrag liefert `icon`, `name`, `isActive`, `onClick` und `content`. | CONFIRMED | User input, Tabs specification | Specification remains blocked until interaction details are confirmed. |
+| LAYOUT-021 | LAYOUT | Der aktive Tab inklusive optionalem Remove-Control verwendet als durchgehende Fläche `--surface` mit gemeinsamer oberer Rundung und `--accent` als Text-/Icon-Farbe; inaktive Tabs und Remove-Controls verwenden eine 10%-`--surface`-Überlagerung und den kontrastberechneten `--on-accent`-Text-/Icon-Token. Das Remove-Icon ist kleiner. Tab-Leiste und Add-Button bleiben transparent. | CONFIRMED | User input, token catalogue | No additional active indicator is used; geometry follows the implemented token contract. |
+| LAYOUT-022 | LAYOUT | Tabs rendert ausschließlich den Inhalt des aktiven Eintrags. | CONFIRMED | User input, Tabs specification | Behavior for zero or multiple active entries remains open. |
+| LAYOUT-023 | LAYOUT | Tabs verwendet das ARIA-Tabs-Pattern mit Pfeiltasten-Navigation, Roving Tabindex, native Buttons als Aktivierungselemente und automatischer Aktivierung; Pfeilnavigation ist zyklisch und Home/End springen an den Anfang beziehungsweise das Ende. | CONFIRMED | User input, Accessibility specification | Invalid active-state handling remains open. |
+| LAYOUT-024 | LAYOUT | Die Tabs-Implementierung bleibt blockiert, bis State-Synchronisation, Accessibility, Responsive-Verhalten, Tokens und DOM-Vertrag eindeutig bestätigt sind. | SUPERSEDED | Component Implementation Readiness Gate | Superseded by LAYOUT-027 after Tabs contract confirmation. |
+| LAYOUT-025 | LAYOUT | Bei Tabs wird bei keinem aktiven Eintrag der erste Eintrag, bei mehreren aktiven Einträgen der erste aktive Eintrag als Auswahl behandelt. | CONFIRMED | User input, Tabs specification | Verhalten bei nachträglich inkonsistentem Consumer-State bleibt zu prüfen. |
+| LAYOUT-026 | LAYOUT | Bei zu wenig verfügbarer Breite blendet Tabs die sichtbaren Namen aus und zeigt nur die Icons; die Namen bleiben als Accessible Names erhalten. | CONFIRMED | User input, Tabs specification | The responsive trigger is a CSS container query. |
+| LAYOUT-027 | LAYOUT | Tabs verwendet den bestätigten DOM-, Panel-, Fokus-, State-, Responsive- und Motion-Vertrag aus der Tabs-Spezifikation und ist implementierungsbereit. | CONFIRMED | User input, Tabs specification, Tabs readiness assessment | |
+| LAYOUT-028 | LAYOUT | Ein Tab kann optional `onRemove` liefern; dann wird rechts ein `fa-xmark`-Affordance innerhalb desselben nativen Tab-Buttons gerendert. Klick auf das Icon sowie Delete/Backspace bei Fokus lösen `onRemove` aus. | CONFIRMED | User input, Tabs specification | |
+| LAYOUT-029 | LAYOUT | Tabs kann optional über `onAdd` und `addLabel` einen separaten `fa-plus`-Button zum Hinzufügen rendern. | CONFIRMED | User input, Tabs specification | |
 
 ## Design Tokens
 
@@ -247,6 +272,18 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | LIST-002 | LIST | Sekundäre Zeilen-Controls liegen im `trailing`-Slot als Geschwister der Zeilenaktion, niemals verschachtelt in ihr (gültige interaktive Semantik). | CONFIRMED | List Specification, Accessibility | |
 | LIST-003 | LIST | Der Unread-Indikator wird nicht nur über Farbe vermittelt; bei Bedeutung liefert `unreadLabel` einen lokalisierten visually-hidden Namen. Titel und Subtitle sind einzeilig und kürzen per Ellipsis statt Schrift zu verkleinern. | CONFIRMED | List Specification, Accessibility | |
 | LIST-004 | LIST | Milestone 1 hat kein Selection-, Virtualisierungs-, Mehrspalten-, Drag-and-drop- oder Swipe-Modell. | CONFIRMED | List Specification | |
+| LIST-005 | LIST | Der bestehende `trailing`-Slot ist die öffentliche API für Metadaten oder sekundäre Controls auf der rechten Seite und bleibt Geschwister der Zeilenaktion. | CONFIRMED | User input 2026-09-14, List specification | |
+
+## Avatar
+
+| ID | Category | Decision | Status | Source | Follow-up |
+|---|---|---|---|---|---|
+| AVATAR-001 | AVATAR | Avatar bildet aus dem ersten und letzten Namenswort maximal zwei großgeschriebene Initialen; bei einem Namenswort wird nur dessen erster Buchstabe verwendet. | CONFIRMED | User input 2026-09-14 | |
+| AVATAR-002 | AVATAR | Avatar unterstützt optional `src`; ohne verwendbares Bild werden die Initialen angezeigt. | CONFIRMED | User input 2026-09-14 | Bildfehler- und Accessible-Name-Verhalten spezifizieren. |
+| AVATAR-003 | AVATAR | Avatar unterstützt einen frei komponierbaren optionalen Badge-/Bottom-Slot. | CONFIRMED | User input 2026-09-14 | Dekorative versus interaktive Badge-Semantik spezifizieren. |
+| AVATAR-004 | AVATAR | Der Initialen-Fallback verwendet eine deterministisch aus dem Namen abgeleitete Farbe aus `--accent`, `--accent-hover` oder `--accent-active` mit `--on-accent` als Vordergrund. | CONFIRMED | User input 2026-09-14, Avatar specification | |
+| AVATAR-005 | AVATAR | Avatar unterstützt die expliziten Größen `default` und `small`, gemappt auf `--avatar` beziehungsweise `--avatar-sm`; dies ist keine S/M/L-API. | CONFIRMED | User input 2026-09-14, Avatar specification | |
+| AVATAR-006 | AVATAR | `AvatarGroup` komponiert Avatar-Children überlappend, begrenzt mit `max` die sichtbaren Tiles auf `max - 1` Avatare plus eine dekorative `+N`-Restkachel und wendet `size` auf alle Children an. | CONFIRMED | User input 2026-09-14, Avatar specification | |
 
 ## Milestone 1 Token Transfer
 
