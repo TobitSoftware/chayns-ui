@@ -1,4 +1,8 @@
 {
   "files": [],
-  "references": [{ "path": "./packages/core" }, { "path": "./packages/tokens" }]
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/layout" },
+    { "path": "./packages/tokens" }
+  ]
 }

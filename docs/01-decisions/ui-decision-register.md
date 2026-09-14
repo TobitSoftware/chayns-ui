@@ -53,6 +53,21 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | LAYOUT-002 | LAYOUT | Layout darf Core-Komponenten verwenden. | CONFIRMED | Architecture | |
 | LAYOUT-003 | LAYOUT | Produktübergreifende App-, Grid- und Workspace-Layouts werden zentral abgebildet. | CONFIRMED | Architecture, Vision | |
 | LAYOUT-004 | LAYOUT | Komplexe Layout-Designregeln benötigen eine eindeutige DesignSystem-Beschreibung. | DESIGN REVIEW | Architecture | App-Layout/Product-Pattern mit Design abstimmen. |
+| LAYOUT-005 | LAYOUT | AppLayout ist eine wiederverwendbare Layout-Komponente für 64px-Header, linke Navigation und Content-Fläche; sie enthält keine Routing-, Business- oder Persistenzlogik. | CONFIRMED | AppLayout specification, User input | |
+| LAYOUT-006 | LAYOUT | AppLayout erhält Logo-URL, rekursive Items, `onClick(id)`, optionales `activeItemId` und Consumer-`children`; Header-Aktionen sind zunächst nicht Teil der API. | CONFIRMED | AppLayout specification, User input | |
+| LAYOUT-007 | LAYOUT | Parent- und Child-Navigationseinträge sind jeweils klickbar; Items sind rekursiv. | CONFIRMED | User input | Disclosure- und Dual-Action-Semantik separat klären. |
+| LAYOUT-008 | LAYOUT | Sidebar-Collapse unterstützt interne Standardsteuerung und optional kontrollierte Steuerung; der Toggle sitzt unten links. | CONFIRMED | User input | |
+| LAYOUT-009 | LAYOUT | Logo wird als Bild- oder SVG-URL übergeben; `items[].icon` ist ein Font-Awesome-String. | CONFIRMED | User input | Exaktes Stringformat und Rendergrenze offen. |
+| LAYOUT-010 | LAYOUT | Aktiver Navigationseintrag wird über `activeItemId` von außen geliefert. | CONFIRMED | User input | Verhalten aktiver Ancestors und Disclosure offen. |
+| LAYOUT-011 | LAYOUT | Die AppLayout-Implementierung bleibt blockiert, bis Semantik, Tokens, Responsive-Verhalten und Accessibility eindeutig bestätigt sind. | CONFIRMED | Component Implementation Readiness Gate | |
+| LAYOUT-012 | LAYOUT | AppLayout verwendet denselben Font-Awesome-Vertrag wie IconButton: `fa-*`-Name; Regular ist der Ruhezustand, Solid wird bei Interaktion verwendet. | CONFIRMED | IconButton contract, User input | |
+| LAYOUT-013 | LAYOUT | Parent-Items verwenden einen separaten nativen Action-Button und Disclosure-Button; Action löst `onClick(id)` aus, Disclosure ändert nur den offenen Zustand. | CONFIRMED | User input, AppLayout specification | |
+| LAYOUT-014 | LAYOUT | Die Sidebar bleibt auf kleinen Viewports eine feste linke Spalte; eine automatische Overlay-/Drawer-Variante ist nicht Teil der Implementierung. | CONFIRMED | User input | |
+| LAYOUT-015 | LAYOUT | Eingeklappte Items bleiben tastaturerreichbar und behalten ihren Accessible Name; nur sichtbare Labels werden ausgeblendet. | CONFIRMED | User input | |
+| LAYOUT-016 | LAYOUT | Das Logo ist dekorativ und wird mit leerem `alt` gerendert. | CONFIRMED | User input | |
+| LAYOUT-017 | LAYOUT | Collapse- und Expand-Labels werden als lokalisierbare Pflicht-Props übergeben. | CONFIRMED | User input, Internationalization | |
+| LAYOUT-018 | LAYOUT | AppLayout wird als `@chayns-ui/layout` mit React- und `@chayns-ui/core`-Peer-Dependencies veröffentlicht. | CONFIRMED | User input | |
+| LAYOUT-019 | LAYOUT | AppLayout animiert den Wechsel zwischen expandierter und eingeklappter Sidebar über `grid-template-columns`; die Content-Fläche verschiebt sich synchron. | CONFIRMED | User input | AppLayout-spezifische Motion-Ausnahme. |
 
 ## Design Tokens
 

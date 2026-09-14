@@ -1,0 +1,277 @@
+@layer chayns.components {
+  .chayns-app-layout {
+    display: grid;
+    grid-template: var(--k64) minmax(0, 1fr) / calc(var(--k64) * 3) minmax(0, 1fr);
+    grid-template-areas:
+      'header header'
+      'sidebar content';
+    min-block-size: 100%;
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .chayns-app-layout__header {
+    display: flex;
+    grid-area: header;
+    align-items: center;
+    min-inline-size: 0;
+    padding-inline: var(--sp-4);
+  }
+
+  .chayns-app-layout__logo {
+    display: block;
+    max-block-size: calc(var(--k32) + var(--k8));
+    max-inline-size: 100%;
+  }
+
+  .chayns-app-layout__sidebar {
+    display: flex;
+    grid-area: sidebar;
+    flex-direction: column;
+    min-block-size: 0;
+    padding: var(--sp-2);
+  }
+
+  .chayns-app-layout__navigation {
+    min-block-size: 0;
+    overflow: auto;
+  }
+
+  .chayns-app-layout__list {
+    display: grid;
+    gap: var(--sp-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .chayns-app-layout__children {
+    display: grid;
+    grid-template-rows: 0fr;
+    min-inline-size: 0;
+    padding-inline-start: var(--sp-4);
+    overflow: hidden;
+  }
+
+  .chayns-app-layout__children--open {
+    grid-template-rows: 1fr;
+  }
+
+  .chayns-app-layout__children > .chayns-app-layout__list {
+    min-block-size: 0;
+    overflow: hidden;
+  }
+
+  .chayns-app-layout__row {
+    display: flex;
+    align-items: stretch;
+    min-inline-size: 0;
+  }
+
+  .chayns-app-layout__item {
+    min-inline-size: 0;
+    border-radius: var(--k8);
+  }
+
+  .chayns-app-layout__item:hover,
+  .chayns-app-layout__item:focus-within,
+  .chayns-app-layout__item--active {
+    background: color-mix(in srgb, var(--on-accent) 16%, transparent);
+  }
+
+  .chayns-app-layout__action,
+  .chayns-app-layout__disclosure,
+  .chayns-app-layout__collapse {
+    border: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    background: transparent;
+  }
+
+  .chayns-app-layout__action {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: var(--sp-2);
+    min-block-size: var(--ctrl-h);
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    padding: var(--sp-2) var(--sp-3);
+    border-radius: var(--k8);
+    background: transparent;
+    text-align: start;
+    white-space: nowrap;
+  }
+
+  .chayns-app-layout__label {
+    min-inline-size: 0;
+    opacity: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .chayns-app-layout--collapsed {
+    grid-template-columns: calc(var(--ctrl-h) + var(--sp-4)) minmax(0, 1fr);
+  }
+
+  .chayns-app-layout__disclosure {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: var(--ctrl-h);
+    border-radius: var(--k8);
+    background: transparent;
+  }
+
+  .chayns-app-layout__collapse {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--ctrl-h);
+    block-size: var(--ctrl-h);
+    align-self: flex-end;
+    border-radius: 50%;
+    background: transparent;
+  }
+
+  .chayns-app-layout__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-block-start: auto;
+    padding-block-start: var(--sp-2);
+    border-block-start: 1px solid color-mix(in srgb, var(--on-accent) 35%, transparent);
+  }
+
+  .chayns-app-layout__collapse:hover {
+    background: color-mix(in srgb, var(--on-accent) 16%, transparent);
+  }
+
+  :where(
+    .chayns-app-layout__action,
+    .chayns-app-layout__disclosure,
+    .chayns-app-layout__collapse
+  ):focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 var(--focus-ring-size) var(--on-accent);
+  }
+
+  .chayns-app-layout__icon {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--icon);
+    block-size: var(--icon);
+    line-height: 1;
+  }
+
+  .chayns-app-layout__disclosure[aria-expanded='true'] .chayns-app-layout__icon {
+    transform: rotate(180deg);
+  }
+
+  .chayns-app-layout__weight {
+    display: inline-flex;
+  }
+
+  .chayns-app-layout__weight--active {
+    display: none;
+  }
+
+  :where(
+      .chayns-app-layout__action:hover,
+      .chayns-app-layout__action:focus-visible,
+      .chayns-app-layout__disclosure:hover,
+      .chayns-app-layout__collapse:hover
+    )
+    .chayns-app-layout__weight:not(.chayns-app-layout__weight--active) {
+    display: none;
+  }
+
+  :where(
+      .chayns-app-layout__action:hover,
+      .chayns-app-layout__action:focus-visible,
+      .chayns-app-layout__disclosure:hover,
+      .chayns-app-layout__collapse:hover
+    )
+    .chayns-app-layout__weight--active {
+    display: inline-flex;
+  }
+
+  .chayns-app-layout__content {
+    grid-area: content;
+    min-inline-size: 0;
+    min-block-size: 0;
+    overflow: auto;
+    border-start-start-radius: var(--k12);
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .chayns-app-layout--collapsed .chayns-app-layout__sidebar {
+    align-items: center;
+  }
+
+  .chayns-app-layout--collapsed .chayns-app-layout__row {
+    position: relative;
+    inline-size: var(--ctrl-h);
+  }
+
+  .chayns-app-layout--collapsed .chayns-app-layout__action {
+    inline-size: var(--ctrl-h);
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  .chayns-app-layout--collapsed .chayns-app-layout__navigation {
+    overflow: hidden;
+  }
+
+  .chayns-app-layout--collapsed .chayns-app-layout__disclosure {
+    display: none;
+  }
+
+  .chayns-app-layout--collapsed .chayns-app-layout__children {
+    display: none;
+  }
+
+  .chayns-app-layout__label--hidden {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    min-inline-size: auto;
+    opacity: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .chayns-app-layout {
+      transition: grid-template-columns 160ms ease;
+    }
+
+    .chayns-app-layout__children {
+      transition: grid-template-rows 160ms ease;
+    }
+
+    .chayns-app-layout__disclosure .chayns-app-layout__icon {
+      transition: transform 160ms ease;
+    }
+  }
+
+  @media (forced-colors: active) {
+    :where(
+      .chayns-app-layout__action,
+      .chayns-app-layout__disclosure,
+      .chayns-app-layout__collapse
+    ):focus-visible {
+      outline: 2px solid ButtonText;
+      outline-offset: -2px;
+      box-shadow: none;
+    }
+  }
+}
