@@ -119,6 +119,7 @@ updates `isActive` is an implementation blocker.
 
 The active tab, including its optional remove control, MUST use the confirmed
 `--surface` token as one shared surface with a continuous rounded top edge and
+the same `--k12` radius used by the AppLayout content corner.
 `--accent` as its text/icon color. Inactive tabs and their optional remove
 controls use a 10% `--surface` overlay over the surrounding background. Their
 text/icon color uses the resolved contrast token for that background, so the

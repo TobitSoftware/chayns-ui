@@ -39,7 +39,7 @@
     display: inline-flex;
     flex: 0 0 auto;
     align-items: stretch;
-    border-radius: var(--k8) var(--k8) 0 0;
+    border-radius: var(--k12) var(--k12) 0 0;
     overflow: hidden;
   }
 
@@ -168,6 +168,7 @@
     display: flex;
     grid-area: sidebar;
     flex-direction: column;
+    min-inline-size: 0;
     min-block-size: 0;
     padding: var(--sp-2);
   }
@@ -352,18 +353,20 @@
   }
 
   .chayns-app-layout--collapsed .chayns-app-layout__sidebar {
-    align-items: center;
+    align-items: stretch;
   }
 
   .chayns-app-layout--collapsed .chayns-app-layout__row {
     position: relative;
-    inline-size: var(--ctrl-h);
+    inline-size: 100%;
+    max-inline-size: 100%;
   }
 
   .chayns-app-layout--collapsed .chayns-app-layout__action {
-    inline-size: var(--ctrl-h);
-    justify-content: center;
-    padding-inline: 0;
+    inline-size: 100%;
+    max-inline-size: 100%;
+    justify-content: flex-start;
+    padding-inline: var(--sp-3);
   }
 
   .chayns-app-layout--collapsed .chayns-app-layout__navigation {
