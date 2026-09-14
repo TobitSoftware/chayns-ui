@@ -29,3 +29,15 @@ The package is modern-only and ESM-only. Consumers requiring React 18, CommonJS 
 - npm or Yarn workspaces: rejected to keep one explicitly selected manager.
 - Turbo or Nx: rejected because two packages and root tooling do not justify another orchestration layer.
 - CommonJS and legacy-browser output: rejected by the confirmed distribution and compatibility decisions.
+
+## Addendum (2026-09-14): loosened consumer compatibility range
+
+Developer feedback questioned why `peerDependencies.react` and `engines.node` mirror the
+development/CI baseline (React 19.2, Node 24) instead of a wider, minimally-required consumer
+range, especially since no React 19.2-only feature (e.g. `useEffectEvent`, `Activity`, `ref` as a
+plain prop) is used by Core or Layout components. Per PLATFORM-004 (UI Decision Register), the
+development/CI baseline in this ADR is unchanged, but the **published** peer/engine ranges are
+loosened to `react >=18 <20` and `node >=18`. Components that forward a `ref` (currently
+`AppLayout`, `Tabs` in `@chayns-ui/layout`) keep `forwardRef` rather than the React 19-only
+`ref`-as-prop pattern, since the range now includes React 18. Button and IconButton do not forward
+a `ref` and are unaffected.

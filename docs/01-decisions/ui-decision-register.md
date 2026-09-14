@@ -78,6 +78,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | LAYOUT-027 | LAYOUT | Tabs verwendet den bestätigten DOM-, Panel-, Fokus-, State-, Responsive- und Motion-Vertrag aus der Tabs-Spezifikation und ist implementierungsbereit. | CONFIRMED | User input, Tabs specification, Tabs readiness assessment | |
 | LAYOUT-028 | LAYOUT | Ein Tab kann optional `onRemove` liefern; dann wird rechts ein `fa-xmark`-Affordance innerhalb desselben nativen Tab-Buttons gerendert. Klick auf das Icon sowie Delete/Backspace bei Fokus lösen `onRemove` aus. | CONFIRMED | User input, Tabs specification | |
 | LAYOUT-029 | LAYOUT | Tabs kann optional über `onAdd` und `addLabel` einen separaten `fa-plus`-Button zum Hinzufügen rendern. | CONFIRMED | User input, Tabs specification | |
+| LAYOUT-030 | LAYOUT | Der Hover-/Fokus-/Active-Overlay für AppLayout-Navigationseinträge und den Collapse-Button (`color-mix(in srgb, var(--on-accent) …%, transparent)` über `--accent`) wird mit 12% statt 16% `--on-accent`-Anteil gerendert. Bei 16% unterschreitet der resultierende Kontrast zwischen `--on-accent`-Text und der aufgehellten `--accent`-Fläche im Light-Mode 4,5:1 (gemessen 4,3:1, automatisiert per Storybook-a11y-Test erkannt); 12% ergibt rechnerisch 4,66:1 (Light) bzw. 6,85:1 (Dark) und behält damit denselben Overlay-Mechanismus bei. | CONFIRMED | Accessibility Implementation Gate (WCAG 2.2 AA color-contrast), gemessen bei `feature/app-layout`-Merge-Verifikation | Betrifft nur den Mix-Anteil, nicht Token-Werte selbst (`--accent`, `--on-accent` unverändert). |
 
 ## Design Tokens
 
@@ -239,7 +240,8 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | DIST-010 | DIST | Die vorherige Major erhält danach nur kritische Bugfixes. | CONFIRMED | Meeting | |
 | DIST-011 | DIST | CSS-Hosting, Cache, Preload und Versionierung sind offen. | OPEN | Architecture | |
 | DIST-012 | DIST | Milestone 1 liefert die ESM-only Pakete `@chayns-ui/core` und `@chayns-ui/tokens` mit expliziten JavaScript-, Typ- und CSS-Subpath-Exports. | CONFIRMED | ADR 0002 | npm-Scope-Berechtigung bleibt externe Publish-Voraussetzung. |
-| DIST-013 | DIST | Core-JavaScript ist side-effect-frei; CSS wird ausschließlich über dokumentierte CSS-Exports explizit importiert. | CONFIRMED | ADR 0002 | |
+| DIST-013 | DIST | Core-JavaScript ist side-effect-frei; CSS wird ausschließlich über dokumentierte CSS-Exports explizit importiert. | CONFIRMED | ADR 0002 | Weiterhin gültig als aktueller Vertrag; DIST-014 dokumentiert eine geprüfte, noch ungelöste Alternative. |
+| DIST-014 | DIST | Ziel ist, dass Consumer beim Import einer Komponente nicht zusätzlich manuell deren CSS importieren müssen. Ein naiver Seiteneffekt-Import (`import './button.css'` direkt in der Komponentendatei) wurde geprüft und verworfen: reines Node.js kann `.css`-Dateien nicht importieren (`ERR_UNKNOWN_FILE_EXTENSION`, reproduziert), was den bestehenden `verify-consumer`-SSR-Vertrag (PLATFORM-003, `node src/ssr.mjs` ohne Bundler) bricht. Eine tragfähige Lösung erfordert einen bewussten Distributionsmechanismus (z. B. bedingte Package-Exports für Bundler- vs. reine-Node-Konsumenten oder einen anderen CSS-Injection-Ansatz) und damit eine neue, explizit zu bestätigende Build-/Export-Architektur – keine stillschweigende Erweiterung der bestehenden Vite-Library-Konfiguration. | TECH REVIEW | Developer feedback, verified 2026-09-14 (reproduced Node `.css`-Import-Fehler) | Konkreten Distributionsmechanismus entscheiden, bevor DIST-013 abgelöst wird; ADR 0002 muss diesen Mechanismus dokumentieren. |
 
 ## Milestone 1 Platform and Button
 
@@ -248,6 +250,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | PLATFORM-001 | PLATFORM | Node 24.19.0, pnpm 11.22.0, TypeScript 6.0.3, React 19.2 und Vite 8 bilden die moderne Milestone-1-Baseline. | CONFIRMED | ADR 0001 | TypeScript 7 nach Toolchain-Support erneut prüfen. |
 | PLATFORM-002 | PLATFORM | Der Browservertrag entspricht Vite 8 Baseline Widely Available: Chrome/Edge 111, Firefox 114 und Safari 16.4 oder neuer; keine Legacy-Polyfills. | CONFIRMED | ADR 0001 | |
 | PLATFORM-003 | PLATFORM | Library-Module sind import-time SSR-safe und erzeugen deterministisches Markup; eventtragende Nutzung liegt in der Client Boundary des Consumers. | CONFIRMED | ADR 0001 | |
+| PLATFORM-004 | PLATFORM | Die Milestone-1-Toolchain-Baseline (PLATFORM-001: Node 24.19.0, React 19.2 zum Entwickeln/Testen) ist von der minimalen Consumer-Anforderung zu unterscheiden. `peerDependencies.react` wird auf `>=18 <20` gelockert, damit Consumer-Projekte mit React 18 oder 19 kompatibel bleiben; `engines.node` wird auf `>=18` gelockert (Node 18 LTS deckt ESM vollständig ab). Da `ref`-as-prop erst ab React 19 existiert, behalten Komponenten, die einen `ref` weiterreichen (aktuell AppLayout, Tabs), `forwardRef`, solange die Range React 18 einschließt; Button/IconButton reichen aktuell keinen `ref` durch und sind davon nicht betroffen. | CONFIRMED | Developer feedback, User decision 2026-09-14 ("ab 18") | Node-Mindestversion `>=18` ist eine plausible Annahme (LTS, ESM-Support) und war nicht explizit vom User bestätigt; bei Bedarf korrigieren. Package.json-Werte (`packages/core`, `packages/layout`, root `engines`) und ADR 0001 sind entsprechend zu aktualisieren. |
 | BUTTON-006 | BUTTON | Milestone 1 unterstützt genau `primary`, `outline`, `ghost` und `danger`; `variant` ist erforderlich. | CONFIRMED | Approved M1 plan | |
 | BUTTON-007 | BUTTON | `IconButton` ist ein separater Export mit zugänglichem Namen und Consumer-geliefertem Regular-/optionalem Active-Icon. | SUPERSEDED | Approved M1 plan | Superseded by BUTTON-012. |
 | BUTTON-008 | BUTTON | Button und IconButton sind native Buttons, verwenden standardmäßig `type="button"`, reichen kompatible native Props/Events und den Ref zum Button durch und verwenden natives `disabled`. | CONFIRMED | Approved M1 plan | |
@@ -276,6 +279,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | LIST-003 | LIST | Der Unread-Indikator wird nicht nur über Farbe vermittelt; bei Bedeutung liefert `unreadLabel` einen lokalisierten visually-hidden Namen. Titel und Subtitle sind einzeilig und kürzen per Ellipsis statt Schrift zu verkleinern. | CONFIRMED | List Specification, Accessibility | |
 | LIST-004 | LIST | Milestone 1 hat kein Selection-, Virtualisierungs-, Mehrspalten-, Drag-and-drop- oder Swipe-Modell. | CONFIRMED | List Specification | |
 | LIST-005 | LIST | Der bestehende `trailing`-Slot ist die öffentliche API für Metadaten oder sekundäre Controls auf der rechten Seite und bleibt Geschwister der Zeilenaktion. | CONFIRMED | User input 2026-09-14, List specification | |
+| LIST-006 | LIST | Der `unread`/`unreadLabel`-Vertrag aus LIST-003 wird durch ein generisches Konzept ersetzt: `trailing` bleibt ein frei komponierbarer `ReactNode`, zusätzlich stellt chayns UI optionale, vorgefertigte „Standard-Content“-Unterkomponenten für wiederkehrende rechte Slot-Inhalte bereit (z. B. ein generischer Status-/Akzent-Indicator ohne chat-spezifische „unread“-Semantik), die Consumer wahlweise in `trailing` komponieren. Der bisherige boolesche `unread`/`unreadLabel`-Vertrag entfällt zugunsten dieses Kompositionsmodells. | CONFIRMED | Developer feedback, User decision 2026-09-14 | Exakter Komponenten-/Prop-Name ist Teil der List-Specification-Revision, kein Registerdetail. |
 
 ## Avatar
 
@@ -321,6 +325,7 @@ Diese Tabelle bewahrt die ursprünglichen OPEN-IDs. Geschlossene Punkte zeigen i
 | OPEN-019 | OPEN | Produktweite Timezone-Policy für benutzerseitig dargestellte Zeitwerte. | OPEN | Planning | Vor Komponenten mit fachlicher Zeitdarstellung entscheiden. |
 | OPEN-020 | OPEN | Ob RTL als Produktanforderung unterstützt wird und welche Produktpatterns dadurch betroffen sind. | OPEN | Planning | Vor RTL-relevanter Komponentenimplementierung entscheiden. |
 | OPEN-022 | OPEN | Strategie für von chayns UI selbst verantwortete sichtbare Standardtexte, falls eine Core Component solche Texte benötigt. | OPEN | Planning | Vor der ersten betroffenen Component entscheiden. |
+| OPEN-023 | OPEN | Systemweite Motion-Duration-/Easing-Token-Werte (Motion Primitives) sind noch nicht vollständig aus dem DesignSystem in den Token Catalogue übertragen; insbesondere die dritte, in der DesignSystem-Prosa erwähnte Easing-Kurve für Mikrointeraktionen war in den geprüften statischen Assets nicht mit einem konkreten Bezier-Wert auffindbar. Blockiert jede über BUTTON-015 hinausgehende Motion-Erweiterung, die eigene Timing-Werte benötigen würde. | OPEN | Motion Foundation, Token catalogue | Vor weiterer Motion-Token-Erfindung klären/übertragen. |
 
 # Superseded Decisions
 
@@ -338,6 +343,8 @@ Die folgenden Punkte sind bereits zur Abstimmung mit Design vorgesehen:
 * Erweiterter Einsatzbereich von Dialogen.
 * Lokale Größenvarianten ausdrücklich pro Komponente dokumentieren.
 * Komplexe Layout- und App-Layout-Regeln weiter spezifizieren.
+* Erweiterte Button-Motion über BUTTON-015 hinaus: blockiert an OPEN-023 (fehlende dritte Easing-Kurve für Mikrointeraktionen).
+* AppLayout-Sidebar-Motion (`grid-template-columns`, LAYOUT-019): als einzige weitere layout-triggernde Ausnahme neben Accordion unter MOTION-008 bestätigt; keine zusätzlichen Layout-Property-Ausnahmen ohne gleichwertige Performance-Prüfung.
 
 # Maintenance Rules
 

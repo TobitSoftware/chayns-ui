@@ -123,7 +123,7 @@ importers:
   packages/core:
     dependencies:
       react:
-        specifier: '>=19.2 <20'
+        specifier: '>=18 <20'
         version: 19.2.8
 
   packages/layout:
@@ -132,7 +132,7 @@ importers:
         specifier: '>=0.2.1'
         version: 0.2.1(react@19.2.8)
       react:
-        specifier: '>=19.2 <20'
+        specifier: '>=18 <20'
         version: 19.2.8
 
   packages/tokens: {}
