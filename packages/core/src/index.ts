@@ -8,6 +8,13 @@ export type {
   IconButtonProps,
 } from './components/button/Button.types.js';
 
+export { default as Popup } from './components/popup/Popup.js';
+export { default as PopupList } from './components/popup/PopupList.js';
+export type { PopupListItem, PopupListProps, PopupProps } from './components/popup/Popup.types.js';
+
+export { default as SplitButton } from './components/split-button/SplitButton.js';
+export type { SplitButtonProps } from './components/split-button/SplitButton.types.js';
+
 export { default as Card } from './components/card/Card.js';
 export type { CardProps } from './components/card/Card.types.js';
 

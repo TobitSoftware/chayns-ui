@@ -38,7 +38,7 @@ pnpm add @chayns-ui/core @chayns-ui/tokens react
 ```
 
 ```tsx
-import { Button, IconButton } from '@chayns-ui/core';
+import { Button, IconButton, SplitButton } from '@chayns-ui/core';
 
 // Einmal pro App die Token-Basis laden:
 import '@chayns-ui/tokens/baseline.css';
@@ -54,6 +54,12 @@ export function Example() {
         Speichern
       </Button>
       <IconButton aria-label="Optionen" icon="fa-ellipsis" variant="ghost" />
+      <SplitButton
+        items={[{ icon: 'fa-clock', text: 'Später senden', onClick: () => undefined }]}
+        variant="primary"
+      >
+        Senden
+      </SplitButton>
     </>
   );
 }
