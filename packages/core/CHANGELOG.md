@@ -1,5 +1,28 @@
 # @chayns-ui/core
 
+## 0.3.0
+
+### Minor Changes
+
+- Add Avatar and AvatarGroup components: a circular identity avatar with an
+  image source and a deterministic initials-and-accent-tone fallback
+  (`default` and `small` size variants), plus AvatarGroup for an overlapping
+  stack of avatars with an optional `max` overflow tile.
+- Add Popup and SplitButton components. `Popup` renders custom overlay content
+  anchored to a trigger element; `PopupList` renders a list of contextual
+  actions inside a `Popup`. `SplitButton` combines a primary action button
+  with a secondary trigger that opens a `PopupList` of alternative actions.
+  Adds the token foundation these components resolve against.
+- `@chayns-ui/core` now exposes a single root JavaScript export (`.`) instead
+  of per-component JavaScript subpath exports (for example the previous
+  `@chayns-ui/core/button`); import all components from the package root
+  instead, for example `import { Button, IconButton } from '@chayns-ui/core'`.
+  CSS subpath exports (`./button.css`, `./card.css`, `./avatar.css`,
+  `./list.css`, `./accordion.css`, `./styles.css`) are unaffected and continue
+  to be imported explicitly as before. Tree-shaking is unaffected: it is
+  guaranteed by side-effect-free, `preserveModules` JavaScript output, not by
+  per-component subpath entry points.
+
 ## 0.2.1
 
 ### Patch Changes
