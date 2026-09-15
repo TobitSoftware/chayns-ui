@@ -1,5 +1,6 @@
 import {
   cloneElement,
+  useCallback,
   useEffect,
   useId,
   useLayoutEffect,
@@ -60,6 +61,10 @@ const Popup = ({ children, className, trigger }: PopupProps) => {
     }
   };
 
+  const setTriggerRef = useCallback((node: HTMLElement | null) => {
+    triggerRef.current = node;
+  }, []);
+
   useLayoutEffect(() => {
     if (!open) return;
     updatePosition();
@@ -88,38 +93,50 @@ const Popup = ({ children, className, trigger }: PopupProps) => {
       if (event.key === 'Tab') close(false);
     };
     const handleViewportChange = () => updatePosition();
+    const handlePopupClick = (event: globalThis.MouseEvent) => {
+      if ((event.target as HTMLElement).closest('[role="menuitem"]')) {
+        close(true);
+      }
+    };
+
+    const popupElement = popupRef.current;
 
     document.addEventListener('pointerdown', handlePointerDown);
     document.addEventListener('keydown', handleKeyDown);
     window.addEventListener('resize', handleViewportChange);
     window.addEventListener('scroll', handleViewportChange, true);
+    popupElement?.addEventListener('click', handlePopupClick);
 
     return () => {
       document.removeEventListener('pointerdown', handlePointerDown);
       document.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('resize', handleViewportChange);
       window.removeEventListener('scroll', handleViewportChange, true);
+      popupElement?.removeEventListener('click', handlePopupClick);
     };
   }, [open]);
 
   const triggerElement = trigger as PopupTriggerElement;
+  // cloneElement forwards `ref` as a plain prop to merge it with the trigger's own ref; the ref
+  // is never read during this render, only later by React when attaching the trigger DOM node.
+  // eslint-disable-next-line react-hooks/refs
   const enhancedTrigger = cloneElement(triggerElement, {
-      'aria-controls': popupId,
-      'aria-expanded': open,
-      'aria-haspopup': 'menu',
-      onClick: (event: React.MouseEvent) => {
-        triggerElement.props.onClick?.(event);
-        if (!event.defaultPrevented) setOpen((value) => !value);
-      },
-      onKeyDown: (event: KeyboardEvent) => {
-        triggerElement.props.onKeyDown?.(event);
-        if (event.defaultPrevented) return;
-        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-          event.preventDefault();
-          setOpen(true);
-        }
-      },
-      ref: triggerRef,
+    'aria-controls': popupId,
+    'aria-expanded': open,
+    'aria-haspopup': 'menu',
+    onClick: (event: React.MouseEvent) => {
+      triggerElement.props.onClick?.(event);
+      if (!event.defaultPrevented) setOpen((value) => !value);
+    },
+    onKeyDown: (event: KeyboardEvent) => {
+      triggerElement.props.onKeyDown?.(event);
+      if (event.defaultPrevented) return;
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        setOpen(true);
+      }
+    },
+    ref: setTriggerRef,
   });
 
   return (
@@ -130,11 +147,6 @@ const Popup = ({ children, className, trigger }: PopupProps) => {
             <div
               className={['chayns-popup', className].filter(Boolean).join(' ')}
               id={popupId}
-              onClick={(event) => {
-                if ((event.target as HTMLElement).closest('[role="menuitem"]')) {
-                  close(true);
-                }
-              }}
               ref={popupRef}
               style={{ left: position.left, top: position.top }}
             >

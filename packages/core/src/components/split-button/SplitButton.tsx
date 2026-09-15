@@ -18,7 +18,10 @@ const SplitButton = ({
   const labelId = useId();
 
   return (
-    <div {...containerProps} className={['chayns-split-button', className].filter(Boolean).join(' ')}>
+    <div
+      {...containerProps}
+      className={['chayns-split-button', className].filter(Boolean).join(' ')}
+    >
       {icon ? (
         <Button
           aria-labelledby={labelId}

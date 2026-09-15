@@ -5,7 +5,7 @@ import Popup from './Popup.js';
 import type { PopupListProps } from './Popup.types.js';
 
 const PopupList = ({ className, items, trigger }: PopupListProps) => {
-  const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const index = itemRefs.current.indexOf(document.activeElement as HTMLButtonElement);
@@ -25,11 +25,7 @@ const PopupList = ({ className, items, trigger }: PopupListProps) => {
 
   return (
     <Popup {...(className ? { className } : {})} trigger={trigger}>
-      <div
-        onKeyDown={handleKeyDown}
-        role="menu"
-        tabIndex={-1}
-      >
+      <div onKeyDown={handleKeyDown} role="menu" tabIndex={-1}>
         {items.map((item, index) => (
           <button
             className="chayns-popup-list__item"
