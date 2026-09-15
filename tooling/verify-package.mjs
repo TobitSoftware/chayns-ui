@@ -29,6 +29,8 @@ const packages = [
       'package/dist/components/app-layout/AppLayout.js',
       'package/dist/components/tabs/Tabs.js',
       'package/dist/app-layout.css',
+      'package/dist/tabs.css',
+      'package/dist/styles.css',
     ],
   },
   {

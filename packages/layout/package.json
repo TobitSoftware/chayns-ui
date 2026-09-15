@@ -23,6 +23,8 @@
       "import": "./dist/index.js"
     },
     "./app-layout.css": "./dist/app-layout.css",
+    "./tabs.css": "./dist/tabs.css",
+    "./styles.css": "./dist/styles.css",
     "./package.json": "./package.json"
   },
   "peerDependencies": {
