@@ -1,5 +1,12 @@
 # @chayns-ui/layout
 
+## 0.4.0
+
+### Minor Changes
+
+- Add dedicated `tabs.css` and aggregated `styles.css` exports. The existing
+  `app-layout.css` export remains available for selective stylesheet loading.
+
 ## 0.3.0
 
 ### Minor Changes
