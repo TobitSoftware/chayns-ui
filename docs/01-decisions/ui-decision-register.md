@@ -209,9 +209,23 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | OVERLAY-001 | OVERLAY | Dropdown, Popover, Context Menu und Select sind unterschiedliche UI-Muster. | CONFIRMED | Planning | |
 | OVERLAY-002 | OVERLAY | Alte Meeting-Begriffe definieren keine zukünftige öffentliche API. | CONFIRMED | Planning | |
 | OVERLAY-003 | OVERLAY | Gemeinsame Overlay-Primitives werden separat spezifiziert. | TECH REVIEW | Planning | |
+| POPUP-001 | POPUP | `Popup` wird als eigenständige Core-Basis spezifiziert; konkrete Varianten werden separat beschrieben. | CONFIRMED | User decision, 2026-09-14 | |
+| POPUP-002 | POPUP | Eine Popup-Listenvariante verwendet pro Eintrag verpflichtend Icon, sichtbaren Text und `onClick`. | CONFIRMED | User decision, 2026-09-14 | |
+| POPUP-003 | POPUP | Der Popup-Open-State wird in der initialen Variante unkontrolliert intern verwaltet. | CONFIRMED | User decision, 2026-09-14 | |
+| POPUP-004 | POPUP | Nach `onClick`, Escape und Outside-Click schließt die initiale Popup-Variante. | CONFIRMED | User decision, 2026-09-14 | |
+| POPUP-005 | POPUP | Die initiale Popup-Listenvariante verwendet Menu-Semantik, Fokus auf den ersten Eintrag, zyklische Pfeiltasten, Tab zum Schließen mit normalem Fokusfluss, Portal-Rendering, bevorzugt Positionierung unterhalb an der Startkante, Flip und Viewport-Clamping sowie `--z-popover: 1000`. | CONFIRMED | User decisions, 2026-09-14 | Weitere Popup-Varianten benötigen eigene Prüfung. |
 | TOOLTIP-001 | TOOLTIP | Sichtbare Tooltips nutzen eine eigene zugängliche Komponente. | CONFIRMED | AGENTS.md | |
 | TOOLTIP-002 | TOOLTIP | `title` darf ergänzend genutzt werden. | CONFIRMED | AGENTS.md | |
 | TOOLTIP-003 | TOOLTIP | `title` ersetzt keinen zugänglichen sichtbaren Hinweis. | CONFIRMED | AGENTS.md | |
+
+## Split Button
+
+| ID | Category | Decision | Status | Source | Follow-up |
+|---|---|---|---|---|---|
+| SPLIT-001 | SPLIT_BUTTON | Split Button besteht aus einer linken primären Aktion und einer rechten Aktion zum Öffnen eines Popups. | CONFIRMED | User input, 2026-09-14 | |
+| SPLIT-002 | SPLIT_BUTTON | Split Button zählt als eine Primary Action im abgeschlossenen Action Scope; gleichrangige Alternativen gehören in das Popup. | CONFIRMED | AGENTS.md, user input, 2026-09-14 | |
+| SPLIT-003 | SPLIT_BUTTON | Der rechte Trigger verwendet die eigenständige Popup-Komponente und verwaltet deren Öffnung initial unkontrolliert. | CONFIRMED | User input, 2026-09-14 | |
+| SPLIT-004 | SPLIT_BUTTON | Die linke und rechte Fläche sind getrennte native Buttons; der Trigger erhält `aria-expanded`/`aria-controls`, verwendet den Popup-Menu-Vertrag und leitet seinen Accessible Name über die sichtbare Primärbeschriftung ab. Varianten und Icons verwenden den bestätigten Button-Vertrag. | CONFIRMED | User decisions, 2026-09-14 | |
 
 ## AI
 

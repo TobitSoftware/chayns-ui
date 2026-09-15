@@ -41,6 +41,8 @@ import '@chayns-ui/core/button.css';
 | `Avatar`, `AvatarGroup` | `@chayns-ui/core/avatar.css` |
 | `List`, `ListItem` | `@chayns-ui/core/list.css` |
 | `Accordion`, `AccordionGroup` | `@chayns-ui/core/accordion.css` |
+| `Popup`, `PopupList` | `@chayns-ui/core/popup.css` |
+| `SplitButton` | `@chayns-ui/core/split-button.css` |
 
 Alternativ lädt `@chayns-ui/core/styles.css` das gebündelte CSS aller Komponenten.
 

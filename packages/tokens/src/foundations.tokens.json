@@ -48,6 +48,16 @@
       "$extensions": { "chayns": { "cssName": "--sp-6" } }
     }
   },
+  "popover": {
+    "$type": "number",
+    "$value": 1000,
+    "$extensions": {
+      "chayns": {
+        "cssName": "--z-popover",
+        "cssValue": "1000"
+      }
+    }
+  },
   "button": {
     "padding-block": {
       "$type": "string",
