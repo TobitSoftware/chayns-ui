@@ -21,7 +21,8 @@ import { AppLayout } from '@chayns-ui/layout';
 ```
 
 `AppLayout` renders the application shell with a 64px header, recursive
-navigation, controlled or uncontrolled sidebar collapse, and consumer content.
+navigation, controlled or uncontrolled sidebar collapse, optional
+`headerContent` beside the logo, and consumer content.
 
 Alternatively, the component stylesheet is available as
 `@chayns-ui/layout/app-layout.css` or

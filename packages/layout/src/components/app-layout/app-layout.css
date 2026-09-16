@@ -18,6 +18,15 @@
     padding-inline: var(--sp-4);
   }
 
+  .chayns-app-layout__header-content {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: flex-end;
+    min-inline-size: 0;
+    margin-inline-start: var(--sp-4);
+  }
+
   .chayns-app-layout__logo {
     display: block;
     max-block-size: calc(var(--k32) + var(--k8));
@@ -30,7 +39,7 @@
     flex-direction: column;
     min-inline-size: 0;
     min-block-size: 0;
-    padding: var(--sp-2);
+    padding: 0 var(--sp-2) var(--sp-2);
   }
 
   .chayns-app-layout__navigation {

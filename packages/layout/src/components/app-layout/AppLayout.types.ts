@@ -55,6 +55,12 @@ export interface AppLayoutProps extends Omit<ComponentPropsWithRef<'div'>, 'chil
   logo: string;
 
   /**
+   * @description Optional consumer-provided content rendered in the remaining
+   * header area to the right of the logo.
+   */
+  headerContent?: ReactNode;
+
+  /**
    * @description Top-level navigation items, recursively composable via each
    * item's own `children`. An empty array renders an empty navigation list.
    */

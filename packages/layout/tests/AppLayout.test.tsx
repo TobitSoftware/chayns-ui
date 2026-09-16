@@ -42,6 +42,12 @@ describe('AppLayout', () => {
     expect(screen.getAllByRole('button', { name: 'Inbox' })[0]).toBeInTheDocument();
   });
 
+  it('renders optional header content beside the logo', () => {
+    renderLayout({ headerContent: <button type="button">Account</button> });
+
+    expect(screen.getByRole('button', { name: 'Account' })).toBeInTheDocument();
+  });
+
   it('invokes onClick for parent and child actions without toggling disclosure', async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();

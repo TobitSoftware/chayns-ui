@@ -14,6 +14,7 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
       collapsed,
       defaultCollapsed = false,
       expandLabel,
+      headerContent,
       items,
       logo,
       navigationLabel,
@@ -59,6 +60,7 @@ export const AppLayout = forwardRef<HTMLDivElement, AppLayoutProps>(
       <div {...rootProps} className={rootClassName} ref={ref}>
         <header className="chayns-app-layout__header">
           <img alt="" className="chayns-app-layout__logo" src={logo} />
+          <div className="chayns-app-layout__header-content">{headerContent}</div>
         </header>
         <aside className="chayns-app-layout__sidebar">
           <nav aria-label={navigationLabel} className="chayns-app-layout__navigation">

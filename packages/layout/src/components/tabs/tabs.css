@@ -126,6 +126,7 @@
     padding: var(--sp-4);
     overflow: auto;
     background: var(--surface);
+    color: var(--text);
   }
 
   @container (max-width: 20rem) {
