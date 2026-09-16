@@ -1,5 +1,11 @@
 # @chayns-ui/core
 
+## 0.3.2
+
+### Patch Changes
+
+- Fix ListItem hover styling so the hover background includes trailing content.
+
 ## 0.3.1
 
 ### Patch Changes
