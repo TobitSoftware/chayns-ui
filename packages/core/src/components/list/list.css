@@ -12,6 +12,7 @@
     position: relative;
     display: flex;
     align-items: stretch;
+    border-radius: 10px;
   }
 
   .chayns-list-item__action {
@@ -115,8 +116,12 @@
   }
 
   @media (hover: hover) {
-    .chayns-list-item__action--interactive:hover:not(:disabled) {
+    .chayns-list-item:has(.chayns-list-item__action--interactive:hover:not(:disabled)) {
       background: var(--hover);
+    }
+
+    .chayns-list-item__action--interactive:hover:not(:disabled) {
+      background: transparent;
     }
   }
 
