@@ -1,6 +1,6 @@
 {
   "name": "@chayns-ui/layout",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Accessible application layout components for chayns UI",
   "license": "MIT",
   "type": "module",
