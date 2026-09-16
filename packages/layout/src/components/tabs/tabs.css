@@ -123,7 +123,7 @@
     flex: 1 1 auto;
     min-inline-size: 0;
     min-block-size: 0;
-    padding: var(--sp-4);
+    padding: var(--sp-2);
     overflow: auto;
     background: var(--surface);
     color: var(--text);
