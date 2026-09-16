@@ -1,5 +1,13 @@
 # @chayns-ui/layout
 
+## 0.3.2
+
+### Patch Changes
+
+- 2b44f08: Refactor
+- Updated dependencies [2b44f08]
+  - @chayns-ui/core@0.3.1
+
 ## 0.3.1
 
 ### Patch Changes

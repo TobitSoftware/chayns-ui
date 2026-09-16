@@ -1,5 +1,11 @@
 # @chayns-ui/core
 
+## 0.3.1
+
+### Patch Changes
+
+- 2b44f08: Refactor
+
 ## 0.3.0
 
 ### Minor Changes

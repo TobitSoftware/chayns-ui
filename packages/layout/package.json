@@ -1,6 +1,6 @@
 {
   "name": "@chayns-ui/layout",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Accessible application layout components for chayns UI",
   "license": "MIT",
   "type": "module",
@@ -28,7 +28,7 @@
     "./package.json": "./package.json"
   },
   "peerDependencies": {
-    "@chayns-ui/core": ">=0.3.0",
+    "@chayns-ui/core": ">=0.3.1",
     "react": ">=18 <20"
   },
   "devDependencies": {
