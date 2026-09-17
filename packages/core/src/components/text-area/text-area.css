@@ -37,7 +37,7 @@
     transition: transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
-  .chayns-text-area__input:hover:not(:disabled) {
+  :where(.chayns-text-area__input:hover:not(:disabled)) {
     border-color: var(--text-3);
   }
 
@@ -47,8 +47,10 @@
       rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-soft));
   }
 
-  .chayns-text-area__input:focus + .chayns-text-area__label,
-  .chayns-text-area__input:not(:placeholder-shown) + .chayns-text-area__label {
+  :where(
+    .chayns-text-area__input:focus + .chayns-text-area__label,
+    .chayns-text-area__input:not(:placeholder-shown) + .chayns-text-area__label
+  ) {
     color: var(--accent);
     transform: translateY(-50%) scale(0.8);
   }

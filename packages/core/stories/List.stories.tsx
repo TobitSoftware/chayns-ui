@@ -30,7 +30,7 @@ export const Default: Story = {
           trailing={<time dateTime="08:40">08:40</time>}
           unread
           unreadLabel="Ungelesen"
-          onClick={()=>{}}
+          onClick={fn()}
         />
         <ListItem
           leading={<Avatar badge={<span aria-hidden="true">✉</span>} name="Thomas Wolf" />}

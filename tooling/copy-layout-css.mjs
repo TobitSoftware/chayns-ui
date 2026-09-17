@@ -14,10 +14,7 @@ const copyTasks = imports.map((importPath) => {
   const fileName = basename(importPath);
 
   flattenedCss = flattenedCss.replace(importPath, `./${fileName}`);
-  return copyFile(
-    resolve(packageDirectory, 'src', importPath),
-    resolve(outputDirectory, fileName),
-  );
+  return copyFile(resolve(packageDirectory, 'src', importPath), resolve(outputDirectory, fileName));
 });
 
 await Promise.all([
