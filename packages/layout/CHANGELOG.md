@@ -1,5 +1,21 @@
 # @chayns-ui/layout
 
+## 0.6.0
+
+### Minor Changes
+
+- be6f8b1: Finalize native-prop forwarding and compound component contracts. Core adds
+  TextField, TextArea, Checkbox, Switch, RadioGroup, SegmentedControl and
+  MessageBox; `ListItem` is replaced by `List.Item`, and Popup uses
+  Trigger/Content slots. Layout replaces the Tabs `tabs[]` API with value-based
+  parts and replaces AppLayout data props with named compound parts. These
+  intentional pre-1.0 breaking migrations require consumer updates.
+
+### Patch Changes
+
+- Updated dependencies [be6f8b1]
+  - @chayns-ui/core@0.4.0
+
 ## 0.5.0
 
 ### Minor Changes
