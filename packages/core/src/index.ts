@@ -20,6 +20,9 @@ export type { CheckboxProps } from './components/checkbox/Checkbox.types.js';
 export { default as Switch } from './components/switch/Switch.js';
 export type { SwitchProps } from './components/switch/Switch.types.js';
 
+export { default as RadioGroup } from './components/radio-group/RadioGroup.js';
+export type { RadioGroupProps, RadioProps } from './components/radio-group/RadioGroup.types.js';
+
 export { default as MessageBox } from './components/message-box/MessageBox.js';
 export type { MessageBoxProps, MessageBoxTone } from './components/message-box/MessageBox.types.js';
 

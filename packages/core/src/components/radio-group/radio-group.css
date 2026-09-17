@@ -1,0 +1,102 @@
+@layer chayns.components {
+  .chayns-radio-group {
+    display: grid;
+    gap: var(--k12);
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .chayns-radio-group__legend {
+    padding: 0;
+    color: var(--text);
+    font-size: var(--fs-body);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .chayns-radio-group__options {
+    display: grid;
+    gap: var(--k12);
+  }
+
+  .chayns-radio {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--k12);
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .chayns-radio__input {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .chayns-radio__control {
+    box-sizing: border-box;
+    display: inline-grid;
+    inline-size: var(--k20);
+    block-size: var(--k20);
+    flex: none;
+    place-items: center;
+    margin-block-start: 1px;
+    border: 2px solid var(--input-border);
+    border-radius: 50%;
+  }
+
+  .chayns-radio__control::after {
+    inline-size: var(--k8);
+    block-size: var(--k8);
+    border-radius: 50%;
+    background: var(--accent);
+    content: '';
+    opacity: 0;
+    transform: scale(0.6);
+    transition:
+      opacity 0.12s ease,
+      transform 0.18s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .chayns-radio__input:checked + .chayns-radio__control {
+    border-color: var(--accent);
+  }
+
+  .chayns-radio__input:checked + .chayns-radio__control::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .chayns-radio__input:focus-visible + .chayns-radio__control {
+    outline: var(--focus-ring-size) solid rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-strong));
+    outline-offset: 2px;
+  }
+
+  .chayns-radio:has(.chayns-radio__input:disabled) {
+    color: var(--disabled-fg);
+    cursor: not-allowed;
+  }
+
+  .chayns-radio__input:disabled + .chayns-radio__control {
+    border-color: var(--disabled-border);
+    background: var(--disabled-bg);
+  }
+
+  .chayns-radio__label {
+    font-size: var(--fs-body);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chayns-radio__control::after {
+      transition: none;
+    }
+  }
+}
