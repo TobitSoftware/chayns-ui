@@ -5,13 +5,20 @@
 - Component Name: AppLayout
 - Component Category: Layout
 - Component Specification: `app-layout-specification.md`
-- Specification Status: READY FOR IMPLEMENTATION
+- Specification Status: BLOCKED
 - Relevant Decision IDs: ARCH-001-006, CORE-001-007, LAYOUT-001-005, TOKEN-001-006, COLOR-001-006, A11Y-001-007, MOTION-001-007, ICON-001-003
 - Foundation Dependencies: existing accent/state/focus/motion tokens, Font Awesome `fa-*` contract and native navigation semantics
 - Related Components: Button/IconButton, future Icon component
 - Review Context: User-provided reference and requirements reviewed 2026-09-14
 - Gate Date: 2026-09-14
-- Gate Result: READY
+- Gate Result: BLOCKED
+
+## Reassessment required
+
+This assessment applies only to the replaced data API. LAYOUT-032 and
+CORE-010–011 require a revised compound specification and a new full gate
+assessment before implementation. The historical checks below do not authorize
+the migration.
 
 ## Gate Checks
 
@@ -64,7 +71,6 @@ None.
 - Total PASS: 33
 - Total BLOCK: 0
 - Total N/A: 2
-- Gate Result: READY
+- Historical Gate Result: READY (superseded)
 
-This assessment authorizes implementation of the specified AppLayout contract
-in `@chayns-ui/layout` only.
+This historical READY result no longer authorizes implementation.

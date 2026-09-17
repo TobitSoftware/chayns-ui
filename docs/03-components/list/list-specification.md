@@ -4,13 +4,15 @@
 
 - Component Name: List and ListItem
 - Component Category: Core
-- Specification Status: READY FOR IMPLEMENTATION
+- Specification Status: BLOCKED
 - Owner / Responsible Area: chayns UI Core
 - Design Reference: chayns Design System list rows (`.row-anim` row treatment, surface/border/hover language from `tobit-ds.css`), inspected 2026-08-21
 - Relevant Decision IDs: CORE-001–007, LIST-001–005, A11Y-001–007, DENSITY-001–005, DIST-012–013
 - Foundation Dependencies: token catalogue transfer (`--text`, `--text-3`, `--accent`, `--hover`, `--disabled-fg`, `--fs-body`, `--fs-meta`, `--k8`, `--k12`, `--k16`, focus-ring tokens), density matrix, generated `@chayns-ui/tokens` subset
 - Related Components: Card (surface), Accordion (disclosure)
 - Last Reviewed: 2026-09-14
+
+> **Reassessment required:** LIST-007 replaces the documented `ListItem` contract with `List.Item` and its semantic parts. This specification does not yet define the required compound parent/child, native-prop ownership, ref, event or status-indicator contracts. It is therefore not implementation-ready.
 
 ## Purpose — Required
 

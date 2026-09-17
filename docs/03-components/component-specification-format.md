@@ -146,11 +146,21 @@ Sind implementierungsrelevante State-Kombinationen ungeklärt, ist die Specifica
 
 Jede programmatisch konsumierte Component Specification MUSS Props, native HTML-Props und Forwarding, Events beziehungsweise Callbacks, required versus optional, Defaults, erlaubte Werte, controlled/uncontrolled-Verhalten, Children, Slots oder Composition, Refs, imperative API sowie bestätigte Escape Hatches inhaltlich dokumentieren.
 
+Für jede öffentliche Component und jeden öffentlichen Compound Part MUSS eine Prop-Ownership-Map angegeben werden:
+
+| Öffentliche Oberfläche | Natives Element / Ziel | Ref Target | Weitergereichte Props | Lokal besessene Props | Ausdrücklich ausgelassene oder verbotene Overrides | Event-Komposition |
+|---|---|---|---|---|---|---|
+| <part> | <element> | <element or none> | <native props> | <props> | <props and reason> | <order and cancellation rule> |
+
+Direkte Native Props einer Composite Component zielen auf ihr primäres Control. Ein zweiter nativer Zielknoten darf nur über einen klar benannten Root- oder Slot-Prop adressiert werden. Eine unspezifische `...Props`-Bag ist kein zulässiger Vertrag.
+
 Die API MUSS dem [Component Development Standard](component-development-standard.md) folgen. Eine Lücke darf nicht aus Convenience geschlossen werden; insbesondere dürfen keine Props, Variants oder Callback-Semantiken allein aus verbreiteten Framework-Konventionen abgeleitet werden.
 
 ### Native Props and DOM Contract
 
 Jede Core Component MUSS ihren nativen Elementvertrag dokumentieren: repräsentiertes natives Element, weitergereichte native Props, Empfänger des öffentlichen Ref, stabile zusätzliche Wrapper und DOM-Annahmen, die Consumer nicht treffen dürfen.
+
+Die Prop-Ownership-Map benennt jede Kollision präzise. Komponenteneigene Semantik darf nicht durch Consumer-Props überschrieben werden; alle übrigen kompatiblen Props bleiben weitergereicht. Wenn ein Component-Handler und ein Consumer-Handler denselben Event beobachten, beschreibt der Vertrag die Reihenfolge und wann `event.defaultPrevented` die Component-Aktion verhindert.
 
 Ist ein konkreter Ref- oder DOM-Vertrag wegen [OPEN-015](../01-decisions/ui-decision-register.md) oder einer anderen relevanten Entscheidung nicht ausreichend bestimmbar, wird er nicht erfunden; die Specification bleibt gegebenenfalls `BLOCKED`.
 
@@ -159,6 +169,8 @@ Ist ein konkreter Ref- oder DOM-Vertrag wegen [OPEN-015](../01-decisions/ui-deci
 Jede Specification MUSS Children, Slots, Subcomponents, Compound-Relationships, Parent/Child-Verträge sowie zulässige und unzulässige Composition dokumentieren. Gibt es keine besondere Composition, wird dies ausdrücklich festgestellt.
 
 Composition-first bleibt die Grundregel. Visuelle Anatomy-Bereiche sind keine Begründung, automatisch eine Subcomponent-API zu schaffen.
+
+Für jedes Compound Pattern MUSS die Specification zusätzlich Parent-Anforderung, gültige Child-Platzierung, Context-Werte und Grenzen, stabilen DOM-/Ref-Owner, Slot-Vertrag sowie Keyboard-, Focus- und Accessibility-Owner pro Part festlegen. Ohne diese Angaben bleibt die Specification `BLOCKED`.
 
 ### Context Dependencies
 
@@ -517,6 +529,10 @@ Der folgende Template-Inhalt ist kopierbar. `Required`, `Conditional` und `Recom
 
 <describe confirmed props, events, defaults, allowed values, state control, composition, refs, and escape hatches>
 
+| Öffentliche Oberfläche | Natives Element / Ziel | Ref Target | Weitergereichte Props | Lokal besessene Props | Ausdrücklich ausgelassene oder verbotene Overrides | Event-Komposition |
+|---|---|---|---|---|---|---|
+| <part> | <element> | <element or none> | <native props> | <props> | <props and reason> | <order and cancellation rule> |
+
 ## Native Props and DOM Contract — Conditional
 
 <describe confirmed native element, forwarding, ref target, wrappers, and non-contractual DOM assumptions>
@@ -524,6 +540,8 @@ Der folgende Template-Inhalt ist kopierbar. `Required`, `Conditional` und `Recom
 ## Composition — Required
 
 <describe children, slots, subcomponents, parent/child contracts, and allowed/prohibited composition>
+
+<for every compound part: documented parent requirement, context contract, DOM/ref owner, slot contract, and keyboard/accessibility owner>
 
 ## Context Dependencies — Required
 

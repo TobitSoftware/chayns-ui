@@ -27,6 +27,14 @@ given component, and what must it avoid?
 Each entry below is intentionally short and only states what is already CONFIRMED elsewhere
 (Decision Register, Specification, Readiness Assessment). It does not add new rules.
 
+## Native props and compound components
+
+Place a native attribute, event, `data-*` attribute or compatible `aria-*` attribute on the public component or compound part that renders the corresponding native element. Do not use a generic props bag when the target is unclear.
+
+Use a public compound child only below its documented parent. Do not import or render an internal part directly. A component specification defines the parent requirement, DOM/ref owner and accessibility contract; if it does not, the component is not ready to use or implement.
+
+Do not create subcomponents merely to mirror visual anatomy. Use a leaf component, `children` or an explicitly documented slot when that is the confirmed contract.
+
 ---
 
 ## Button

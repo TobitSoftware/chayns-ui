@@ -4,13 +4,15 @@
 
 - Component Name: AppLayout
 - Component Category: Layout
-- Specification Status: READY FOR IMPLEMENTATION
+- Specification Status: BLOCKED
 - Owner / Responsible Area: chayns UI Layout
 - Design Reference: User-provided AppLayout reference, reviewed 2026-09-14
 - Relevant Decision IDs: ARCH-001-006, CORE-001-007, LAYOUT-001-005, TOKEN-001-006, COLOR-001-006, A11Y-001-007, MOTION-001-007, ICON-001-003
 - Foundation Dependencies: `--accent`, `--on-accent`, state, spacing, icon, focus and motion tokens
 - Related Components: Button/IconButton, future Icon component
 - Last Reviewed: 2026-09-14
+
+> **Reassessment required:** LAYOUT-032 replaces the documented data API with named compound parts. This specification does not yet define the required part-level native-prop ownership, recursive navigation contract, ref ownership or collapse-state interaction. It is therefore not implementation-ready.
 
 ## Purpose - Required
 

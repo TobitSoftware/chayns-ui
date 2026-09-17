@@ -81,6 +81,10 @@ Komponenten sollen grundsätzlich durch Komposition aufgebaut werden.
 
 Container sind für Beziehungen, Gruppierungen und Abstände zwischen Elementen verantwortlich. Einzelne Controls sollen ihre Position zu benachbarten Komponenten nicht eigenständig bestimmen.
 
+Compound Components sind verpflichtend, wenn eine bestätigte semantische Parent/Child-Beziehung gemeinsame Zustände, Beziehungen oder DOM-Verantwortung benötigt. Sie werden nicht allein aus visueller Anatomy abgeleitet. Ein Compound Child darf ausschließlich unter seinem dokumentierten Parent verwendet werden; Parent, Child, Context, DOM-/Ref-Owner, Slot-Vertrag sowie Keyboard- und Accessibility-Verantwortung müssen vor der Implementierung eindeutig spezifiziert sein.
+
+Einfache Leaf Components bleiben einzelne Komponenten mit einem nativen Root- beziehungsweise Control-Vertrag. Es dürfen keine künstlichen Subcomponent-Bäume geschaffen werden, wenn `children`, ein klarer Slot oder eine kleinere Props-API die bestätigte Verantwortung vollständig ausdrücken.
+
 ### Native web semantics
 
 Native HTML-Semantik soll bevorzugt werden.
@@ -88,6 +92,10 @@ Native HTML-Semantik soll bevorzugt werden.
 * Aktionen basieren grundsätzlich auf `<button>`.
 * Navigation basiert grundsätzlich auf `<a>`.
 * Native HTML-Props und Events sollen möglichst weitergereicht werden.
+
+Jede öffentliche Component und jeder öffentliche Compound Part reicht die kompatiblen Standard-Props des nativen Elements weiter, das sie beziehungsweise er repräsentiert. Eigene Props dürfen nur die ausdrücklich dokumentierten Semantik-, State-, Relationship- oder DOM-Placement-Kollisionen ausnehmen. Native Props dürfen weder stillschweigend verloren gehen noch durch einen Prop-Spread unbeabsichtigt überschrieben werden.
+
+Bei Composite Controls gehen direkte native Props an das primäre native Control. Ist ein weiterer nativer Zielknoten unabhängig adressierbar, ist dafür ein eindeutig benannter Slot- oder Root-Prop zulässig; ein generischer Props-Bag mit unklarem Ziel ist nicht zulässig. Wenn Component- und Consumer-Event zusammenwirken, dokumentiert die Specification Aufrufreihenfolge und Abbruchregel.
 
 ### Accessibility
 
@@ -293,6 +301,8 @@ Je Komponente wird geprüft, soweit relevant:
 * Use When und Do Not Use When,
 * Anatomy und Composition,
 * öffentliche API und Props,
+* natives Prop-Mapping, explizite Auslassungen/Kollisionen und Event-Komposition,
+* bei Compound Components Parent-/Child-Vertrag, Context, DOM-/Ref-Owner, Slots sowie Keyboard-/Accessibility-Owner,
 * native HTML-Semantik,
 * States, Variants und lokale Size Variants,
 * Density-Verhalten,

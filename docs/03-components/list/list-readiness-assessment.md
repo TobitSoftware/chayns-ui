@@ -5,13 +5,20 @@
 - Component Name: List and ListItem
 - Component Category: Core
 - Component Specification: `list-specification.md`
-- Specification Status: READY FOR IMPLEMENTATION
+- Specification Status: BLOCKED
 - Relevant Decision IDs: CORE-001–007, LIST-001–005, A11Y-001–007, DENSITY-001–005, DIST-012–013
 - Foundation Dependencies: token transfer for `--text`, `--text-3`, `--accent`, `--hover`, `--disabled-fg`, `--fs-body`, `--fs-meta`, `--k8`–`--k16`, focus-ring tokens
 - Related Components: Card, Accordion
 - Review Context: Design System row language transferred from `tobit-ds.css`; user authorized Milestone-1 implementation of Card/List/Accordion
 - Gate Date: 2026-08-21
-- Gate Result: READY
+- Gate Result: BLOCKED
+
+## Reassessment required
+
+This assessment applies only to the removed `ListItem` contract. LIST-007 and
+CORE-010–011 require a revised List compound specification and a new full gate
+assessment before implementation. The historical checks below do not authorize
+the migration.
 
 ## Gate Checks
 
@@ -69,7 +76,6 @@ visual right slot.
 - Total PASS: 35
 - Total N/A: 2
 - Total BLOCK: 0
-- Gate Result: READY
+- Historical Gate Result: READY (superseded)
 
-This READY result authorizes implementation of the documented List/ListItem
-contract, including Avatar composition through `leading`.
+This historical READY result no longer authorizes implementation.

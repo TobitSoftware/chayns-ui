@@ -5,12 +5,19 @@
 - Component Name: Tabs
 - Component Category: Layout
 - Component Specification: `tabs-specification.md`
-- Specification Status: READY FOR IMPLEMENTATION
+- Specification Status: BLOCKED
 - Relevant Decision IDs: ARCH-001-006, CORE-001-007, LAYOUT-001-005, TOKEN-001-006, A11Y-001-007, ICON-001-003
 - Foundation Dependencies: `--surface`, confirmed layout/focus/state tokens and Font Awesome `fa-*` contract
 - Review Context: User-provided reference and requirements reviewed 2026-09-14
 - Gate Date: 2026-09-14
-- Gate Result: READY
+- Gate Result: BLOCKED
+
+## Reassessment required
+
+This assessment applies only to the replaced `tabs[]` contract. LAYOUT-031 and
+CORE-010–011 require a revised compound specification and a new full gate
+assessment before implementation. The historical checks below do not authorize
+the migration.
 
 ## Blocking Checks
 
@@ -27,7 +34,7 @@
 
 ## Non-blocking Confirmed Direction
 
-The component belongs in `@chayns-ui/layout`, uses a `tabs` array with
+The superseded contract belongs in `@chayns-ui/layout`, uses a `tabs` array with
 `icon`, `name`, `isActive`, `onClick` and `content`, uses `--surface` for the
 active tab with a transparent tab-list and inactive tabs, and renders only the
-active content. The implementation contract is complete.
+active content. It does not establish the current implementation contract.

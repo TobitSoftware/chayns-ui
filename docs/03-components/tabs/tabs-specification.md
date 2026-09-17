@@ -4,13 +4,15 @@
 
 - Component Name: Tabs
 - Component Category: Layout
-- Specification Status: READY FOR IMPLEMENTATION
+- Specification Status: BLOCKED
 - Owner / Responsible Area: chayns UI Layout
 - Design Reference: User-provided tab-bar reference, reviewed 2026-09-14
 - Relevant Decision IDs: ARCH-001-006, CORE-001-007, LAYOUT-001-005, TOKEN-001-006, A11Y-001-007, ICON-001-003
 - Foundation Dependencies: `--surface`, confirmed spacing/radius/typography/focus tokens, Font Awesome `fa-*` contract
 - Related Components: future Icon component; no routing or business component
 - Last Reviewed: 2026-09-14
+
+> **Reassessment required:** LAYOUT-031 replaces the documented `tabs[]` contract with value-paired compound parts. This specification does not yet define the required compound parent/child, native-prop ownership, ref, event or add/remove contracts. It is therefore not implementation-ready.
 
 ## Purpose
 

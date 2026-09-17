@@ -126,9 +126,9 @@ Die folgenden 37 Checks sind der vollständige operative Gate-Umfang. Jeder Chec
 
 ### Check 06 – Anatomy and Composition
 
-**PASS, wenn:** Anatomy, required/optional/conditional Bestandteile, Composition, Children, Slots, Subcomponents und Parent/Child Contracts soweit relevant eindeutig sind.
+**PASS, wenn:** Anatomy, required/optional/conditional Bestandteile, Composition, Children, Slots, Subcomponents und Parent/Child Contracts soweit relevant eindeutig sind. Bei Compound Components sind Parent-Anforderung, Child-Platzierung, Context-Grenzen, DOM-/Ref-Owner, Slot-Vertrag und Keyboard-/Accessibility-Owner pro Part dokumentiert.
 
-**BLOCK, wenn:** Implementierungsrelevante Composition fehlt oder eine Subcomponent-Struktur aus visueller Plausibilität erfunden werden müsste.
+**BLOCK, wenn:** Implementierungsrelevante Composition fehlt, ein Compound Child keinen dokumentierten Parent, DOM-/Ref-Owner oder Keyboard-/Accessibility-Owner besitzt oder eine Subcomponent-Struktur aus visueller Plausibilität erfunden werden müsste.
 
 ### Check 07 – Semantic Contract
 
@@ -138,9 +138,9 @@ Die folgenden 37 Checks sind der vollständige operative Gate-Umfang. Jeder Chec
 
 ### Check 08 – Public API Contract
 
-**PASS, wenn:** Props, Pflicht und Optionalität, Defaults, erlaubte Werte, Events/Callbacks, controlled/uncontrolled Verhalten, Children/Slots, Ref Contract soweit nötig, native Prop Forwarding und bestätigte Escape Hatches geklärt sind.
+**PASS, wenn:** Props, Pflicht und Optionalität, Defaults, erlaubte Werte, Events/Callbacks, controlled/uncontrolled Verhalten, Children/Slots, Ref Contract soweit nötig, native Prop Forwarding und bestätigte Escape Hatches geklärt sind. Für jeden öffentlichen Part ordnet eine Prop-Ownership-Map Standard-Props einem exakten nativen Ziel zu und dokumentiert Kollisionen, Auslassungen, verbotene Overrides und Event-Komposition.
 
-**BLOCK, wenn:** Während der Implementierung eine API-Entscheidung getroffen werden müsste. Betrifft ein projektweiter offener Ref- oder DOM-Vertrag wie [OPEN-015](../01-decisions/ui-decision-register.md) die konkrete Component implementierungsrelevant, ist der Check ebenfalls `BLOCK`.
+**BLOCK, wenn:** Während der Implementierung eine API-Entscheidung getroffen werden müsste, kompatible Native Props stillschweigend verloren gehen könnten oder ihr Ziel mehrdeutig wäre. Betrifft ein projektweiter offener Ref- oder DOM-Vertrag wie [OPEN-015](../01-decisions/ui-decision-register.md) die konkrete Component implementierungsrelevant, ist der Check ebenfalls `BLOCK`.
 
 Die Existenz von OPEN-015 blockiert nicht pauschal jede Component.
 
@@ -148,7 +148,7 @@ Die Existenz von OPEN-015 blockiert nicht pauschal jede Component.
 
 Für Core Components:
 
-**PASS, wenn:** Native Root-Semantik, weitergereichte native Props, öffentlicher Ref Target soweit relevant, stabile DOM-Annahmen und notwendige zusätzliche Wrapper eindeutig sind.
+**PASS, wenn:** Native Root-Semantik, weitergereichte native Props, öffentlicher Ref Target soweit relevant, stabile DOM-Annahmen und notwendige zusätzliche Wrapper eindeutig sind. Für Composite Controls ist das primäre Control als Ziel direkter Native Props bestimmt; zusätzliche Ziele verwenden nur klar benannte Root-/Slot-Props.
 
 **BLOCK, wenn:** Ein öffentlicher oder Accessibility-relevanter DOM-Vertrag ungeklärt bleibt oder ein Wrapper spontan erfunden werden müsste.
 

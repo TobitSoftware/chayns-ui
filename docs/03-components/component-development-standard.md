@@ -60,6 +60,13 @@ Eine öffentliche API MUST die fachliche und UI-semantische Verantwortung der je
 
 ### Native attributes and prop forwarding
 
+Jede öffentliche Leaf Component und jeder öffentliche Compound Part MUST die kompatiblen Standard-Props des nativen Elements weiterreichen, das sie oder er repräsentiert. TypeScript-Verträge verwenden dafür den nativen Elementtyp und nehmen ausschließlich benannte, dokumentierte Kollisionen aus.
+
+Für React-/TypeScript-Verträge wird `ComponentPropsWithRef<'element'>` direkt verwendet und nur um die explizit dokumentierten Kollisionsnamen mittels `Omit` reduziert.
+
+Die Specification MUSS für jeden öffentlichen Teil eine Prop-Ownership-Map führen: öffentliche Oberfläche, natives Ziel, Ref Target, weitergereichte Props, lokal besessene Props, explizit verbotene Overrides sowie Event-Komposition einschließlich Aufrufreihenfolge und `defaultPrevented`-Regel. Native Props dürfen nicht versehentlich verloren gehen oder per nachträglichem Spread stillschweigend überschrieben werden.
+
+Bei Composite Controls zielen direkte native Props auf das primäre Control. Zusätzliche Props für einen weiteren nativen Knoten sind nur als eindeutig benannter Root- oder Slot-Prop zulässig, wenn der Zielknoten sonst nicht eindeutig wäre. Ein generischer Props-Bag mit unklarem DOM-Ziel ist verboten.
 * Eine Komponente MUST native Attribute und Events der von ihr repräsentierten Semantik bevorzugen, sofern sie mit ihrem dokumentierten Verhalten vereinbar sind.
 * Kompatible `data-*`- und `aria-*`-Attribute MUST an das semantisch passende Element weitergegeben werden, soweit sie nicht eine bereits definierte, zugängliche Component-Semantik verletzen.
 * Rest Props MAY an das semantische Root-Element weitergegeben werden. Sie MUST NOT unkontrolliert an einen dekorativen Wrapper, ein falsches Kind oder mehrere Elemente verteilt werden.
@@ -80,11 +87,13 @@ Composition ist die bevorzugte Form, Beziehungen zwischen UI-Teilen auszudrücke
 
 * `children` SHOULD verwendet werden, wenn Consumer-Inhalt in einer klaren, semantischen Region gerendert wird.
 * Benannte Slots, Subcomponents, Compound Components oder render props MAY nur verwendet werden, wenn sie eine stabile Beziehung ausdrücken, die mit einer kleineren Props-API nicht klar abbildbar ist.
+* Compound Components MUST nur für bestätigte semantische Parent/Child-Beziehungen verwendet werden, die gemeinsame Zustände, Beziehungen oder DOM-Verantwortung benötigen. Visuelle Anatomy allein rechtfertigt kein Compound Pattern.
+* Jeder öffentliche Compound Part MUST seinen zulässigen Parent, seinen DOM- und Ref-Owner, seinen Context-Vertrag, seine Slots sowie Keyboard- und Accessibility-Verantwortung dokumentieren. Ein Child außerhalb seines Parents ist ein Vertragsfehler und darf nicht stillschweigend zu einer alternativen Struktur führen.
 * Composition MUST NOT benutzt werden, um eine sonst fehlende Komponentenverantwortung oder eine unklare API zu verstecken.
 * Eine sehr große Props-API SHOULD zuerst auf sinnvollere Composition geprüft werden. Umgekehrt SHOULD eine einfache, eindeutige Konfiguration nicht künstlich in ein Compound Pattern überführt werden.
 * Context MAY wiederkehrenden, ausdrücklich definierten UI-Kontext bereitstellen, etwa Gruppenverhalten oder einen Layout-Kontext. Er MUST NOT unbemerkt beliebige visuelle Varianten oder Domain-Zustand in Kinder injizieren.
 
-Es existiert aktuell kein implementiertes Slot-, Compound- oder render-prop-Pattern als Projektkonvention. Eine spätere Component Specification muss ihre benötigte Composition ausdrücklich festlegen.
+Dieser Standard definiert die Auswahl- und Dokumentationsregeln für Compound Components, aber keine pauschale technische Implementierung. Jede Component Specification legt ihre erforderliche Composition, einschließlich eines möglichen Context-Mechanismus, ausdrücklich fest.
 
 ## 7. Controlled and Uncontrolled State
 
@@ -257,6 +266,8 @@ Eine Component ist erst fertig, wenn alle zutreffenden Punkte erfüllt und über
 Folgende Muster sind mit den bestehenden Projektregeln unvereinbar:
 
 * semantisch unnötige Wrapper oder fragile Styles, die einen bestimmten internen DOM-Aufbau für Consumer voraussetzen,
+* künstliche Compound- oder Subcomponent-Bäume für rein visuelle Anatomy,
+* stillschweigend verworfene oder durch Prop-Spread überschriebene kompatible Native Props,
 * nachgebaute semantische Controls, wenn ein geeignetes natives Element existiert,
 * unkontrolliertes Prop-Wachstum statt klarer Composition oder klarer Verantwortungsgrenze,
 * Business-, Datenbeschaffungs- oder Application-Logik in Core oder Layout,
