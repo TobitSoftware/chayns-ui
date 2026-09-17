@@ -29,6 +29,7 @@
     "./accordion.css": "./dist/accordion.css",
     "./popup.css": "./dist/popup.css",
     "./split-button.css": "./dist/split-button.css",
+    "./text-field.css": "./dist/text-field.css",
     "./styles.css": "./dist/styles.css",
     "./package.json": "./package.json"
   },

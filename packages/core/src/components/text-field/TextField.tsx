@@ -1,0 +1,49 @@
+import { useId } from 'react';
+
+import type { TextFieldProps } from './TextField.types.js';
+
+function TextField({
+  className,
+  counter,
+  error,
+  helpText,
+  id,
+  label,
+  placeholder,
+  ...inputProps
+}: TextFieldProps) {
+  const generatedId = useId();
+  const inputId = id ?? generatedId;
+  const hasError = error !== undefined;
+  const helpId = helpText !== undefined ? `${inputId}-help` : undefined;
+  const errorId = hasError ? `${inputId}-error` : undefined;
+  const describedBy = [helpId, errorId].filter(Boolean).join(' ') || undefined;
+  const inputClassName = ['chayns-text-field__input', className].filter(Boolean).join(' ');
+
+  return (
+    <div className={`chayns-text-field${hasError ? ' chayns-text-field--error' : ''}`}>
+      <input
+        {...inputProps}
+        aria-describedby={describedBy}
+        aria-invalid={hasError || undefined}
+        className={inputClassName}
+        id={inputId}
+        placeholder={placeholder ?? ' '}
+      />
+      <label className="chayns-text-field__label" htmlFor={inputId}>
+        {label}
+      </label>
+      {helpText !== undefined || hasError || counter !== undefined ? (
+        <div className="chayns-text-field__help">
+          <div>
+            {helpText !== undefined ? <div id={helpId}>{helpText}</div> : null}
+            {hasError ? <div id={errorId}>{error}</div> : null}
+          </div>
+          {counter !== undefined ? <div>{counter}</div> : null}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+export default TextField;
