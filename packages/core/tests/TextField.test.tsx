@@ -17,7 +17,7 @@ describe('TextField', () => {
         className="consumer-class"
         data-purpose="account-name"
         inputMode="email"
-        label="Email"
+        aria-label="Email"
         maxLength={120}
         onChange={onChange}
         placeholder="name@example.com"
@@ -46,7 +46,7 @@ describe('TextField', () => {
         counter="3 / 120"
         error="Ungültige E-Mail-Adresse"
         helpText="Geschäftliche Adresse"
-        label="Email"
+        aria-label="Email"
       />,
     );
 
@@ -60,18 +60,20 @@ describe('TextField', () => {
   });
 
   it('preserves native controlled, disabled and readonly behaviour', () => {
-    const { rerender } = render(<TextField defaultValue="Initial" label="Name" readOnly />);
+    const { rerender } = render(<TextField aria-label="Name" defaultValue="Initial" readOnly />);
     const input = screen.getByRole('textbox', { name: 'Name' });
     expect(input).toHaveValue('Initial');
     expect(input).toHaveAttribute('readonly');
 
-    rerender(<TextField disabled label="Name" value="Controlled" onChange={() => undefined} />);
+    rerender(
+      <TextField aria-label="Name" disabled value="Controlled" onChange={() => undefined} />,
+    );
     expect(input).toBeDisabled();
     expect(input).toHaveValue('Controlled');
   });
 
   it('renders safely on the server', () => {
-    const markup = renderToString(<TextField helpText="Optional" label="Name" />);
+    const markup = renderToString(<TextField aria-label="Name" helpText="Optional" />);
     expect(markup).toContain('<input');
     expect(markup).toContain('Name');
   });

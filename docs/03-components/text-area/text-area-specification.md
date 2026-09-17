@@ -32,7 +32,7 @@ interface TextAreaProps extends Omit<
 | `helpText`, `error`, `counter` | help row below textarea | component owns generated IDs and placement |
 | `aria-describedby`, `aria-invalid`, `children` | textarea | respectively owned, derived and forbidden |
 
-A consumer `id` is preserved; otherwise React generates one. Help and error IDs are linked in that order; counter remains visible but undescribed. `error` determines `aria-invalid`. Supplied placeholder is forwarded; an absent placeholder becomes whitespace only for the Bodywork floating-label empty-value selector. Native events remain unwrapped, preserving normal React/native event order and cancellation.
+A consumer `id` is preserved; otherwise React generates one. Help and error IDs are linked in that order; counter remains visible but undescribed. `error` determines `aria-invalid`. Placeholder is forwarded unchanged with native HTML behaviour. Native events remain unwrapped, preserving normal React/native event order and cancellation.
 
 ## DOM, visual and state contract
 
@@ -42,7 +42,7 @@ TextArea uses TextField’s Bodywork field geometry plus documented `min-height:
 
 ## Accessibility, content and verification
 
-The visible label names the native multiline input. Help and error remain visible and linked; error sets `aria-invalid="true"`. There is no generated counter, live announcement, focus management or custom keyboard model. Native textarea behaviour handles Tab, editing, selection, clipboard, form semantics, disabled and readonly states. Consumers supply localized content, which wraps without font reduction.
+Consumers provide an accessible name with compatible `aria-label` or `aria-labelledby` when needed. Help and error remain visible and linked; error sets `aria-invalid="true"`. There is no generated counter, live announcement, focus management or custom keyboard model. Native textarea behaviour handles Tab, editing, selection, clipboard, form semantics, disabled and readonly states.
 
 Runtime tests cover DOM/label/description wiring, error/ref ownership, native props/events, controlled/uncontrolled values, resize styling and SSR. Type tests reject owned collisions. Stories and manual checks cover error, help/counter, long text, zoom/reflow, forced colors and density.
 

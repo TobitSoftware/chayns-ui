@@ -1,12 +1,10 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 
-/** Props for a labelled native single-line input. */
+/** Props for a native single-line input with optional help and error content. */
 export interface TextFieldProps extends Omit<
   ComponentPropsWithRef<'input'>,
   'aria-describedby' | 'aria-invalid' | 'children'
 > {
-  /** Visible label associated with the native input. */
-  label: ReactNode;
   /** Supporting content linked to the input. */
   helpText?: ReactNode;
   /** Validation content linked to the input and reflected through aria-invalid. */

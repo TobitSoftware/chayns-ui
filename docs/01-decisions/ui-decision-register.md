@@ -183,12 +183,13 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | INPUT-002 | INPUT | Help Text, Error und Counter sind definierte Control-Slots. | CONFIRMED | AGENTS.md | |
 | INPUT-003 | INPUT | Entwickler liefern Inhalte; chayns UI verantwortet Position, Layout und Accessibility. | CONFIRMED | AGENTS.md | |
 | INPUT-004 | INPUT | Die öffentliche Form-Control-Composition/API ist offen. | SUPERSEDED | AGENTS.md | Superseded by INPUT-005 and INPUT-006. |
-| INPUT-005 | INPUT | TextField und TextArea benötigen immer ein sichtbares `label`; eine ausschließlich programmatiche Benennung ist für diese initialen Komponenten nicht vorgesehen. | CONFIRMED | User decision, 2026-09-17 | |
+| INPUT-005 | INPUT | TextField und TextArea benötigen immer ein sichtbares `label`; eine ausschließlich programmatiche Benennung ist für diese initialen Komponenten nicht vorgesehen. | SUPERSEDED | User decision, 2026-09-17 | Superseded by INPUT-011. |
 | INPUT-006 | INPUT | TextField und TextArea erhalten Help Text, Error und Counter als direkte öffentliche Props. Die Komponenten verantworten ihre Position, lokale ID-Beziehungen und die korrekte Verknüpfung mit dem nativen Control. | CONFIRMED | User decision, 2026-09-17 | Exakte Prop-Typen, Priorität und Counter-Semantik in den Component Specifications festlegen. |
 | INPUT-007 | INPUT | Checkbox und Switch benötigen immer ein sichtbares `children`-Label; eine ausschließlich programmatiche Benennung ist für diese initialen Komponenten nicht vorgesehen. | CONFIRMED | User decision, 2026-09-17 | |
 | INPUT-008 | INPUT | RadioGroup benötigt für native Form-Übermittlung ein Pflicht-`name`; die Gruppe gibt ihn an ihre Radios weiter. | CONFIRMED | User decision, 2026-09-17 | |
 | INPUT-009 | INPUT | `counter` ist ein bereits aufgelöster `ReactNode`; TextField und TextArea berechnen im initialen Vertrag keinen Zeichen-Zähler aus `value` oder `maxLength`. | CONFIRMED | User decision, 2026-09-17 | |
 | INPUT-010 | INPUT | Help Text und Error bleiben bei gleichzeitigem Vorkommen sichtbar und sind beide mit dem nativen Control verknüpft; bei Error setzt die Komponente zusätzlich `aria-invalid`. | CONFIRMED | User decision, 2026-09-17 | Verknüpfungsreihenfolge und Live-Region in der Specification festlegen. |
+| INPUT-011 | INPUT | TextField und TextArea besitzen keinen eigenen `label`-Prop und kein Floating-Label. Sie leiten den nativen `placeholder` direkt weiter. Für eine zugängliche Benennung verwenden Consumer kompatible `aria-label`- oder `aria-labelledby`-Props. | CONFIRMED | User decision, 2026-09-17 | |
 
 ## Selection Controls
 

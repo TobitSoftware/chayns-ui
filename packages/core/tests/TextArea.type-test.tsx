@@ -6,7 +6,6 @@ export const validTextArea = (
   <TextArea
     aria-label="Profile description"
     data-purpose="description"
-    label="Beschreibung"
     maxLength={500}
     placeholder="Beschreibe dein Profil"
     ref={createRef<HTMLTextAreaElement>()}
@@ -15,11 +14,11 @@ export const validTextArea = (
   />
 );
 
-// @ts-expect-error visible label is required
-export const missingLabel = <TextArea />;
+// @ts-expect-error custom labels are not part of the placeholder contract
+export const customLabel = <TextArea label="Beschreibung" />;
 // @ts-expect-error textarea children are forbidden
-export const textareaChildren = <TextArea label="Beschreibung">Text</TextArea>;
+export const textareaChildren = <TextArea>Text</TextArea>;
 // @ts-expect-error descriptions are component-owned
-export const customDescription = <TextArea aria-describedby="description" label="Beschreibung" />;
+export const customDescription = <TextArea aria-describedby="description" />;
 // @ts-expect-error invalid state is component-owned by error
-export const customInvalid = <TextArea aria-invalid label="Beschreibung" />;
+export const customInvalid = <TextArea aria-invalid />;

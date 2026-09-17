@@ -2,16 +2,7 @@ import { useId } from 'react';
 
 import type { TextFieldProps } from './TextField.types.js';
 
-function TextField({
-  className,
-  counter,
-  error,
-  helpText,
-  id,
-  label,
-  placeholder,
-  ...inputProps
-}: TextFieldProps) {
+function TextField({ className, counter, error, helpText, id, ...inputProps }: TextFieldProps) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const hasError = error !== undefined;
@@ -28,11 +19,8 @@ function TextField({
         aria-invalid={hasError || undefined}
         className={inputClassName}
         id={inputId}
-        placeholder={placeholder ?? ' '}
+        placeholder={inputProps.placeholder}
       />
-      <label className="chayns-text-field__label" htmlFor={inputId}>
-        {label}
-      </label>
       {helpText !== undefined || hasError || counter !== undefined ? (
         <div className="chayns-text-field__help">
           <div>

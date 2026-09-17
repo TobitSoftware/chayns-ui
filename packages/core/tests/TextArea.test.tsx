@@ -16,7 +16,7 @@ describe('TextArea', () => {
       <TextArea
         className="consumer-class"
         data-purpose="message"
-        label="Nachricht"
+        aria-label="Nachricht"
         maxLength={500}
         onChange={onChange}
         placeholder="Schreibe eine Nachricht"
@@ -44,7 +44,7 @@ describe('TextArea', () => {
         counter="3 / 500"
         error="Pflichtfeld"
         helpText="Maximal 500 Zeichen"
-        label="Nachricht"
+        aria-label="Nachricht"
       />,
     );
 
@@ -58,18 +58,22 @@ describe('TextArea', () => {
   });
 
   it('preserves native controlled, disabled and readonly behaviour', () => {
-    const { rerender } = render(<TextArea defaultValue="Initial" label="Nachricht" readOnly />);
+    const { rerender } = render(
+      <TextArea aria-label="Nachricht" defaultValue="Initial" readOnly />,
+    );
     const textarea = screen.getByRole('textbox', { name: 'Nachricht' });
     expect(textarea).toHaveValue('Initial');
     expect(textarea).toHaveAttribute('readonly');
 
-    rerender(<TextArea disabled label="Nachricht" value="Controlled" onChange={() => undefined} />);
+    rerender(
+      <TextArea aria-label="Nachricht" disabled value="Controlled" onChange={() => undefined} />,
+    );
     expect(textarea).toBeDisabled();
     expect(textarea).toHaveValue('Controlled');
   });
 
   it('renders safely on the server', () => {
-    const markup = renderToString(<TextArea helpText="Optional" label="Nachricht" />);
+    const markup = renderToString(<TextArea aria-label="Nachricht" helpText="Optional" />);
     expect(markup).toContain('<textarea');
     expect(markup).toContain('Nachricht');
   });

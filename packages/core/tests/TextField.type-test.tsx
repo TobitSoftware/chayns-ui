@@ -7,7 +7,6 @@ export const validTextField = (
     aria-label="Account email"
     data-purpose="email"
     inputMode="email"
-    label="E-Mail-Adresse"
     maxLength={120}
     placeholder="name@example.com"
     ref={createRef<HTMLInputElement>()}
@@ -16,11 +15,11 @@ export const validTextField = (
   />
 );
 
-// @ts-expect-error visible label is required
-export const missingLabel = <TextField />;
+// @ts-expect-error custom labels are not part of the placeholder contract
+export const customLabel = <TextField label="Name" />;
 // @ts-expect-error input children are forbidden
-export const inputChildren = <TextField label="Name">Name</TextField>;
+export const inputChildren = <TextField>Name</TextField>;
 // @ts-expect-error descriptions are component-owned
-export const customDescription = <TextField aria-describedby="description" label="Name" />;
+export const customDescription = <TextField aria-describedby="description" />;
 // @ts-expect-error invalid state is component-owned by error
-export const customInvalid = <TextField aria-invalid label="Name" />;
+export const customInvalid = <TextField aria-invalid />;

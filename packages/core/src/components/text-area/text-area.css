@@ -21,22 +21,6 @@
     outline: none;
   }
 
-  .chayns-text-area__label {
-    position: absolute;
-    inset-block-start: 0;
-    inset-inline-start: 10px;
-    padding-inline: var(--k5);
-    font-size: var(--fs-body);
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--text-3);
-    pointer-events: none;
-    background: var(--surface);
-    transform: translateY(calc(var(--input-py) + 1.5px + 0.6em - 50%));
-    transform-origin: left center;
-    transition: transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
-  }
-
   :where(.chayns-text-area__input:hover:not(:disabled)) {
     border-color: var(--text-3);
   }
@@ -47,20 +31,8 @@
       rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-soft));
   }
 
-  :where(
-    .chayns-text-area__input:focus + .chayns-text-area__label,
-    .chayns-text-area__input:not(:placeholder-shown) + .chayns-text-area__label
-  ) {
-    color: var(--accent);
-    transform: translateY(-50%) scale(0.8);
-  }
-
   .chayns-text-area--error .chayns-text-area__input {
     border-color: var(--danger);
-  }
-
-  .chayns-text-area--error .chayns-text-area__label {
-    color: var(--danger);
   }
 
   .chayns-text-area__input:disabled {
@@ -88,12 +60,6 @@
 
   .chayns-text-area__error {
     color: var(--danger);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .chayns-text-area__label {
-      transition: none;
-    }
   }
 
   @media (forced-colors: active) {

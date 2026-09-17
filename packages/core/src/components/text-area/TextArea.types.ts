@@ -1,12 +1,10 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 
-/** Props for a labelled native multi-line textarea. */
+/** Props for a native multi-line textarea with optional help and error content. */
 export interface TextAreaProps extends Omit<
   ComponentPropsWithRef<'textarea'>,
   'aria-describedby' | 'aria-invalid' | 'children'
 > {
-  /** Visible label associated with the native textarea. */
-  label: ReactNode;
   /** Supporting content linked to the textarea. */
   helpText?: ReactNode;
   /** Validation content linked to the textarea and reflected through aria-invalid. */
