@@ -64,7 +64,7 @@
   }
 
   .chayns-segmented-control__segment:hover:not(:disabled) {
-    background: var(--hover-bg);
+    background: var(--hover);
   }
 
   .chayns-segmented-control__segment--selected:hover:not(:disabled) {
