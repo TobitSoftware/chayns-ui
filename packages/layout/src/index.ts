@@ -1,7 +1,11 @@
 export { AppLayout } from './components/app-layout/AppLayout.js';
 export type {
-  AppLayoutIcon,
-  AppLayoutItem,
+  AppLayoutCollapseToggleProps,
+  AppLayoutContentProps,
+  AppLayoutHeaderProps,
+  AppLayoutLogoProps,
+  AppLayoutNavigationItemProps,
+  AppLayoutNavigationProps,
   AppLayoutProps,
 } from './components/app-layout/AppLayout.types.js';
 export { Tabs } from './components/tabs/Tabs.js';

@@ -1,6 +1,6 @@
-import type { AppLayoutItem } from '../AppLayout.types.js';
+type AppLayoutIconName = `fa-${string}`;
 
-const AppLayoutIcon = ({ icon }: { icon: AppLayoutItem['icon'] }) => (
+const AppLayoutIcon = ({ icon }: { icon: AppLayoutIconName }) => (
   <span aria-hidden="true" className="chayns-app-layout__icon">
     <span className="chayns-app-layout__weight">
       <i className={`far ${icon}`} />
