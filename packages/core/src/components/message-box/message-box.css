@@ -1,0 +1,26 @@
+@layer chayns.components {
+  .chayns-message-box {
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--k12);
+    inline-size: 100%;
+    padding: var(--k16);
+    border: 1px solid var(--input-border);
+    border-radius: 12px;
+  }
+
+  .chayns-message-box--neutral {
+    background: var(--surface-2);
+  }
+
+  .chayns-message-box--admin {
+    border-color: var(--accent-300);
+    background: var(--tint);
+  }
+
+  .chayns-message-box--warning {
+    border-color: var(--warning);
+    background: var(--warning-bg);
+  }
+}
