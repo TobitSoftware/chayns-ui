@@ -41,7 +41,7 @@ The non-semantic root `<div class="chayns-text-field">` is not a public prop tar
 
 ## Visual, density and motion contract
 
-Bodywork defines `--input-py`, `--input-px`, a `1.5px` border, `10px` radius, `--input-border`, `--surface`, `--text`, `--muted`, `--accent`, `--danger`, `--disabled-*`, `--surface-2` and focus-ring tokens. Its label is positioned at `top: 0`, `left: 10px`, moves with Bodywork’s exact transform on native `:placeholder-shown` and `:focus`, and uses the documented transform/color transitions. The help row uses `--fs-caption`, `--k10` gap and documented `6px` top margin. The field fills its container and has no external margin. Reduced motion disables the decorative label transition.
+Bodywork defines `--input-py`, `--input-px`, a `1.5px` border, `10px` radius, `--input-border`, `--surface`, `--text`, `--muted`, `--accent`, `--danger`, `--disabled-*`, `--surface-2` and focus-ring tokens. Its label is positioned at `top: 0`, `left: 10px`, moves with Bodywork’s exact transform on native `:placeholder-shown` and `:focus`, and uses the documented transform/color transitions. The resting label uses `--text-3` instead of Bodywork’s `--muted`, because `--muted` is 4.0:1 on `--surface` and fails the confirmed WCAG 2.2 AA requirement. The help row uses `--fs-caption`, `--k10` gap and documented `6px` top margin. The field fills its container and has no external margin. Reduced motion disables the decorative label transition.
 
 ## Accessibility, content and verification
 
