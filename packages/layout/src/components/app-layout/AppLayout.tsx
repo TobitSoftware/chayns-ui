@@ -74,7 +74,6 @@ function NavigationItem({
   href,
   isActive = false,
   label,
-  ref: _ref,
   ...props
 }: AppLayoutNavigationItemProps) {
   if (!useContext(NavigationContext))

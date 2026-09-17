@@ -16,10 +16,10 @@ export const Default: Story = {
       <Tabs.List aria-label="Arbeitsbereiche">
         <Tabs.Tab value="inbox">Posteingang</Tabs.Tab>
         <Tabs.Tab value="calendar">Kalender</Tabs.Tab>
-        <Tabs.Add aria-label="Tab hinzufügen" onClick={fn()}>
-          +
-        </Tabs.Add>
       </Tabs.List>
+      <Tabs.Add aria-label="Tab hinzufügen" onClick={fn()}>
+        +
+      </Tabs.Add>
       <Tabs.Panel value="inbox">Nachrichten und Unterhaltungen</Tabs.Panel>
       <Tabs.Panel value="calendar">Dein Kalender</Tabs.Panel>
     </Tabs>

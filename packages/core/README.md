@@ -39,12 +39,16 @@ import '@chayns-ui/core/button.css';
 | `Button`, `IconButton` | `@chayns-ui/core/button.css` |
 | `Card` | `@chayns-ui/core/card.css` |
 | `Avatar`, `AvatarGroup` | `@chayns-ui/core/avatar.css` |
-| `List`, `ListItem` | `@chayns-ui/core/list.css` |
+| `List` | `@chayns-ui/core/list.css` |
+| `TextField`, `TextArea`, `Checkbox`, `Switch`, `RadioGroup`, `SegmentedControl`, `MessageBox` | their matching CSS export |
 | `Accordion`, `AccordionGroup` | `@chayns-ui/core/accordion.css` |
 | `Popup`, `PopupList` | `@chayns-ui/core/popup.css` |
 | `SplitButton` | `@chayns-ui/core/split-button.css` |
 
 Alternativ lädt `@chayns-ui/core/styles.css` das gebündelte CSS aller Komponenten.
+
+`ListItem` wurde vor 1.0 durch `List.Item` ersetzt. Komponiere Zeilen mit
+`List.Item.Action`, `List.Item.Body`, `List.Item.Title` und optionalen Slots.
 
 ## Hinweise
 

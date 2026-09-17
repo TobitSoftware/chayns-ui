@@ -1,4 +1,4 @@
-import { createContext, forwardRef, useContext, useId, useRef, useState } from 'react';
+import { createContext, forwardRef, useContext, useId, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import type {
   TabsAddProps,
@@ -143,7 +143,7 @@ const Root = forwardRef<HTMLDivElement, TabsProps>(function Root(
 ) {
   const baseId = useId();
   const [internalValue, setInternalValue] = useState(defaultValue);
-  const tabMap = useRef(new Map<string, HTMLButtonElement>()).current;
+  const [tabMap] = useState(() => new Map<string, HTMLButtonElement>());
   const selectedValue = value ?? internalValue;
   const select = (next: string) => {
     if (value === undefined) setInternalValue(next);

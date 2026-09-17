@@ -1,21 +1,21 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 
-type ControlledSelection = {
+export interface ControlledSelection {
   /** Controlled selected segment value. */
   value: string;
   /** Receives the next value after activation. */
   onValueChange: (value: string) => void;
   defaultValue?: never;
-};
+}
 
-type UncontrolledSelection = {
+export interface UncontrolledSelection {
   /** Initial selected segment value. */
   defaultValue: string;
   /** Controlled value is not accepted for uncontrolled use. */
   value?: never;
   /** Receives the next value after activation. */
   onValueChange?: (value: string) => void;
-};
+}
 
 /** Props for a labelled, single-selection segmented radiogroup. */
 export type SegmentedControlProps = Omit<

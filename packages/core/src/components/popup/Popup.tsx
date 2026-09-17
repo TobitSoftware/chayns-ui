@@ -3,6 +3,7 @@ import {
   createContext,
   forwardRef,
   isValidElement,
+  useCallback,
   useContext,
   useEffect,
   useId,
@@ -16,7 +17,7 @@ interface PopupContextValue {
   contentId: string;
   open: boolean;
   setOpen: (open: boolean, restore?: boolean) => void;
-  triggerRef: { current: HTMLButtonElement | null };
+  setTriggerElement: (element: HTMLButtonElement | null) => void;
 }
 const PopupContext = createContext<PopupContextValue | null>(null);
 function usePopup(part: string) {
@@ -31,7 +32,7 @@ const Trigger = forwardRef<HTMLButtonElement, PopupTriggerProps>(function Trigge
 ) {
   const popup = usePopup('Trigger');
   const setRef = (node: HTMLButtonElement | null) => {
-    popup.triggerRef.current = node;
+    popup.setTriggerElement(node);
     if (typeof ref === 'function') ref(node);
     else if (ref) ref.current = node;
   };
@@ -47,6 +48,7 @@ const Trigger = forwardRef<HTMLButtonElement, PopupTriggerProps>(function Trigge
   };
 
   if (asChild && isValidElement(children)) {
+    // eslint-disable-next-line react-hooks/refs
     return cloneElement(children, triggerProps);
   }
 
@@ -98,14 +100,17 @@ const Root = ({
   open,
 }: PopupProps) => {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
-  const triggerRef = useRef<HTMLButtonElement>(null);
+  const [triggerElement, setTriggerElement] = useState<HTMLButtonElement | null>(null);
   const contentId = useId();
   const isOpen = open ?? uncontrolledOpen;
-  const setOpen = (next: boolean, restore = true) => {
-    if (open === undefined) setUncontrolledOpen(next);
-    onOpenChange?.(next);
-    if (!next && restore) queueMicrotask(() => triggerRef.current?.focus());
-  };
+  const setOpen = useCallback(
+    (next: boolean, restore = true) => {
+      if (open === undefined) setUncontrolledOpen(next);
+      onOpenChange?.(next);
+      if (!next && restore) queueMicrotask(() => triggerElement?.focus());
+    },
+    [onOpenChange, open, triggerElement],
+  );
   useEffect(() => {
     if (!isOpen) return;
     const key = (event: KeyboardEvent) => {
@@ -120,7 +125,7 @@ const Root = ({
       if (
         closeOnOutsidePress &&
         target instanceof Node &&
-        !triggerRef.current?.contains(target) &&
+        !triggerElement?.contains(target) &&
         !document.getElementById(contentId)?.contains(target)
       )
         setOpen(false, false);
@@ -136,9 +141,9 @@ const Root = ({
       document.removeEventListener('pointerdown', outside);
       document.removeEventListener('click', menuAction);
     };
-  }, [isOpen, closeOnEscape, closeOnOutsidePress, contentId]);
+  }, [isOpen, closeOnEscape, closeOnOutsidePress, contentId, setOpen, triggerElement]);
   return (
-    <PopupContext.Provider value={{ contentId, open: isOpen, setOpen, triggerRef }}>
+    <PopupContext.Provider value={{ contentId, open: isOpen, setOpen, setTriggerElement }}>
       {children}
     </PopupContext.Provider>
   );

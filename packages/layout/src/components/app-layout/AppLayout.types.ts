@@ -11,7 +11,7 @@ export type AppLayoutLogoProps = ComponentPropsWithRef<'img'>;
 export type AppLayoutNavigationProps = ComponentPropsWithRef<'nav'>;
 export interface AppLayoutNavigationItemProps extends Omit<
   ComponentPropsWithRef<'button'>,
-  'children' | 'type'
+  'children' | 'ref' | 'type'
 > {
   label: ReactNode;
   children?: ReactNode;
