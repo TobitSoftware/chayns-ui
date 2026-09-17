@@ -48,8 +48,13 @@ export type { AvatarProps } from './components/avatar/Avatar.types.js';
 export type { AvatarGroupProps } from './components/avatar-group/AvatarGroup.types.js';
 
 export { default as List } from './components/list/List.js';
-export { default as ListItem } from './components/list-item/ListItem.js';
-export type { ListProps, ListItemProps } from './components/list/List.types.js';
+export type {
+  ListItemActionProps,
+  ListItemPartProps,
+  ListItemProps,
+  ListItemStatusProps,
+  ListProps,
+} from './components/list/List.types.js';
 
 export { default as Accordion } from './components/accordion/Accordion.js';
 export { default as AccordionGroup } from './components/accordion-group/AccordionGroup.js';

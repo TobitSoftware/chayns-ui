@@ -1,6 +1,5 @@
 @layer chayns.components {
   .chayns-list {
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -9,7 +8,6 @@
   }
 
   .chayns-list-item {
-    position: relative;
     display: flex;
     align-items: stretch;
     border-radius: 10px;
@@ -17,90 +15,83 @@
 
   .chayns-list-item__action {
     box-sizing: border-box;
-    flex: 1;
-    min-inline-size: 0;
     display: flex;
+    flex: 1;
     align-items: center;
     gap: var(--k12);
+    min-inline-size: 0;
     margin: 0;
     padding: var(--k10) var(--k16);
     border: 0;
     border-radius: 10px;
     background: transparent;
+    color: var(--text);
+    cursor: pointer;
     font: inherit;
     font-size: var(--fs-body);
-    color: var(--text);
     text-align: start;
     text-decoration: none;
-  }
-
-  .chayns-list-item__action--interactive {
-    cursor: pointer;
     transition: background 0.16s ease;
   }
 
-  .chayns-list-item__action--interactive:disabled {
-    cursor: not-allowed;
+  .chayns-list-item__action:disabled {
     color: var(--disabled-fg);
+    cursor: not-allowed;
   }
 
-  .chayns-list-item__action--interactive:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 var(--focus-ring-size)
-      rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-strong));
+  .chayns-list-item__action:focus-visible {
+    outline: var(--focus-ring-size) solid rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-strong));
+    outline-offset: -2px;
   }
 
   .chayns-list-item__leading {
-    flex: none;
     display: flex;
+    flex: none;
     align-items: center;
   }
 
   .chayns-list-item__body {
-    min-inline-size: 0;
-    flex: 1;
     display: flex;
+    flex: 1;
     flex-direction: column;
+    min-inline-size: 0;
   }
 
   .chayns-list-item__title {
-    min-inline-size: 0;
     overflow: hidden;
     color: var(--text);
-    white-space: nowrap;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  .chayns-list-item__subtitle {
-    min-inline-size: 0;
+  .chayns-list-item__description {
     overflow: hidden;
-    font-size: var(--fs-meta);
     color: var(--text-3);
-    white-space: nowrap;
+    font-size: var(--fs-meta);
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  .chayns-list-item__unread {
+  .chayns-list-item__trailing {
+    display: flex;
     flex: none;
+    align-items: flex-start;
+    gap: var(--k8);
+    padding: var(--k10) var(--k16) 0 0;
+    color: var(--text-3);
+    font-size: var(--fs-meta);
+  }
+
+  .chayns-list-item__status {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .chayns-list-item__status-dot {
     inline-size: var(--k8);
     block-size: var(--k8);
     border-radius: 50%;
     background: var(--accent);
-  }
-
-  .chayns-list-item__trailing {
-    flex: none;
-    align-self: flex-start;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    gap: var(--k8);
-    padding-block-start: var(--k10);
-    padding-inline-end: var(--k16);
-    color: var(--text-3);
-    font-size: var(--fs-meta);
-    text-align: end;
-    white-space: nowrap;
   }
 
   .chayns-visually-hidden {
@@ -108,25 +99,23 @@
     inline-size: 1px;
     block-size: 1px;
     margin: -1px;
-    padding: 0;
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
-    border: 0;
   }
 
   @media (hover: hover) {
-    .chayns-list-item:has(.chayns-list-item__action--interactive:hover:not(:disabled)) {
+    .chayns-list-item:has(.chayns-list-item__action:hover:not(:disabled)) {
       background: var(--hover);
     }
 
-    .chayns-list-item__action--interactive:hover:not(:disabled) {
+    .chayns-list-item__action:hover:not(:disabled) {
       background: transparent;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .chayns-list-item__action--interactive {
+    .chayns-list-item__action {
       transition: none;
     }
   }

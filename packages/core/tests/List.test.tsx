@@ -1,151 +1,75 @@
-import { renderToString } from 'react-dom/server';
+import { createRef } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import List from '../src/components/list/List.js';
-import ListItem from '../src/components/list-item/ListItem.js';
 
 describe('List', () => {
-  it('renders a semantic list with its items', () => {
+  it('forwards native list and item props and refs', () => {
+    const listRef = createRef<HTMLUListElement>();
+    const itemRef = createRef<HTMLLIElement>();
+
     render(
-      <List>
-        <ListItem title="Erste Zeile" />
-        <ListItem title="Zweite Zeile" />
+      <List aria-label="Nachrichten" data-purpose="messages" ref={listRef}>
+        <List.Item data-row="one" ref={itemRef}>
+          <List.Item.Body>
+            <List.Item.Title>Titel</List.Item.Title>
+          </List.Item.Body>
+        </List.Item>
       </List>,
     );
 
-    expect(screen.getByRole('list')).toHaveClass('chayns-list');
-    expect(screen.getAllByRole('listitem')).toHaveLength(2);
+    expect(screen.getByRole('list', { name: 'Nachrichten' })).toBe(listRef.current);
+    expect(screen.getByRole('listitem')).toBe(itemRef.current);
+    expect(screen.getByRole('listitem')).toHaveAttribute('data-row', 'one');
   });
 
-  it('forwards native list props and className', () => {
-    render(
-      <List aria-label="Nachrichten" className="consumer-class">
-        <ListItem title="Zeile" />
-      </List>,
-    );
-
-    const list = screen.getByRole('list', { name: 'Nachrichten' });
-
-    expect(list).toHaveClass('chayns-list', 'consumer-class');
-  });
-});
-
-describe('ListItem', () => {
-  it('renders a static row without interactive semantics by default', () => {
-    render(
-      <List>
-        <ListItem subtitle="Vorschau" title="Titel" />
-      </List>,
-    );
-
-    expect(screen.queryByRole('button')).not.toBeInTheDocument();
-    expect(screen.queryByRole('link')).not.toBeInTheDocument();
-    expect(screen.getByText('Titel')).toHaveClass('chayns-list-item__title');
-    expect(screen.getByText('Vorschau')).toHaveClass('chayns-list-item__subtitle');
-  });
-
-  it('renders an action button and forwards clicks', async () => {
+  it('renders native button and anchor actions without nested trailing controls', async () => {
     const user = userEvent.setup();
-    const handleClick = vi.fn();
-
+    const onClick = vi.fn();
     render(
       <List>
-        <ListItem onClick={handleClick} title="Aktion" />
+        <List.Item>
+          <List.Item.Action onClick={onClick}>
+            <List.Item.Body>
+              <List.Item.Title>Aktion</List.Item.Title>
+            </List.Item.Body>
+          </List.Item.Action>
+          <List.Item.Trailing>
+            <button type="button">Mehr</button>
+          </List.Item.Trailing>
+        </List.Item>
+        <List.Item>
+          <List.Item.Action href="#ziel">
+            <List.Item.Body>
+              <List.Item.Title>Navigation</List.Item.Title>
+            </List.Item.Body>
+          </List.Item.Action>
+        </List.Item>
       </List>,
     );
-
-    await user.click(screen.getByRole('button', { name: 'Aktion' }));
-
-    expect(handleClick).toHaveBeenCalledOnce();
-  });
-
-  it('renders a navigation link when href is provided', () => {
-    render(
-      <List>
-        <ListItem href="#ziel" title="Navigation" />
-      </List>,
-    );
-
-    expect(screen.getByRole('link', { name: 'Navigation' })).toHaveAttribute('href', '#ziel');
-  });
-
-  it('does not activate a disabled action button', async () => {
-    const user = userEvent.setup();
-    const handleClick = vi.fn();
-
-    render(
-      <List>
-        <ListItem disabled onClick={handleClick} title="Aktion" />
-      </List>,
-    );
-
     const button = screen.getByRole('button', { name: 'Aktion' });
     await user.click(button);
-
-    expect(button).toBeDisabled();
-    expect(handleClick).not.toHaveBeenCalled();
+    expect(onClick).toHaveBeenCalledOnce();
+    expect(screen.getByRole('link', { name: 'Navigation' })).toHaveAttribute('href', '#ziel');
+    expect(button).not.toContainElement(screen.getByRole('button', { name: 'Mehr' }));
   });
 
-  it('exposes a localized accessible name for the unread indicator', () => {
+  it('gives the neutral status indicator an accessible description', () => {
     render(
       <List>
-        <ListItem title="Titel" unread unreadLabel="Ungelesen" />
+        <List.Item>
+          <List.Item.Trailing>
+            <List.Item.Status label="Neu" />
+          </List.Item.Trailing>
+        </List.Item>
       </List>,
     );
-
-    expect(screen.getByText('Ungelesen')).toHaveClass('chayns-visually-hidden');
+    expect(screen.getByText('Neu')).toHaveClass('chayns-visually-hidden');
   });
 
-  it('renders an unread indicator without a label as decorative', () => {
-    render(
-      <List>
-        <ListItem title="Titel" unread />
-      </List>,
-    );
-
-    expect(screen.queryByText('Ungelesen')).not.toBeInTheDocument();
-    const listItem = screen.getByRole('listitem');
-    expect(listItem.querySelector('.chayns-list-item__unread')).toHaveAttribute(
-      'aria-hidden',
-      'true',
-    );
-  });
-
-  it('renders a leading slot when provided', () => {
-    render(
-      <List>
-        <ListItem leading={<span data-testid="avatar">A</span>} title="Titel" />
-      </List>,
-    );
-
-    expect(screen.getByTestId('avatar')).toBeInTheDocument();
-  });
-
-  it('keeps row actions outside the row link so nested controls stay valid', () => {
-    render(
-      <List>
-        <ListItem href="#ziel" title="Navigation" trailing={<button type="button">Menü</button>} />
-      </List>,
-    );
-
-    const listItem = screen.getByRole('listitem');
-    const link = screen.getByRole('link', { name: 'Navigation' });
-    const trailingButton = screen.getByRole('button', { name: 'Menü' });
-
-    expect(link).not.toContainElement(trailingButton);
-    expect(listItem).toContainElement(trailingButton);
-  });
-
-  it('renders safely on the server', () => {
-    const markup = renderToString(
-      <List>
-        <ListItem title="Server row" />
-      </List>,
-    );
-
-    expect(markup).toContain('chayns-list');
-    expect(markup).toContain('Server row');
+  it('rejects Item outside its documented parent', () => {
+    expect(() => render(<List.Item />)).toThrow('List.Item must be rendered within List.');
   });
 });
