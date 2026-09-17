@@ -1,6 +1,6 @@
-import type { TabsEntry } from '../Tabs.types.js';
+type TabsIconName = `fa-${string}`;
 
-const TabsIcon = ({ icon }: { icon: TabsEntry['icon'] }) => (
+const TabsIcon = ({ icon }: { icon: TabsIconName }) => (
   <span aria-hidden="true" className="chayns-tabs__icon">
     <i className={`far ${icon}`} />
   </span>

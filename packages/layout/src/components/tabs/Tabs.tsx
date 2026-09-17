@@ -1,118 +1,160 @@
-import { forwardRef, useId, useRef } from 'react';
+import { createContext, forwardRef, useContext, useId, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
+import type {
+  TabsAddProps,
+  TabsListProps,
+  TabsPanelProps,
+  TabsProps,
+  TabsTabProps,
+} from './Tabs.types.js';
 
-import type { TabsProps } from './Tabs.types.js';
-import TabsIcon from './tabs-icon/TabsIcon.js';
+interface TabsContextValue {
+  baseId: string;
+  select: (value: string) => void;
+  tabs: Map<string, HTMLButtonElement>;
+  value: string | undefined;
+}
+const TabsContext = createContext<TabsContextValue | null>(null);
+function useTabs(part: string) {
+  const context = useContext(TabsContext);
+  if (context === null) throw new Error(`Tabs.${part} must be rendered within Tabs.`);
+  return context;
+}
 
-export const Tabs = forwardRef<HTMLDivElement, TabsProps>(function Tabs(
-  { addLabel, className, onAdd, tabs, ...rootProps },
+const List = forwardRef<HTMLDivElement, TabsListProps>(function List(
+  { children, className, ...props },
   ref,
 ) {
-  const baseId = useId();
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const activeIndex = Math.max(
-    0,
-    tabs.findIndex((tab) => tab.isActive),
-  );
-  const rootClassName = ['chayns-tabs', className].filter(Boolean).join(' ');
-
-  const focusTab = (index: number) => {
-    const nextIndex = (index + tabs.length) % tabs.length;
-    tabs[nextIndex]?.onClick();
-    tabRefs.current[nextIndex]?.focus();
-  };
-
-  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
-    if ((event.key === 'Delete' || event.key === 'Backspace') && tabs[index]?.onRemove) {
-      event.preventDefault();
-      tabs[index].onRemove();
-      return;
-    }
-
-    if (tabs.length === 0) return;
-
-    const nextIndex =
-      event.key === 'ArrowRight' || event.key === 'ArrowDown'
-        ? index + 1
-        : event.key === 'ArrowLeft' || event.key === 'ArrowUp'
-          ? index - 1
-          : event.key === 'Home'
-            ? 0
-            : event.key === 'End'
-              ? tabs.length - 1
-              : -1;
-
-    if (nextIndex === -1) return;
-    event.preventDefault();
-    focusTab(nextIndex);
-  };
-
-  const activeTab = tabs[activeIndex];
-  const activeTabId = activeTab ? `${baseId}-tab-${activeIndex}` : undefined;
-  const activePanelId = activeTab ? `${baseId}-panel-${activeIndex}` : undefined;
-
+  useTabs('List');
   return (
-    <div {...rootProps} className={rootClassName} ref={ref}>
-      <div className="chayns-tabs__bar">
-        <div className="chayns-tabs__list" role="tablist">
-          {tabs.map((tab, index) => {
-            const tabId = `${baseId}-tab-${index}`;
-            const panelId = `${baseId}-panel-${index}`;
-            const isSelected = index === activeIndex;
-
-            return (
-              <div className="chayns-tabs__item" key={tabId} role="presentation">
-                <button
-                  aria-controls={isSelected ? panelId : undefined}
-                  aria-selected={isSelected}
-                  className={`chayns-tabs__tab${isSelected ? ' chayns-tabs__tab--active' : ''}`}
-                  id={tabId}
-                  onClick={(event) => {
-                    if ((event.target as HTMLElement).closest('[data-tabs-remove]')) {
-                      tab.onRemove?.();
-                      return;
-                    }
-                    tab.onClick();
-                  }}
-                  onKeyDown={(event) => handleKeyDown(event, index)}
-                  ref={(element) => {
-                    tabRefs.current[index] = element;
-                  }}
-                  role="tab"
-                  tabIndex={isSelected ? 0 : -1}
-                  type="button"
-                >
-                  <TabsIcon icon={tab.icon} />
-                  <span className="chayns-tabs__label">{tab.name}</span>
-                  {tab.onRemove ? (
-                    <span aria-hidden="true" className="chayns-tabs__remove" data-tabs-remove>
-                      <TabsIcon icon="fa-xmark" />
-                    </span>
-                  ) : null}
-                </button>
-              </div>
-            );
-          })}
-        </div>
-        {onAdd && addLabel ? (
-          <button aria-label={addLabel} className="chayns-tabs__add" onClick={onAdd} type="button">
-            <TabsIcon icon="fa-plus" />
-          </button>
-        ) : null}
-      </div>
-      {activeTab && activeTabId && activePanelId ? (
-        <div
-          aria-labelledby={activeTabId}
-          className="chayns-tabs__panel"
-          id={activePanelId}
-          role="tabpanel"
-          tabIndex={0}
-        >
-          {activeTab.content}
-        </div>
-      ) : null}
+    <div
+      {...props}
+      className={['chayns-tabs__list', className].filter(Boolean).join(' ')}
+      ref={ref}
+      role="tablist"
+    >
+      {children}
     </div>
   );
 });
-
-Tabs.displayName = 'Tabs';
+const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
+  { children, className, onRemove, onClick, value, ...props },
+  ref,
+) {
+  const tabs = useTabs('Tab');
+  const selected = tabs.value === value;
+  const tabId = `${tabs.baseId}-tab-${value}`;
+  const panelId = `${tabs.baseId}-panel-${value}`;
+  function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
+    if ((event.key === 'Delete' || event.key === 'Backspace') && onRemove) {
+      event.preventDefault();
+      onRemove();
+      return;
+    }
+    const values = [...tabs.tabs.keys()];
+    const index = values.indexOf(value);
+    const nextIndex =
+      event.key === 'Home'
+        ? 0
+        : event.key === 'End'
+          ? values.length - 1
+          : event.key === 'ArrowRight' || event.key === 'ArrowDown'
+            ? (index + 1) % values.length
+            : event.key === 'ArrowLeft' || event.key === 'ArrowUp'
+              ? (index - 1 + values.length) % values.length
+              : -1;
+    if (nextIndex >= 0) {
+      event.preventDefault();
+      const next = values[nextIndex];
+      if (next) {
+        tabs.select(next);
+        tabs.tabs.get(next)?.focus();
+      }
+    }
+  }
+  function setRef(node: HTMLButtonElement | null) {
+    if (node) tabs.tabs.set(value, node);
+    else tabs.tabs.delete(value);
+    if (typeof ref === 'function') ref(node);
+    else if (ref) ref.current = node;
+  }
+  return (
+    <button
+      {...props}
+      aria-controls={panelId}
+      aria-selected={selected}
+      className={['chayns-tabs__tab', selected && 'chayns-tabs__tab--active', className]
+        .filter(Boolean)
+        .join(' ')}
+      id={tabId}
+      onClick={(event) => {
+        onClick?.(event);
+        if (!event.defaultPrevented) tabs.select(value);
+      }}
+      onKeyDown={handleKeyDown}
+      ref={setRef}
+      role="tab"
+      tabIndex={selected ? 0 : -1}
+      type="button"
+    >
+      {children}
+    </button>
+  );
+});
+const Panel = forwardRef<HTMLDivElement, TabsPanelProps>(function Panel(
+  { children, className, value, ...props },
+  ref,
+) {
+  const tabs = useTabs('Panel');
+  if (tabs.value !== value) return null;
+  return (
+    <div
+      {...props}
+      aria-labelledby={`${tabs.baseId}-tab-${value}`}
+      className={['chayns-tabs__panel', className].filter(Boolean).join(' ')}
+      id={`${tabs.baseId}-panel-${value}`}
+      ref={ref}
+      role="tabpanel"
+      tabIndex={0}
+    >
+      {children}
+    </div>
+  );
+});
+const Add = forwardRef<HTMLButtonElement, TabsAddProps>(function Add(
+  { children, className, ...props },
+  ref,
+) {
+  useTabs('Add');
+  return (
+    <button
+      {...props}
+      className={['chayns-tabs__add', className].filter(Boolean).join(' ')}
+      ref={ref}
+      type="button"
+    >
+      {children}
+    </button>
+  );
+});
+const Root = forwardRef<HTMLDivElement, TabsProps>(function Root(
+  { children, className, defaultValue, onValueChange, value, ...props },
+  ref,
+) {
+  const baseId = useId();
+  const [internalValue, setInternalValue] = useState(defaultValue);
+  const tabMap = useRef(new Map<string, HTMLButtonElement>()).current;
+  const selectedValue = value ?? internalValue;
+  const select = (next: string) => {
+    if (value === undefined) setInternalValue(next);
+    onValueChange?.(next);
+  };
+  return (
+    <TabsContext.Provider value={{ baseId, select, tabs: tabMap, value: selectedValue }}>
+      <div {...props} className={['chayns-tabs', className].filter(Boolean).join(' ')} ref={ref}>
+        {children}
+      </div>
+    </TabsContext.Provider>
+  );
+});
+export const Tabs = Object.assign(Root, { Add, List, Panel, Tab });
