@@ -75,6 +75,18 @@
       "$extensions": { "chayns": { "cssName": "--ctrl-h" } }
     }
   },
+  "input": {
+    "padding-block": {
+      "$type": "string",
+      "$value": "calc(13 * var(--u))",
+      "$extensions": { "chayns": { "cssName": "--input-py" } }
+    },
+    "padding-inline": {
+      "$type": "string",
+      "$value": "calc(16 * var(--u))",
+      "$extensions": { "chayns": { "cssName": "--input-px" } }
+    }
+  },
   "geometry": {
     "icon": {
       "$type": "string",
@@ -405,6 +417,30 @@
           "highContrast": { "light": "#a31919", "dark": "#ffb3ae" },
           "colorDeficiency": { "light": "#b4237a", "dark": "#ff8bc4" }
         }
+      }
+    },
+    "success": {
+      "$type": "color",
+      "$value": "#039855",
+      "$extensions": { "chayns": { "cssName": "--success", "dark": "#32d583" } }
+    },
+    "success-background": {
+      "$type": "color",
+      "$value": "#e7f6ee",
+      "$extensions": {
+        "chayns": { "cssName": "--success-bg", "dark": "rgba(50, 213, 131, 0.22)" }
+      }
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "#dc6803",
+      "$extensions": { "chayns": { "cssName": "--warning", "dark": "#fdb022" } }
+    },
+    "warning-background": {
+      "$type": "color",
+      "$value": "#fef3e7",
+      "$extensions": {
+        "chayns": { "cssName": "--warning-bg", "dark": "rgba(253, 176, 34, 0.22)" }
       }
     },
     "danger-background": {

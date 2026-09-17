@@ -11,6 +11,10 @@ describe('generated token CSS', () => {
 
     expect(baseline).toContain('--btn-py: calc(11 * var(--u));');
     expect(baseline).toContain('--ctrl-h: calc(42 * var(--u));');
+    expect(baseline).toContain('--input-py: calc(13 * var(--u));');
+    expect(baseline).toContain('--input-px: calc(16 * var(--u));');
+    expect(baseline).toContain('--success: #039855;');
+    expect(baseline).toContain('--warning: #dc6803;');
     expect(baseline).toContain('.chayns-theme--dark');
     expect(baseline).toContain('.chayns-density--s');
     expect(baseline).toContain('.chayns-contrast--high');
