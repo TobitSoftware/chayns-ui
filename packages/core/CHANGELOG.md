@@ -1,5 +1,11 @@
 # @chayns-ui/core
 
+## 0.4.1
+
+### Patch Changes
+
+- Use native TextField and TextArea placeholders without a floating-label overlay. The former `label` prop is removed; use compatible `aria-label` or `aria-labelledby` props for accessible names.
+
 ## 0.4.0
 
 ### Minor Changes
