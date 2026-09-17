@@ -1,0 +1,83 @@
+@layer chayns.components {
+  .chayns-checkbox {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--k12);
+    margin: 0;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .chayns-checkbox__input {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .chayns-checkbox__control {
+    box-sizing: border-box;
+    display: inline-grid;
+    inline-size: var(--k20);
+    block-size: var(--k20);
+    flex: none;
+    place-items: center;
+    margin-block-start: 1px;
+    border: 2px solid var(--input-border);
+    border-radius: 6px;
+    background: transparent;
+  }
+
+  .chayns-checkbox__control::after {
+    inline-size: calc(var(--k8) - 2px);
+    block-size: var(--k12);
+    border-inline-end: 2px solid var(--on-accent);
+    border-block-end: 2px solid var(--on-accent);
+    content: '';
+    opacity: 0;
+    transform: rotate(45deg) scale(0.6);
+    transition:
+      opacity 0.12s ease,
+      transform 0.18s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .chayns-checkbox__input:checked + .chayns-checkbox__control {
+    border-color: var(--accent);
+    background: var(--accent);
+  }
+
+  .chayns-checkbox__input:checked + .chayns-checkbox__control::after {
+    opacity: 1;
+    transform: rotate(45deg) scale(1);
+  }
+
+  .chayns-checkbox__input:focus-visible + .chayns-checkbox__control {
+    outline: var(--focus-ring-size) solid rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-strong));
+    outline-offset: 2px;
+  }
+
+  .chayns-checkbox:has(.chayns-checkbox__input:disabled) {
+    color: var(--disabled-fg);
+    cursor: not-allowed;
+  }
+
+  .chayns-checkbox__input:disabled + .chayns-checkbox__control {
+    border-color: var(--disabled-border);
+    background: var(--disabled-bg);
+  }
+
+  .chayns-checkbox__label {
+    font-size: var(--fs-body);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chayns-checkbox__control::after {
+      transition: none;
+    }
+  }
+}

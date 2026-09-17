@@ -31,6 +31,8 @@
     "./split-button.css": "./dist/split-button.css",
     "./text-field.css": "./dist/text-field.css",
     "./text-area.css": "./dist/text-area.css",
+    "./checkbox.css": "./dist/checkbox.css",
+    "./switch.css": "./dist/switch.css",
     "./styles.css": "./dist/styles.css",
     "./package.json": "./package.json"
   },

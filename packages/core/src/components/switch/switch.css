@@ -1,0 +1,76 @@
+@layer chayns.components {
+  .chayns-switch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--k14);
+    margin: 0;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .chayns-switch__input {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .chayns-switch__label {
+    font-size: var(--fs-body);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .chayns-switch__control {
+    box-sizing: border-box;
+    display: flex;
+    inline-size: 42px;
+    block-size: 24px;
+    flex: none;
+    padding: var(--k3);
+    border-radius: 999px;
+    background: var(--input-border);
+  }
+
+  .chayns-switch__knob {
+    inline-size: var(--k18);
+    block-size: var(--k18);
+    border-radius: 50%;
+    background: var(--surface);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
+    transform: translateX(0);
+    transition: transform 0.18s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .chayns-switch__input:checked + .chayns-switch__control {
+    background: var(--accent);
+  }
+
+  .chayns-switch__input:checked + .chayns-switch__control .chayns-switch__knob {
+    transform: translateX(18px);
+  }
+
+  .chayns-switch__input:focus-visible + .chayns-switch__control {
+    outline: var(--focus-ring-size) solid rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-strong));
+    outline-offset: 2px;
+  }
+
+  .chayns-switch:has(.chayns-switch__input:disabled) {
+    color: var(--disabled-fg);
+    cursor: not-allowed;
+  }
+
+  .chayns-switch__input:disabled + .chayns-switch__control {
+    background: var(--disabled-bg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chayns-switch__knob {
+      transition: none;
+    }
+  }
+}

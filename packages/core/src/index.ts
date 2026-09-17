@@ -14,6 +14,12 @@ export type { TextFieldProps } from './components/text-field/TextField.types.js'
 export { default as TextArea } from './components/text-area/TextArea.js';
 export type { TextAreaProps } from './components/text-area/TextArea.types.js';
 
+export { default as Checkbox } from './components/checkbox/Checkbox.js';
+export type { CheckboxProps } from './components/checkbox/Checkbox.types.js';
+
+export { default as Switch } from './components/switch/Switch.js';
+export type { SwitchProps } from './components/switch/Switch.types.js';
+
 export { default as Popup } from './components/popup/Popup.js';
 export { default as PopupList } from './components/popup/PopupList.js';
 export type { PopupListItem, PopupListProps, PopupProps } from './components/popup/Popup.types.js';
