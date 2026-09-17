@@ -1,24 +1,14 @@
-# Popup and PopupList – Component Implementation Readiness Gate
+# Popup — Component Implementation Readiness Gate
 
-## Gate Metadata
-
-- Component Name: Popup and PopupList
-- Component Category: Core
 - Component Specification: `popup-specification.md`
-- Specification Status: BLOCKED
-- Relevant Decision IDs: OVERLAY-001–003, POPUP-001–005, A11Y-001–007
-- Gate Result: BLOCKED
+- Gate Result: READY
+- Evidence: CORE-010–012, POPUP-005–008 and confirmed user focus decisions.
 
-## Blocking Items
+| Check | Result | Evidence |
+| --- | --- | --- |
+| Public API, Context, DOM/ref and slots | PASS | Trigger and Content own exact native targets. |
+| State, dismissal and focus | PASS | Controlled/uncontrolled and each dismissal reason are fixed. |
+| Accessibility and keyboard | PASS | Generic surface has no role; PopupList owns menu semantics. |
+| Tokens, visual layout and tests | PASS | Portal placement, z-layer and verification matrix are explicit. |
 
-1. Overlay semantic pattern and ARIA role are unresolved.
-2. Keyboard model and focus entry, containment and restoration are unresolved.
-3. Trigger/anchor, portal, collision and z-layer contracts are unresolved.
-4. Variants, tokens, density, motion and visual states are unresolved.
-5. Disabled, empty-list and async item behavior are unresolved.
-
-## Final Assessment
-
-This gate authorizes no implementation. A READY assessment requires all
-component-relevant decisions to be confirmed and the specification, tests and
-visual contract to be complete.
+Popup is READY for only the linked contract.
