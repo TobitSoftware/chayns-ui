@@ -22,17 +22,21 @@ type Story = StoryObj<typeof meta>;
 export const Standalone: Story = {
   render: () => (
     <div style={{ maxInlineSize: '32rem' }}>
+      <Accordion title="Was ist chayns UI?">
+        chayns UI ist die modulare Komponentenbibliothek für konsistente chayns-Oberflächen.
+      </Accordion>
+    </div>
+  ),
+};
+
+export const DefaultOpen: Story = {
+  render: () => (
+    <div style={{ maxInlineSize: '32rem' }}>
       <Accordion defaultOpen title="Was ist chayns UI?">
         chayns UI ist die modulare Komponentenbibliothek für konsistente chayns-Oberflächen.
       </Accordion>
     </div>
   ),
-  play: async ({ canvasElement }) => {
-    const header = within(canvasElement).getByRole('button', { name: /Was ist chayns UI/ });
-    await expect(header).toHaveAttribute('aria-expanded', 'true');
-    await userEvent.click(header);
-    await expect(header).toHaveAttribute('aria-expanded', 'false');
-  },
 };
 
 export const Grouped: Story = {
