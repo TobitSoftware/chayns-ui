@@ -196,8 +196,10 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 |---|---|---|---|---|---|
 | RADIO-001 | RADIO | RadioGroup verwendet `value`, `defaultValue` und `onValueChange`; `RadioGroup.Radio` besitzt den eigenen `value`, während RadioGroup den gemeinsamen nativen `name` verantwortet. | CONFIRMED | User decision, 2026-09-17 | Native-Prop-, Label-, Disabled- und Group-Accessibility-Vertrag spezifizieren. |
 | RADIO-002 | RADIO | RadioGroup.Radio benötigt immer ein sichtbares `children`-Label. | CONFIRMED | User decision, 2026-09-17 | |
+| RADIO-003 | RADIO | RadioGroup benötigt ein sichtbares `label`; es wird als native `legend` gerendert. | CONFIRMED | User decision, 2026-09-17 | |
 | SEGMENT-001 | SEGMENT | SegmentedControl ist eine Single-Selection-`radiogroup`. `SegmentedControl.Segment` rendert einen nativen Button mit `role="radio"` und verwendet Roving Focus. | CONFIRMED | User decision, 2026-09-17 | Keyboard-, State-, Native-Prop- und Label-Vertrag spezifizieren. |
 | SEGMENT-002 | SEGMENT | SegmentedControl.Segment benötigt immer ein sichtbares `children`-Label. | CONFIRMED | User decision, 2026-09-17 | |
+| SEGMENT-003 | SEGMENT | SegmentedControl benötigt ein sichtbares `label`; eine Auswahl wird über `value` (controlled) oder `defaultValue` (uncontrolled) verpflichtend festgelegt. | CONFIRMED | User decision, 2026-09-17 | |
 
 ## MessageBox
 
