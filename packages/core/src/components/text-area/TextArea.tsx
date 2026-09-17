@@ -37,7 +37,11 @@ function TextArea({
         <div className="chayns-text-area__help">
           <div>
             {helpText !== undefined ? <div id={helpId}>{helpText}</div> : null}
-            {hasError ? <div id={errorId}>{error}</div> : null}
+            {hasError ? (
+              <div className="chayns-text-area__error" id={errorId}>
+                {error}
+              </div>
+            ) : null}
           </div>
           {counter !== undefined ? <div>{counter}</div> : null}
         </div>

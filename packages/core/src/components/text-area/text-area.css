@@ -29,7 +29,7 @@
     font-size: var(--fs-body);
     font-weight: 400;
     line-height: 1.2;
-    color: var(--muted);
+    color: var(--text-3);
     pointer-events: none;
     background: var(--surface);
     transform: translateY(calc(var(--input-py) + 1.5px + 0.6em - 50%));
@@ -81,7 +81,11 @@
     gap: var(--k10);
     margin-block-start: 6px;
     font-size: var(--fs-caption);
-    color: var(--muted);
+    color: var(--text-3);
+  }
+
+  .chayns-text-area__error {
+    color: var(--danger);
   }
 
   @media (prefers-reduced-motion: reduce) {

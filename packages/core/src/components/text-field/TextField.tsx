@@ -37,7 +37,11 @@ function TextField({
         <div className="chayns-text-field__help">
           <div>
             {helpText !== undefined ? <div id={helpId}>{helpText}</div> : null}
-            {hasError ? <div id={errorId}>{error}</div> : null}
+            {hasError ? (
+              <div className="chayns-text-field__error" id={errorId}>
+                {error}
+              </div>
+            ) : null}
           </div>
           {counter !== undefined ? <div>{counter}</div> : null}
         </div>

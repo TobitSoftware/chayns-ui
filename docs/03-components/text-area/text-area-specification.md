@@ -38,7 +38,7 @@ A consumer `id` is preserved; otherwise React generates one. Help and error IDs 
 
 The non-semantic `<div class="chayns-text-area">` contains one textarea, its associated label and optional help row. It accepts no root props, children, public parts or Context. The ref targets the textarea. Value ownership, editing, selection and browser resizing remain native.
 
-TextArea uses TextField’s Bodywork field geometry plus documented `min-height: 84px` and `resize: vertical`. `rows` has no component default. It fills available inline size without external margin. The `1.5px` border, `10px` radius, resolved color/focus tokens, floating label and error/disabled/readonly priority apply. Only the label transform transitions; reduced motion removes it.
+TextArea uses TextField’s Bodywork field geometry plus documented `min-height: 84px` and `resize: vertical`. `rows` has no component default. It fills available inline size without external margin. The `1.5px` border, `10px` radius, resolved color/focus tokens, floating label and error/disabled/readonly priority apply. Labels and help/counter content use `--text-3`, because Bodywork `--muted` fails the required WCAG 2.2 AA contrast threshold on `--surface`; errors use `--danger`. Only the label transform transitions; reduced motion removes it.
 
 ## Accessibility, content and verification
 

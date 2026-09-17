@@ -42,7 +42,7 @@ The non-semantic root `<div class="chayns-text-field">` is not a public prop tar
 
 ## Visual, density and motion contract
 
-Bodywork defines `--input-py`, `--input-px`, a `1.5px` border, `10px` radius, `--input-border`, `--surface`, `--text`, `--muted`, `--accent`, `--danger`, `--disabled-*`, `--surface-2` and focus-ring tokens. The label uses Bodywork’s transform with native `:placeholder-shown` and `:focus`. The help row uses `--fs-caption`, `--muted`, `--k10` gap and documented `6px` top margin. The field fills its container and has no external margin. Project motion rules allow only the label transform transition; color, border and focus changes are immediate and reduced motion removes that transition.
+Bodywork defines `--input-py`, `--input-px`, a `1.5px` border, `10px` radius, `--input-border`, `--surface`, `--text`, `--muted`, `--accent`, `--danger`, `--disabled-*`, `--surface-2` and focus-ring tokens. The label uses Bodywork’s transform with native `:placeholder-shown` and `:focus`. The help row uses `--fs-caption`, `--k10` gap and documented `6px` top margin. Labels and help/counter content use `--text-3`, rather than Bodywork’s `--muted`, because the latter fails the repository’s required WCAG 2.2 AA contrast threshold on `--surface`; errors use `--danger`. The field fills its container and has no external margin. Project motion rules allow only the label transform transition; color, border and focus changes are immediate and reduced motion removes that transition.
 
 ## Accessibility, content and verification
 
