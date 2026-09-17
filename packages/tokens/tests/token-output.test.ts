@@ -17,6 +17,7 @@ describe('generated token CSS', () => {
     expect(baseline).toContain('--warning: #dc6803;');
     expect(baseline).toContain('--accent-300: #a8c3ca;');
     expect(baseline).toContain('--tint: #eef7f8;');
+    expect(baseline).toContain('--toggle-bg: #e9eded;');
     expect(baseline).toContain('.chayns-theme--dark');
     expect(baseline).toContain('.chayns-density--s');
     expect(baseline).toContain('.chayns-contrast--high');

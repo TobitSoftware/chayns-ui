@@ -417,6 +417,11 @@
       "$value": "#eef7f8",
       "$extensions": { "chayns": { "cssName": "--tint", "dark": "#1a3138" } }
     },
+    "toggle-bg": {
+      "$type": "color",
+      "$value": "#e9eded",
+      "$extensions": { "chayns": { "cssName": "--toggle-bg", "dark": "#22333a" } }
+    },
     "danger": {
       "$type": "color",
       "$value": "#a31919",
