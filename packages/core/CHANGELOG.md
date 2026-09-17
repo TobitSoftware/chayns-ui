@@ -1,5 +1,12 @@
 # @chayns-ui/core
 
+## 0.4.2
+
+### Patch Changes
+
+- Align TextField and TextArea with Bodywork by reintroducing a floating label rendered from the native `placeholder` prop, matching Bodywork focus/filled states and label contrast.
+- Add a sliding indicator to SegmentedControl and match Bodywork button transitions.
+
 ## 0.4.1
 
 ### Patch Changes

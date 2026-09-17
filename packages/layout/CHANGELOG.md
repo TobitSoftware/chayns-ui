@@ -1,5 +1,13 @@
 # @chayns-ui/layout
 
+## 0.6.1
+
+### Patch Changes
+
+- Match Bodywork Tabs pill styling.
+- Updated dependencies
+  - @chayns-ui/core@0.4.2
+
 ## 0.6.0
 
 ### Minor Changes
