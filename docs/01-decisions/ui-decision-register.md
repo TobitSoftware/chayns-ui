@@ -83,6 +83,8 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | LAYOUT-030 | LAYOUT | Der Hover-/Fokus-/Active-Overlay für AppLayout-Navigationseinträge und den Collapse-Button (`color-mix(in srgb, var(--on-accent) …%, transparent)` über `--accent`) wird mit 12% statt 16% `--on-accent`-Anteil gerendert. Bei 16% unterschreitet der resultierende Kontrast zwischen `--on-accent`-Text und der aufgehellten `--accent`-Fläche im Light-Mode 4,5:1 (gemessen 4,3:1, automatisiert per Storybook-a11y-Test erkannt); 12% ergibt rechnerisch 4,66:1 (Light) bzw. 6,85:1 (Dark) und behält damit denselben Overlay-Mechanismus bei. | CONFIRMED | Accessibility Implementation Gate (WCAG 2.2 AA color-contrast), gemessen bei `feature/app-layout`-Merge-Verifikation | Betrifft nur den Mix-Anteil, nicht Token-Werte selbst (`--accent`, `--on-accent` unverändert). |
 | LAYOUT-031 | LAYOUT | Tabs verwendet die Compound API `Tabs`, `Tabs.List`, `Tabs.Tab value`, `Tabs.Panel value` und optional `Tabs.Add`; `value`, `defaultValue` und `onValueChange` bilden den kontrollierten beziehungsweise unkontrollierten Auswahlvertrag. | CONFIRMED | Bodywork component finalization plan | Ersetzt die `tabs[]`-API bei der nächsten Spec- und Gate-Revision. |
 | LAYOUT-032 | LAYOUT | AppLayout verwendet die Compound API `AppLayout.Header`, `AppLayout.Logo`, `AppLayout.Navigation`, rekursives `AppLayout.Navigation.Item`, `AppLayout.Content` und `AppLayout.CollapseToggle`; die bisherigen `logo`, `headerContent` und `items[]`-Props entfallen. | CONFIRMED | Bodywork component finalization plan | Bestehende AppLayout-Specification und Gate müssen vor Code-Migration aktualisiert werden. |
+| LAYOUT-033 | LAYOUT | Bei einer Tab-Entfernung meldet `Tabs.Tab` den Wert über `onRemove(value)`; der Consumer entfernt den Tab und setzt bei kontrollierter Nutzung selbst den nächsten `value`. Tabs wählt keinen Ersatzwert implizit. | CONFIRMED | User decision, 2026-09-17 | Uncontrolled Entfernen und Focus-Verhalten spezifizieren. |
+| LAYOUT-034 | LAYOUT | `AppLayout.Navigation.Item` rendert bei `href` einen nativen Link und ohne `href` einen nativen Button. Parent-Items erhalten unabhängig davon einen separaten Disclosure-Button; beide Modi besitzen denselben rekursiven Children-Vertrag. | CONFIRMED | User decision, 2026-09-17 | Active-, Disclosure-, Native-Prop- und Focus-Vertrag spezifizieren. |
 
 ## Design Tokens
 
@@ -176,7 +178,23 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | INPUT-001 | INPUT | Floating Labels sind Teil der Input-Komponente. | CONFIRMED | AGENTS.md | |
 | INPUT-002 | INPUT | Help Text, Error und Counter sind definierte Control-Slots. | CONFIRMED | AGENTS.md | |
 | INPUT-003 | INPUT | Entwickler liefern Inhalte; chayns UI verantwortet Position, Layout und Accessibility. | CONFIRMED | AGENTS.md | |
-| INPUT-004 | INPUT | Die öffentliche Form-Control-Composition/API ist offen. | TECH REVIEW | AGENTS.md | Component Development Standard. |
+| INPUT-004 | INPUT | Die öffentliche Form-Control-Composition/API ist offen. | SUPERSEDED | AGENTS.md | Superseded by INPUT-005 and INPUT-006. |
+| INPUT-005 | INPUT | TextField und TextArea benötigen immer ein sichtbares `label`; eine ausschließlich programmatiche Benennung ist für diese initialen Komponenten nicht vorgesehen. | CONFIRMED | User decision, 2026-09-17 | |
+| INPUT-006 | INPUT | TextField und TextArea erhalten Help Text, Error und Counter als direkte öffentliche Props. Die Komponenten verantworten ihre Position, lokale ID-Beziehungen und die korrekte Verknüpfung mit dem nativen Control. | CONFIRMED | User decision, 2026-09-17 | Exakte Prop-Typen, Priorität und Counter-Semantik in den Component Specifications festlegen. |
+| INPUT-007 | INPUT | Checkbox und Switch benötigen immer ein sichtbares `children`-Label; eine ausschließlich programmatiche Benennung ist für diese initialen Komponenten nicht vorgesehen. | CONFIRMED | User decision, 2026-09-17 | |
+
+## Selection Controls
+
+| ID | Category | Decision | Status | Source | Follow-up |
+|---|---|---|---|---|---|
+| RADIO-001 | RADIO | RadioGroup verwendet `value`, `defaultValue` und `onValueChange`; `RadioGroup.Radio` besitzt den eigenen `value`, während RadioGroup den gemeinsamen nativen `name` verantwortet. | CONFIRMED | User decision, 2026-09-17 | Native-Prop-, Label-, Disabled- und Group-Accessibility-Vertrag spezifizieren. |
+| SEGMENT-001 | SEGMENT | SegmentedControl ist eine Single-Selection-`radiogroup`. `SegmentedControl.Segment` rendert einen nativen Button mit `role="radio"` und verwendet Roving Focus. | CONFIRMED | User decision, 2026-09-17 | Keyboard-, State-, Native-Prop- und Label-Vertrag spezifizieren. |
+
+## MessageBox
+
+| ID | Category | Decision | Status | Source | Follow-up |
+|---|---|---|---|---|---|
+| MESSAGE-001 | MESSAGE | MessageBox unterstützt `info`, `success`, `warning` und `danger`, rendert statisch mit `role="note"` und ist im initialen Vertrag nicht schließbar. | CONFIRMED | User decision, 2026-09-17 | Native-Aside-Props, Titel-/Content-Vertrag und Token-Mapping spezifizieren. |
 
 ## Accordion
 
@@ -219,6 +237,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | POPUP-004 | POPUP | Nach `onClick`, Escape und Outside-Click schließt die initiale Popup-Variante. | CONFIRMED | User decision, 2026-09-14 | |
 | POPUP-005 | POPUP | Die initiale Popup-Listenvariante verwendet Menu-Semantik, Fokus auf den ersten Eintrag, zyklische Pfeiltasten, Tab zum Schließen mit normalem Fokusfluss, Portal-Rendering, bevorzugt Positionierung unterhalb an der Startkante, Flip und Viewport-Clamping sowie `--z-popover: 1000`. | CONFIRMED | User decisions, 2026-09-14 | Weitere Popup-Varianten benötigen eigene Prüfung. |
 | POPUP-006 | POPUP | Popup verwendet `Popup.Trigger` als Owner der Trigger-Native-Props und `Popup.Content` als Owner der Overlay-Surface-Native-Props. `PopupList` bleibt die Menu-spezifische Compound-Variante und setzt allein die Menu-ARIA. | CONFIRMED | Bodywork component finalization plan | Popup- und SplitButton-Specifications sowie Gates vor Implementierung aktualisieren. |
+| POPUP-007 | POPUP | `Popup.Content` besitzt ohne `PopupList` keine implizite ARIA-Rolle und verschiebt den Fokus nicht. Nur `PopupList` setzt Menu-ARIA und dessen Menu-Fokusmodell. | CONFIRMED | User decision, 2026-09-17 | Dismissal, positioning und generische Content-Verträge spezifizieren. |
 | TOOLTIP-001 | TOOLTIP | Sichtbare Tooltips nutzen eine eigene zugängliche Komponente. | CONFIRMED | AGENTS.md | |
 | TOOLTIP-002 | TOOLTIP | `title` darf ergänzend genutzt werden. | CONFIRMED | AGENTS.md | |
 | TOOLTIP-003 | TOOLTIP | `title` ersetzt keinen zugänglichen sichtbaren Hinweis. | CONFIRMED | AGENTS.md | |
@@ -301,6 +320,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | LIST-005 | LIST | Der bestehende `trailing`-Slot ist die öffentliche API für Metadaten oder sekundäre Controls auf der rechten Seite und bleibt Geschwister der Zeilenaktion. | CONFIRMED | User input 2026-09-14, List specification | |
 | LIST-006 | LIST | Der `unread`/`unreadLabel`-Vertrag aus LIST-003 wird durch ein generisches Konzept ersetzt: `trailing` bleibt ein frei komponierbarer `ReactNode`, zusätzlich stellt chayns UI optionale, vorgefertigte „Standard-Content“-Unterkomponenten für wiederkehrende rechte Slot-Inhalte bereit (z. B. ein generischer Status-/Akzent-Indicator ohne chat-spezifische „unread“-Semantik), die Consumer wahlweise in `trailing` komponieren. Der bisherige boolesche `unread`/`unreadLabel`-Vertrag entfällt zugunsten dieses Kompositionsmodells. | CONFIRMED | Developer feedback, User decision 2026-09-14 | Exakter Komponenten-/Prop-Name ist Teil der List-Specification-Revision, kein Registerdetail. |
 | LIST-007 | LIST | `ListItem` wird im vorgesehenen pre-stable Minor entfernt und durch `List.Item` ersetzt. `List` bleibt Owner des nativen `<ul>`, `List.Item` Owner des `<li>` und `List.Item.Action` der einzige interaktive Owner. Vergleichbare Breaking Changes benötigen nach 1.0 ein Major Release. | CONFIRMED | Bodywork component finalization plan | Die Specification definiert die semantischen Parts und die genaue Migration. |
+| LIST-008 | LIST | Der neutrale Statusindikator ist `List.Item.Status`. Hat er Bedeutung, benötigt er einen Accessible Name; eine ausdrücklich dekorative Verwendung wird aus dem Accessibility Tree ausgeblendet. | CONFIRMED | User decision, 2026-09-17 | Visuelle Darstellung, API und Platzierung spezifizieren. |
 
 ## Avatar
 
