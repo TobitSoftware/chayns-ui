@@ -1,0 +1,61 @@
+@layer chayns.components {
+  .chayns-segmented-control {
+    display: grid;
+    gap: var(--k8);
+    min-inline-size: 0;
+  }
+
+  .chayns-segmented-control__label {
+    color: var(--text);
+    font-size: var(--fs-body);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .chayns-segmented-control__segments {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--k4);
+    padding: var(--k4);
+    border-radius: 12px;
+    background: var(--toggle-bg);
+  }
+
+  .chayns-segmented-control__segment {
+    min-block-size: var(--ctrl-h);
+    flex: 1 1 0;
+    padding: calc(9 * var(--u)) var(--k12);
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .chayns-segmented-control__segment--selected {
+    background: var(--surface);
+    box-shadow: var(--shadow-card);
+  }
+
+  .chayns-segmented-control__segment:focus-visible {
+    outline: var(--focus-ring-size) solid rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-strong));
+    outline-offset: 2px;
+  }
+
+  .chayns-segmented-control__segment:disabled {
+    color: var(--disabled-fg);
+    cursor: not-allowed;
+  }
+
+  .chayns-segmented-control__segment:hover:not(:disabled) {
+    background: var(--hover-bg);
+  }
+
+  .chayns-segmented-control__segment--selected:hover:not(:disabled) {
+    background: var(--surface);
+  }
+}

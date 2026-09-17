@@ -34,6 +34,7 @@
     "./checkbox.css": "./dist/checkbox.css",
     "./switch.css": "./dist/switch.css",
     "./radio-group.css": "./dist/radio-group.css",
+    "./segmented-control.css": "./dist/segmented-control.css",
     "./message-box.css": "./dist/message-box.css",
     "./styles.css": "./dist/styles.css",
     "./package.json": "./package.json"
