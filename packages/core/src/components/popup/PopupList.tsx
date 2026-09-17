@@ -24,24 +24,27 @@ const PopupList = ({ className, items, trigger }: PopupListProps) => {
   };
 
   return (
-    <Popup {...(className ? { className } : {})} trigger={trigger}>
-      <div onKeyDown={handleKeyDown} role="menu" tabIndex={-1}>
-        {items.map((item, index) => (
-          <button
-            className="chayns-popup-list__item"
-            key={`${item.text}-${index}`}
-            onClick={item.onClick}
-            ref={(element) => {
-              itemRefs.current[index] = element;
-            }}
-            role="menuitem"
-            type="button"
-          >
-            <ButtonIcon icon={item.icon} />
-            <span>{item.text}</span>
-          </button>
-        ))}
-      </div>
+    <Popup>
+      <Popup.Trigger asChild>{trigger}</Popup.Trigger>
+      <Popup.Content className={className}>
+        <div onKeyDown={handleKeyDown} role="menu" tabIndex={-1}>
+          {items.map((item, index) => (
+            <button
+              className="chayns-popup-list__item"
+              key={`${item.text}-${index}`}
+              onClick={item.onClick}
+              ref={(element) => {
+                itemRefs.current[index] = element;
+              }}
+              role="menuitem"
+              type="button"
+            >
+              <ButtonIcon icon={item.icon} />
+              <span>{item.text}</span>
+            </button>
+          ))}
+        </div>
+      </Popup.Content>
     </Popup>
   );
 };

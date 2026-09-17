@@ -64,14 +64,13 @@ export const KeyboardNavigation: Story = {
 
 export const BaseComposition: Story = {
   render: () => (
-    <Popup
-      trigger={
-        <button className="chayns-button chayns-button--outline" type="button">
-          Benutzerdefinierter Inhalt
-        </button>
-      }
-    >
-      <div style={{ padding: 'var(--sp-4)' }}>Komponierter Popup-Inhalt</div>
+    <Popup>
+      <Popup.Trigger className="chayns-button chayns-button--outline">
+        Benutzerdefinierter Inhalt
+      </Popup.Trigger>
+      <Popup.Content>
+        <div style={{ padding: 'var(--sp-4)' }}>Komponierter Popup-Inhalt</div>
+      </Popup.Content>
     </Popup>
   ),
 };
