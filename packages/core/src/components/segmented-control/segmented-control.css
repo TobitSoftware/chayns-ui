@@ -13,17 +13,34 @@
   }
 
   .chayns-segmented-control__segments {
-    display: flex;
-    flex-wrap: wrap;
+    position: relative;
+    display: inline-grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
     gap: var(--k4);
     padding: var(--k4);
     border-radius: 12px;
     background: var(--toggle-bg);
   }
 
+  .chayns-segmented-control__indicator {
+    position: absolute;
+    z-index: 0;
+    inset-block: var(--k4);
+    inset-inline-start: var(--k4);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    box-shadow: var(--shadow-card);
+    pointer-events: none;
+    transition: transform 0.2s ease;
+  }
+
   .chayns-segmented-control__segment {
     min-block-size: var(--ctrl-h);
-    flex: 1 1 0;
+    position: relative;
+    z-index: 1;
+    min-inline-size: 0;
     padding: calc(9 * var(--u)) var(--k12);
     border: 0;
     border-radius: 8px;
@@ -34,11 +51,6 @@
     font-weight: 500;
     line-height: 1.4;
     text-align: center;
-  }
-
-  .chayns-segmented-control__segment--selected {
-    background: var(--surface);
-    box-shadow: var(--shadow-card);
   }
 
   .chayns-segmented-control__segment:focus-visible {
@@ -56,6 +68,12 @@
   }
 
   .chayns-segmented-control__segment--selected:hover:not(:disabled) {
-    background: var(--surface);
+    background: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chayns-segmented-control__indicator {
+      transition: none;
+    }
   }
 }

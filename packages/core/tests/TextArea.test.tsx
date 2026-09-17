@@ -57,6 +57,19 @@ describe('TextArea', () => {
     expect(screen.getByText('3 / 500')).not.toHaveAttribute('id');
   });
 
+  it('uses placeholder as the associated Bodywork floating label', async () => {
+    const user = userEvent.setup();
+
+    render(<TextArea placeholder="Nachricht" />);
+
+    const textarea = screen.getByRole('textbox', { name: 'Nachricht' });
+    expect(textarea).toHaveAttribute('placeholder', ' ');
+    expect(screen.getByText('Nachricht')).toHaveAttribute('for', textarea.id);
+
+    await user.type(textarea, 'Hallo');
+    expect(textarea).toHaveValue('Hallo');
+  });
+
   it('preserves native controlled, disabled and readonly behaviour', () => {
     const { rerender } = render(
       <TextArea aria-label="Nachricht" defaultValue="Initial" readOnly />,

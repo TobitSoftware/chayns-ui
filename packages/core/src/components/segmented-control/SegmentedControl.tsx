@@ -81,6 +81,8 @@ const SegmentedControlRoot = forwardRef<HTMLDivElement, SegmentedControlProps>(
     const labelId = useId();
     const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
     const segments = useRef(new Map<string, HTMLButtonElement>());
+    const segmentsElement = useRef<HTMLDivElement>(null);
+    const [indicator, setIndicator] = useState({ offset: 0, width: 0 });
     const selectedValue = value ?? uncontrolledValue ?? '';
     const resolvedClassName = ['chayns-segmented-control', className].filter(Boolean).join(' ');
 
@@ -133,6 +135,42 @@ const SegmentedControlRoot = forwardRef<HTMLDivElement, SegmentedControlProps>(
       nextElement.focus();
     }
 
+    useLayoutEffect(() => {
+      const container = segmentsElement.current;
+      const selectedSegment = segments.current.get(selectedValue);
+
+      if (container === null || selectedSegment === undefined) {
+        return undefined;
+      }
+
+      const observedContainer = container;
+      const observedSegment = selectedSegment;
+
+      function updateIndicator() {
+        const paddingInlineStart = Number.parseFloat(
+          window.getComputedStyle(observedContainer).paddingInlineStart,
+        );
+
+        setIndicator({
+          offset:
+            observedSegment.offsetLeft -
+            (Number.isNaN(paddingInlineStart) ? 0 : paddingInlineStart),
+          width: observedSegment.offsetWidth,
+        });
+      }
+
+      updateIndicator();
+
+      if (typeof ResizeObserver === 'undefined') {
+        return undefined;
+      }
+
+      const observer = new ResizeObserver(updateIndicator);
+      observer.observe(observedContainer);
+
+      return () => observer.disconnect();
+    }, [selectedValue]);
+
     return (
       <SegmentedControlContext.Provider
         value={{ moveFocus, registerSegment, selectValue, value: selectedValue }}
@@ -147,7 +185,14 @@ const SegmentedControlRoot = forwardRef<HTMLDivElement, SegmentedControlProps>(
           <span className="chayns-segmented-control__label" id={labelId}>
             {label}
           </span>
-          <div className="chayns-segmented-control__segments">{children}</div>
+          <div className="chayns-segmented-control__segments" ref={segmentsElement}>
+            <span
+              aria-hidden="true"
+              className="chayns-segmented-control__indicator"
+              style={{ transform: `translateX(${indicator.offset}px)`, width: indicator.width }}
+            />
+            {children}
+          </div>
         </div>
       </SegmentedControlContext.Provider>
     );

@@ -2,7 +2,15 @@ import { useId } from 'react';
 
 import type { TextAreaProps } from './TextArea.types.js';
 
-function TextArea({ className, counter, error, helpText, id, ...textareaProps }: TextAreaProps) {
+function TextArea({
+  className,
+  counter,
+  error,
+  helpText,
+  id,
+  placeholder,
+  ...textareaProps
+}: TextAreaProps) {
   const generatedId = useId();
   const textareaId = id ?? generatedId;
   const hasError = error !== undefined;
@@ -19,8 +27,13 @@ function TextArea({ className, counter, error, helpText, id, ...textareaProps }:
         aria-invalid={hasError || undefined}
         className={textareaClassName}
         id={textareaId}
-        placeholder={textareaProps.placeholder}
+        placeholder={placeholder === undefined ? undefined : ' '}
       />
+      {placeholder !== undefined ? (
+        <label className="chayns-text-area__label" htmlFor={textareaId}>
+          {placeholder}
+        </label>
+      ) : null}
       {helpText !== undefined || hasError || counter !== undefined ? (
         <div className="chayns-text-area__help">
           <div>

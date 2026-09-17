@@ -6,7 +6,7 @@ const meta = {
   title: 'Core/TextArea',
   component: TextArea,
   tags: ['autodocs'],
-  args: { 'aria-label': 'Nachricht', placeholder: 'Schreibe eine Nachricht', rows: 4 },
+  args: { placeholder: 'Nachricht', rows: 4 },
   parameters: { a11y: { test: 'error' } },
 } satisfies Meta<typeof TextArea>;
 

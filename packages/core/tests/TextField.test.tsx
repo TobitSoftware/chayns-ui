@@ -59,6 +59,19 @@ describe('TextField', () => {
     expect(screen.getByText('3 / 120')).not.toHaveAttribute('id');
   });
 
+  it('uses placeholder as the associated Bodywork floating label', async () => {
+    const user = userEvent.setup();
+
+    render(<TextField placeholder="Kontoname" />);
+
+    const input = screen.getByRole('textbox', { name: 'Kontoname' });
+    expect(input).toHaveAttribute('placeholder', ' ');
+    expect(screen.getByText('Kontoname')).toHaveAttribute('for', input.id);
+
+    await user.type(input, 'Ada');
+    expect(input).toHaveValue('Ada');
+  });
+
   it('preserves native controlled, disabled and readonly behaviour', () => {
     const { rerender } = render(<TextField aria-label="Name" defaultValue="Initial" readOnly />);
     const input = screen.getByRole('textbox', { name: 'Name' });

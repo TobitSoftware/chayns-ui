@@ -336,6 +336,8 @@ Für visuelle Components:
 
 **PASS, wenn:** Relevante visuelle Prüfzustände definiert sind, soweit anwendbar Variants, States, S/M/L, Light/Dark, Contrast, Color-Deficiency Modes, lange Inhalte, Icon-/Text-Kombinationen, begrenzte Breite und Reduced Motion.
 
+Für eine in Bodywork vorhandene Komponente benennt der Nachweis zusätzlich die dort geprüften Darstellungen, Zustandskombinationen und Übergänge. Diese Referenz ist exakt umzusetzen; native Browser-Defaults schließen keine Bodywork-Prüfung ab.
+
 **BLOCK, wenn:** Nicht klar ist, welche visuellen Fälle später überprüft werden müssen.
 
 [OPEN-012](../01-decisions/ui-decision-register.md) bleibt offen. Dieser Check verlangt keine Preview-Plattform.

@@ -165,6 +165,8 @@ Core-Komponenten besitzen grundsätzlich **keine lokale S/M/L-size-Prop**. Eine 
 * keine frei erfundenen Styling-Werte in Komponenten,
 * Fonts werden nicht durch die Komponenten geladen oder global gesetzt.
 
+Für jede implementierte Komponente ist Bodywork die verbindliche visuelle und interaktive Referenz, soweit Bodywork den jeweiligen Zustand beschreibt. Geometrie, Tokens, Zustände, Responsivität und Übergänge werden dort exakt nachvollzogen; eine bloß ähnliche Umsetzung ist nicht ausreichend. Native HTML bestimmt nur Verhalten, das Bodywork nicht gestaltet oder anders festlegt. Abweichungen benötigen eine ausdrückliche, dokumentierte chayns-UI-Entscheidung. Die Specification hält die geprüften Bodywork-Zustände und die zugehörige Reduced-Motion-Behandlung fest.
+
 ### Theme inputs
 
 Der spätere Theme-/Environment-Layer erhält nur globale Eingaben wie:
@@ -198,6 +200,8 @@ Für CSS-Animationen sind grundsätzlich nur folgende Eigenschaften vorgesehen:
 Zusätzlich ist `grid-template-rows` als gezielte Ausnahme für dynamische Höhenübergänge zulässig, insbesondere für Accordions.
 
 Keine anderen animierten Layout-Eigenschaften erfinden.
+
+Beschreibt Bodywork für einen bestätigten Component-Zustand eine konkrete Transition außerhalb dieser allgemeinen Liste, ist diese Transition als dokumentierte Designreferenz zulässig. Sie wird ohne neue Dauer, Kurve oder Eigenschaft zu erfinden übernommen und bei Reduced Motion nach ihrer notwendigen oder dekorativen Wirkung bewertet.
 
 Bei `prefers-reduced-motion` werden nicht notwendige Animationen deaktiviert. Animationen, die für das Verständnis eines Zustands notwendig sind, z. B. ein Loading-Spinner, dürfen bestehen bleiben.
 

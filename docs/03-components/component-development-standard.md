@@ -13,6 +13,8 @@ Er gilt für Core Components, Layout Components und Business Components. Er erg�
 
 Bei einem Konflikt gelten die dokumentierte Source-of-Truth-Priorität und insbesondere bestätigte Decisions. Dieser Standard erzeugt keine Komponenten-API, keine technische Toolchain und keine neue Foundation.
 
+Für eine bereits in Bodywork dargestellte Komponente ist Bodywork die verbindliche Referenz für Geometrie, Tokens, sichtbare Zustände, Responsivität und Übergänge. Die Implementierung MUSS diese Zustände gezielt prüfen und exakt umsetzen; ein ähnlicher Standard-Control-Look genügt nicht. Native HTML bestimmt ausschließlich Verhalten, das Bodywork nicht gestaltet oder ausdrücklich anders vorgibt. Eine Abweichung verlangt eine bestätigte und dokumentierte chayns-UI-Decision.
+
 Der aktuelle Repository-Stand enthält keine Produktionskomponenten, Komponenten-Tests, `package.json` oder Toolchain-Konfiguration. Deshalb werden keine beobachteten Implementierungsmuster als bereits etablierte Projektkonvention dargestellt. Dieser Standard ist technologie- und testframework-agnostisch, bis die bestehenden Open Decisions dafür geklärt sind.
 
 ## 2. Normative Language

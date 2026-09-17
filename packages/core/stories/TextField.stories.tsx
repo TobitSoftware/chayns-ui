@@ -6,7 +6,7 @@ const meta = {
   title: 'Core/TextField',
   component: TextField,
   tags: ['autodocs'],
-  args: { 'aria-label': 'E-Mail-Adresse', placeholder: 'name@example.com', type: 'email' },
+  args: { placeholder: 'E-Mail-Adresse', type: 'email' },
   parameters: { a11y: { test: 'error' } },
 } satisfies Meta<typeof TextField>;
 
