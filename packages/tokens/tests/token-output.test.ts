@@ -15,6 +15,8 @@ describe('generated token CSS', () => {
     expect(baseline).toContain('--input-px: calc(16 * var(--u));');
     expect(baseline).toContain('--success: #039855;');
     expect(baseline).toContain('--warning: #dc6803;');
+    expect(baseline).toContain('--accent-300: #a8c3ca;');
+    expect(baseline).toContain('--tint: #eef7f8;');
     expect(baseline).toContain('.chayns-theme--dark');
     expect(baseline).toContain('.chayns-density--s');
     expect(baseline).toContain('.chayns-contrast--high');

@@ -407,6 +407,16 @@
       "$value": "15, 109, 126",
       "$extensions": { "chayns": { "cssName": "--accent-rgb", "dark": "85, 191, 212" } }
     },
+    "accent-300": {
+      "$type": "color",
+      "$value": "#a8c3ca",
+      "$extensions": { "chayns": { "cssName": "--accent-300", "dark": "#aee4ed" } }
+    },
+    "tint": {
+      "$type": "color",
+      "$value": "#eef7f8",
+      "$extensions": { "chayns": { "cssName": "--tint", "dark": "#1a3138" } }
+    },
     "danger": {
       "$type": "color",
       "$value": "#a31919",
