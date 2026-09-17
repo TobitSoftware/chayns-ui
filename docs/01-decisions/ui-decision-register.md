@@ -37,6 +37,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | CORE-009 | CORE | Für allgemeine chayns-Anwendungs-/Produkttexte ist das bestehende zentrale Textstring-System die vorgesehene Translation Infrastructure; chayns UI baut kein paralleles Übersetzungssystem. Core Components bleiben grundsätzlich von Textstring-Details entkoppelt und konsumieren aufgelöste Inhalte. Translation und locale-aware Formatting sind getrennte Verantwortlichkeiten. | CONFIRMED | Planning | Internationalization/Localization Foundation, Component Development Standard, AI Development Rules, Quality Gates |
 | CORE-010 | CORE | Jede öffentliche Component und jeder öffentliche Compound Part reicht kompatible Standard-Props des repräsentierten nativen Elements weiter. Eigene Props nehmen ausschließlich präzise dokumentierte Kollisionen für Semantik, State, Beziehungen oder DOM-Placement aus; Native Props dürfen weder stillschweigend verloren gehen noch unbeabsichtigt überschrieben werden. | CONFIRMED | Bodywork component finalization plan | Component Specifications führen eine Prop-Ownership-Map. |
 | CORE-011 | CORE | Compound Components werden nur für bestätigte semantische Parent/Child-Beziehungen eingesetzt, die gemeinsame Zustände, Beziehungen oder DOM-Verantwortung benötigen. Visuelle Anatomy allein rechtfertigt keine öffentliche Subcomponent. | CONFIRMED | Bodywork component finalization plan | Parent-/Child-, Context-, DOM-/Ref- und Accessibility-Vertrag je Part dokumentieren. |
+| CORE-012 | CORE | Für die Komponentenfinalisierung ist Bodywork die visuelle und konzeptionelle Referenz. Interaktionen, die Bodywork nicht festlegt, folgen der Semantik und dem Standardverhalten des dargestellten nativen HTML-Elements. | CONFIRMED | User decision, 2026-09-17 | Component Specifications dokumentieren jede Bodywork-Abweichung ausdrücklich. |
 
 ## Business Components
 
@@ -98,7 +99,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | TOKEN-004 | TOKEN | Explizit definierte komponentenspezifische Maß-Tokens sind erlaubt. | CONFIRMED | AGENTS.md | |
 | TOKEN-005 | TOKEN | Radien stammen aus einer globalen primitiven Skala. | CONFIRMED | AGENTS.md | |
 | TOKEN-006 | TOKEN | Der vollständige Token-Katalog wird später spezifiziert. | TECH REVIEW | Architecture | Design-Foundation-/Token-Dokument. |
-| TOKEN-008 | TOKEN | Form Controls und MessageBox erhalten vor ihrer Implementierung einen separaten Foundation-Transfer mit belegten Werten und einem dokumentierten Component-Mapping. Bis zu diesem Review bleiben ihre fehlenden Geometry- und Semantic-Color-Zuordnungen blockierend. | CONFIRMED | User decision, 2026-09-17 | Kein Component-Code vor dem abgeschlossenen Transfer. |
+| TOKEN-008 | TOKEN | Form Controls und MessageBox erhalten einen separaten Foundation-Transfer mit belegten Werten und einem dokumentierten Component-Mapping. Bodywork- und Repository-Evidence bestimmen die Übernahme; fehlende Werte werden nicht geschätzt. | CONFIRMED | User decision, 2026-09-17 | Input-Padding sowie Success-/Warning-Rollen übertragen; weitere Bodywork-Rollen prüfen. |
 
 ## Density
 
@@ -202,8 +203,9 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 
 | ID | Category | Decision | Status | Source | Follow-up |
 |---|---|---|---|---|---|
-| MESSAGE-001 | MESSAGE | MessageBox unterstützt `info`, `success`, `warning` und `danger`, rendert statisch mit `role="note"` und ist im initialen Vertrag nicht schließbar. | CONFIRMED | User decision, 2026-09-17 | Native-Aside-Props, Titel-/Content-Vertrag und Token-Mapping spezifizieren. |
+| MESSAGE-001 | MESSAGE | MessageBox unterstützt `info`, `success`, `warning` und `danger`, rendert statisch mit `role="note"` und ist im initialen Vertrag nicht schließbar. | SUPERSEDED | User decision, 2026-09-17 | Superseded by MESSAGE-003 after Bodywork review. |
 | MESSAGE-002 | MESSAGE | MessageBox besitzt ausschließlich `children` als frei komponierten Inhalt und keinen eigenen Titel-Prop. | CONFIRMED | User decision, 2026-09-17 | |
+| MESSAGE-003 | MESSAGE | MessageBox unterstützt die Bodywork-Varianten `neutral`, `admin` und `warning`. Sie ist statisch, nicht schließbar und verwendet `role="note"`; Icon und Folgeaktion bleiben frei komponierte Children-Inhalte. | CONFIRMED | Bodywork DesignSystem, User decision, 2026-09-17 | Admin-Tint und Border-Token in den Foundation-Transfer aufnehmen. |
 
 ## Accordion
 
