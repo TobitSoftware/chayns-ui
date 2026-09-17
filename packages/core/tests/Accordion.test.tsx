@@ -7,15 +7,18 @@ import Accordion from '../src/components/accordion/Accordion.js';
 import AccordionGroup from '../src/components/accordion-group/AccordionGroup.js';
 
 describe('Accordion', () => {
-  it('renders a header button wired to a labelled region panel', () => {
+  it('renders closed from the first paint and wires its header to an inert labelled panel', () => {
     render(<Accordion title="Titel">Inhalt</Accordion>);
 
     const header = screen.getByRole('button', { name: 'Titel' });
-    const panel = screen.getByRole('region', { name: 'Titel' });
+    const panel = screen.getByRole('region', { hidden: true });
 
     expect(header).toHaveAttribute('aria-expanded', 'false');
     expect(header).toHaveAttribute('aria-controls', panel.id);
     expect(panel).toHaveAttribute('aria-labelledby', header.id);
+    expect(panel).toHaveAttribute('aria-hidden', 'true');
+    expect(panel).toHaveAttribute('inert');
+    expect(panel).toHaveStyle({ gridTemplateRows: '0fr' });
   });
 
   it('toggles uncontrolled open state on click', async () => {
@@ -28,6 +31,7 @@ describe('Accordion', () => {
     await user.click(header);
     expect(header).toHaveAttribute('aria-expanded', 'true');
     expect(header.closest('.chayns-accordion')).toHaveClass('chayns-accordion--open');
+    expect(screen.getByRole('region', { name: 'Titel' })).not.toHaveAttribute('inert');
   });
 
   it('respects the controlled open prop and reports intended changes', async () => {

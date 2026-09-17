@@ -75,10 +75,13 @@ const Accordion = ({
         <span className="chayns-accordion__title">{title}</span>
       </button>
       <div
+        aria-hidden={!isOpen}
         aria-labelledby={headerId}
         className="chayns-accordion__panel"
         id={panelId}
+        inert={!isOpen}
         role="region"
+        style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
       >
         <div className="chayns-accordion__inner">
           <div className="chayns-accordion__content">
