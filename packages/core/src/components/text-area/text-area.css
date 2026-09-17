@@ -1,0 +1,99 @@
+@layer chayns.components {
+  .chayns-text-area {
+    position: relative;
+    inline-size: 100%;
+  }
+
+  .chayns-text-area__input {
+    box-sizing: border-box;
+    display: block;
+    inline-size: 100%;
+    min-block-size: 84px;
+    padding: var(--input-py) var(--input-px);
+    border: 1.5px solid var(--input-border);
+    border-radius: 10px;
+    resize: vertical;
+    font: inherit;
+    font-size: var(--fs-body);
+    line-height: 1.2;
+    color: var(--text);
+    background: var(--surface);
+    outline: none;
+  }
+
+  .chayns-text-area__label {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 10px;
+    padding-inline: var(--k5);
+    font-size: var(--fs-body);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--muted);
+    pointer-events: none;
+    background: var(--surface);
+    transform: translateY(calc(var(--input-py) + 1.5px + 0.6em - 50%));
+    transform-origin: left center;
+    transition: transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .chayns-text-area__input:hover:not(:disabled) {
+    border-color: var(--text-3);
+  }
+
+  .chayns-text-area__input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 var(--focus-ring-size)
+      rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-soft));
+  }
+
+  .chayns-text-area__input:focus + .chayns-text-area__label,
+  .chayns-text-area__input:not(:placeholder-shown) + .chayns-text-area__label {
+    color: var(--accent);
+    transform: translateY(-50%) scale(0.8);
+  }
+
+  .chayns-text-area--error .chayns-text-area__input {
+    border-color: var(--danger);
+  }
+
+  .chayns-text-area--error .chayns-text-area__label {
+    color: var(--danger);
+  }
+
+  .chayns-text-area__input:disabled {
+    color: var(--disabled-fg);
+    cursor: not-allowed;
+    background: var(--disabled-bg);
+    border-color: var(--disabled-border);
+  }
+
+  .chayns-text-area__input:read-only {
+    color: var(--text-2);
+    cursor: text;
+    background: var(--surface-2);
+  }
+
+  .chayns-text-area__help {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--k10);
+    margin-block-start: 6px;
+    font-size: var(--fs-caption);
+    color: var(--muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chayns-text-area__label {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .chayns-text-area__input:focus-visible {
+      outline: var(--focus-ring-size) solid ButtonText;
+      outline-offset: 1px;
+    }
+  }
+}

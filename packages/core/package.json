@@ -30,6 +30,7 @@
     "./popup.css": "./dist/popup.css",
     "./split-button.css": "./dist/split-button.css",
     "./text-field.css": "./dist/text-field.css",
+    "./text-area.css": "./dist/text-area.css",
     "./styles.css": "./dist/styles.css",
     "./package.json": "./package.json"
   },

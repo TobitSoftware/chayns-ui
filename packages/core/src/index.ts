@@ -11,6 +11,9 @@ export type { IconButtonProps } from './components/icon-button/IconButton.types.
 export { default as TextField } from './components/text-field/TextField.js';
 export type { TextFieldProps } from './components/text-field/TextField.types.js';
 
+export { default as TextArea } from './components/text-area/TextArea.js';
+export type { TextAreaProps } from './components/text-area/TextArea.types.js';
+
 export { default as Popup } from './components/popup/Popup.js';
 export { default as PopupList } from './components/popup/PopupList.js';
 export type { PopupListItem, PopupListProps, PopupProps } from './components/popup/Popup.types.js';
