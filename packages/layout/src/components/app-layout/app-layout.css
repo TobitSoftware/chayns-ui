@@ -18,6 +18,15 @@
     padding-inline: var(--sp-4);
   }
 
+  .chayns-app-layout__header > :not(.chayns-app-layout__logo) {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: flex-end;
+    min-inline-size: 0;
+    margin-inline-start: var(--sp-4);
+  }
+
   .chayns-app-layout__header-content {
     display: flex;
     flex: 1 1 auto;
@@ -43,8 +52,12 @@
   }
 
   .chayns-app-layout__navigation {
+    display: flex;
+    grid-area: sidebar;
+    flex-direction: column;
     min-block-size: 0;
     overflow: auto;
+    padding: 0 var(--sp-2) var(--sp-2);
   }
 
   .chayns-app-layout__list {
@@ -143,9 +156,12 @@
     justify-content: center;
     inline-size: var(--ctrl-h);
     block-size: var(--ctrl-h);
-    align-self: flex-end;
     border-radius: 50%;
     background: transparent;
+    grid-area: sidebar;
+    place-self: end;
+    margin: 0 var(--sp-2) var(--sp-2) 0;
+    z-index: 1;
   }
 
   .chayns-app-layout__footer {

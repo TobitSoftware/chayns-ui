@@ -1,4 +1,4 @@
-import { createContext, forwardRef, useContext, useState } from 'react';
+import { createContext, forwardRef, useContext, useId, useState } from 'react';
 import type { ComponentPropsWithRef } from 'react';
 import type {
   AppLayoutCollapseToggleProps,
@@ -9,6 +9,7 @@ import type {
   AppLayoutNavigationProps,
   AppLayoutProps,
 } from './AppLayout.types.js';
+import AppLayoutIcon from './app-layout-icon/AppLayoutIcon.js';
 
 interface LayoutState {
   collapsed: boolean;
@@ -72,6 +73,7 @@ function NavigationItem({
   children,
   className,
   href,
+  icon,
   isActive = false,
   label,
   ...props
@@ -80,6 +82,7 @@ function NavigationItem({
     throw new Error('AppLayout.Navigation.Item must be rendered within AppLayout.Navigation.');
   const { collapsed } = useLayout('Navigation.Item');
   const [expanded, setExpanded] = useState(false);
+  const childrenId = useId();
   const hasChildren = children !== undefined;
   const content = (
     <span
@@ -99,6 +102,7 @@ function NavigationItem({
             className={actionClass}
             href={href}
           >
+            {icon ? <AppLayoutIcon icon={icon} /> : null}
             {content}
           </a>
         ) : (
@@ -108,18 +112,20 @@ function NavigationItem({
             className={actionClass}
             type="button"
           >
+            {icon ? <AppLayoutIcon icon={icon} /> : null}
             {content}
           </button>
         )}
         {hasChildren && !collapsed ? (
           <button
             aria-label={typeof label === 'string' ? label : undefined}
+            aria-controls={childrenId}
             aria-expanded={expanded}
             className="chayns-app-layout__disclosure"
             onClick={() => setExpanded((current) => !current)}
             type="button"
           >
-            ⌄
+            <AppLayoutIcon icon="fa-chevron-down" />
           </button>
         ) : null}
       </div>
@@ -127,6 +133,7 @@ function NavigationItem({
         <div
           aria-hidden={!expanded}
           className={`chayns-app-layout__children${expanded ? ' chayns-app-layout__children--open' : ''}`}
+          id={childrenId}
           inert={!expanded}
         >
           <ul className="chayns-app-layout__list">{children}</ul>
@@ -152,7 +159,7 @@ const Content = forwardRef<HTMLElement, AppLayoutContentProps>(function Content(
 });
 const CollapseToggle = forwardRef<HTMLButtonElement, AppLayoutCollapseToggleProps>(
   function CollapseToggle(
-    { children = '☰', className, collapseLabel, expandLabel, onClick, ...props },
+    { children, className, collapseLabel, expandLabel, onClick, ...props },
     ref,
   ) {
     const layout = useLayout('CollapseToggle');
@@ -168,7 +175,7 @@ const CollapseToggle = forwardRef<HTMLButtonElement, AppLayoutCollapseToggleProp
         ref={ref}
         type="button"
       >
-        {children}
+        {children ?? <AppLayoutIcon icon="fa-sidebar" />}
       </button>
     );
   },

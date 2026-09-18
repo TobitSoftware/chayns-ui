@@ -13,6 +13,8 @@ export interface AppLayoutNavigationItemProps extends Omit<
   ComponentPropsWithRef<'button'>,
   'children' | 'ref' | 'type'
 > {
+  /** FontAwesome icon restored from the pre-compound navigation contract. */
+  icon?: `fa-${string}`;
   label: ReactNode;
   children?: ReactNode;
   href?: string;

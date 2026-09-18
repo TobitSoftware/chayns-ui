@@ -38,7 +38,7 @@ const List = forwardRef<HTMLDivElement, TabsListProps>(function List(
   );
 });
 const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
-  { children, className, onRemove, onClick, value, ...props },
+  { children, className, onKeyDown, onRemove, onClick, value, ...props },
   ref,
 ) {
   const tabs = useTabs('Tab');
@@ -46,6 +46,9 @@ const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
   const tabId = `${tabs.baseId}-tab-${value}`;
   const panelId = `${tabs.baseId}-panel-${value}`;
   function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
+    onKeyDown?.(event);
+    if (event.defaultPrevented) return;
+
     if ((event.key === 'Delete' || event.key === 'Backspace') && onRemove) {
       event.preventDefault();
       onRemove();
@@ -88,6 +91,10 @@ const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
         .join(' ')}
       id={tabId}
       onClick={(event) => {
+        if ((event.target as HTMLElement).closest('[data-tabs-remove]')) {
+          onRemove?.();
+          return;
+        }
         onClick?.(event);
         if (!event.defaultPrevented) tabs.select(value);
       }}
@@ -98,6 +105,11 @@ const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
       type="button"
     >
       {children}
+      {onRemove ? (
+        <span aria-hidden="true" className="chayns-tabs__remove" data-tabs-remove>
+          <i className="far fa-xmark" />
+        </span>
+      ) : null}
     </button>
   );
 });
