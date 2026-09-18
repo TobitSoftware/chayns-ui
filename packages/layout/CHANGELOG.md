@@ -1,5 +1,11 @@
 # @chayns-ui/layout
 
+## 0.6.2
+
+### Patch Changes
+
+- Restore the AppLayout and Tabs workspace visuals while retaining their compound-component APIs, native prop forwarding, keyboard navigation and accessibility relationships.
+
 ## 0.6.1
 
 ### Patch Changes
