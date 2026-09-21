@@ -11,7 +11,9 @@ const Accordion = ({
   id,
   onOpenChange,
   open,
+  ref,
   title,
+  ...rootProps
 }: AccordionProps) => {
   const depth = useContext(AccordionDepthContext);
   const group = useContext(AccordionGroupContext);
@@ -22,8 +24,10 @@ const Accordion = ({
 
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
 
+  const isGrouped = group !== null && depth === 0;
+
   let isOpen: boolean;
-  if (group) {
+  if (isGrouped) {
     isOpen = group.isOpen(baseId);
   } else if (open !== undefined) {
     isOpen = open;
@@ -32,7 +36,7 @@ const Accordion = ({
   }
 
   const handleToggle = () => {
-    if (group) {
+    if (isGrouped) {
       group.toggle(baseId);
       return;
     }
@@ -42,9 +46,8 @@ const Accordion = ({
     onOpenChange?.(nextOpen);
   };
 
-  const grouped = group !== null;
-  const wrapped = !grouped && depth > 0;
-  const variantClassName = grouped
+  const wrapped = depth > 0;
+  const variantClassName = isGrouped
     ? 'chayns-accordion--grouped'
     : wrapped
       ? 'chayns-accordion--wrapped'
@@ -61,7 +64,7 @@ const Accordion = ({
     .join(' ');
 
   return (
-    <div className={rootClassName}>
+    <div {...rootProps} className={rootClassName} id={id} ref={ref}>
       <button
         aria-controls={panelId}
         aria-expanded={isOpen}

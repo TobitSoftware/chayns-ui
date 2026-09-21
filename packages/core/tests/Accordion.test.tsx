@@ -1,4 +1,5 @@
 import { renderToString } from 'react-dom/server';
+import { createRef } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
@@ -7,6 +8,20 @@ import Accordion from '../src/components/accordion/Accordion.js';
 import AccordionGroup from '../src/components/accordion-group/AccordionGroup.js';
 
 describe('Accordion', () => {
+  it('forwards native root props and ref to the Accordion root', () => {
+    const rootRef = createRef<HTMLDivElement>();
+
+    render(
+      <Accordion aria-label="Details" data-purpose="accordion" ref={rootRef} title="Titel">
+        Inhalt
+      </Accordion>,
+    );
+
+    expect(rootRef.current).toHaveAttribute('data-purpose', 'accordion');
+    expect(rootRef.current).toHaveAttribute('aria-label', 'Details');
+    expect(rootRef.current).toHaveClass('chayns-accordion');
+  });
+
   it('renders closed from the first paint and wires its header to an inert labelled panel', () => {
     render(<Accordion title="Titel">Inhalt</Accordion>);
 
@@ -105,6 +120,22 @@ describe('Accordion', () => {
 });
 
 describe('AccordionGroup', () => {
+  it('forwards native root props and ref to the group root', () => {
+    const rootRef = createRef<HTMLDivElement>();
+
+    render(
+      <AccordionGroup aria-label="Sections" data-purpose="accordion-group" ref={rootRef}>
+        <Accordion id="a" title="A">
+          Inhalt A
+        </Accordion>
+      </AccordionGroup>,
+    );
+
+    expect(rootRef.current).toHaveAttribute('data-purpose', 'accordion-group');
+    expect(rootRef.current).toHaveAttribute('aria-label', 'Sections');
+    expect(rootRef.current).toHaveClass('chayns-accordion-group');
+  });
+
   it('keeps items mutually exclusive', async () => {
     const user = userEvent.setup();
 

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ComponentPropsWithRef, ReactNode } from 'react';
 
 /**
  * @description Props for a single disclosure accordion: a header button that
@@ -7,7 +7,10 @@ import type { ReactNode } from 'react';
  * context and rendered as the "Wrapped" presentation — there is no separate
  * component or prop for that case.
  */
-export interface AccordionProps {
+export interface AccordionProps extends Omit<
+  ComponentPropsWithRef<'div'>,
+  'children' | 'id' | 'title'
+> {
   /**
    * @description Visible, localized header label used as the accordion's
    * accessible name.
@@ -63,7 +66,7 @@ export interface AccordionProps {
  * one child `Accordion` is open at a time, and the group renders its
  * children as one joined surface.
  */
-export interface AccordionGroupProps {
+export interface AccordionGroupProps extends Omit<ComponentPropsWithRef<'div'>, 'children'> {
   /**
    * @description `Accordion` items belonging to the group.
    */

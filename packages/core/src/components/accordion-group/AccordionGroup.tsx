@@ -10,6 +10,8 @@ const AccordionGroup = ({
   defaultOpenId = null,
   onOpenChange,
   openId,
+  ref,
+  ...rootProps
 }: AccordionGroupProps) => {
   const [uncontrolledOpenId, setUncontrolledOpenId] = useState<string | null>(defaultOpenId);
 
@@ -36,7 +38,9 @@ const AccordionGroup = ({
 
   return (
     <AccordionGroupContext.Provider value={contextValue}>
-      <div className={rootClassName}>{children}</div>
+      <div {...rootProps} className={rootClassName} ref={ref}>
+        {children}
+      </div>
     </AccordionGroupContext.Provider>
   );
 };

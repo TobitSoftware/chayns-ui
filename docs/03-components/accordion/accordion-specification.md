@@ -36,10 +36,10 @@ Grouping (exclusivity) and Wrapped (nesting) are independent mechanisms. Wrapped
 
 ## Anatomy — Conditional
 
-- Accordion root: `<div class="chayns-accordion chayns-accordion--{standalone|grouped|wrapped}">`, plus `--open` and `--disabled` modifiers.
+- Accordion root: `<div class="chayns-accordion chayns-accordion--{standalone|grouped|wrapped}">`, plus `--open` and `--disabled` modifiers. Compatible native `div` props and the public ref target this root.
 - Header: native `<button class="chayns-accordion__header">` containing a decorative chevron (`chayns-accordion__chevron`, FontAwesome `far fa-chevron-right`) and a title (`chayns-accordion__title`).
 - Panel: `<div class="chayns-accordion__panel" role="region">` with an inner overflow wrapper (`chayns-accordion__panel-inner`) and content (`chayns-accordion__content`) that provides the next nesting depth to children.
-- AccordionGroup root: `<div class="chayns-accordion-group">` wrapping grouped Accordions.
+- AccordionGroup root: `<div class="chayns-accordion-group">` wrapping grouped Accordions. Compatible native `div` props and the public ref target this root.
 
 ## Semantic Contract — Conditional
 
@@ -92,7 +92,7 @@ Outside a group, an Accordion is controlled (`open`/`onOpenChange`) or uncontrol
 
 ## Native Props and DOM Contract — Conditional
 
-Each Accordion renders one root `div`, one native header `button`, and one panel `div[role=region]`. The header/panel are wired via generated or provided ids (`{id}-header`, `{id}-panel`). AccordionGroup renders one wrapping `div`.
+Each Accordion renders one root `div`, one native header `button`, and one panel `div[role=region]`. Compatible native `div` props and refs belong to the root; disclosure props remain component-owned. The header/panel are wired via generated or provided ids (`{id}-header`, `{id}-panel`). AccordionGroup follows the same root `div` contract.
 
 ## Composition — Required
 

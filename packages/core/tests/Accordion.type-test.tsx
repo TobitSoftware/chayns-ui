@@ -1,7 +1,19 @@
+import { createRef } from 'react';
+
 import Accordion from '../src/components/accordion/Accordion.js';
 import AccordionGroup from '../src/components/accordion-group/AccordionGroup.js';
 
 export const standalone = <Accordion title="Title">Content</Accordion>;
+export const nativeRootContract = (
+  <Accordion
+    aria-label="Details"
+    data-purpose="accordion"
+    ref={createRef<HTMLDivElement>()}
+    title="Title"
+  >
+    Content
+  </Accordion>
+);
 export const uncontrolled = (
   <Accordion defaultOpen title="Title">
     Content
@@ -18,7 +30,12 @@ export const disabledAccordion = (
   </Accordion>
 );
 export const group = (
-  <AccordionGroup defaultOpenId="a" onOpenChange={(id) => id}>
+  <AccordionGroup
+    aria-label="Sections"
+    defaultOpenId="a"
+    onOpenChange={(id) => id}
+    ref={createRef<HTMLDivElement>()}
+  >
     <Accordion id="a" title="A">
       A
     </Accordion>

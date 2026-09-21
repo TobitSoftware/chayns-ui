@@ -6,7 +6,7 @@
 - Component Category: Core
 - Component Specification: `accordion-specification.md`
 - Specification Status: READY FOR IMPLEMENTATION
-- Relevant Decision IDs: CORE-001–007, ACCORDION-001–006, MOTION-001–003, A11Y-001–007, DENSITY-001–005, DIST-012–013
+- Relevant Decision IDs: CORE-001–007, CORE-015–017, ACC-002–011, MOTION-001–010, A11Y-001–007, DENSITY-001–006, DIST-014–016
 - Foundation Dependencies: token transfer for `--surface`, `--border`, `--accent`, `--text`, `--text-3`, `--muted`, `--hover`, `--fs-body`, `--fs-caption`, `--icon`, `--k10`–`--k16`, focus-ring tokens; motion contract permitting `grid-template-rows`
 - Related Components: Card, List
 - Review Context: Design System corrected Wrapped description/examples and disclosure markup transferred from `tobit-ds.css` and inline examples; user confirmed automatic Wrapped detection with no `isWrapped` prop and authorized Milestone-1 implementation
@@ -24,8 +24,8 @@
 | 05 | Purpose and Selection Boundary | PASS | Accordion vs Tabs vs always-visible content is explicit. |
 | 06 | Anatomy and Composition | PASS | Root/header/panel structure and group wrapper fixed; presentations defined. |
 | 07 | Semantic Contract | PASS | Native button header, labelled region panel, decorative chevron, native disabled. |
-| 08 | Public API Contract | PASS | `AccordionProps`/`AccordionGroupProps`, controlled/uncontrolled, no `isWrapped`. |
-| 09 | DOM Contract | PASS | One root div, one header button, one region panel; group wrapper div. |
+| 08 | Public API Contract | PASS | `AccordionProps`/`AccordionGroupProps`, controlled/uncontrolled, native root props/refs, no `isWrapped`. |
+| 09 | DOM Contract | PASS | One root div owns native props/ref, one header button, one region panel; group wrapper div owns native props/ref. |
 | 10 | Variants | PASS | Presentation derived from context; no invented color variants. |
 | 11 | Local Size Variants vs Density | PASS | No local S/M/L; spacing/text resolve via density tokens. |
 | 12 | State Model | PASS | collapsed/expanded/hover/focus-visible/disabled complete. |
