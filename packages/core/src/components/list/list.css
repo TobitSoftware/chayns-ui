@@ -58,18 +58,14 @@
   }
 
   .chayns-list-item__title {
-    overflow: hidden;
     color: var(--text);
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
   }
 
   .chayns-list-item__description {
-    overflow: hidden;
     color: var(--text-3);
     font-size: var(--fs-meta);
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
   }
 
   .chayns-list-item__trailing {

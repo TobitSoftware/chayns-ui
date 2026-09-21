@@ -13,7 +13,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => (
-    <div style={{ maxInlineSize: '28rem' }}>
+    <div className="chayns-storybook-example-constrained">
       <List>
         <List.Item>
           <List.Item.Action onClick={fn()}>

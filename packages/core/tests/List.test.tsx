@@ -69,6 +69,29 @@ describe('List', () => {
     expect(screen.getByText('Neu')).toHaveClass('chayns-visually-hidden');
   });
 
+  it('keeps long localized row content available for wrapping', () => {
+    render(
+      <List>
+        <List.Item>
+          <List.Item.Action>
+            <List.Item.Body>
+              <List.Item.Title>
+                Änderungen für alle ausgewählten Empfängerinnen und Empfänger übernehmen
+              </List.Item.Title>
+              <List.Item.Description>
+                Diese Beschreibung bleibt vollständig verfügbar und darf im verfügbaren Raum
+                umbrechen.
+              </List.Item.Description>
+            </List.Item.Body>
+          </List.Item.Action>
+        </List.Item>
+      </List>,
+    );
+
+    expect(screen.getByRole('button', { name: /Änderungen für alle/ })).toBeInTheDocument();
+    expect(screen.getByText(/Diese Beschreibung bleibt vollständig/)).toBeInTheDocument();
+  });
+
   it('rejects Item outside its documented parent', () => {
     expect(() => render(<List.Item />)).toThrow('List.Item must be rendered within List.');
   });
