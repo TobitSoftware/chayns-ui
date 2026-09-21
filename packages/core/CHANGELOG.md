@@ -1,5 +1,11 @@
 # @chayns-ui/core
 
+## 0.5.0
+
+### Minor Changes
+
+- Align implemented core components with the Bodywork Design System. This adds the Bodywork avatar size contract, native Avatar and AvatarGroup props and refs, visible ComboBox multi-select checkboxes, and Bodywork list preview behavior. Badge is now a static status component; its removable API has been removed in favor of a separately specified interactive chip or tag contract.
+
 ## 0.4.2
 
 ### Patch Changes
