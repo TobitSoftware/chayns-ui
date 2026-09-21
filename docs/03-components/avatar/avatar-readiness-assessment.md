@@ -6,11 +6,11 @@
 - Component Category: Core
 - Component Specification: `avatar-specification.md`
 - Specification Status: READY FOR IMPLEMENTATION
-- Relevant Decision IDs: AVATAR-001-004, A11Y-001-007, DENSITY-005-006
-- Foundation Dependencies: `--avatar`, `--avatar-sm`, `--accent`,
+- Relevant Decision IDs: AVATAR-001-006, A11Y-001-007, DENSITY-005-006
+- Foundation Dependencies: `--k36`, `--k44`, `--k52`, `--accent`,
   `--accent-hover`, `--accent-active`, `--on-accent`
 - Related Components: ListItem
-- Gate Date: 2026-09-14
+- Gate Date: 2026-09-21
 - Gate Result: READY
 
 ## Gate Checks
@@ -26,7 +26,7 @@
 | 07 | Semantic Contract | PASS | Root accessible name and decorative badge behavior are defined. |
 | 08 | Public API Contract | PASS | `AvatarProps` and fallback behavior are confirmed. |
 | 10 | Variants | PASS | No color or behavior variants are proposed. |
-| 11 | Local Size Variants vs Density | PASS | Avatar exposes only confirmed `default`/`small` geometry mapped to `--avatar`/`--avatar-sm`; this is separate from global density. |
+| 11 | Local Size Variants vs Density | PASS | Avatar exposes the Bodywork `small`/`default`/`large` geometry at 36/44/52 px; this is separate from global density. |
 | 12 | State Model | PASS | Image failure switches to initials. |
 | 16 | Token Availability | PASS | Geometry, color, and contrast tokens are confirmed. |
 | 20 | Accessibility | PASS | Accessible name and decorative badge behavior are specified. |

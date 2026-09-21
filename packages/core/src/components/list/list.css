@@ -59,13 +59,17 @@
 
   .chayns-list-item__title {
     color: var(--text);
-    overflow-wrap: anywhere;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .chayns-list-item__description {
     color: var(--text-3);
     font-size: var(--fs-meta);
-    overflow-wrap: anywhere;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .chayns-list-item__trailing {

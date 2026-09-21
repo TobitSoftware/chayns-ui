@@ -11,13 +11,7 @@ export type { IconButtonProps } from './components/icon-button/IconButton.types.
 
 export { default as Badge } from './components/badge/Badge.js';
 export { BADGE_SIZES, BADGE_TONES } from './components/badge/Badge.types.js';
-export type {
-  BadgeProps,
-  BadgeSize,
-  BadgeTone,
-  RemovableBadgeProps,
-  StaticBadgeProps,
-} from './components/badge/Badge.types.js';
+export type { BadgeProps, BadgeSize, BadgeTone } from './components/badge/Badge.types.js';
 
 export { default as ComboBox } from './components/combo-box/ComboBox.js';
 export type {

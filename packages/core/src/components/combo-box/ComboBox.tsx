@@ -65,6 +65,13 @@ const Option = forwardRef<HTMLDivElement, ComboBoxOptionProps>(function Option(
       ref={ref}
       role="option"
     >
+      {comboBox.multiple ? (
+        <span
+          aria-hidden="true"
+          className="chayns-combo-box__checkbox"
+          data-checked={isSelected || undefined}
+        />
+      ) : null}
       {children}
     </div>
   );

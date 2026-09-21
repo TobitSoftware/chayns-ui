@@ -1,3 +1,4 @@
+import { createRef } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
@@ -20,6 +21,15 @@ describe('Avatar', () => {
     render(<Avatar name="Peter Schmidt" size="small" />);
 
     expect(screen.getByRole('img', { name: 'Peter Schmidt' })).toHaveClass('chayns-avatar--small');
+  });
+
+  it('supports the Bodywork large geometry and native span ownership', () => {
+    const ref = createRef<HTMLSpanElement>();
+
+    render(<Avatar data-purpose="profile" name="Peter Schmidt" ref={ref} size="large" />);
+
+    expect(ref.current).toHaveClass('chayns-avatar--large');
+    expect(ref.current).toHaveAttribute('data-purpose', 'profile');
   });
 
   it('renders an image and falls back to initials when it fails', () => {

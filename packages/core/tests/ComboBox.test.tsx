@@ -67,6 +67,9 @@ describe('ComboBox', () => {
     await user.click(screen.getByRole('combobox', { name: 'Kategorien' }));
     await user.click(screen.getByRole('option', { name: 'Design' }));
 
+    expect(
+      screen.getByRole('option', { name: 'Design' }).querySelector('[data-checked="true"]'),
+    ).toBeInTheDocument();
     expect(onValueChange).toHaveBeenCalledWith([
       expect.objectContaining({ props: expect.objectContaining({ value: 'design' }) }),
     ]);

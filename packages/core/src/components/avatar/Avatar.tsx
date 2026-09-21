@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 
 import type { AvatarProps } from './Avatar.types.js';
 
@@ -22,7 +22,10 @@ const getTone = (name: string) => {
   return hash % 3;
 };
 
-const Avatar = ({ alt, badge, className, id, name, size = 'default', src }: AvatarProps) => {
+const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
+  { alt, badge, className, name, size = 'default', src, ...spanProps },
+  ref,
+) {
   const [failedSource, setFailedSource] = useState<string>();
   const showImage = Boolean(src) && failedSource !== src;
   const initials = getInitials(name);
@@ -30,17 +33,18 @@ const Avatar = ({ alt, badge, className, id, name, size = 'default', src }: Avat
 
   return (
     <span
+      {...spanProps}
       aria-label={alt ?? name}
       className={[
         'chayns-avatar',
         `chayns-avatar--tone-${tone}`,
-        size === 'small' ? 'chayns-avatar--small' : null,
+        `chayns-avatar--${size}`,
         className,
       ]
         .filter(Boolean)
         .join(' ')}
-      id={id}
       role="img"
+      ref={ref}
     >
       {showImage ? (
         <img
@@ -61,6 +65,6 @@ const Avatar = ({ alt, badge, className, id, name, size = 'default', src }: Avat
       ) : null}
     </span>
   );
-};
+});
 
 export default Avatar;

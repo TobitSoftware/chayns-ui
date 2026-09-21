@@ -20,6 +20,3 @@ type Story = StoryObj<typeof meta>;
 export const Status: Story = {};
 export const Count: Story = { args: { children: '12', tone: 'accent' } };
 export const Chip: Story = { args: { children: '👍 2', tone: 'neutral', size: 'md' } };
-export const Removable: Story = {
-  args: { children: 'Team', onRemove: () => undefined, removeLabel: 'Team entfernen' },
-};

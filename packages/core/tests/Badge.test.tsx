@@ -1,8 +1,7 @@
 import { createRef } from 'react';
 import { renderToString } from 'react-dom/server';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import Badge from '../src/components/badge/Badge.js';
 
@@ -22,19 +21,10 @@ describe('Badge', () => {
     expect(badge).toHaveAttribute('data-purpose', 'status');
   });
 
-  it('exposes a named status and calls the removable action', async () => {
-    const onRemove = vi.fn();
-    const user = userEvent.setup();
-
-    render(
-      <Badge aria-label="Teamfilter" onRemove={onRemove} removeLabel="Teamfilter entfernen">
-        Team
-      </Badge>,
-    );
-
+  it('exposes a named status without introducing an interactive control', () => {
+    render(<Badge aria-label="Teamfilter">Team</Badge>);
     expect(screen.getByRole('status', { name: 'Teamfilter' })).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: 'Teamfilter entfernen' }));
-    expect(onRemove).toHaveBeenCalledOnce();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 
   it('renders on the server', () => {

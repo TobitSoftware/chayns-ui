@@ -3,23 +3,13 @@ import { forwardRef } from 'react';
 import type { BadgeProps } from './Badge.types.js';
 
 const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
-  {
-    'aria-label': ariaLabel,
-    children,
-    className,
-    onRemove,
-    removeLabel,
-    size = 'sm',
-    tone = 'neutral',
-    ...spanProps
-  },
+  { 'aria-label': ariaLabel, children, className, size = 'sm', tone = 'neutral', ...spanProps },
   ref,
 ) {
   const resolvedClassName = [
     'chayns-badge',
     `chayns-badge--${tone}`,
     `chayns-badge--${size}`,
-    onRemove ? 'chayns-badge--removable' : '',
     className,
   ]
     .filter(Boolean)
@@ -34,16 +24,6 @@ const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
       role={ariaLabel === undefined ? undefined : 'status'}
     >
       <span className="chayns-badge__content">{children}</span>
-      {onRemove ? (
-        <button
-          aria-label={removeLabel}
-          className="chayns-badge__remove"
-          onClick={onRemove}
-          type="button"
-        >
-          ×
-        </button>
-      ) : null}
     </span>
   );
 });

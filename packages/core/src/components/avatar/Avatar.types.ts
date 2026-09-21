@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ComponentPropsWithRef, ReactNode } from 'react';
 
 /**
  * @description Props for a single circular identity avatar: an image with a
@@ -6,7 +6,10 @@ import type { ReactNode } from 'react';
  * local geometry variant for this component, not a global S/M/L density
  * variant.
  */
-export interface AvatarProps {
+export interface AvatarProps extends Omit<
+  ComponentPropsWithRef<'span'>,
+  'children' | 'role' | 'aria-label'
+> {
   /**
    * @description Full name used to derive both the accessible name (unless
    * `alt` is given) and the initials fallback shown when no image is
@@ -18,7 +21,7 @@ export interface AvatarProps {
    * @description Avatar geometry variant.
    * @default 'default'
    */
-  size?: 'default' | 'small';
+  size?: 'default' | 'small' | 'large';
 
   /**
    * @description Optional image source. Initials are shown instead when
@@ -39,14 +42,4 @@ export interface AvatarProps {
    * `aria-hidden` — any meaning it conveys must also be available elsewhere.
    */
   badge?: ReactNode;
-
-  /**
-   * @description Additional class names appended to the avatar root element.
-   */
-  className?: string;
-
-  /**
-   * @description Optional id on the avatar root element.
-   */
-  id?: string;
 }

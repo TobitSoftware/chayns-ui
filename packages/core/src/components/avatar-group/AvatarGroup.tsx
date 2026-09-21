@@ -1,9 +1,12 @@
-import { Children, cloneElement, isValidElement } from 'react';
+import { Children, cloneElement, forwardRef, isValidElement } from 'react';
 
 import type { AvatarProps } from '../avatar/Avatar.types.js';
 import type { AvatarGroupProps } from './AvatarGroup.types.js';
 
-const AvatarGroup = ({ children, className, id, max, size = 'default' }: AvatarGroupProps) => {
+const AvatarGroup = forwardRef<HTMLSpanElement, AvatarGroupProps>(function AvatarGroup(
+  { children, className, max, size = 'default', ...spanProps },
+  ref,
+) {
   const avatars = Children.toArray(children).filter((child) => isValidElement<AvatarProps>(child));
   const limited = typeof max === 'number' && max > 0;
   const visibleCount = limited ? Math.max(max - 1, 0) : avatars.length;
@@ -11,14 +14,11 @@ const AvatarGroup = ({ children, className, id, max, size = 'default' }: AvatarG
 
   return (
     <span
-      className={[
-        'chayns-avatar-group',
-        size === 'small' ? 'chayns-avatar-group--small' : null,
-        className,
-      ]
+      className={['chayns-avatar-group', `chayns-avatar-group--${size}`, className]
         .filter(Boolean)
         .join(' ')}
-      id={id}
+      {...spanProps}
+      ref={ref}
     >
       {avatars.slice(0, visibleCount).map((avatar) =>
         cloneElement(avatar, {
@@ -32,6 +32,6 @@ const AvatarGroup = ({ children, className, id, max, size = 'default' }: AvatarG
       ) : null}
     </span>
   );
-};
+});
 
 export default AvatarGroup;

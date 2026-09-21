@@ -6,7 +6,7 @@
 - Component Category: Core
 - Specification Status: READY FOR IMPLEMENTATION
 - Owner / Responsible Area: chayns UI Core
-- Design Reference: user-provided ListItem reference image, 2026-09-14
+- Design Reference: Bodywork Design System `#medien`, checked 2026-09-21
 - Related Components: ListItem
 - Last Reviewed: 2026-09-14
 
@@ -33,8 +33,8 @@ of business data.
 - Root: a non-interactive element with the avatar presentation class.
 - Image: optional native `img` when `src` is supplied and usable.
 - Initials fallback: at most two uppercase letters derived from `name`.
-- Geometry: `size="default"` uses `--avatar`; `size="small"` uses
-  `--avatar-sm`.
+- Geometry: `size="small"`, `size="default"` and `size="large"` use the
+  Bodywork 36, 44 and 52 px geometry tokens respectively.
 - Group: `AvatarGroup` accepts Avatar children, overlaps them, and renders a
   final `+N` overflow tile when `max` is exceeded.
 - Optional bottom badge slot: consumer-provided content overlaid at the lower
@@ -66,8 +66,9 @@ interface AvatarProps {
 
 `alt` is optional and defaults to `name`. When `src` is absent or the image
 fails to load, initials are rendered while the accessible name remains
-`alt ?? name`. Avatar supports only the explicit `default` and `small`
-geometry variants; these are separate from global density values.
+`alt ?? name`. Avatar supports the explicit `small`, `default` and `large`
+geometry variants; these are separate from global density values. Avatar and
+AvatarGroup forward compatible native span props and refs to their roots.
 
 `AvatarGroup` applies its own `size` to every Avatar child. When `max` is
 exceeded, it renders the first `max - 1` children and uses the final tile for

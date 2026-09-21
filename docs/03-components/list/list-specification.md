@@ -31,7 +31,7 @@ Bodywork supplies surface, border, `--k12`/`--k16` spacing, `--fs-body` title an
 
 ## Accessibility and keyboard
 
-Native list, list-item, anchor and button semantics remain authoritative. Tab traverses Action and any separate Trailing control; Enter activates links/buttons and Space activates buttons. Disabled Action buttons are natively inactive. Status is not colour-only because `label` is required. Long localised content wraps rather than shrinking. Tests cover DOM nesting, all native-prop targets and refs, Action link/button semantics, event forwarding, Status labelling and invalid compound placement.
+Native list, list-item, anchor and button semantics remain authoritative. Tab traverses Action and any separate Trailing control; Enter activates links/buttons and Space activates buttons. Disabled Action buttons are natively inactive. Status is not colour-only because `label` is required. The standard row preview follows Bodywork: title and description remain one line and use ellipsis when the available width is insufficient. The full localized value remains available through the surrounding accessible name or the consumer's detail view. Tests cover DOM nesting, all native-prop targets and refs, Action link/button semantics, event forwarding, Status labelling and invalid compound placement.
 
 ## Migration
 

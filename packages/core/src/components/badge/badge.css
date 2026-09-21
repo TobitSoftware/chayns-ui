@@ -43,29 +43,4 @@
     background: var(--danger-bg);
     color: var(--text);
   }
-
-  .chayns-badge__remove {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    inline-size: var(--k16);
-    block-size: var(--k16);
-    padding: 0;
-    border: 0;
-    border-radius: 999px;
-    background: transparent;
-    color: currentcolor;
-    cursor: pointer;
-    font: inherit;
-    line-height: 1;
-  }
-
-  .chayns-badge__remove:hover {
-    background: rgb(0 0 0 / 12%);
-  }
-
-  .chayns-badge__remove:focus-visible {
-    outline: var(--focus-ring-size) solid currentcolor;
-    outline-offset: 2px;
-  }
 }
