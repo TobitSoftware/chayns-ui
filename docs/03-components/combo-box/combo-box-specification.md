@@ -5,13 +5,13 @@
 - Component Category: Core
 - Specification Status: BLOCKED — DESIGN REVIEW
 - Design Reference: Bodywork Design System, concrete ComboBox reference unavailable on 2026-09-21
-- Relevant Decisions: COMBO-001–004, DESIGN-011
+- Relevant Decisions: COMBO-001–005, DESIGN-011
 
 ## Confirmed contract
 
-ComboBox is an editable ARIA combobox with a native text input and a popup list of `ComboBox.Option` children. The parent owns the selected string value, input text, option identity, popup state, active descendant and keyboard interaction through React Context. `Option` is valid only under `ComboBox` and owns its native option row. Options use a unique string `value` and visible `children` as their label.
+ComboBox is an editable ARIA combobox with a native text input and a popup list of `ComboBox.Option` children. The parent owns the selected value, input text, option identity, popup state, active descendant and keyboard interaction through React Context. `Option` is valid only under `ComboBox` and owns its native option row. Options use a unique string `value` and visible `children` as their label.
 
-The public value contract is string based: `value`/`defaultValue` and `onValueChange(value: string)`. The input filters options, free text is allowed, Escape restores the last confirmed text and closes the popup, and blur commits the current text. Native input props and ref target the input; the component owns the combobox ARIA relationship and generated option IDs.
+The `multiple` prop selects the mode. Without `multiple`, `value`/`defaultValue` and `onValueChange` use a single string. With `multiple`, the value is the selected `ComboBox.Option` element collection and `onValueChange` returns that collection. The input filters options, free text is allowed, Escape restores the last confirmed text and closes the popup, and blur commits the current text in single-select mode. Native input props and ref target the input; the component owns the combobox ARIA relationship and generated option IDs.
 
 ## Design review blocker
 
