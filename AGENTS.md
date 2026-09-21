@@ -405,6 +405,14 @@ Das Repository wird schrittweise folgende Dokumente erhalten:
 
 Diese Dokumente noch nicht eigenständig vollständig erzeugen.
 
+### Composition, values and story evidence
+
+The canonical usage of a component MUST use the smallest unambiguous API. Prefer `children`, direct props and clearly named slots. Public Compound Parts require a confirmed semantic Parent/Child relationship and documented Parent, Context, DOM-/Ref-owner, placement, keyboard and accessibility contract. Visual anatomy alone is not sufficient.
+
+Finite public variants MUST use an exported string union plus a matching `as const` runtime array or object. TypeScript enums are not the default. Native HTML values remain platform values. Stories use `args` for simple leaf components, `render` for actual composition, and `play` only for user interaction. Story DOM is queried through `within(canvasElement)`; portal content is queried through `document.body`.
+
+Every component specification and readiness assessment MUST record the checked Bodywork reference, date, states, token mapping, Storybook evidence and unresolved design-review points. A relevant `DESIGN REVIEW` item blocks READY. Geometry and tokens MUST NOT be guessed from unverified screenshots.
+
 ## External Design Reference
 
 Die externe UI-Dokumentation unter [chayns Design System](https://tappqa.tobit.com/Bodywork/DesignSystem/) ist die zentrale Designreferenz. Bestätigte Entscheidungen innerhalb dieses Repositories können sie für die technische chayns-UI-Umsetzung präzisieren oder bewusst abweichend festlegen.

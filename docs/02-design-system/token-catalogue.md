@@ -214,7 +214,7 @@ The direct values are confirmed. Local size variants and global Density remain s
 
 The currently delivered DesignSystem HTML directly exposes the following Motion source data: Micro `120–160 ms` for hover/color changes, icon swap and row highlighting; Kurz `200–240 ms` for Dialog, Popover and Menu; Mittel `260–300 ms` for Drawer, Toast and Scrim; Lang `550–600 ms` for initial page reveal. It also exposes Eintritt `cubic-bezier(.22, .61, .36, 1)`, Austritt `cubic-bezier(.4, 0, .7, .2)` and Konstant `linear` for Spinner/Skeleton.
 
-Those labels and values are authoritative DesignSystem property evidence, but no canonical CSS custom-property identities or chayns-UI public Motion-token contract are exposed. The Button CSS uses several transition declarations rather than one documented semantic Button mapping; some source properties are outside the confirmed chayns-UI Motion property guardrail. Therefore no Button Motion token or Button Motion rule is introduced here. The confirmed rules `transform`, `opacity` and the limited `grid-template-rows` exception remain in [motion.md](motion.md); public Duration/Easing token identities and component mapping remain TECH REVIEW.
+Those labels and values are authoritative DesignSystem property evidence. chayns UI maps them to the semantic Motion tokens `--motion-duration-micro`, `--motion-duration-short`, `--motion-duration-medium`, `--motion-duration-long`, `--motion-ease-enter`, `--motion-ease-exit` and `--motion-ease-constant`. The Button CSS uses several transition declarations rather than one documented semantic Button mapping; some source properties are outside the confirmed chayns-UI Motion property guardrail. Therefore Button Motion adoption remains component-specific and may not introduce additional properties. The confirmed rules `transform`, `opacity` and the limited `grid-template-rows` exception remain in [motion.md](motion.md). Missing Foundation categories remain explicit catalog gaps under TOKEN-006.
 
 ## 18. Other DesignSystem Source Tokens
 
@@ -296,7 +296,7 @@ The resulting Button-relevant foundation status is **sufficient for the Mileston
 |---|---|---|---|---|
 | Radius | Canonical token names, complete values and component mapping beyond the directly evidenced Button properties. | TECH REVIEW | Authoritative DesignSystem token export or approved chayns mapping. | Radius-dependent Component Specifications outside the confirmed Button evidence. |
 | Typography | Canonical Weight, Line Height and Letter Spacing for every role and the chayns component-token mapping. | TECH REVIEW | Authoritative DesignSystem role data and approved chayns mapping. | Full Typography use in Component Specifications. |
-| Motion | Public token identities and semantic component mappings; DesignSystem stage values are now directly evidenced. | TECH REVIEW | Approved chayns Motion-token mapping. | Motion-dependent Component Specifications. |
+| Motion | Public semantic token identities and stage values are confirmed; component-specific usage remains subject to each Component Specification. | CONFIRMED | TOKEN-010, DesignSystem Motion source data. | Motion-dependent Component Specifications. |
 | Borders | Canonical Border-Width tokens and semantic allocation beyond directly evidenced Button properties. | TECH REVIEW | DesignSystem token data and approved chayns mapping. | Precise Component Specifications outside the confirmed Button evidence. |
 | Accessibility color modes | Complete Contrast/Color-Deficiency mappings beyond Focus. | TECH REVIEW | Theme/token source or approved resolver specification. | Full multi-mode Color verification. |
 | Component-specific allocation | Approved catalog and use of non-Button geometry/shadow tokens by Components. Button assignments for `--btn-py`, `--btn-px`, `--ctrl-h`, `--shadow-btn` and `--shadow-btn-hover` are confirmed. | TECH REVIEW | Component Specifications and Token Catalogue follow-up. | Component implementation readiness outside the confirmed Button subset. |
@@ -321,7 +321,7 @@ The complete effective S/M/L value matrix and any final Component-specific alloc
 ## 21. Decision Register Follow-ups
 
 * TOKEN-001 and TOKEN-002 can reference this catalogue for confirmed names and values.
-* TOKEN-006 remains TECH REVIEW: this catalogue is a documented inventory, not the final technical token source.
+* TOKEN-006 is CONFIRMED as an evidence-based complete catalogue strategy: all Foundation categories are represented, while unconfirmed individual values remain explicit OPEN gaps.
 * DENSITY-001–006 can reference the Density Matrix handoff; complete component mappings remain TECH REVIEW.
 * COLOR-001–005, TYPE-004, MOTION-001–007 and A11Y-001–006 can reference the catalogued Foundation data where applicable.
 * OPEN-006 remains the technical token-source/build decision. No new Decision-Register follow-up is required from this inventory alone.

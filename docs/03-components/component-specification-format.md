@@ -712,3 +712,13 @@ Besteht ein implementierungsrelevanter Interpretationsspielraum, gilt für Core-
 - menschliche Klärung erforderlich.
 
 Diese Regel ergänzt das Component Implementation Readiness Gate, sie schwächt es nicht ab.
+
+## 14. Composition decision and design evidence
+
+Jede Specification MUSS die gewählte Composition-Form begründen: `children`, deklarative Props, benannte Slots oder Compound Parts. Sie MUSS ein minimales Canonical Example ohne interne CSS-Klassen und ohne unnötige Part-Reihenfolge zeigen. Advanced Composition wird getrennt beschrieben und darf den Canonical Case nicht voraussetzen.
+
+Für jeden öffentlichen Compound Part sind Parent, zulässige Platzierung, Context-Vertrag, DOM-/Ref-Owner, Slot-Vertrag sowie Keyboard-, Focus- und Accessibility-Owner anzugeben. Rein visuelle Anatomy erhält keinen öffentlichen Part.
+
+Jede Specification MUSS die geprüfte Bodywork-Referenz, das Referenzdatum, die geprüften Zustände, das Token-Mapping und die Storybook-Evidence benennen. Nicht direkt verifizierbare Beobachtungen werden als `DESIGN REVIEW` dokumentiert und blockieren `READY FOR IMPLEMENTATION`, wenn sie für die Umsetzung relevant sind. Werte dürfen nicht aus Screenshots geschätzt werden.
+
+Wenn mehrere regelkonforme APIs möglich sind, dokumentiert die Specification die verworfenen Alternativen und die bestätigte Entscheidung. Eine technisch plausible Auswahl ohne autorisierte Source of Truth ist unzulässig und bleibt `BLOCKED`.

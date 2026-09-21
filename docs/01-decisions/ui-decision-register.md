@@ -38,6 +38,12 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | CORE-010 | CORE | Jede öffentliche Component und jeder öffentliche Compound Part reicht kompatible Standard-Props des repräsentierten nativen Elements weiter. Eigene Props nehmen ausschließlich präzise dokumentierte Kollisionen für Semantik, State, Beziehungen oder DOM-Placement aus; Native Props dürfen weder stillschweigend verloren gehen noch unbeabsichtigt überschrieben werden. | CONFIRMED | Bodywork component finalization plan | Component Specifications führen eine Prop-Ownership-Map. |
 | CORE-011 | CORE | Compound Components werden nur für bestätigte semantische Parent/Child-Beziehungen eingesetzt, die gemeinsame Zustände, Beziehungen oder DOM-Verantwortung benötigen. Visuelle Anatomy allein rechtfertigt keine öffentliche Subcomponent. | CONFIRMED | Bodywork component finalization plan | Parent-/Child-, Context-, DOM-/Ref- und Accessibility-Vertrag je Part dokumentieren. |
 | CORE-012 | CORE | Für die Komponentenfinalisierung ist Bodywork die visuelle und konzeptionelle Referenz. Interaktionen, die Bodywork nicht festlegt, folgen der Semantik und dem Standardverhalten des dargestellten nativen HTML-Elements. | CONFIRMED | User decision, 2026-09-17 | Component Specifications dokumentieren jede Bodywork-Abweichung ausdrücklich. |
+| CORE-013 | CORE | Die Canonical API verwendet die kleinste eindeutige Composition-Form. `children`, deklarative Props und benannte Slots haben Vorrang; Compound Parts benötigen eine bestätigte semantische Parent/Child-Beziehung mit dokumentiertem DOM-/Ref-/Accessibility-Vertrag. | CONFIRMED | Composition/Compound API rework plan | Jede Component Specification dokumentiert Canonical und Advanced Composition. |
+| CORE-014 | CORE | Endliche öffentliche Varianten werden als String-Union-Type und passendes `as const`-Runtime-Array oder -Objekt veröffentlicht. TypeScript-Enums sind kein Standard; offene Native-Werte erhalten keine künstlich unvollständige Runtime-Liste. | CONFIRMED | Composition/Compound API rework plan | Storybook Controls verwenden denselben bestätigten Wertebestand. |
+| CORE-015 | CORE | Semantisch bestätigte Parent-/Child-Beziehungen werden als öffentliche Compound APIs beschrieben. Der technische Context-Mechanismus bleibt davon getrennt und muss über OPEN-010 geklärt werden. | CONFIRMED | User decision, 2026-09-21 | Compound Parts, Parent-/Child- und Accessibility-Verträge je Component Specification abschließen. |
+| CORE-016 | CORE | Application/Product liefert Locale und Zeitzone. Core Components erhalten aufgelöste Inhalte, verantworten keine eigenen fachlichen Standardtexte und leiten RTL nicht automatisch aus Locale oder Sprache ab. RTL wird erst bei einer expliziten Produktanforderung umgesetzt. | CONFIRMED | User decision, 2026-09-21 | Ersetzt die offenen Produktannahmen OPEN-018, OPEN-019, OPEN-020 und OPEN-022. |
+| CORE-017 | CORE | Der technische Context-Mechanismus für bestätigte Compound APIs ist React Context. Er wird auf dokumentierte semantische Parent-/Child-Beziehungen und deren gemeinsamen State begrenzt. | CONFIRMED | User decision, 2026-09-21 | Supersedes OPEN-010. Jede Specification beschreibt die Context-Werte und Grenzen. |
+| CORE-018 | CORE | Form Controls verwenden öffentliche Compound Parts für Label, Description, Help, Error und Counter, sofern der jeweilige Part für die Komponente relevant ist. Der Parent besitzt Position, Accessibility-Verknüpfung und gemeinsamen State. | CONFIRMED | User decision, 2026-09-21 | Component Specifications müssen Part-, DOM-/Ref- und Accessibility-Verträge konkretisieren. |
 
 ## Business Components
 
@@ -55,7 +61,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | LAYOUT-001 | LAYOUT | Layout darf generischen Panel-, Reihenfolge- und Drag-/Resize-Zustand verwalten. | CONFIRMED | Architecture | |
 | LAYOUT-002 | LAYOUT | Layout darf Core-Komponenten verwenden. | CONFIRMED | Architecture | |
 | LAYOUT-003 | LAYOUT | Produktübergreifende App-, Grid- und Workspace-Layouts werden zentral abgebildet. | CONFIRMED | Architecture, Vision | |
-| LAYOUT-004 | LAYOUT | Komplexe Layout-Designregeln benötigen eine eindeutige DesignSystem-Beschreibung. | DESIGN REVIEW | Architecture | App-Layout/Product-Pattern mit Design abstimmen. |
+| LAYOUT-004 | LAYOUT | Komplexe Layout-Designregeln benötigen eine eindeutige DesignSystem-Beschreibung. | SUPERSEDED | User decision, 2026-09-21 | Superseded by LAYOUT-005/006: AppLayout is a generic product-independent shell contract. |
 | LAYOUT-005 | LAYOUT | AppLayout ist eine wiederverwendbare Layout-Komponente für 64px-Header, linke Navigation und Content-Fläche; sie enthält keine Routing-, Business- oder Persistenzlogik. | CONFIRMED | AppLayout specification, User input | |
 | LAYOUT-006 | LAYOUT | AppLayout erhält Logo-URL, rekursive Items, `onClick(id)`, optionales `activeItemId` und Consumer-`children`; Header-Aktionen sind zunächst nicht Teil der API. | CONFIRMED | AppLayout specification, User input | |
 | LAYOUT-007 | LAYOUT | Parent- und Child-Navigationseinträge sind jeweils klickbar; Items sind rekursiv. | CONFIRMED | User input | Disclosure- und Dual-Action-Semantik separat klären. |
@@ -98,8 +104,11 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | TOKEN-003 | TOKEN | Allgemeine Abstände nutzen die zentrale Skala `--sp-*`. | CONFIRMED | AGENTS.md | |
 | TOKEN-004 | TOKEN | Explizit definierte komponentenspezifische Maß-Tokens sind erlaubt. | CONFIRMED | AGENTS.md | |
 | TOKEN-005 | TOKEN | Radien stammen aus einer globalen primitiven Skala. | CONFIRMED | AGENTS.md | |
-| TOKEN-006 | TOKEN | Der vollständige Token-Katalog wird später spezifiziert. | TECH REVIEW | Architecture | Design-Foundation-/Token-Dokument. |
+| TOKEN-006 | TOKEN | Der vollständige Token-Katalog deckt alle Foundation-Kategorien ab und führt unbelegte Einzelwerte ausdrücklich als OPEN-Lücken. Eine Lücke blockiert nur Components, die diesen Wert benötigen; Werte werden nicht geschätzt. | CONFIRMED | User decision, 2026-09-21 | Katalogisierung und Evidence-Transfer fortführen; komponentenrelevante Lücken bleiben Gate-relevant. |
+| TOKEN-007 | TOKEN | Globale Motion-Durations- und Easing-Werte werden als Foundation-Primitives definiert und nicht komponentenweise frei erfunden. | CONFIRMED | User decision, 2026-09-21 | Konkrete Werte und DesignSystem-Evidence bleiben Gegenstand von OPEN-023/MOTION-009. |
 | TOKEN-008 | TOKEN | Form Controls und MessageBox erhalten einen separaten Foundation-Transfer mit belegten Werten und einem dokumentierten Component-Mapping. Bodywork- und Repository-Evidence bestimmen die Übernahme; fehlende Werte werden nicht geschätzt. | CONFIRMED | User decision, 2026-09-17 | Input-Padding sowie Success-/Warning-Rollen übertragen; weitere Bodywork-Rollen prüfen. |
+| TOKEN-009 | TOKEN | Der vollständige Token-Katalog deckt alle Foundation-Kategorien ab: Spacing, Radius, Typography, Color, Border, Shadow, Z-Layer, Motion und Density. Jede konkrete Zuordnung benötigt DesignSystem- oder Repository-Evidence. | CONFIRMED | User decision, 2026-09-21 | TOKEN-006 bleibt für die technische Katalogisierung und Evidence-Übertragung relevant. |
+| TOKEN-010 | TOKEN | Belegte Motion-Werte werden als semantische Tokens `--motion-duration-micro`, `--motion-duration-short`, `--motion-duration-medium`, `--motion-duration-long`, `--motion-ease-enter`, `--motion-ease-exit` und `--motion-ease-constant` geführt. | CONFIRMED | User decision, 2026-09-21; DesignSystem token catalogue | Components mappen bestätigte Motion-Patterns auf diese Tokens. |
 
 ## Density
 
@@ -121,7 +130,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | COLOR-003 | COLOR | Die Primärfarbe ist Eingabe für semantische Farb-Tokens. | CONFIRMED | Architecture | |
 | COLOR-004 | COLOR | Die verwendete Accent-Farbe darf für Accessibility/Kontrast kalibriert werden. | CONFIRMED | AGENTS.md, Architecture | |
 | COLOR-005 | COLOR | Nutzbarkeit und WCAG gehen vor exakter Farbübereinstimmung. | CONFIRMED | AGENTS.md, Architecture | |
-| COLOR-006 | COLOR | Die Theme-Resolver-Implementierung ist offen. | OPEN | Architecture | Technische Architekturphase. |
+| COLOR-006 | COLOR | Die Theme-Resolver-Implementierung liegt im Tokens-Package. Der Resolver verarbeitet nur bestätigte globale Theme-/Environment-Eingaben und erzeugt semantische CSS-Tokens; Core Components berechnen keine Theme-Werte selbst. | CONFIRMED | User decision, 2026-09-21 | Resolver-Schnittstelle und bestätigte Eingabematrix dokumentieren. |
 
 ## Typography
 
@@ -156,6 +165,8 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | MOTION-006 | MOTION | Nicht notwendige Animationen entfallen bei `prefers-reduced-motion`. | CONFIRMED | AGENTS.md | |
 | MOTION-007 | MOTION | Notwendige Animationen wie Loading-Spinner dürfen bestehen bleiben. | CONFIRMED | AGENTS.md | |
 | MOTION-008 | MOTION | Motion-Umsetzung priorisiert Rendering-Performance. Animationen laufen ausschließlich über compositor-fähige Properties (`transform`, `opacity`); layout-triggernde Properties sind nur als explizit dokumentierte, seltene Einzel-Element-Ausnahme zulässig (aktuell `grid-template-rows` für Accordion gemäß MOTION-003 sowie `grid-template-columns` für den AppLayout-Sidebar-Collapse gemäß LAYOUT-019). JS-Bibliotheken oder -Muster, die Layout aus mehreren Elementen pro Frame lesen/schreiben (u. a. FLIP, Motion/Framer-Motion `layout`-Prop), sind nicht zulässig. Notwendige Animationen werden dadurch nicht weggelassen, sondern performant gelöst; eine Performance-Schwachstelle in chayns UI reproduziert sich sonst in jedem Consumer-Projekt. Jede weitere layout-triggernde Komponenten-Ausnahme über die zwei genannten hinaus benötigt eine eigene dokumentierte Performance-Prüfung nach diesem Muster, keine stillschweigende Erweiterung. | CONFIRMED | User decision (Performance-Mandat), baut auf MOTION-002/003/004 auf | |
+| MOTION-009 | MOTION | Motion-Duration und Easing werden als globale Foundation-Primitives definiert; Component Specifications wählen daraus und erfinden keine lokalen Werte. | CONFIRMED | User decision, 2026-09-21 | Konkrete Werte sind in TOKEN-010 und dem Token Catalogue belegt. |
+| MOTION-010 | MOTION | Reduced Motion wird über `prefers-reduced-motion` im CSS umgesetzt. Nicht notwendige Motion entfällt; notwendige Motion bleibt nur bei bestätigter pattern-spezifischer Begründung bestehen. | CONFIRMED | User decision, 2026-09-21 | Components dokumentieren relevante Reduced-Motion-Zustände. |
 
 ## Buttons and Actions
 
@@ -166,6 +177,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | BUTTON-003 | BUTTON | Action Scopes sind semantisch, nicht rein aus dem DOM ableitbar. | CONFIRMED | AGENTS.md | |
 | BUTTON-004 | BUTTON | Danger markiert destruktive, nicht nur unwiderrufliche Aktionen. | CONFIRMED | AGENTS.md | |
 | BUTTON-005 | BUTTON | Aktionen sind Buttons, Navigation ist Links. | CONFIRMED | AGENTS.md | |
+| BUTTON-016 | BUTTON | Button, IconButton und SplitButton verwenden den gemeinsamen exportierten Variantensatz `primary`, `outline`, `ghost`, `danger`; die Runtime-Repräsentation ist `BUTTON_VARIANTS`. | CONFIRMED | Composition/Compound API rework plan, BUTTON-006 | Icon-Namen bleiben der offenen `fa-${string}`-Konvention unterworfen. |
 
 ## Icons
 
@@ -221,7 +233,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | ACC-003 | ACC | Standalone Accordions beeinflussen andere nicht. | CONFIRMED | AGENTS.md | |
 | ACC-004 | ACC | Verschachtelung ändert Gruppenverhalten nicht automatisch. | SUPERSEDED | AGENTS.md | Superseded by ACC-008 (Wrapped wird automatisch aus Verschachtelung erkannt). |
 | ACC-005 | ACC | Öffnen und Schließen verwendet die `grid-template-rows`-Motion. | CONFIRMED | AGENTS.md | |
-| ACC-006 | ACC | Das DesignSystem beschreibt Grouped vs. Standalone eindeutig. | DESIGN REVIEW | AGENTS.md | Mit Design vorgesehen. |
+| ACC-006 | ACC | Das DesignSystem beschreibt Grouped vs. Standalone eindeutig. | SUPERSEDED | User decision, 2026-09-21 | Superseded by ACC-007/008: three independent Standalone, Grouped and Wrapped representations. |
 | ACC-007 | ACC | Es existieren drei Darstellungen: Standalone (Radius 12), Grouped (gemeinsame Fläche Radius 12, Trennlinien, exklusiv) und Wrapped (Radius 10, kompakter, eingerückt). Quelle ist die korrigierte DesignSystem-Fassung. | CONFIRMED | DesignSystem (korrigiert), User decision | |
 | ACC-008 | ACC | Wrapped ist keine eigene Komponente und keine explizite Prop; ein Accordion erkennt per React-Context automatisch, dass es innerhalb eines anderen Accordion liegt, und stellt sich dann als Wrapped dar. Gruppierung (Exklusivität) und Wrapped (Verschachtelung) sind unabhängige Mechanismen. | CONFIRMED | User decision | |
 | ACC-009 | ACC | Der Header ist ein nativer `<button aria-expanded aria-controls>`; das Panel ist eine `role="region"` mit `aria-labelledby`; eingeklappter Inhalt wird aus Fokusreihenfolge und A11y-Baum entfernt; Disabled nutzt natives `disabled`. | CONFIRMED | Accordion Specification, Accessibility | |
@@ -238,7 +250,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | DIALOG-004 | DIALOG | Escape entspricht grundsätzlich Cancel. | CONFIRMED | AGENTS.md | |
 | DIALOG-005 | DIALOG | Backdrop-Dismiss ist standardmäßig aktiv. | CONFIRMED | AGENTS.md | |
 | DIALOG-006 | DIALOG | Backdrop-Dismiss ist deaktivierbar. | CONFIRMED | AGENTS.md | |
-| DIALOG-007 | DIALOG | Das DesignSystem bildet den erweiterten Dialog-Einsatz ab. | DESIGN REVIEW | AGENTS.md | Mit Design vorgesehen. |
+| DIALOG-007 | DIALOG | Das DesignSystem bildet den erweiterten Dialog-Einsatz ab. | SUPERSEDED | User decision, 2026-09-21 | Superseded by DIALOG-001/002: dialogs support small closed tasks and short forms. |
 
 ## Overlays and Tooltips
 
@@ -246,7 +258,9 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 |---|---|---|---|---|---|
 | OVERLAY-001 | OVERLAY | Dropdown, Popover, Context Menu und Select sind unterschiedliche UI-Muster. | CONFIRMED | Planning | |
 | OVERLAY-002 | OVERLAY | Alte Meeting-Begriffe definieren keine zukünftige öffentliche API. | CONFIRMED | Planning | |
-| OVERLAY-003 | OVERLAY | Gemeinsame Overlay-Primitives werden separat spezifiziert. | TECH REVIEW | Planning | |
+| OVERLAY-003 | OVERLAY | Gemeinsame Overlay-Primitives werden separat spezifiziert. | SUPERSEDED | User decision, 2026-09-21 | Superseded by OVERLAY-004: shared technical Core primitive. |
+| OVERLAY-004 | OVERLAY | Popup, Dialog, Tooltip und spätere Overlays verwenden eine gemeinsame technische Core-Primitivschicht für Portal, Layer, Outside-Press und Focus-Grundmechanik; ihre öffentliche Semantik bleibt komponentenspezifisch. | CONFIRMED | User decision, 2026-09-21 | Primitive API und Ownership-Matrix spezifizieren. |
+| OVERLAY-005 | OVERLAY | Die gemeinsame Overlay-Primitivschicht bleibt intern. Popup, Dialog und Tooltip veröffentlichen nur ihre jeweils bestätigten semantischen APIs. | CONFIRMED | User decision, 2026-09-21 | Interne Ownership und Testgrenzen in den Component Specifications dokumentieren. |
 | POPUP-001 | POPUP | `Popup` wird als eigenständige Core-Basis spezifiziert; konkrete Varianten werden separat beschrieben. | CONFIRMED | User decision, 2026-09-14 | |
 | POPUP-002 | POPUP | Eine Popup-Listenvariante verwendet pro Eintrag verpflichtend Icon, sichtbaren Text und `onClick`. | CONFIRMED | User decision, 2026-09-14 | |
 | POPUP-003 | POPUP | Der Popup-Open-State wird in der initialen Variante unkontrolliert intern verwaltet. | CONFIRMED | User decision, 2026-09-14 | |
@@ -276,7 +290,8 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | AI-002 | AI | Fehlende Entscheidungen werden als offen erkannt und dokumentiert. | CONFIRMED | AGENTS.md, Philosophy | |
 | AI-003 | AI | KI-Code bleibt menschlich verständlich und wartbar. | CONFIRMED | Philosophy, Vision | |
 | AI-004 | AI | Dokumentation und maschinenlesbare Spezifikationen gehören zum Produkt. | CONFIRMED | Vision, Philosophy | |
-| AI-005 | AI | Das maschinenlesbare Komponenten-Specification-Format ist offen. | OPEN | Architecture | AI Specification Design. |
+| AI-005 | AI | Das maschinenlesbare Komponenten-Specification-Format ist offen. | SUPERSEDED | User decision, 2026-09-21 | Superseded by AI-006: Markdown with schema-validated frontmatter. |
+| AI-006 | AI | Markdown bleibt die normative Component Specification. Standardisierte Frontmatter-Felder werden durch ein JSON Schema validiert. | CONFIRMED | User decision, 2026-09-21 | Frontmatter-Felder, Schema-Ablage und Validator im Specification Format festlegen. |
 | AI-006 | AI | Ein KI-Agent muss bei implementierungsrelevanter Mehrdeutigkeit stoppen und eine konkrete Klärungsfrage formulieren; eine plausible Annahme oder Best-Guess-Implementierung ist nicht zulässig. | CONFIRMED | Planning | AI Development Rules |
 
 ## Distribution
@@ -293,10 +308,12 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | DIST-008 | DIST | Breaking Changes werden in geplanten Major Releases gebündelt. | CONFIRMED | Meeting | |
 | DIST-009 | DIST | Vor Majors kann es eine Preview-/Release-Candidate-Phase geben. | CONFIRMED | Meeting | |
 | DIST-010 | DIST | Die vorherige Major erhält danach nur kritische Bugfixes. | CONFIRMED | Meeting | |
-| DIST-011 | DIST | CSS-Hosting, Cache, Preload und Versionierung sind offen. | OPEN | Architecture | |
+| DIST-011 | DIST | CSS-Hosting, Cache, Preload und Versionierung liegen beim Consumer beziehungsweise dessen Plattform. Packages liefern versionierte Artefakte und dokumentieren deren Cache-Vertrag. | CONFIRMED | User decision, 2026-09-21 | Consumer-/Package-Artefaktvertrag dokumentieren. |
 | DIST-012 | DIST | Milestone 1 liefert die ESM-only Pakete `@chayns-ui/core` und `@chayns-ui/tokens` mit expliziten JavaScript-, Typ- und CSS-Subpath-Exports. | SUPERSEDED | ADR 0002 | Superseded by DIST-015 (JavaScript-Subpath-Exports entfallen; ein Root-Export bleibt, CSS-Subpath-Exports bleiben unverändert bestehen). |
-| DIST-013 | DIST | Core-JavaScript ist side-effect-frei; CSS wird ausschließlich über dokumentierte CSS-Exports explizit importiert. | CONFIRMED | ADR 0002 | Weiterhin gültig als aktueller Vertrag; DIST-014 dokumentiert eine geprüfte, noch ungelöste Alternative. |
-| DIST-014 | DIST | Ziel ist, dass Consumer beim Import einer Komponente nicht zusätzlich manuell deren CSS importieren müssen. Ein naiver Seiteneffekt-Import (`import './button.css'` direkt in der Komponentendatei) wurde geprüft und verworfen: reines Node.js kann `.css`-Dateien nicht importieren (`ERR_UNKNOWN_FILE_EXTENSION`, reproduziert), was den bestehenden `verify-consumer`-SSR-Vertrag (PLATFORM-003, `node src/ssr.mjs` ohne Bundler) bricht. Eine tragfähige Lösung erfordert einen bewussten Distributionsmechanismus (z. B. bedingte Package-Exports für Bundler- vs. reine-Node-Konsumenten oder einen anderen CSS-Injection-Ansatz) und damit eine neue, explizit zu bestätigende Build-/Export-Architektur – keine stillschweigende Erweiterung der bestehenden Vite-Library-Konfiguration. | TECH REVIEW | Developer feedback, verified 2026-09-14 (reproduced Node `.css`-Import-Fehler) | Konkreten Distributionsmechanismus entscheiden, bevor DIST-013 abgelöst wird; ADR 0002 muss diesen Mechanismus dokumentieren. |
+| DIST-013 | DIST | Core-JavaScript ist side-effect-frei; CSS wird ausschließlich über dokumentierte CSS-Exports explizit importiert. | SUPERSEDED | User decision, 2026-09-21 | Superseded by DIST-014/DIST-016 for bundler consumers; explicit CSS artifacts remain available for Node SSR. |
+| DIST-014 | DIST | Ziel ist, dass Consumer beim Import einer Komponente nicht zusätzlich manuell deren CSS importieren müssen. Der bestätigte Mechanismus sind bedingte Package-Exports: Bundler erhalten automatisches CSS, während der reine Node-SSR-Pfad CSS-frei und deterministisch bleibt. | CONFIRMED | User decision, 2026-09-21; verified Node `.css`-import constraint | Konkrete Exportbedingungen, Artefaktpfade und Consumer-/SSR-Tests in ADR 0002 und Package-Contracts dokumentieren. |
+| DIST-015 | DIST | Automatisches CSS-Loading wird über bedingte Package-Exports angeboten. Ein reiner Node-SSR-Consumer darf weiterhin keine CSS-Datei importieren; dafür bleibt ein expliziter CSS-Artefaktpfad verfügbar. | CONFIRMED | User decision, 2026-09-21 | Supersedes the unconditional explicit-import default in OPEN-007; exact package export conditions remain implementation work. |
+| DIST-016 | DIST | Bundler erhalten über die `browser`-/`import`-Bedingungen automatisch CSS; der Node-/SSR-Pfad bleibt CSS-frei und verweist auf JS- und Type-Artefakte. | CONFIRMED | User decision, 2026-09-21 | Package-Exports, Artefaktpfade und Consumer-Tests aktualisieren. |
 | DIST-015 | DIST | `@chayns-ui/core` und `@chayns-ui/layout` liefern nur noch einen Root-JavaScript-Export (`.`) statt zusätzlicher JavaScript-Subpath-Exports je Komponente (z. B. vormals `./button`); Typ-Exports laufen über denselben Root-Export. CSS-Subpath-Exports (`./button.css`, `./card.css`, …) bleiben unverändert bestehen und sind von dieser Änderung nicht betroffen; DIST-013 gilt unverändert weiter. Baumschütteln (Tree-Shaking) wird stattdessen ausschließlich über side-effect-freies JavaScript und `preserveModules` sichergestellt statt über zusätzliche Subpath-Entry-Points; `tooling/verify-tree-shaking.mjs` prüft entsprechend nur noch den Root-Import. Zugleich wird die Datei-/Ordnerkonvention vereinheitlicht: jede Komponente (auch interne Unterkomponenten wie `ButtonIcon`, `ListItemBody`, `AccordionGroup`, `AvatarGroup`, `NavigationItems`, `TabsIcon`, `AppLayoutIcon`) erhält einen eigenen Ordner unter `src/components/`, während Stories und Tests je Package zentral unter `stories/` beziehungsweise `tests/` statt neben der jeweiligen Komponente liegen. | CONFIRMED | Merge von `feature/app-layout` (Commit „Consolidate component exports and standardize file structure“) nach `main`, User-Anweisung 2026-09-14 („Merge den aktuellsten Stand des Feature-Branch“) | Ersetzt DIST-012. Löst damit auch die zuvor offene Frage nach der verbindlichen Ordnerkonvention (co-lokiert vs. zentralisiert) zugunsten der zentralisierten `stories/`/`tests/`-Struktur. |
 
 ## Milestone 1 Platform and Button
@@ -369,22 +386,22 @@ Diese Tabelle bewahrt die ursprünglichen OPEN-IDs. Geschlossene Punkte zeigen i
 | OPEN-004 | OPEN | Bundler. | CONFIRMED | ADR 0001, ADR 0002 | Vite Library Mode, ES-only. |
 | OPEN-005 | OPEN | CSS-Build-Pipeline. | CONFIRMED | ADR 0002 | Standard-CSS; explizite Artefakte/Exports. |
 | OPEN-006 | OPEN | Design-Token-Quelldatei und Token-Build-Technologie. | CONFIRMED | ADR 0002 | DTCG-shaped JSON und Style-Dictionary-kompatible Generierung. |
-| OPEN-007 | OPEN | Mechanismus zum Laden benötigter CSS-Chunks. | CONFIRMED | ADR 0002 | Explizite Consumer-Imports der CSS-Subpaths. |
-| OPEN-008 | OPEN | Hosting-/CDN-/AWS-Struktur. | OPEN | Architecture | |
-| OPEN-009 | OPEN | Theme-Resolver-Implementierung. | OPEN | Architecture | |
-| OPEN-010 | OPEN | Technische Context-Mechanismen zwischen Containern und Children. | OPEN | Architecture | |
-| OPEN-011 | OPEN | Maschinenlesbares Komponenten-Specification-Format. | OPEN | Architecture | |
+| OPEN-007 | OPEN | Mechanismus zum Laden benötigter CSS-Chunks. | SUPERSEDED | User decision, 2026-09-21 | Superseded by DIST-014/DIST-015: conditional exports for bundlers, explicit artifact path for Node SSR. |
+| OPEN-008 | OPEN | Hosting-/CDN-/AWS-Struktur. | SUPERSEDED | User decision, 2026-09-21 | Superseded by DIST-011: hosting, CDN, cache and preload are Consumer/platform responsibility. |
+| OPEN-009 | OPEN | Theme-Resolver-Implementierung. | SUPERSEDED | User decision, 2026-09-21 | Superseded by COLOR-006: resolver belongs to the Tokens package. |
+| OPEN-010 | OPEN | Technische Context-Mechanismen zwischen Containern und Children. | SUPERSEDED | User decision, 2026-09-21 | Superseded by CORE-017: React Context for confirmed semantic Compound APIs. |
+| OPEN-011 | OPEN | Maschinenlesbares Komponenten-Specification-Format. | SUPERSEDED | User decision, 2026-09-21 | Superseded by AI-006: Markdown with schema-validated frontmatter. |
 | OPEN-012 | OPEN | Storybook-/Dokumentationsplattform und Integration. | CONFIRMED | ADR 0003 | Storybook 10.4 React-Vite. |
 | OPEN-013 | OPEN | Testing-Stack. | CONFIRMED | ADR 0003 | Vitest, Testing Library, Storybook browser tests und manuelle A11Y-Evidenz. |
 | OPEN-014 | OPEN | Release-Automatisierung. | CONFIRMED | ADR 0003 | Changesets für Intent/Changelog; kein Publish-Workflow in M1. |
 | OPEN-015 | OPEN | Komponenten-Datei- und Ordnerstruktur. | CONFIRMED | ADR 0002, Component Development Standard | Colocated domain folder, public root/subpath barrels, CSS und Tests. |
-| OPEN-016 | OPEN | Öffentliche Form-Control-Composition/API. | OPEN | Planning | |
-| OPEN-017 | OPEN | Technische Overlay-Primitives. | OPEN | Planning | |
-| OPEN-018 | OPEN | Quelle und Vertrag der aktiven Locale für locale-sensitive Formatierung sowie unterstützte Formatting-Locales. | OPEN | Planning | Vor produktiver locale-sensitive Formatierung entscheiden. |
-| OPEN-019 | OPEN | Produktweite Timezone-Policy für benutzerseitig dargestellte Zeitwerte. | OPEN | Planning | Vor Komponenten mit fachlicher Zeitdarstellung entscheiden. |
-| OPEN-020 | OPEN | Ob RTL als Produktanforderung unterstützt wird und welche Produktpatterns dadurch betroffen sind. | OPEN | Planning | Vor RTL-relevanter Komponentenimplementierung entscheiden. |
-| OPEN-022 | OPEN | Strategie für von chayns UI selbst verantwortete sichtbare Standardtexte, falls eine Core Component solche Texte benötigt. | OPEN | Planning | Vor der ersten betroffenen Component entscheiden. |
-| OPEN-023 | OPEN | Systemweite Motion-Duration-/Easing-Token-Werte (Motion Primitives) sind noch nicht vollständig aus dem DesignSystem in den Token Catalogue übertragen; insbesondere die dritte, in der DesignSystem-Prosa erwähnte Easing-Kurve für Mikrointeraktionen war in den geprüften statischen Assets nicht mit einem konkreten Bezier-Wert auffindbar. Blockiert jede über BUTTON-015 hinausgehende Motion-Erweiterung, die eigene Timing-Werte benötigen würde. | OPEN | Motion Foundation, Token catalogue | Vor weiterer Motion-Token-Erfindung klären/übertragen. |
+| OPEN-016 | OPEN | Öffentliche Form-Control-Composition/API. | SUPERSEDED | User decision, 2026-09-21 | Superseded by CORE-018: Form Controls use documented Compound Parts. |
+| OPEN-017 | OPEN | Technische Overlay-Primitives. | SUPERSEDED | User decision, 2026-09-21 | Superseded by OVERLAY-004: shared technical Core primitive. |
+| OPEN-018 | OPEN | Quelle und Vertrag der aktiven Locale für locale-sensitive Formatierung sowie unterstützte Formatting-Locales. | SUPERSEDED | User decision, 2026-09-21 | Superseded by CORE-016: Application/Product supplies resolved locale context. |
+| OPEN-019 | OPEN | Produktweite Timezone-Policy für benutzerseitig dargestellte Zeitwerte. | SUPERSEDED | User decision, 2026-09-21 | Superseded by CORE-016: Application/Product owns timezone policy. |
+| OPEN-020 | OPEN | Ob RTL als Produktanforderung unterstützt wird und welche Produktpatterns dadurch betroffen sind. | SUPERSEDED | User decision, 2026-09-21 | Superseded by CORE-016: no RTL implementation before an explicit product requirement. |
+| OPEN-022 | OPEN | Strategie für von chayns UI selbst verantwortete sichtbare Standardtexte, falls eine Core Component solche Texte benötigt. | SUPERSEDED | User decision, 2026-09-21 | Superseded by CORE-016: Core receives resolved content and owns no fachliche default text. |
+| OPEN-023 | OPEN | Systemweite Motion-Duration-/Easing-Token-Werte (Motion Primitives) sind noch nicht vollständig aus dem DesignSystem in den Token Catalogue übertragen; insbesondere die dritte, in der DesignSystem-Prosa erwähnte Easing-Kurve für Mikrointeraktionen war in den geprüften statischen Assets nicht mit einem konkreten Bezier-Wert auffindbar. Blockiert jede über BUTTON-015 hinausgehende Motion-Erweiterung, die eigene Timing-Werte benötigen würde. | SUPERSEDED | User decision, 2026-09-21; DesignSystem token catalogue | Superseded by TOKEN-010, MOTION-009 and MOTION-010. Remaining token-catalogue gaps are tracked by TOKEN-006. |
 
 # Superseded Decisions
 

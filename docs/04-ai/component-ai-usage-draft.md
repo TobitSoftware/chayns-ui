@@ -199,3 +199,9 @@ beyond this summary.
    remain a separate, ongoing document.
 3. Only after that: extend coverage to further components as they reach their own Implementation
    Readiness Gate.
+
+## Composition and design review rules
+
+AI-assisted implementation MUST start with the documented Canonical API. Advanced Composition is considered only after the standard case is clear. An agent MUST NOT invent visual Anatomy, a Compound Part, a token, or a design-system value. If Bodywork evidence, accessibility behavior, API ownership, or a relevant state is missing or ambiguous, the affected implementation step remains blocked and the gap is documented for human clarification.
+
+Stories use `args` for simple leaf components. They use `render` only for actual children, slot, compound, form, or layout composition. Interaction checks use `play` and query Story DOM through `within(canvasElement)`; portal content is queried through `document.body`.

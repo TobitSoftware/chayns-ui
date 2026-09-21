@@ -71,19 +71,19 @@ Die folgenden Kategorien sind als konzeptionelle Einordnung durch bestehende Reg
 | Expand / Collapse | Ein Bereich verändert seine sichtbare räumliche Ausdehnung. | Bestätigtes Accordion-Pattern mit `grid-template-rows`. |
 | Feedback | Kurzes visuelles Feedback auf Interaktion oder Statusänderung. | Motion unterstützt Interaktion; dekorative Bewegung ist ausgeschlossen. |
 
-Die endgültige Token-Zuordnung und eine vollständige Abgrenzung der Kategorien sind TECH REVIEW. Es werden keine weiteren Kategorien aus anderen Designsystemen abgeleitet.
+Die bestätigte Token-Zuordnung verwendet semantische Motion-Tokens; fehlende Foundation-Kategorien bleiben als explizite Kataloglücken dokumentiert. Es werden keine weiteren Kategorien aus anderen Designsystemen abgeleitet.
 
 ## 5. Duration
 
 Duration ist eine zentral kontrollierte Motion-Eigenschaft. Core Components führen keine beliebigen Millisekundenwerte ein. Das aktuelle DesignSystem belegt Duration-Stufen und die Regel, dass Exit schneller als Enter ist; die vollständigen konkreten Tabellenwerte sind aus den gebundenen Datenlisten nicht mit ausreichender Confidence extrahierbar.
 
-Es werden deshalb keine Werte geschätzt, vermessen oder aus anderen Systemen übernommen. Die vollständige Duration-Matrix und ihre Zuordnung zu Kategorien bleiben TECH REVIEW.
+Die belegten Werte werden als semantische Tokens geführt: `--motion-duration-micro` für Micro, `--motion-duration-short` für Kurz, `--motion-duration-medium` für Mittel und `--motion-duration-long` für Lang. Nicht belegte Foundation-Kategorien bleiben als Katalog-Lücken markiert; Werte werden nicht geschätzt.
 
 ## 6. Easing
 
 Easing ist Bestandteil des Motion-Vertrags. Core Components verwenden keine beliebigen `ease`-, `ease-in`-, `ease-out`-, `linear`- oder Cubic-Bezier-Werte, sofern diese nicht durch eine bestätigte Foundation-Regel vorgesehen sind.
 
-Das DesignSystem belegt Easing-Stufen, ihre vollständigen Werte und Zuordnungen sind aber nicht mit ausreichender Confidence aus den gebundenen Datenlisten übertragbar. Die Easing-Übertragung ist TECH REVIEW; Kurven werden nicht visuell rekonstruiert.
+Das DesignSystem belegt `--motion-ease-enter` mit `cubic-bezier(.22, .61, .36, 1)`, `--motion-ease-exit` mit `cubic-bezier(.4, 0, .7, .2)` und `--motion-ease-constant` mit `linear`. Kurven werden nicht visuell rekonstruiert.
 
 ## 7. Property Selection
 
@@ -137,7 +137,7 @@ Eine gemeinsame detaillierte Regel für Spinner, Progress und Skeleton ist nicht
 
 `prefers-reduced-motion` ist eine verbindliche globale Accessibility-Anforderung. Nicht notwendige Animationen, darunter Ein-/Ausblendungen, räumliche Übergänge und dekorative Feedback-Bewegungen, entfallen. Funktional notwendige Animationen wie ein Loading Spinner dürfen bestehen bleiben.
 
-Reduced Motion bedeutet nicht pauschal, dass jede zeitliche Veränderung auf `0ms` gesetzt wird. Das System muss keine funktionale Abhängigkeit von Bewegung, keine unnötige räumliche Bewegung, verständliche Zustandsänderungen, robuste Endzustände und keine verlorene Information sicherstellen. Die exakte technische Resolution-Strategie bleibt TECH REVIEW.
+Reduced Motion bedeutet nicht pauschal, dass jede zeitliche Veränderung auf `0ms` gesetzt wird. Das System muss keine funktionale Abhängigkeit von Bewegung, keine unnötige räumliche Bewegung, verständliche Zustandsänderungen, robuste Endzustände und keine verlorene Information sicherstellen. Die technische Auflösung erfolgt über `prefers-reduced-motion` im CSS; notwendige Motion bleibt pattern-spezifisch begründet.
 
 ## 16. Reduced Motion and Component Logic
 
@@ -246,10 +246,10 @@ Dieses Dokument erstellt keine Component Specification.
 
 | Work item | Status | Required outcome |
 |---|---|---|
-| Duration-Werte und Staffelung | TECH REVIEW | Vollständige, eindeutig belegte Werte und Zuordnung zu Motion-Kategorien. |
-| Easing-Werte und Kurven | TECH REVIEW | Vollständige, eindeutig belegte Kurven und Zuordnung. |
-| Semantic-to-Token Mapping | TECH REVIEW | Kanonische technische Zuordnung von Motion Rules zu Tokens. |
-| Reduced-Motion Resolution | TECH REVIEW | Konsistente technische Umsetzung der bestätigten Invarianten. |
+| Duration-Werte und Staffelung | CONFIRMED | DesignSystem-Werte und semantische Motion-Tokens in TOKEN-010. |
+| Easing-Werte und Kurven | CONFIRMED | DesignSystem-Kurven und semantische Motion-Tokens in TOKEN-010. |
+| Semantic-to-Token Mapping | CONFIRMED | `--motion-duration-*` und `--motion-ease-*`. |
+| Reduced-Motion Resolution | CONFIRMED | `prefers-reduced-motion` im CSS gemäß MOTION-010. |
 | Bestätigte Motion Properties | TECH REVIEW | Übertragung der begrenzten Property-Policy in den technischen Token-/CSS-Vertrag. |
 | Reichweite von `grid-template-rows` | TECH REVIEW | Patterngebundene Dokumentation, insbesondere für Accordion, ohne allgemeine Layout-Motion-Erlaubnis. |
 | Component-specific Motion Token Catalogue | TECH REVIEW | Zulässige Kategorien und Herleitung aus Foundation Rules. |

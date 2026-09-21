@@ -296,3 +296,18 @@ Weitere Foundation- und Component-spezifische Lücken bleiben gemäß Decision R
 KI-Agenten MUST diesen Standard gemeinsam mit den referenzierten Sources of Truth anwenden. Sie MAY bestätigte Regeln wiederverwenden, MUST NOT aber fehlende APIs, Tokens, States, Accessibility-/Motion-Verhalten, Context-Mechanismen oder Toolchain-Konventionen interpolieren.
 
 Wenn dieser Standard und eine spätere Component Specification keine eindeutige Antwort liefern, gilt das Component Implementation Readiness Gate: nicht implementieren, konkrete Lücke benennen und dokumentierte Klärung einholen.
+
+## 22. Composition decision matrix
+
+Für jede neue oder wesentlich geänderte Component wird die kleinste eindeutige API als Canonical API dokumentiert:
+
+| Situation | Öffentliche Form | Voraussetzung |
+|---|---|---|
+| Einzelnes natives Element mit frei bestimmtem Inhalt | Native Root plus `children` | Der Inhalt gehört zu einer klaren semantischen Region. |
+| Vollständig bekannte, wiederkehrende Anatomy | Deklarative Props | Die Anatomy ist stabil und benötigt keinen eigenen Consumer-State. |
+| Stabiler Erweiterungspunkt ohne gemeinsamen Child-State | Benannter Slot | Position und Verantwortung des Slots sind dokumentiert. |
+| Semantische Parent-/Child-Beziehung | Compound Part | Gemeinsamer Zustand, eigener DOM-/Ref-/ARIA-Owner oder eigener Interaktionsbereich ist nachgewiesen. |
+
+Der Canonical Case darf keine interne DOM-Anatomy, CSS-Klassen oder unnötige Part-Reihenfolge verlangen. Advanced Composition ist zulässig, muss aber denselben nativen Semantic-, State- und Accessibility-Vertrag einhalten. Rein visuelle Unterteilungen bleiben intern. `Content`, `Body` und `Action` werden nur als öffentliche Parts verwendet, wenn ihre Verantwortung in der Specification nachgewiesen ist.
+
+Endliche öffentliche Varianten werden als exportierter String-Union-Type und als passendes `as const`-Array oder -Objekt veröffentlicht. TypeScript-Enums werden nicht als Standard eingeführt. Native HTML-Werte bleiben bei den Plattformtypen. Für offene Namensverträge, etwa `fa-${string}`-Icons, wird kein künstlich unvollständiger Runtime-Wertebestand erzeugt.

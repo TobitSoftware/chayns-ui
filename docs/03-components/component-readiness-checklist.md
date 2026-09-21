@@ -603,3 +603,13 @@ Bei späteren Änderungen an dieser Checklist wird mindestens geprüft:
 - maschinenlesbares Format nicht entschieden;
 - Gate bleibt vor der Implementierung;
 - Guessing führt weiterhin zu `BLOCKED`.
+
+## 20. Composition and DesignSystem review
+
+Der Gate-Durchlauf prüft zusätzlich:
+
+- Die Canonical API verwendet die kleinste eindeutige Form aus `children`, Props, benannten Slots oder bestätigten Compound Parts.
+- Jeder öffentliche Compound Part besitzt einen dokumentierten Parent-/Child-Vertrag einschließlich Context, DOM-/Ref-Owner sowie Keyboard- und Accessibility-Owner.
+- Die Canonical Story funktioniert ohne interne CSS-Klassen und ohne unnötige Part-Reihenfolge.
+- Bodywork-Referenz, Datum, relevante Zustände, Token-Mapping und Storybook-Evidence sind dokumentiert.
+- Offene `DESIGN REVIEW`-Punkte, visuelle Regressionen und ungeklärte API-Alternativen blockieren das Gate.
