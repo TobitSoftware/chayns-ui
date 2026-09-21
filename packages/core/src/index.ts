@@ -6,6 +6,7 @@ export type {
   ButtonProps,
   ButtonVariant,
 } from './components/button/Button.types.js';
+export { BUTTON_VARIANTS } from './components/button/Button.types.js';
 export type { IconButtonProps } from './components/icon-button/IconButton.types.js';
 
 export { default as TextField } from './components/text-field/TextField.js';

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, fn, userEvent, within } from 'storybook/test';
 
 import Button from '../src/components/button/Button.js';
+import { BUTTON_VARIANTS } from '../src/components/button/Button.types.js';
 
 const meta = {
   title: 'Core/Button',
@@ -48,7 +49,7 @@ const meta = {
     variant: {
       control: 'select',
       description: 'Required visual emphasis that communicates the action’s role.',
-      options: ['primary', 'outline', 'ghost', 'danger'],
+      options: BUTTON_VARIANTS,
       table: {
         category: 'Appearance',
         type: { summary: 'primary | outline | ghost | danger' },

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, fn, userEvent, within } from 'storybook/test';
 
 import SplitButton from '../src/components/split-button/SplitButton.js';
+import { BUTTON_VARIANTS } from '../src/components/button/Button.types.js';
 
 const createItems = () => [
   { icon: 'fa-clock' as const, onClick: fn(), text: 'Später senden' },
@@ -21,6 +22,12 @@ const meta = {
   parameters: {
     a11y: { test: 'error' },
     controls: { disable: true },
+  },
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: BUTTON_VARIANTS,
+    },
   },
 } satisfies Meta<typeof SplitButton>;
 

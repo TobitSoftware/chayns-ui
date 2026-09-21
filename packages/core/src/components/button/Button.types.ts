@@ -9,6 +9,17 @@ import type { ComponentPropsWithRef, ReactNode } from 'react';
 export type ButtonVariant = 'primary' | 'outline' | 'ghost' | 'danger';
 
 /**
+ * Runtime representation of the finite Button variant contract.
+ * Keep this list as the single source for Storybook controls and iteration.
+ */
+export const BUTTON_VARIANTS = [
+  'primary',
+  'outline',
+  'ghost',
+  'danger',
+] as const satisfies readonly ButtonVariant[];
+
+/**
  * @description A FontAwesome Classic icon name in its Regular form (e.g.
  * `fa-plus`). Button and IconButton resolve the matching Solid weight
  * internally and cross-fade between the two on hover/active; consumers must

@@ -1,6 +1,7 @@
 import type { ComponentPropsWithRef } from 'react';
 
 import type { ButtonContent, ButtonIcon, ButtonVariant } from '../button/Button.types.js';
+export { BUTTON_VARIANTS } from '../button/Button.types.js';
 import type { PopupListItem } from '../popup/Popup.types.js';
 
 export interface SplitButtonProps extends Omit<
