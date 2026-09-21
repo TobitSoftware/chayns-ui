@@ -9,7 +9,7 @@
 
 ## Purpose and boundary
 
-TextField is a labelled, single-line native text input with optional help, error and counter content. Use it for one editable value. It is not a select, combobox, date picker or a substitute for TextArea.
+TextField is a labelled, single-line native text input with optional help, error and counter content. Use it for one editable value, including password values through the native `type="password"` contract. It is not a select, combobox, date picker or a substitute for TextArea.
 
 ## Public API and native-prop ownership
 

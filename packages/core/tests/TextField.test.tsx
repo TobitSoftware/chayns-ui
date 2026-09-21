@@ -85,6 +85,22 @@ describe('TextField', () => {
     expect(input).toHaveValue('Controlled');
   });
 
+  it('supports password fields through the native input type', () => {
+    render(
+      <TextField
+        autoComplete="current-password"
+        placeholder="Passwort"
+        type="password"
+        defaultValue="secret"
+      />,
+    );
+
+    const input = screen.getByLabelText('Passwort');
+    expect(input).toHaveAttribute('type', 'password');
+    expect(input).toHaveAttribute('autocomplete', 'current-password');
+    expect(input).toHaveValue('secret');
+  });
+
   it('renders safely on the server', () => {
     const markup = renderToString(<TextField aria-label="Name" helpText="Optional" />);
     expect(markup).toContain('<input');

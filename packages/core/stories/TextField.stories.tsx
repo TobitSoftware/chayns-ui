@@ -52,3 +52,6 @@ export const Error: Story = {
 export const Disabled: Story = {
   args: { disabled: true, value: 'name@example.com', onChange: () => undefined },
 };
+export const Password: Story = {
+  args: { placeholder: 'Passwort', type: 'password', autoComplete: 'current-password' },
+};

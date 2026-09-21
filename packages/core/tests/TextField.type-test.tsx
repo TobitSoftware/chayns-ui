@@ -15,6 +15,10 @@ export const validTextField = (
   />
 );
 
+export const validPasswordField = (
+  <TextField autoComplete="current-password" placeholder="Passwort" type="password" />
+);
+
 // @ts-expect-error custom labels are not part of the placeholder contract
 export const customLabel = <TextField label="Name" />;
 // @ts-expect-error input children are forbidden
