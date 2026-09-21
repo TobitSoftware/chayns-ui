@@ -3,8 +3,8 @@
 ## Metadata
 
 - Component Category: Core
-- Specification Status: BLOCKED — DESIGN REVIEW
-- Design Reference: chayns UI decision register and token foundation, checked 2026-09-21
+- Specification Status: READY FOR IMPLEMENTATION
+- Design Reference: Bodywork Design System `#status` → “Badges & Chips”, checked 2026-09-21
 - Relevant Decisions: BADGE-001–002, DESIGN-011
 
 ## Purpose and boundary
@@ -19,10 +19,10 @@ Badge is a compact status indicator for short localized content. Use it for a st
 
 The default tone is `neutral` and the default size is `md`. `sm` and `md` are confirmed design variants. Tone styling uses the existing semantic accent, surface, success, warning and danger tokens. The close control is the only interactive part. Its content remains short and must wrap or be shortened by the consumer before composition when the product text requires a sentence.
 
-## Design review blocker
+## Bodywork evidence
 
-Bodywork is the required source for the badge radius and the exact `sm`/`md` geometry. The referenced DesignSystem endpoint was unreachable on 2026-09-21, so no CSS values are implemented or inferred. The component cannot receive READY status until the Bodywork reference and those measurements are confirmed.
+Bodywork defines the status badge as `.badge`: inline-flex, centered content, `--k5` gap, `--k4` vertical and `--k12` horizontal padding, 999px radius, `--fs-caption` and weight 500. `.badge-chip` uses `--k6` gap, `--k5` vertical and `--k12` horizontal padding with `--fs-meta`. Status backgrounds use `--success-bg`, `--warning-bg` and `--danger-bg`; chayns UI uses the accessible `--text` foreground where the Bodywork status foreground does not meet the confirmed contrast requirement. Count uses `--accent`/`--on-accent` and chips use `--surface-alt`/`--accent`. Bodywork states that badges show status and are not buttons; the removable extension is the explicitly confirmed chayns UI API for chip-like use.
 
 ## Verification
 
-Runtime, type and SSR tests cover native props/ref, tone and size values, decorative semantics and named status semantics. Storybook covers the canonical badge and an accessible status example. Bodywork geometry remains a visual review item for final release verification.
+Runtime, type and SSR tests cover native props/ref, tone and size values, decorative semantics, named status semantics and the removable action. Storybook covers status, count, chip and removable examples. Bodywork review states are default, hover/focus of the remove control, status tones, count, chip and reduced motion.

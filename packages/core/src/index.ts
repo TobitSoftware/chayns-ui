@@ -9,6 +9,24 @@ export type {
 export { BUTTON_VARIANTS } from './components/button/Button.types.js';
 export type { IconButtonProps } from './components/icon-button/IconButton.types.js';
 
+export { default as Badge } from './components/badge/Badge.js';
+export { BADGE_SIZES, BADGE_TONES } from './components/badge/Badge.types.js';
+export type {
+  BadgeProps,
+  BadgeSize,
+  BadgeTone,
+  RemovableBadgeProps,
+  StaticBadgeProps,
+} from './components/badge/Badge.types.js';
+
+export { default as ComboBox } from './components/combo-box/ComboBox.js';
+export type {
+  ComboBoxMultipleProps,
+  ComboBoxOptionProps,
+  ComboBoxProps,
+  ComboBoxSingleProps,
+} from './components/combo-box/ComboBox.types.js';
+
 export { default as TextField } from './components/text-field/TextField.js';
 export type { TextFieldProps } from './components/text-field/TextField.types.js';
 

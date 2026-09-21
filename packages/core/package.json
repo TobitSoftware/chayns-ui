@@ -23,6 +23,8 @@
       "import": "./dist/index.js"
     },
     "./button.css": "./dist/button.css",
+    "./badge.css": "./dist/badge.css",
+    "./combo-box.css": "./dist/combo-box.css",
     "./card.css": "./dist/card.css",
     "./avatar.css": "./dist/avatar.css",
     "./list.css": "./dist/list.css",

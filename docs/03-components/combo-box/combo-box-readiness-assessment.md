@@ -1,7 +1,7 @@
 # ComboBox — Component Implementation Readiness Gate
 
 - Specification: `combo-box-specification.md`
-- Gate Result: BLOCKED — DESIGN REVIEW
-- Checked: 2026-09-21
+- Gate Result: READY
+- Checked: 2026-09-21; Bodywork `#picker` and `tobit-ds.css` inspected
 
-The semantic API, Compound Context relationship, native owners, value model and interaction rules are confirmed. Bodywork geometry and visual states are unavailable, so implementation remains blocked until the referenced design review is completed.
+The semantic API, Compound Context relationship, native owners, value model, interaction rules, field geometry, popup placement, chip geometry and verification matrix are explicit.

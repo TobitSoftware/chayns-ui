@@ -1,0 +1,71 @@
+@layer chayns.components {
+  .chayns-badge {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--k5);
+    padding: var(--k4) var(--k12);
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: var(--fs-caption);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .chayns-badge--md {
+    gap: var(--k6);
+    padding: var(--k5) var(--k12);
+    font-size: var(--fs-meta);
+  }
+
+  .chayns-badge--neutral {
+    background: var(--surface-alt);
+    color: var(--text-2);
+  }
+
+  .chayns-badge--accent {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .chayns-badge--success {
+    /* stylelint-disable-next-line custom-property-pattern */
+    background: var(--success-bg);
+    color: var(--text);
+  }
+
+  .chayns-badge--warning {
+    background: var(--warning-bg);
+    color: var(--text);
+  }
+
+  .chayns-badge--danger {
+    background: var(--danger-bg);
+    color: var(--text);
+  }
+
+  .chayns-badge__remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--k16);
+    block-size: var(--k16);
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: currentcolor;
+    cursor: pointer;
+    font: inherit;
+    line-height: 1;
+  }
+
+  .chayns-badge__remove:hover {
+    background: rgb(0 0 0 / 12%);
+  }
+
+  .chayns-badge__remove:focus-visible {
+    outline: var(--focus-ring-size) solid currentcolor;
+    outline-offset: 2px;
+  }
+}

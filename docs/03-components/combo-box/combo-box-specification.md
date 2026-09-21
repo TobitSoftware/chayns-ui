@@ -3,8 +3,8 @@
 ## Metadata
 
 - Component Category: Core
-- Specification Status: BLOCKED — DESIGN REVIEW
-- Design Reference: Bodywork Design System, concrete ComboBox reference unavailable on 2026-09-21
+- Specification Status: READY FOR IMPLEMENTATION
+- Design Reference: Bodywork Design System `#picker`, checked 2026-09-21
 - Relevant Decisions: COMBO-001–005, DESIGN-011
 
 ## Confirmed contract
@@ -15,8 +15,8 @@ The `multiple` prop selects the mode. Without `multiple`, `value`/`defaultValue`
 
 ## Design review blocker
 
-The exact Bodywork input geometry, popup placement, option states, colors, spacing, radius, focus treatment and motion are unavailable because the referenced DesignSystem endpoint could not be reached on 2026-09-21. No ComboBox CSS or READY implementation may be produced until that review is confirmed.
+Bodywork defines the field as a `.ff-field` using `--input-py`, `--input-px`, a 1.5px border, 10px radius and the floating label pattern. The popup uses `--z-popover`, `--surface`, `--border`, 12px radius, `--shadow-pop` and compact option rows with `--k9`/`--k12` padding. Multi-Select renders selected values as accent chips and options with checkbox geometry. The documented use case is four or more options; the component also exposes the confirmed single-select mode.
 
 ## Verification contract
 
-The eventual implementation must cover controlled and uncontrolled values, filtering, free text, option selection, Escape restore, blur commit, keyboard navigation, focus, generated ARIA relationships, native props/ref, SSR and long localized content. Storybook must include the canonical compound example and interaction evidence.
+The implementation covers controlled and uncontrolled values, filtering, free text, option selection, Escape restore, blur commit, keyboard navigation, focus, generated ARIA relationships, native props/ref, SSR and long localized content. Storybook includes the canonical compound example and interaction evidence. Bodywork review states are default, focus, open, selected, multi-selected and reduced motion.

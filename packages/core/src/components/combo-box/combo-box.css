@@ -1,0 +1,117 @@
+@layer chayns.components {
+  .chayns-combo-box {
+    position: relative;
+    min-inline-size: 0;
+  }
+
+  .chayns-combo-box__input {
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-block-size: calc(1.2em + 2 * var(--input-py) + 3px);
+    padding: var(--input-py) var(--input-px);
+    border: 1.5px solid var(--input-border);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    line-height: 1.2;
+    outline: none;
+    transition:
+      border-color 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+
+  .chayns-combo-box__input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 var(--focus-ring-size)
+      rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-soft));
+  }
+
+  .chayns-combo-box__label {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 10px;
+    padding-inline: var(--k5);
+    background: var(--surface);
+    color: var(--text-3);
+    font-size: var(--fs-body);
+    line-height: 1.2;
+    pointer-events: none;
+    transform: translateY(calc(var(--input-py) + 1.5px + 0.6em - 50%));
+    transform-origin: left center;
+    transition:
+      transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+      color 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .chayns-combo-box--open .chayns-combo-box__label,
+  .chayns-combo-box__input:not(:placeholder-shown) + .chayns-combo-box__label {
+    color: var(--accent);
+    transform: translateY(-50%) scale(0.8);
+  }
+
+  .chayns-combo-box__chips {
+    position: absolute;
+    inset: 1.5px var(--input-px) auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--k5);
+    pointer-events: none;
+    transform: translateY(var(--input-py));
+  }
+
+  .chayns-combo-box__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--k5);
+    padding: var(--k3) var(--k9);
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-size: var(--fs-caption);
+    font-weight: 500;
+  }
+
+  .chayns-combo-box__popup {
+    position: absolute;
+    inset-block-start: calc(100% + var(--k4));
+    inset-inline: 0;
+    z-index: var(--z-popover);
+    max-block-size: min(320px, 50vh);
+    overflow: auto;
+    padding: var(--k6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    box-shadow: var(--shadow-pop);
+  }
+
+  .chayns-combo-box__option {
+    display: flex;
+    align-items: center;
+    min-block-size: var(--k40);
+    padding: var(--k9) var(--k12);
+    border-radius: 8px;
+    color: var(--text);
+    cursor: pointer;
+    font-size: var(--fs-body);
+  }
+
+  .chayns-combo-box__option:hover,
+  .chayns-combo-box__option--active {
+    background: var(--surface-alt);
+  }
+
+  .chayns-combo-box__option--selected {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chayns-combo-box__input,
+    .chayns-combo-box__label {
+      transition: none;
+    }
+  }
+}
