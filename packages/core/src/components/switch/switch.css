@@ -32,7 +32,7 @@
   }
 
   .chayns-switch__description {
-    color: var(--muted);
+    color: var(--text-3);
     font-size: var(--fs-meta);
     line-height: 1.4;
   }
