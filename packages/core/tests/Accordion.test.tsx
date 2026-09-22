@@ -76,6 +76,28 @@ describe('Accordion', () => {
     );
   });
 
+  it('renders the Bodywork list presentation with a subtitle and fixed panel alignment', () => {
+    render(
+      <Accordion
+        appearance="list"
+        defaultOpen
+        leading={<span>EF</span>}
+        subtitle="Freigabe durch Eva Sommer"
+        title="Q3-Budget"
+      >
+        Inhalt
+      </Accordion>,
+    );
+
+    const root = screen
+      .getByRole('button', { name: /Q3-Budget.*Freigabe durch Eva Sommer/ })
+      .closest('.chayns-accordion');
+    expect(root).toHaveClass('chayns-accordion--list');
+    expect(root?.querySelector('.chayns-accordion__subtitle')).toHaveTextContent(
+      'Freigabe durch Eva Sommer',
+    );
+  });
+
   it('auto-detects nesting and renders the inner accordion as wrapped', async () => {
     const user = userEvent.setup();
 

@@ -80,7 +80,9 @@ export type {
 
 export { default as Accordion } from './components/accordion/Accordion.js';
 export { default as AccordionGroup } from './components/accordion-group/AccordionGroup.js';
+export { ACCORDION_APPEARANCES } from './components/accordion/Accordion.types.js';
 export type {
+  AccordionAppearance,
   AccordionProps,
   AccordionGroupProps,
 } from './components/accordion/Accordion.types.js';

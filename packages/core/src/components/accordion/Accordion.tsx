@@ -11,8 +11,10 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
     disabled = false,
     id,
     leading,
+    appearance = 'default',
     onOpenChange,
     open,
+    subtitle,
     title,
     ...rootProps
   },
@@ -50,6 +52,7 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
   };
 
   const wrapped = depth > 0;
+  const isList = appearance === 'list';
   const variantClassName = isGrouped
     ? 'chayns-accordion--grouped'
     : wrapped
@@ -62,6 +65,7 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
     isOpen ? 'chayns-accordion--open' : null,
     disabled ? 'chayns-accordion--disabled' : null,
     leading ? 'chayns-accordion--has-leading' : null,
+    isList ? 'chayns-accordion--list' : null,
     className,
   ]
     .filter(Boolean)
@@ -80,7 +84,14 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
       >
         <i aria-hidden="true" className="chayns-accordion__chevron far fa-chevron-right" />
         {leading ? <span className="chayns-accordion__leading">{leading}</span> : null}
-        <span className="chayns-accordion__title">{title}</span>
+        {isList ? (
+          <span className="chayns-accordion__list-copy">
+            <span className="chayns-accordion__title">{title}</span>
+            {subtitle ? <span className="chayns-accordion__subtitle">{subtitle}</span> : null}
+          </span>
+        ) : (
+          <span className="chayns-accordion__title">{title}</span>
+        )}
       </button>
       <div
         aria-hidden={!isOpen}

@@ -47,7 +47,7 @@ The header is a native `<button aria-expanded aria-controls>`; the panel is a `r
 
 ## Variants — Required
 
-The presentation (standalone / grouped / wrapped) is derived from context, not a `variant` prop. There are no color/emphasis variants.
+The default and list appearances are the confirmed Bodywork presentations; standalone, grouped and wrapped surface behavior remains derived from context. There are no color/emphasis variants.
 
 ## Local Size Variants — Conditional
 
@@ -96,7 +96,7 @@ Each Accordion renders one root `div`, one native header `button`, and one panel
 
 ## Composition — Required
 
-Accordion composes a `title`, optional `leading` slot and `children` panel content. The panel content aligns with the title column, including the fixed leading image/icon area used by the list presentation. Nesting is achieved by rendering another Accordion within `children`; the inner Accordion reads an incremented nesting depth from context and renders Wrapped. AccordionGroup composes Accordion children and shares exclusive open state via context.
+Accordion composes a `title`, optional `subtitle`, optional `leading` slot and `children` panel content. The `list` appearance uses the Bodywork two-line row geometry: `k12/k16` header padding, a `k38` leading area, `fs-meta` muted subtitle and a panel inset that remains fixed at the chevron/title column regardless of the leading content. Nesting is achieved by rendering another Accordion within `children`; the inner Accordion reads an incremented nesting depth from context and renders Wrapped. AccordionGroup composes Accordion children and shares exclusive open state via context.
 
 ## Context Dependencies — Required
 

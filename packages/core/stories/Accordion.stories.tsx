@@ -105,19 +105,18 @@ export const List: Story = {
       <AccordionGroup defaultOpenId="budget">
         <Accordion
           id="budget"
+          appearance="list"
           leading={<Avatar name="Eva Sommer" size="small" />}
-          title={
-            <span>
-              <strong>Q3-Budget</strong>
-              <small>Freigabe durch Eva Sommer</small>
-            </span>
-          }
+          subtitle="Freigabe durch Eva Sommer"
+          title="Q3-Budget"
         >
           Das Budget wurde geprüft und kann verwendet werden.
         </Accordion>
         <Accordion
           id="planung"
+          appearance="list"
           leading={<i aria-hidden="true" className="far fa-calendar" />}
+          subtitle="Die nächste Planungsrunde startet am Montag"
           title="Planung"
         >
           Die nächste Planungsrunde startet am Montag.

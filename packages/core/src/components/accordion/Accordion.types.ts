@@ -1,5 +1,8 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 
+export const ACCORDION_APPEARANCES = ['default', 'list'] as const;
+export type AccordionAppearance = (typeof ACCORDION_APPEARANCES)[number];
+
 /**
  * @description Props for a single disclosure accordion: a header button that
  * expands and collapses an associated content region. Nesting an `Accordion`
@@ -17,8 +20,14 @@ export interface AccordionProps extends Omit<
    */
   title: ReactNode;
 
+  /** Optional second line used by the list presentation. */
+  subtitle?: ReactNode;
+
   /** Optional leading image or icon used by list-style accordion rows. */
   leading?: ReactNode;
+
+  /** Selects the compact two-line list presentation from Bodywork. */
+  appearance?: AccordionAppearance;
 
   /**
    * @description Panel content revealed when the accordion is open.
