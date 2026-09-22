@@ -20,25 +20,24 @@
 
   .chayns-checkbox__control {
     box-sizing: border-box;
-    display: inline-grid;
+    display: inline-flex;
     inline-size: var(--k20);
     block-size: var(--k20);
     flex: none;
-    place-items: center;
+    align-items: center;
+    justify-content: center;
     margin-block-start: 1px;
     border: 2px solid var(--input-border);
     border-radius: 6px;
     background: transparent;
+    color: var(--on-accent);
+    font-size: var(--fs-micro);
+    transition: all 0.15s ease;
   }
 
-  .chayns-checkbox__control::after {
-    inline-size: calc(var(--k8) - 2px);
-    block-size: var(--k12);
-    border-inline-end: 1.5px solid var(--on-accent);
-    border-block-end: 1.5px solid var(--on-accent);
-    content: '';
+  .chayns-checkbox__control > i {
     opacity: 0;
-    transform: rotate(45deg) scale(0.6);
+    transform: scale(0.4);
     transition:
       opacity 0.12s ease,
       transform 0.18s cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -49,9 +48,9 @@
     background: var(--accent);
   }
 
-  .chayns-checkbox__input:checked + .chayns-checkbox__control::after {
+  .chayns-checkbox__input:checked + .chayns-checkbox__control > i {
     opacity: 1;
-    transform: rotate(45deg) scale(1);
+    transform: scale(1);
   }
 
   .chayns-checkbox__input:focus-visible + .chayns-checkbox__control {
@@ -88,7 +87,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .chayns-checkbox__control::after {
+    .chayns-checkbox__control > i {
       transition: none;
     }
   }

@@ -58,6 +58,16 @@ describe('Checkbox', () => {
     expect(checkbox).toBeDisabled();
   });
 
+  it('uses the Bodywork checkmark glyph inside the control box', () => {
+    const { container } = render(<Checkbox defaultChecked>Aktiv</Checkbox>);
+
+    const control = container.querySelector('.chayns-checkbox__control');
+    const checkmark = control?.querySelector('i');
+
+    expect(checkmark).toHaveClass('far', 'fa-check');
+    expect(control).toBeInTheDocument();
+  });
+
   it('renders safely on the server', () => {
     const markup = renderToString(<Checkbox>Server selection</Checkbox>);
     expect(markup).toContain('type="checkbox"');

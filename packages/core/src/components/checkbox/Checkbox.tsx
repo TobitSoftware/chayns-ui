@@ -11,7 +11,9 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
   return (
     <label className="chayns-checkbox">
       <input {...inputProps} className={inputClassName} ref={ref} type="checkbox" />
-      <span aria-hidden="true" className="chayns-checkbox__control" />
+      <span aria-hidden="true" className="chayns-checkbox__control">
+        <i className="far fa-check" />
+      </span>
       <span className="chayns-checkbox__content">
         <span className="chayns-checkbox__label">{children}</span>
         {description !== undefined ? (

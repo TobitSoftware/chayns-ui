@@ -31,7 +31,7 @@ The ref targets the input. Consumer events are not wrapped. `indeterminate` is n
 
 One native `<label class="chayns-checkbox">` wraps its checkbox input, decorative control span and visible label span. The input remains the semantic and form-control owner. No Context, subcomponents or component state exists. Native checked/unchecked, disabled and required state own behaviour; controlled/uncontrolled state is native React behaviour.
 
-Bodywork supplies a `--k20` square, `2px` border, `6px` radius, `--input-border` unchecked treatment and `--accent`/`--on-accent` checked treatment, aligned with a `--k12` gap and `1px` top adjustment. The visible label uses `--fs-body`, weight 500 and `--text`; it wraps instead of shrinking. The check glyph only transitions through transform and opacity; reduced motion disables it. The component has no external margin.
+Bodywork supplies a `--k20` square, `2px` border, `6px` radius, `--input-border` unchecked treatment and `--accent`/`--on-accent` checked treatment, aligned with a `--k12` gap and `1px` top adjustment. The check glyph is the Regular FontAwesome `fa-check` at `--fs-micro`, centered with flex alignment, and starts at `scale(.4)`/`opacity:0`; checked state uses `scale(1)`/`opacity:1`. The glyph transition uses Bodywork's transform/opacity values and is disabled for reduced motion. The component has no external margin.
 
 ## Accessibility, keyboard and verification
 
