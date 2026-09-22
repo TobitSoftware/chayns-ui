@@ -1,14 +1,31 @@
 import { forwardRef } from 'react';
 
-import type { CardProps } from './Card.types.js';
+import ButtonIcon from '../button/button-icon/ButtonIcon.js';
+import type { CardHeaderProps, CardProps } from './Card.types.js';
 
-const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
-  { children, className, elevated = false, ...cardProps },
+const CardHeader = forwardRef<HTMLElement, CardHeaderProps>(function CardHeader(
+  { children, className, icon, ...headerProps },
   ref,
 ) {
-  const resolvedClassName = ['chayns-card', elevated ? 'chayns-card--elevated' : null, className]
-    .filter(Boolean)
-    .join(' ');
+  const resolvedClassName = ['chayns-card__header', className].filter(Boolean).join(' ');
+
+  return (
+    <header {...headerProps} className={resolvedClassName} ref={ref}>
+      {icon ? (
+        <span aria-hidden="true" className="chayns-card__header-icon">
+          <ButtonIcon icon={icon} />
+        </span>
+      ) : null}
+      <span className="chayns-card__header-content">{children}</span>
+    </header>
+  );
+});
+
+const CardRoot = forwardRef<HTMLDivElement, CardProps>(function Card(
+  { children, className, ...cardProps },
+  ref,
+) {
+  const resolvedClassName = ['chayns-card', className].filter(Boolean).join(' ');
 
   return (
     <div {...cardProps} className={resolvedClassName} ref={ref}>
@@ -16,5 +33,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
     </div>
   );
 });
+
+const Card = Object.assign(CardRoot, { Header: CardHeader });
 
 export default Card;

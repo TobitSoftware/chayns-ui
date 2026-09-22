@@ -24,9 +24,9 @@
 | 05 | Purpose and Selection Boundary | PASS | Presentational surface vs interactive components is explicit. |
 | 06 | Anatomy and Composition | PASS | Single `div` root plus consumer children; no hidden structure. |
 | 07 | Semantic Contract | PASS | Non-semantic `div`; no imposed role or name. |
-| 08 | Public API Contract | PASS | `CardProps` with `elevated` and forwarded native div props. |
+| 08 | Public API Contract | PASS | `CardProps` with intrinsic padding, optional `Card.Header`, and forwarded native div/header props. |
 | 09 | DOM Contract | PASS | Exactly one native root; class merge order defined. |
-| 10 | Variants | PASS | Only `elevated` shadow modifier; no invented variants. |
+| 10 | Variants | PASS | No public variant; hover elevation follows Bodywork automatically. |
 | 11 | Local Size Variants vs Density | PASS | No local S/M/L; geometry density-independent per DS. |
 | 12 | State Model | N/A | Card has no interactive states. |
 | 13 | State Combinations | N/A | No states to combine. |
@@ -47,8 +47,8 @@
 | 28 | Error / Invalid | N/A | Card owns no validation/error state. |
 | 29 | Dependencies | PASS | React peer only; explicit token/Core CSS; no runtime deps. |
 | 30 | Escape Hatches and Overrides | PASS | Native props/className allowed; no interactivity repurposing. |
-| 31 | Test Contract | PASS | Render, elevated, forwarding and SSR cases enumerated and implemented. |
-| 32 | Visual Verification Contract | PASS | Flat/elevated across light and dark defined. |
+| 31 | Test Contract | PASS | Render, header/icon, forwarding and SSR cases enumerated and implemented. |
+| 32 | Visual Verification Contract | PASS | Flat, hover and optional header/icon area across light and dark defined. |
 | 33 | AI Usage Contract | PASS | Selection, context and forbidden assumptions are explicit. |
 | 34 | Open Decisions | PASS | No blocking OPENs; future slots explicitly out of scope. |
 | 35 | Repository Preconditions | PASS | Workspace, tokens, Core build, tests and Storybook are green. |

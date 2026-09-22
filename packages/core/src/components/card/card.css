@@ -2,12 +2,39 @@
   .chayns-card {
     box-sizing: border-box;
     display: block;
+    padding: var(--k16);
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
   }
 
-  .chayns-card--elevated {
-    box-shadow: var(--shadow-card);
+  .chayns-card__header {
+    display: flex;
+    align-items: center;
+    gap: var(--k12);
+    margin-block-end: var(--k12);
+    color: var(--text);
+    font-size: var(--fs-body);
+    font-weight: 600;
+  }
+
+  .chayns-card__header-icon {
+    display: inline-grid;
+    inline-size: var(--k32);
+    block-size: var(--k32);
+    flex: none;
+    place-items: center;
+    border-radius: 8px;
+    background: var(--surface-alt);
+  }
+
+  .chayns-card__header-content {
+    min-inline-size: 0;
+  }
+
+  @media (hover: hover) {
+    .chayns-card:hover {
+      box-shadow: var(--shadow-card);
+    }
   }
 }

@@ -65,7 +65,7 @@ export { default as SplitButton } from './components/split-button/SplitButton.js
 export type { SplitButtonProps } from './components/split-button/SplitButton.types.js';
 
 export { default as Card } from './components/card/Card.js';
-export type { CardProps } from './components/card/Card.types.js';
+export type { CardHeaderProps, CardProps } from './components/card/Card.types.js';
 
 export { default as Avatar } from './components/avatar/Avatar.js';
 export { default as AvatarGroup } from './components/avatar-group/AvatarGroup.js';

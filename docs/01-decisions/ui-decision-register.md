@@ -350,8 +350,9 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | ID | Category | Decision | Status | Source | Follow-up |
 |---|---|---|---|---|---|
 | CARD-001 | CARD | Card ist eine rein präsentationale Fläche: nativer `<div>` mit `--surface`, 1px `--border` und Radius 16, ohne intrinsisches Padding und ohne Interaktions-/Business-Logik. | CONFIRMED | DesignSystem `.card`, User decision | |
-| CARD-002 | CARD | Der einzige optionale visuelle Modifier ist `elevated` (fügt `--shadow-card` hinzu); es gibt keine Farb-/Emphasis-Varianten. | CONFIRMED | Card Specification | |
+| CARD-002 | CARD | Der einzige optionale visuelle Modifier ist `elevated` (fügt `--shadow-card` hinzu); es gibt keine Farb-/Emphasis-Varianten. | SUPERSEDED | Card Specification | Superseded by CARD-004: hover elevation is automatic and no public elevation prop exists. |
 | CARD-003 | CARD | Interaktive Card-Muster werden vom Consumer über ein natives interaktives Kind komponiert; Card selbst besitzt keine Klick-/Keyboard-Semantik. | CONFIRMED | Card Specification, Accessibility | |
+| CARD-004 | CARD | Card besitzt standardmäßiges internes Padding und hebt sich auf hover-fähigen Geräten automatisch mit `--shadow-card` an. Es gibt keine öffentliche `elevated`-Prop. Der optionale semantische `Card.Header`-Part besitzt eigene Header-/Ref-Verantwortung und kann ein führendes Icon in einer kleinen Fläche anzeigen. | CONFIRMED | User rework clarification, Bodywork Card reference, 2026-09-22 | |
 
 ## List
 

@@ -12,14 +12,19 @@ describe('Card', () => {
 
     expect(container.children).toHaveLength(1);
     expect(card).toHaveClass('chayns-card');
-    expect(card).not.toHaveClass('chayns-card--elevated');
     expect(card).toHaveTextContent('Inhalt');
   });
 
-  it('adds the elevation hook only when requested', () => {
-    const { container } = render(<Card elevated>Inhalt</Card>);
+  it('renders the optional semantic header and leading icon', () => {
+    render(
+      <Card>
+        <Card.Header icon="fa-chart-line">Q3-Budget</Card.Header>
+        <p>Freigegeben</p>
+      </Card>,
+    );
 
-    expect(container.firstElementChild).toHaveClass('chayns-card', 'chayns-card--elevated');
+    expect(screen.getByText('Q3-Budget')).toHaveClass('chayns-card__header-content');
+    expect(document.querySelector('.chayns-card__header-icon')).toBeInTheDocument();
   });
 
   it('forwards native props, className and ref', () => {

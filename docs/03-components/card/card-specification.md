@@ -14,7 +14,7 @@
 
 ## Purpose — Required
 
-Card is a purely presentational surface primitive. It renders a bordered, rounded container using the Design System surface tokens so that grouped content sits on a consistent background. It owns presentation only — no interaction, no business logic, no application state.
+Card is a purely presentational surface primitive. It renders a padded, bordered, rounded container using the Design System surface tokens so that grouped content sits on a consistent background. It owns presentation only — no interaction, no business logic, no application state.
 
 ## Use When — Required
 
@@ -22,7 +22,7 @@ Use Card to visually group related content on a distinct surface, matching the D
 
 ## Do Not Use When — Required
 
-Do not use Card as a button, link or otherwise interactive element; it exposes no click or keyboard semantics. Interactive card patterns are composed by the consumer using a native interactive child. Do not use Card to introduce padding conventions — the Design System `.card` has no intrinsic padding; internal spacing is owned by the composed content or a container.
+Do not use Card as a button, link or otherwise interactive element; it exposes no click or keyboard semantics. Interactive card patterns are composed by the consumer using a native interactive child. Card owns the Design System inner padding; the container owns external placement and spacing between cards.
 
 ## Related Components and Selection Boundaries — Conditional
 
@@ -30,10 +30,11 @@ List and Accordion reuse the same surface/border/radius language but add their o
 
 ## Anatomy — Conditional
 
-- Root: one native `<div>` with class `chayns-card` and, when elevated, `chayns-card--elevated`.
+- Root: one native `<div>` with class `chayns-card`.
+- Optional `Card.Header`: a semantic native `<header>` with an optional leading icon and consumer content.
 - Content: arbitrary consumer `children`.
 
-No wrapper, header, footer or media subcomponents exist in Milestone 1.
+No footer or media subcomponents exist in Milestone 1.
 
 ## Semantic Contract — Conditional
 
@@ -41,7 +42,7 @@ Root is a non-semantic `<div>`. Card adds no ARIA role; consumers may pass `role
 
 ## Variants — Required
 
-Card has no color/emphasis variants. The single optional visual modifier is `elevated`, which adds the Design System card shadow (`--shadow-card`) to lift the surface. Default is a flat bordered surface.
+Card has no public color, emphasis or elevation prop. On hover-capable devices the surface receives the Design System hover shadow automatically.
 
 ## Local Size Variants — Conditional
 
@@ -49,7 +50,7 @@ None. Card has no S/M/L prop. Radius and border are density-independent, matchin
 
 ## States — Conditional
 
-None. Card is static and has no hover, focus, active or disabled state of its own.
+Card has no focus, active or disabled state. Hover elevation is a visual state on hover-capable devices.
 
 ## State Priority and Combination Matrix — Conditional
 
@@ -60,19 +61,23 @@ Not applicable; Card has no states.
 ```ts
 interface CardProps extends React.ComponentPropsWithRef<'div'> {
   children?: React.ReactNode;
-  elevated?: boolean;
+}
+
+interface CardHeaderProps extends React.ComponentPropsWithRef<'header'> {
+  icon?: ButtonIcon;
+  children?: React.ReactNode;
 }
 ```
 
-All native `div` props, `data-*`, `aria-*`, handlers, `className` and `ref` are forwarded to the root. `elevated` defaults to `false`. No `as`, `asChild`, `padding`, `variant` or interactive escape prop exists.
+All native `div` props, `data-*`, `aria-*`, handlers, `className` and `ref` are forwarded to the root. `Card.Header` forwards compatible native header props and its ref. No `as`, `asChild`, `padding`, `elevated`, `variant` or interactive escape prop exists.
 
 ## Native Props and DOM Contract — Conditional
 
-Exactly one native `<div>` root. `className` is merged after the component classes so consumers can extend but the component classes always apply. `ref` targets `HTMLDivElement`.
+The root is a native `<div>` and owns compatible `div` props and its ref. `Card.Header` is a native `<header>` and owns compatible header props and its ref.
 
 ## Composition — Required
 
-Card composes arbitrary `children`. It owns the surface only; the composed content owns its own spacing, layout and semantics.
+Card composes arbitrary `children` and owns the surface and inner padding. `Card.Header` owns the optional semantic header and leading icon area.
 
 ## Context Dependencies — Required
 
@@ -84,7 +89,7 @@ No React state. Card is stateless.
 
 ## Design Tokens — Conditional
 
-`--surface` (background), `--border` (1px border color), `--shadow-card` (elevated only). Radius `16px` is confirmed Design System component evidence.
+`--surface` (background), `--border` (1px border color), `--shadow-card` (hover), `--k16` (inner padding) and `--k32` (header icon area). Radius `16px` is confirmed Design System component evidence.
 
 ## Density Contract — Conditional
 
@@ -144,7 +149,7 @@ React peer only; token/Core CSS for `chayns-card`. No runtime dependencies, no i
 
 ## Non-Goals — Required
 
-No interactivity, no padding convention, no header/footer/media subcomponents, no color variants, no elevation scale beyond the single `elevated` shadow.
+No interactivity, no external margin API, no footer/media subcomponents, no color variants and no public elevation prop.
 
 ## Escape Hatches and Overrides — Required
 
@@ -153,23 +158,23 @@ Consumers may extend via native props and `className`. They must not repurpose C
 ## Examples — Recommended
 
 - Flat surface grouping text content.
-- Elevated surface (`elevated`) for a raised card.
+- Hover surface with the automatic raised treatment.
 
 ## Do / Don't — Recommended
 
-- Do compose content and let the content own its padding.
+- Do compose content inside the Card-owned inner padding.
 - Don't rely on Card for click/keyboard behavior.
 
 ## Test Contract — Required
 
 - Renders a `div.chayns-card` with forwarded `children`.
-- Applies `chayns-card--elevated` only when `elevated`.
+- Renders `Card.Header` with native header props, ref and optional icon.
 - Forwards native props and merges `className`.
 - Server-renders without error.
 
 ## Visual Verification Contract — Conditional
 
-Flat and elevated surfaces across light and dark reference modes.
+Flat and hover surfaces across light and dark reference modes, including the optional header icon area.
 
 ## AI Usage Contract — Required
 
@@ -183,14 +188,14 @@ An interactive control is needed — use Button/List/Accordion or a native inter
 None beyond resolved theme tokens.
 
 ### Forbidden assumptions
-No intrinsic padding, no interactivity, no additional variants.
+No external padding prop, no interactivity, no additional variants.
 
 ### Related decisions
 CARD-001–003.
 
 ## Open Decisions — Required
 
-None blocking. Optional future additions (padding tokens, header/footer slots) are out of scope for Milestone 1.
+None blocking. Footer and media slots remain out of scope for Milestone 1.
 
 ## Readiness Assessment — Required
 
