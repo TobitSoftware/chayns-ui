@@ -7,7 +7,7 @@
 - Component Specification: `card-specification.md`
 - Specification Status: READY FOR IMPLEMENTATION
 - Relevant Decision IDs: CORE-001–007, CARD-001–003, A11Y-001–007, DENSITY-001–005, DIST-012–013
-- Foundation Dependencies: token transfer for `--surface`, `--border`, `--shadow-card`
+- Foundation Dependencies: token transfer for `--surface`, `--border`, `--shadow-hover`
 - Related Components: List, Accordion
 - Review Context: Design System `.card` surface transferred 1:1 from `tobit-ds.css`; user authorized Milestone-1 implementation of Card/List/Accordion
 - Gate Date: 2026-08-21
@@ -32,7 +32,7 @@
 | 13 | State Combinations | N/A | No states to combine. |
 | 14 | State Ownership | PASS | Stateless; no React state. |
 | 15 | Context Dependencies | PASS | No Context; CSS inheritance only. |
-| 16 | Token Availability | PASS | `--surface`, `--border`, `--shadow-card` exist in generated baseline CSS. |
+| 16 | Token Availability | PASS | `--surface`, `--border`, `--shadow-hover` exist in generated baseline CSS. |
 | 17 | Density | PASS | Geometry intentionally density-independent, matching DS. |
 | 18 | Color and Theme | PASS | Only resolved variables; light/dark/high-contrast/color-deficiency covered. |
 | 19 | Typography | N/A | Card sets no typography. |

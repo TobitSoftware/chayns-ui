@@ -8,7 +8,7 @@
 - Owner / Responsible Area: chayns UI Core
 - Design Reference: chayns Design System `.card` surface (canonical `tobit-ds.css`, `.card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; }`), inspected 2026-08-21
 - Relevant Decision IDs: CORE-001–007, CARD-001–003, A11Y-001–007, DENSITY-001–005, DIST-012–013
-- Foundation Dependencies: token catalogue transfer (`--surface`, `--border`, `--shadow-card`), density matrix, generated `@chayns-ui/tokens` subset
+- Foundation Dependencies: token catalogue transfer (`--surface`, `--border`, `--shadow-hover`), density matrix, generated `@chayns-ui/tokens` subset
 - Related Components: List, Accordion (both compose on top of the card surface)
 - Last Reviewed: 2026-08-21
 
@@ -89,7 +89,7 @@ No React state. Card is stateless.
 
 ## Design Tokens — Conditional
 
-`--surface` (background), `--border` (1px border color), `--shadow-card` (hover), `--k16` (inner padding) and `--k32` (header icon area). Radius `16px` is confirmed Design System component evidence.
+`--surface` (background), `--border` (1px border color), `--shadow-hover` (hover), `--k16` (inner padding) and `--k32` (header icon area). Radius `16px` is confirmed Design System component evidence.
 
 ## Density Contract — Conditional
 
