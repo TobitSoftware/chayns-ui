@@ -1,5 +1,13 @@
 # @chayns-ui/layout
 
+## Unreleased
+
+### Documentation and Story Changes
+
+- Add a combined AppLayout and Tabs integration story covering navigation
+  collapse and content switching.
+- Move layout story geometry into shared Storybook fixtures.
+
 ## 0.6.2
 
 ### Patch Changes

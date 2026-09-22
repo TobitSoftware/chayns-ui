@@ -19,10 +19,10 @@ Grundlage zentraler Design Tokens – ohne Business-Logik und ohne Laufzeit-Magi
 
 ## Aktueller Projektstatus
 
-Das Projekt ist gate-gesteuert. Veröffentlicht ist ein erster stabiler
-Komponentensatz – `Button`/`IconButton`, `Card`, `List`/`ListItem` sowie
-`Accordion`/`AccordionGroup`. Weitere Komponenten benötigen vor der
-Implementierung eine dokumentierte READY-Bewertung (siehe `docs/`).
+Das Projekt ist gate-gesteuert. Der aktuelle Core umfasst unter anderem
+Buttons, Card, List, Accordion, Avatar, Badge, Banner, ComboBox, Popup und
+native Form Controls. Layout enthält AppLayout und Tabs. Jede Komponente besitzt
+eine dokumentierte Specification und Readiness-Bewertung unter `docs/`.
 
 ## Pakete
 
@@ -69,8 +69,10 @@ Komponenten- und Token-CSS werden **ausdrücklich** importiert. Die Bibliothek l
 keine Fonts, injiziert kein CSS und kalibriert keine Accent-Farbe zur Laufzeit.
 Dadurch landet nur das im Bundle, was tatsächlich genutzt wird.
 
-Verfügbare CSS-Exports von `@chayns-ui/core`: `button.css`, `card.css`, `list.css`,
-`accordion.css` – oder gebündelt `styles.css`.
+Verfügbare CSS-Exports von `@chayns-ui/core` umfassen `button.css`, `card.css`,
+`avatar.css`, `list.css`, `accordion.css`, `badge.css`, `banner.css`,
+`combo-box.css`, `popup.css`, `split-button.css` und die Form-Control-Dateien;
+alternativ steht gebündelt `styles.css` zur Verfügung.
 
 ## Lokal entwickeln
 

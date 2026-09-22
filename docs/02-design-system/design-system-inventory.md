@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Dieses Dokument erfasst den aktuell relevanten Stand des [Tobit.Software DesignSystems](https://tappqa.tobit.com/Bodywork/DesignSystem/) (abgerufen am 19.08.2026) und gleicht ihn mit den bestätigten Regeln von `chayns UI` ab.
+Dieses Dokument erfasst den aktuell relevanten Stand des [Tobit.Software DesignSystems](https://tappqa.tobit.com/Bodywork/DesignSystem/) (abgerufen am 22.09.2026) und gleicht ihn mit den bestätigten Regeln von `chayns UI` ab.
 
 Es ist:
 
@@ -86,7 +86,7 @@ Die notwendige Regel ist weder durch das DesignSystem noch durch bestehende best
 | Spacing naming | Allgemeine Maße sind primär über die `k`-Skala dokumentiert; `--sp-1` bis `--sp-6` existieren zusätzlich. | Allgemeine Spacing-Tokens folgen verbindlich `--sp-*`. | INTENTIONAL DEVIATION | DesignSystem CSS; TOKEN-003 |
 | Primary Action | Höchstens eine Primary pro Ansicht. | Höchstens eine Primary je semantischem Action Scope. | CHAYNS UI CLARIFICATION | DesignSystem Buttons; BUTTON-001–003 |
 | Danger | Destructive für Löschen und andere unwiderrufliche Aktionen. | Danger für destruktive Aktionen, auch wenn technisch wiederherstellbar. | CHAYNS UI CLARIFICATION | DesignSystem Buttons; BUTTON-004 |
-| Accordion behavior | „Wrapped“ ist weiterhin eine eigene Terminologie/Darstellung. | Grouped oder Standalone; Nesting ändert Verhalten nicht automatisch. | DESIGN REVIEW | DesignSystem Accordions; ACC-001–006 |
+| Accordion behavior | Das DesignSystem zeigt Standalone, Grouped und Wrapped als Darstellungen. | Grouped und die automatische Wrapped-Erkennung sind unabhängige, bestätigte chayns-UI-Verträge. | INTENTIONAL DEVIATION | Bodywork Accordions; ACC-007–011 |
 | Dialog scope | Confirm/Entscheidung ist eindeutig dokumentiert; erweiterte kleine Interaktionen sind nicht eindeutig abgedeckt. | Kleine abgeschlossene Eingaben und Auswahlen sind zulässig; Escape/Backdrop-Verhalten ist definiert. | DESIGN REVIEW | DesignSystem Overlays; DIALOG-001–006 |
 | Motion properties | Nur `transform` und `opacity`. | Zusätzlich nur `grid-template-rows` für definierte Höhenübergänge. | CHAYNS UI CLARIFICATION | DesignSystem Motion; MOTION-002–004 |
 | Visible Tooltip | Kurz erklären; wichtige Inhalte und Aktionen sind ausgeschlossen. | Eigene zugängliche Tooltip-Komponente; `title` nur ergänzend. | CHAYNS UI CLARIFICATION | DesignSystem Tooltips; TOOLTIP-001–003 |
@@ -126,7 +126,7 @@ Die folgenden Daten sind entweder im aktuellen ausgelieferten DesignSystem einde
 | Button States | Abschließende State-Matrix, Focus-Token-Verwendung und Split-/Segmented-Interaktion für chayns UI. | TECH REVIEW | spätere Button Component Specification |
 | Focus State | Einheitliche CSS-/Semantik-Regel, Focus-visible-Strategie und Mapping von Focus-Ring-Tokens. | TECH REVIEW | `accessibility.md`, Token Catalogue |
 | Testability | Testing-Stack und verbindliche Tooling-/Automationsentscheidung. | OPEN | Quality Gates; Decision Register OPEN-013 |
-| Accordion terminology | DesignSystem muss Grouped/Standalone statt beziehungsweise zusätzlich zu Wrapped eindeutig beschreiben. | DESIGN REVIEW | Accordion Specification |
+| Accordion terminology | Bodywork-Zustände und die chayns-UI-Terminologie sind für die implementierte Accordion-Baseline ausreichend belegt. | CONFIRMED | Accordion Specification; ACC-007–011 |
 | Dialog scope | Erweiterter zulässiger Dialog-Einsatz und Escape-/Backdrop-Modell müssen im DesignSystem nachvollziehbar werden. | DESIGN REVIEW | Dialog Specification |
 | Layout patterns | Produktübergreifende Regeln für Grid, Panels, Collapse, Drag, Resize und App Layout fehlen. | DESIGN REVIEW | Layout Foundations, Layout Component Specifications |
 
@@ -141,7 +141,7 @@ Die bevorzugte Reihenfolge bleibt fachlich passend; Color und Typography liefern
 5. konkrete Erweiterung/Ergänzung des Token-Katalogs
 6. konkrete Density Matrix
 
-Danach sollten die ausstehenden DESIGN REVIEWs zu Accordion, Dialog und Layout gemeinsam mit Design geklärt werden, bevor dafür Component Specifications entstehen.
+Die verbleibenden DESIGN REVIEWs betreffen globale Foundations sowie noch nicht implementierte Dialog-/Layout-Erweiterungen; sie blockieren die geprüften Komponenten nur, wenn sie deren konkrete Umsetzung berühren.
 
 # 8. Decision Register Follow-ups
 

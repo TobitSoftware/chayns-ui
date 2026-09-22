@@ -36,11 +36,11 @@ import '@chayns-ui/core/button.css';
 
 | Import | CSS-Export |
 |---|---|
-| `Button`, `IconButton` | `@chayns-ui/core/button.css` |
+| `Button`, `IconButton`, `SplitButton` | `@chayns-ui/core/button.css`, `@chayns-ui/core/split-button.css` |
 | `Card` | `@chayns-ui/core/card.css` |
-| `Avatar`, `AvatarGroup` | `@chayns-ui/core/avatar.css` |
+| `Avatar`, `AvatarGroup`, `Badge`, `Banner` | matching CSS exports |
 | `List` | `@chayns-ui/core/list.css` |
-| `TextField`, `TextArea`, `Checkbox`, `Switch`, `RadioGroup`, `SegmentedControl`, `MessageBox` | their matching CSS export |
+| `TextField`, `TextArea`, `Checkbox`, `Switch`, `RadioGroup`, `SegmentedControl`, `MessageBox`, `ComboBox` | matching CSS exports |
 | `Accordion`, `AccordionGroup` | `@chayns-ui/core/accordion.css` |
 | `Popup`, `PopupList` | `@chayns-ui/core/popup.css` |
 | `SplitButton` | `@chayns-ui/core/split-button.css` |
@@ -49,6 +49,12 @@ Alternativ lädt `@chayns-ui/core/styles.css` das gebündelte CSS aller Komponen
 
 `ListItem` wurde vor 1.0 durch `List.Item` ersetzt. Komponiere Zeilen mit
 `List.Item.Action`, `List.Item.Body`, `List.Item.Title` und optionalen Slots.
+
+`ComboBox` unterstützt Single-Select und Multi-Select. `TextField` und
+`TextArea` akzeptieren native `type`- beziehungsweise `autoComplete`-Werte,
+einschließlich `type="password"`; eine Sichtbarkeitsumschaltung ist kein Teil
+des Core-Vertrags. `Badge` ist ein statischer Statusindikator, während
+`Banner` ein optional schließbares Statusmuster ist.
 
 ## Hinweise
 

@@ -4,7 +4,16 @@
 
 ### Minor Changes
 
+- Add the Bodywork-aligned `Banner` component with localized close labels and
+  controlled or uncontrolled visibility.
+- Complete native ref and event ownership for core controls, add supporting
+  descriptions to Checkbox, RadioGroup and Switch, and align Accordion leading
+  content and ComboBox option keyboard semantics.
+- Centralize Storybook fixtures and document the current ComboBox, Badge,
+  password-field and Banner contracts.
 - Extend Button and IconButton with FontAwesome Brands icon support.
+- Add Bodywork-aligned Button and IconButton loading states with stable labels,
+  accessible busy semantics and native disabled behavior.
 
 ## 0.5.0
 
