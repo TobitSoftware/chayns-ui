@@ -52,8 +52,8 @@
   }
 
   .chayns-radio__control::after {
-    inline-size: var(--k8);
-    block-size: var(--k8);
+    inline-size: var(--k10);
+    block-size: var(--k10);
     border-radius: 50%;
     background: var(--accent);
     content: '';

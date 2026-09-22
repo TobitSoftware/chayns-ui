@@ -10,8 +10,12 @@ const meta = {
   render: (args) => (
     <RadioGroup {...args}>
       <RadioGroup.Radio value="all">Alle Personen</RadioGroup.Radio>
-      <RadioGroup.Radio value="members">Nur Mitglieder</RadioGroup.Radio>
-      <RadioGroup.Radio value="admins">Nur Administratoren</RadioGroup.Radio>
+      <RadioGroup.Radio description="Alle Kontakte können teilnehmen." value="members">
+        Nur Mitglieder
+      </RadioGroup.Radio>
+      <RadioGroup.Radio description="Nur das Administrationsteam kann teilnehmen." value="admins">
+        Nur Administratoren
+      </RadioGroup.Radio>
     </RadioGroup>
   ),
 } satisfies Meta<typeof RadioGroup>;

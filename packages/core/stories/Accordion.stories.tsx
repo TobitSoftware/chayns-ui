@@ -3,6 +3,7 @@ import { expect, userEvent, within } from 'storybook/test';
 
 import Accordion from '../src/components/accordion/Accordion.js';
 import AccordionGroup from '../src/components/accordion-group/AccordionGroup.js';
+import Avatar from '../src/components/avatar/Avatar.js';
 
 const meta = {
   title: 'Core/Accordion',
@@ -94,6 +95,34 @@ export const Disabled: Story = {
       <Accordion disabled title="Nicht verfügbar">
         Dieser Bereich ist derzeit nicht verfügbar.
       </Accordion>
+    </div>
+  ),
+};
+
+export const List: Story = {
+  render: () => (
+    <div className="chayns-storybook-example-constrained">
+      <AccordionGroup defaultOpenId="budget">
+        <Accordion
+          id="budget"
+          leading={<Avatar name="Eva Sommer" size="small" />}
+          title={
+            <span>
+              <strong>Q3-Budget</strong>
+              <small className="chayns-storybook-subtitle">Freigabe durch Eva Sommer</small>
+            </span>
+          }
+        >
+          Das Budget wurde geprüft und kann verwendet werden.
+        </Accordion>
+        <Accordion
+          id="planung"
+          leading={<i aria-hidden="true" className="far fa-calendar" />}
+          title="Planung"
+        >
+          Die nächste Planungsrunde startet am Montag.
+        </Accordion>
+      </AccordionGroup>
     </div>
   ),
 };

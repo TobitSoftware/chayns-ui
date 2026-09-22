@@ -6,7 +6,10 @@ const meta = {
   title: 'Core/Checkbox',
   component: Checkbox,
   tags: ['autodocs'],
-  args: { children: 'Ich akzeptiere die Bedingungen.' },
+  args: {
+    children: 'Ich akzeptiere die Bedingungen.',
+    description: 'Erforderlich für die Nutzung.',
+  },
   parameters: { a11y: { test: 'error' } },
 } satisfies Meta<typeof Checkbox>;
 

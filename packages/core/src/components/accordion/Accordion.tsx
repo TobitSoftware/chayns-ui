@@ -10,6 +10,7 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
     defaultOpen = false,
     disabled = false,
     id,
+    leading,
     onOpenChange,
     open,
     title,
@@ -77,6 +78,7 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
         type="button"
       >
         <i aria-hidden="true" className="chayns-accordion__chevron far fa-chevron-right" />
+        {leading ? <span className="chayns-accordion__leading">{leading}</span> : null}
         <span className="chayns-accordion__title">{title}</span>
       </button>
       <div

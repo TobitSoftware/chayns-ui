@@ -6,7 +6,10 @@ const meta = {
   title: 'Core/Switch',
   component: Switch,
   tags: ['autodocs'],
-  args: { children: 'E-Mail-Benachrichtigungen' },
+  args: {
+    children: 'E-Mail-Benachrichtigungen',
+    description: 'Sofortige Hinweise über neue Nachrichten.',
+  },
   parameters: { a11y: { test: 'error' } },
 } satisfies Meta<typeof Switch>;
 

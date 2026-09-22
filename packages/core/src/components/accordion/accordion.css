@@ -80,6 +80,13 @@
     color: var(--text);
   }
 
+  .chayns-accordion__leading {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+  }
+
   .chayns-accordion--open > .chayns-accordion__header > .chayns-accordion__title {
     font-weight: 600;
   }

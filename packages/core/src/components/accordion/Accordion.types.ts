@@ -17,6 +17,9 @@ export interface AccordionProps extends Omit<
    */
   title: ReactNode;
 
+  /** Optional leading image or icon used by list-style accordion rows. */
+  leading?: ReactNode;
+
   /**
    * @description Panel content revealed when the accordion is open.
    */

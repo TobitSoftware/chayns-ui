@@ -17,33 +17,22 @@ const SplitButton = forwardRef<HTMLDivElement, SplitButtonProps>(function SplitB
       className={['chayns-split-button', className].filter(Boolean).join(' ')}
       ref={ref}
     >
-      {icon ? (
-        <Button
-          aria-labelledby={labelId}
-          className="chayns-split-button__primary"
-          {...(disabled ? { disabled: true } : {})}
-          icon={icon}
-          {...(onClick ? { onClick } : {})}
-          variant={variant}
-        >
-          <span id={labelId}>{children}</span>
-        </Button>
-      ) : (
-        <Button
-          aria-labelledby={labelId}
-          className="chayns-split-button__primary"
-          {...(disabled ? { disabled: true } : {})}
-          {...(onClick ? { onClick } : {})}
-          variant={variant}
-        >
-          <span id={labelId}>{children}</span>
-        </Button>
-      )}
+      <Button
+        aria-labelledby={labelId}
+        className="chayns-split-button__primary"
+        disabled={disabled}
+        {...(icon ? { icon } : {})}
+        onClick={onClick}
+        variant={variant}
+      >
+        <span id={labelId}>{children}</span>
+      </Button>
       <PopupList
         items={items}
         trigger={
           <button
             aria-labelledby={labelId}
+            aria-haspopup="menu"
             className={`chayns-split-button__trigger chayns-button--${variant}`}
             {...(disabled ? { disabled: true } : {})}
             type="button"

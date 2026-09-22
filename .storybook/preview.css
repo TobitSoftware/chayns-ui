@@ -39,3 +39,11 @@ body {
 .chayns-storybook-example-constrained {
   max-inline-size: 24rem;
 }
+
+.chayns-storybook-subtitle {
+  display: block;
+  margin-block-start: var(--k2);
+  color: var(--text-3);
+  font-size: var(--fs-meta);
+  font-weight: 400;
+}
