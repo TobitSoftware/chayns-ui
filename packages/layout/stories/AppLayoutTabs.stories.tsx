@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Workspace: Story = {
   render: () => (
-    <div style={{ blockSize: '36rem' }}>
+    <div className="chayns-storybook-example-layout">
       <AppLayout>
         <AppLayout.Header>
           <AppLayout.Logo

@@ -22,7 +22,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Standalone: Story = {
   render: () => (
-    <div style={{ maxInlineSize: '32rem' }}>
+    <div className="chayns-storybook-example-accordion">
       <Accordion title="Was ist chayns UI?">
         chayns UI ist die modulare Komponentenbibliothek für konsistente chayns-Oberflächen.
       </Accordion>
@@ -32,7 +32,7 @@ export const Standalone: Story = {
 
 export const DefaultOpen: Story = {
   render: () => (
-    <div style={{ maxInlineSize: '32rem' }}>
+    <div className="chayns-storybook-example-accordion">
       <Accordion defaultOpen title="Was ist chayns UI?">
         chayns UI ist die modulare Komponentenbibliothek für konsistente chayns-Oberflächen.
       </Accordion>
@@ -42,7 +42,7 @@ export const DefaultOpen: Story = {
 
 export const Grouped: Story = {
   render: () => (
-    <div style={{ maxInlineSize: '32rem' }}>
+    <div className="chayns-storybook-example-accordion">
       <AccordionGroup defaultOpenId="lieferung">
         <Accordion id="lieferung" title="Lieferung">
           Standardlieferungen sind innerhalb von zwei bis drei Werktagen bei dir.
@@ -70,10 +70,10 @@ export const Grouped: Story = {
 
 export const Wrapped: Story = {
   render: () => (
-    <div style={{ maxInlineSize: '32rem' }}>
+    <div className="chayns-storybook-example-accordion">
       <Accordion defaultOpen title="Erweiterte Einstellungen">
         Passe hier grundlegende Optionen an.
-        <div style={{ marginBlockStart: 'var(--k10)' }}>
+        <div className="chayns-storybook-example-accordion-nested">
           <Accordion title="Benachrichtigungen">
             Lege fest, worüber du informiert werden möchtest.
           </Accordion>
@@ -91,7 +91,7 @@ export const Wrapped: Story = {
 
 export const Disabled: Story = {
   render: () => (
-    <div style={{ maxInlineSize: '32rem' }}>
+    <div className="chayns-storybook-example-accordion">
       <Accordion disabled title="Nicht verfügbar">
         Dieser Bereich ist derzeit nicht verfügbar.
       </Accordion>

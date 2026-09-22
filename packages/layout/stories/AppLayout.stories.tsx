@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const MailWorkspace: Story = {
   args: { children: null },
   render: (args) => (
-    <div style={{ blockSize: '36rem' }}>
+    <div className="chayns-storybook-example-layout">
       <AppLayout {...args}>
         <AppLayout.Header>
           <AppLayout.Logo src={logo} />
@@ -39,8 +39,8 @@ export const MailWorkspace: Story = {
           expandLabel="Expand navigation"
         />
         <AppLayout.Content>
-          <div style={{ height: '100%', padding: 'var(--sp-6)' }}>
-            <h1 style={{ marginBlockStart: 0 }}>Meetings am Donnerstag</h1>
+          <div className="chayns-storybook-example-layout-content">
+            <h1>Meetings am Donnerstag</h1>
             <p>Der Inhalt liegt rechts neben der Navigation und unterhalb des 64px-Headers.</p>
           </div>
         </AppLayout.Content>
@@ -59,7 +59,7 @@ export const MailWorkspace: Story = {
 export const Collapsed: Story = {
   args: { children: null, defaultCollapsed: true },
   render: (args) => (
-    <div style={{ blockSize: '36rem' }}>
+    <div className="chayns-storybook-example-layout">
       <AppLayout {...args}>
         <AppLayout.Header>
           <AppLayout.Logo src={logo} />

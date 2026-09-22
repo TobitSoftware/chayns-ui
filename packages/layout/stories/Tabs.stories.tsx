@@ -16,14 +16,7 @@ type Story = StoryObj<typeof meta>;
 export const WorkspaceTabs: Story = {
   args: { children: null, defaultValue: 'inbox' },
   render: (args) => (
-    <div
-      style={{
-        maxInlineSize: '48rem',
-        blockSize: '18rem',
-        padding: 'var(--sp-4)',
-        background: 'var(--accent)',
-      }}
-    >
+    <div className="chayns-storybook-example-tabs">
       <Tabs {...args}>
         <Tabs.List aria-label="Arbeitsbereiche">
           <Tabs.Tab value="inbox">

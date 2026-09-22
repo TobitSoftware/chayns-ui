@@ -40,6 +40,52 @@ body {
   max-inline-size: 24rem;
 }
 
+.chayns-storybook-example-accordion {
+  max-inline-size: 32rem;
+}
+
+.chayns-storybook-example-accordion-nested {
+  margin-block-start: var(--k10);
+}
+
+.chayns-storybook-example-card {
+  max-inline-size: 24rem;
+  padding: var(--k24);
+}
+
+.chayns-storybook-example-card h3 {
+  margin: 0 0 var(--k8);
+  color: var(--text);
+  font-size: var(--fs-h2);
+}
+
+.chayns-storybook-example-card p {
+  margin: 0;
+  color: var(--text-3);
+  line-height: 1.55;
+}
+
+.chayns-storybook-example-layout {
+  block-size: 36rem;
+}
+
+.chayns-storybook-example-layout-content {
+  block-size: 100%;
+  padding: var(--sp-6);
+}
+
+.chayns-storybook-example-layout-content h1 {
+  margin-block-start: 0;
+}
+
+.chayns-storybook-example-tabs {
+  box-sizing: border-box;
+  max-inline-size: 48rem;
+  block-size: 18rem;
+  padding: var(--sp-4);
+  background: var(--accent);
+}
+
 .chayns-storybook-subtitle {
   display: block;
   margin-block-start: var(--k2);
