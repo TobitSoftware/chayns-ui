@@ -57,9 +57,14 @@ export interface ButtonProps extends Omit<ComponentPropsWithRef<'button'>, 'chil
   icon?: ButtonIcon;
 
   /**
+   * Shows a spinner while preserving the button label and prevents repeated
+   * activation through the native disabled state.
+   */
+  loading?: boolean;
+
+  /**
    * @description Visible, non-empty content used as the button label. Loading
-   * state, polymorphism (rendering as something other than a native button)
-   * and navigation are explicitly not part of the Milestone 1 API.
+   * preserves this content while adding a spinner.
    */
   children: ButtonContent;
 }

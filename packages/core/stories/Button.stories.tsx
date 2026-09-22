@@ -27,6 +27,15 @@ const meta = {
         type: { summary: 'boolean' },
       },
     },
+    loading: {
+      control: 'boolean',
+      description: 'Shows a spinner, keeps the label stable and disables activation.',
+      table: {
+        category: 'State',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
     icon: {
       control: 'text',
       description:
@@ -58,7 +67,7 @@ const meta = {
   },
   parameters: {
     a11y: { test: 'error' },
-    controls: { include: ['variant', 'icon', 'children', 'type', 'disabled'] },
+    controls: { include: ['variant', 'icon', 'children', 'type', 'disabled', 'loading'] },
   },
 } satisfies Meta<typeof Button>;
 
@@ -97,6 +106,7 @@ export const Danger: Story = {
   args: { children: 'Löschen', icon: 'fa-trash', variant: 'danger' },
 };
 export const Disabled: Story = { args: { children: 'Aktion', disabled: true } };
+export const Loading: Story = { args: { children: 'Wird gespeichert', loading: true } };
 
 export const AllVariants: Story = {
   parameters: { controls: { disable: true } },

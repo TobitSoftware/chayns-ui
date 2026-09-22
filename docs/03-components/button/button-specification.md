@@ -22,7 +22,7 @@ Use Button for actions whose label can be visible. Use IconButton only in a fami
 
 ## Do Not Use When — Required
 
-Do not use either component for navigation; use a native link/future Link. Do not use IconButton when the icon is ambiguous without visible text. Do not use Button as a toggle, selected control, loading indicator, menu, split button or local size control.
+Do not use either component for navigation; use a native link/future Link. Do not use IconButton when the icon is ambiguous without visible text. Do not use Button as a toggle, selected control, menu, split button or local size control.
 
 ## Related Components and Selection Boundaries — Conditional
 
@@ -63,7 +63,7 @@ None. Button and IconButton have no S/M/L prop. Global S/M/L density controls th
 - focus-visible: softened-accent focus ring drawn as a `box-shadow` using `--focus-ring-size` and `rgba(var(--focus-ring-rgb), var(--focus-ring-alpha-strong))`. This matches the DesignSystem reference (accent ring with reduced opacity so the ring stands off the button surface). Primary composes the ring with its resting `--shadow-btn` elevation. Forced-colors mode falls back to a solid `ButtonText` outline.
 - disabled: native `disabled`, no focus or activation. Primary and Danger use disabled background/foreground; Outline uses surface, disabled foreground and disabled border; Ghost stays transparent with disabled foreground. Hover/active styling does not apply.
 
-There is no loading, selected, toggled, read-only, error or success state.
+Loading is an explicit state: the native button is disabled, `aria-busy="true"` is set, a spinner is shown and the label remains visible. There is no selected, toggled, read-only, error or success state.
 
 ## State Priority and Combination Matrix — Conditional
 
@@ -95,7 +95,7 @@ type IconButtonProps = Omit<
   };
 ```
 
-Compatible native props, `data-*`, `aria-*`, handlers and `className` are forwarded. `type` defaults to `button`; explicit `submit` and `reset` are preserved. React 19 ref-as-prop targets the native button. No `as`, `asChild`, `size`, `loading`, `selected`, `pressed`, navigation or style-variant escape prop exists.
+Compatible native props, `data-*`, `aria-*`, handlers and `className` are forwarded. `type` defaults to `button`; explicit `submit` and `reset` are preserved. React 19 ref-as-prop targets the native button. `loading` is the only component state prop; no `as`, `asChild`, `size`, `selected`, `pressed`, navigation or style-variant escape prop exists.
 
 ## Native Props and DOM Contract — Conditional
 
@@ -159,7 +159,7 @@ The container owns placement, action-scope relationships, gaps and external marg
 
 ## Loading and Async Contract — Required
 
-Unsupported. An async owner may set native `disabled` while processing, but Button does not infer, announce or render loading and exposes no loading prop.
+`loading` is controlled by the consumer. While true, Button preserves its label, renders a Regular spinner, sets `aria-busy="true"` and applies native `disabled`. Reduced Motion disables spinner rotation while retaining the loading semantics.
 
 ## Error Contract — Conditional
 
@@ -175,7 +175,7 @@ Core peer: React `>=19.2 <20`. Runtime dependencies: none. CSS dependency: consu
 
 ## Non-Goals — Required
 
-Navigation, loading, toggle/selected state, local sizing, polymorphism, tooltip, menu, split button, bundled icon-library runtime, Single-Weight-/Brand-/Custom-Icons, business logic, theme resolution and margins.
+Navigation, toggle/selected state, local sizing, polymorphism, tooltip, menu, split button, bundled icon-library runtime, Single-Weight-/Brand-/Custom-Icons, business logic, theme resolution and margins.
 
 ## Escape Hatches and Overrides — Required
 
@@ -205,7 +205,7 @@ Use Button for a generic text-labelled action and IconButton for a familiar comp
 
 ### Do not use when
 
-Do not use for navigation, loading, selection/toggle, menus, split actions or business-specific behavior.
+Do not use for navigation, selection/toggle, menus, split actions or business-specific behavior.
 
 ### Required context
 
@@ -213,7 +213,7 @@ The semantic action hierarchy, whether the action is destructive, the resolved l
 
 ### Forbidden assumptions
 
-Do not infer a default variant, local size, loading state, tooltip, icon library, navigation target, action scope or translated text.
+Do not infer a default variant, local size, tooltip, icon library, navigation target, action scope or translated text. Pass `loading` only when the owning action is running.
 
 ### Related decisions
 

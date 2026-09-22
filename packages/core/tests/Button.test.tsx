@@ -71,6 +71,21 @@ describe('Button', () => {
     expect(handleClick).not.toHaveBeenCalled();
   });
 
+  it('keeps its label visible and exposes the loading state accessibly', () => {
+    render(
+      <Button loading variant="primary">
+        Saving
+      </Button>,
+    );
+
+    const button = screen.getByRole('button', { name: 'Saving' });
+
+    expect(button).toBeDisabled();
+    expect(button).toHaveAttribute('aria-busy', 'true');
+    expect(button).toHaveClass('chayns-button--loading');
+    expect(button.querySelector('.fa-spinner')).toBeInTheDocument();
+  });
+
   it.each(['primary', 'outline', 'ghost', 'danger'] as const)(
     'exposes the documented %s style hook',
     (variant) => {

@@ -92,6 +92,17 @@ describe('IconButton', () => {
     expect(handleClick).not.toHaveBeenCalled();
   });
 
+  it('exposes loading while preserving the accessible name', () => {
+    render(<IconButton aria-label="Saving" icon="fa-floppy-disk" loading variant="primary" />);
+
+    const button = screen.getByRole('button', { name: 'Saving' });
+
+    expect(button).toBeDisabled();
+    expect(button).toHaveAttribute('aria-busy', 'true');
+    expect(button).toHaveClass('chayns-icon-button--loading');
+    expect(button.querySelector('.fa-spinner')).toBeInTheDocument();
+  });
+
   it('renders safely on the server', () => {
     const markup = renderToString(
       <IconButton aria-label="Server icon action" icon="fa-server" variant="ghost" />,

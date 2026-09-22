@@ -43,6 +43,9 @@ export interface IconButtonBaseProps extends Omit<
    * so this is its only visible content.
    */
   icon: ButtonIcon;
+
+  /** Shows a spinner while preserving the accessible name and disabling the action. */
+  loading?: boolean;
 }
 
 /**

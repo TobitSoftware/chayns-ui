@@ -4,16 +4,37 @@ import type { IconButtonProps } from './IconButton.types.js';
 import ButtonIcon from '../button/button-icon/ButtonIcon.js';
 
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
-  { className, icon, type = 'button', variant, ...buttonProps },
+  {
+    'aria-busy': ariaBusy,
+    className,
+    disabled,
+    icon,
+    loading = false,
+    type = 'button',
+    variant,
+    ...buttonProps
+  },
   ref,
 ) {
-  const resolvedClassName = ['chayns-icon-button', `chayns-icon-button--${variant}`, className]
+  const resolvedClassName = [
+    'chayns-icon-button',
+    `chayns-icon-button--${variant}`,
+    loading ? 'chayns-icon-button--loading' : '',
+    className,
+  ]
     .filter(Boolean)
     .join(' ');
 
   return (
-    <button {...buttonProps} className={resolvedClassName} ref={ref} type={type}>
-      <ButtonIcon icon={icon} />
+    <button
+      {...buttonProps}
+      aria-busy={loading ? true : ariaBusy}
+      className={resolvedClassName}
+      disabled={loading || disabled}
+      ref={ref}
+      type={type}
+    >
+      <ButtonIcon icon={loading ? 'fa-spinner' : icon} />
     </button>
   );
 });

@@ -41,7 +41,6 @@ export const invalidButtonIcon = (
   </Button>
 );
 export const loadingButton = (
-  // @ts-expect-error Loading is not a Milestone 1 API
   <Button loading variant="primary">
     Create
   </Button>

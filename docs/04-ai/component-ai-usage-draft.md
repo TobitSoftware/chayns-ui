@@ -57,9 +57,8 @@ Both are mandatory; there is no default variant (BUTTON-006) and no icon-only/em
 `Button` (`children` must be visible content, BUTTON-009).
 
 **Composition**: `icon` is optional and always leading; there is no trailing-icon or icon-only mode
-on `Button` itself (use `IconButton` for icon-only). Do not pass a spinner/loading prop — Loading
-state is explicitly not part of the Milestone 1 API (see Button Specification, "Not part of
-Milestone 1").
+on `Button` itself (use `IconButton` for icon-only). Pass `loading` only while the owning action is
+running; the component keeps its label, exposes `aria-busy` and applies native `disabled`.
 
 **Anti-patterns to avoid**:
 * Wrapping `Button` in a custom `<div onClick>`/`<span onClick>` instead of relying on the native

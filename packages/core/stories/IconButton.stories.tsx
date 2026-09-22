@@ -34,6 +34,15 @@ const meta = {
         type: { summary: 'boolean' },
       },
     },
+    loading: {
+      control: 'boolean',
+      description: 'Shows a spinner and disables activation while preserving the accessible name.',
+      table: {
+        category: 'State',
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+      },
+    },
     icon: {
       control: 'text',
       description:
@@ -63,7 +72,7 @@ const meta = {
   parameters: {
     a11y: { test: 'error' },
     controls: {
-      include: ['variant', 'icon', 'aria-label', 'aria-labelledby', 'type', 'disabled'],
+      include: ['variant', 'icon', 'aria-label', 'aria-labelledby', 'type', 'disabled', 'loading'],
     },
   },
 } satisfies Meta<typeof IconButton>;
@@ -80,6 +89,9 @@ export const Highlighted: Story = {
   },
 };
 export const Disabled: Story = { args: { disabled: true } };
+export const Loading: Story = {
+  args: { 'aria-label': 'Wird gespeichert', icon: 'fa-floppy-disk', loading: true },
+};
 
 export const AllVariants: Story = {
   parameters: { controls: { disable: true } },
