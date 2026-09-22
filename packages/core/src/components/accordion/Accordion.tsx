@@ -61,6 +61,7 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
     variantClassName,
     isOpen ? 'chayns-accordion--open' : null,
     disabled ? 'chayns-accordion--disabled' : null,
+    leading ? 'chayns-accordion--has-leading' : null,
     className,
   ]
     .filter(Boolean)

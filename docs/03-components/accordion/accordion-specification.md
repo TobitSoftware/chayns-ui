@@ -96,7 +96,7 @@ Each Accordion renders one root `div`, one native header `button`, and one panel
 
 ## Composition — Required
 
-Accordion composes a `title` (header label) and `children` (panel content). Nesting is achieved by rendering another Accordion within `children`; the inner Accordion reads an incremented nesting depth from context and renders Wrapped. AccordionGroup composes Accordion children and shares exclusive open state via context.
+Accordion composes a `title`, optional `leading` slot and `children` panel content. The panel content aligns with the title column, including the fixed leading image/icon area used by the list presentation. Nesting is achieved by rendering another Accordion within `children`; the inner Accordion reads an incremented nesting depth from context and renders Wrapped. AccordionGroup composes Accordion children and shares exclusive open state via context.
 
 ## Context Dependencies — Required
 

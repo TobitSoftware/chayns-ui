@@ -109,7 +109,7 @@ export const List: Story = {
           title={
             <span>
               <strong>Q3-Budget</strong>
-              <small className="chayns-storybook-subtitle">Freigabe durch Eva Sommer</small>
+              <small>Freigabe durch Eva Sommer</small>
             </span>
           }
         >
