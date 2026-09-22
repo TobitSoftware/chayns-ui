@@ -11,15 +11,15 @@
 
   .chayns-tabs__list {
     display: flex;
+    align-items: stretch;
     position: relative;
     z-index: 1;
     gap: var(--k4);
-    align-items: flex-end;
-    block-size: auto;
+    block-size: var(--k42);
     min-inline-size: 0;
     overflow-x: auto;
-    padding-inline: var(--k8);
-    background: var(--accent-hover);
+    padding-inline-end: var(--k8);
+    background: transparent;
   }
 
   .chayns-tabs__tab {
@@ -28,12 +28,13 @@
     align-items: center;
     justify-content: center;
     gap: var(--k8);
-    min-block-size: var(--k32);
+    block-size: var(--k42);
+    min-block-size: var(--k42);
     min-inline-size: var(--k32);
-    padding: var(--k8) var(--k15);
+    padding: var(--k8) var(--k16);
     border: 0;
     border-radius: var(--k12) var(--k12) 0 0;
-    background: color-mix(in srgb, var(--on-accent) 10%, var(--accent-hover));
+    background: color-mix(in srgb, var(--on-accent) 10%, transparent);
     font: inherit;
     font-size: var(--fs-body);
     font-weight: 500;
@@ -43,7 +44,7 @@
 
   .chayns-tabs__tab--active {
     background: var(--surface);
-    color: var(--text);
+    color: var(--accent);
   }
 
   .chayns-tabs__add {
@@ -52,8 +53,8 @@
     align-items: center;
     justify-content: center;
     inline-size: var(--k32);
-    block-size: var(--k32);
-    min-block-size: var(--k32);
+    block-size: var(--k42);
+    min-block-size: var(--k42);
     padding: 0 var(--sp-2);
     border: 0;
     border-radius: var(--k12) var(--k12) 0 0;
@@ -73,7 +74,7 @@
     justify-content: center;
     inline-size: var(--icon);
     block-size: var(--icon);
-    margin-inline-start: calc(var(--sp-2) * -1);
+    margin-inline-start: var(--k2);
     color: inherit;
   }
 

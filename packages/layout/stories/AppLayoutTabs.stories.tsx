@@ -34,8 +34,14 @@ export const Workspace: Story = {
         <AppLayout.Content>
           <Tabs defaultValue="inbox">
             <Tabs.List aria-label="Workspace tabs">
-              <Tabs.Tab value="inbox">Inbox</Tabs.Tab>
-              <Tabs.Tab value="calendar">Calendar</Tabs.Tab>
+              <Tabs.Tab onRemove={() => undefined} value="inbox">
+                <i aria-hidden="true" className="far fa-inbox" />
+                <span>Inbox</span>
+              </Tabs.Tab>
+              <Tabs.Tab onRemove={() => undefined} value="calendar">
+                <i aria-hidden="true" className="far fa-calendar" />
+                <span>Calendar</span>
+              </Tabs.Tab>
             </Tabs.List>
             <Tabs.Panel value="inbox">Meetings and conversations</Tabs.Panel>
             <Tabs.Panel value="calendar">Your calendar</Tabs.Panel>

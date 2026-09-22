@@ -19,15 +19,15 @@ export const WorkspaceTabs: Story = {
     <div className="chayns-storybook-example-tabs">
       <Tabs {...args}>
         <Tabs.List aria-label="Arbeitsbereiche">
-          <Tabs.Tab value="inbox">
+          <Tabs.Tab onRemove={() => undefined} value="inbox">
             <i aria-hidden="true" className="far fa-inbox" />
             <span className="chayns-tabs__label">Inbox</span>
           </Tabs.Tab>
-          <Tabs.Tab value="calendar">
+          <Tabs.Tab onRemove={() => undefined} value="calendar">
             <i aria-hidden="true" className="far fa-calendar" />
             <span className="chayns-tabs__label">Calendar</span>
           </Tabs.Tab>
-          <Tabs.Tab value="tasks">
+          <Tabs.Tab onRemove={() => undefined} value="tasks">
             <i aria-hidden="true" className="far fa-list-check" />
             <span className="chayns-tabs__label">Tasks</span>
           </Tabs.Tab>

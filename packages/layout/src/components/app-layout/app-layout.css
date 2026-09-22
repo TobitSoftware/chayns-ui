@@ -234,8 +234,8 @@
     min-block-size: 0;
     overflow: auto;
     border-start-start-radius: var(--k12);
-    background: var(--surface);
-    color: var(--text);
+    background: var(--accent);
+    color: var(--on-accent);
   }
 
   .chayns-app-layout--collapsed .chayns-app-layout__sidebar {

@@ -8,9 +8,11 @@ Tabs is a value-paired compound control: `Tabs.List` owns `tablist` div props, `
 
 Tabs use ARIA tab roles, roving focus, automatic cyclic Arrow activation and Home/End. `Tab` invokes an optional `onRemove` on Delete/Backspace; `Add` is an independent native button. Consumer handlers run before selection and may cancel it. The active panel alone renders and is labelled by its Tab. Native attributes target their matching parts and component-owned role/relationship attributes are omitted.
 
-The visual contract is a top-attached tab strip: the list uses the accent
-surface, tabs are rounded only at their top corners, and the active tab joins
-the surface of the panel below it. The panel has its own border and surface
-background and starts below the strip, so its background cannot bleed into the
-tab area. The tab top radius and the AppLayout content corner both use
-`--k12`; lower tab corners remain square.
+The visual contract is a top-attached tab strip: the list itself is
+transparent and inherits its surrounding shell surface, while tabs are
+rounded only at their top corners. The list is `--k42` high, the first tab is
+flush with its start edge, and tabs may show a leading icon and a close icon.
+The active tab joins the surface of the panel below it. The panel has its own
+border and surface background and starts below the strip, so its background
+cannot bleed into the tab area. The tab top radius and the AppLayout content
+corner both use `--k12`; lower tab corners remain square.
