@@ -10,7 +10,7 @@ console.log(
       createElement(Button, { variant: 'primary' }, 'Packed consumer'),
       createElement(IconButton, {
         'aria-label': 'Consumer icon action',
-        icon: createElement('span', null, '☆'),
+        icon: 'fa-star',
         variant: 'ghost',
       }),
     ),
