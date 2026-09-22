@@ -86,6 +86,10 @@ body {
   background: var(--accent);
 }
 
+.chayns-storybook-example-popup-content {
+  padding: var(--sp-4);
+}
+
 .chayns-storybook-subtitle {
   display: block;
   margin-block-start: var(--k2);
