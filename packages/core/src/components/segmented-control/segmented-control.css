@@ -6,10 +6,12 @@
   }
 
   .chayns-segmented-control__label {
-    color: var(--text);
-    font-size: var(--fs-body);
-    font-weight: 600;
-    line-height: 1.4;
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .chayns-segmented-control__segments {
@@ -17,7 +19,7 @@
     display: inline-grid;
     inline-size: max-content;
     max-inline-size: 100%;
-    grid-auto-columns: max-content;
+    grid-auto-columns: 1fr;
     grid-auto-flow: column;
     gap: var(--k4);
     padding: var(--k4);
@@ -47,7 +49,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--k6);
-    padding: var(--k8) var(--k12);
+    padding: var(--k8) var(--k18);
     border: 0;
     border-radius: 8px;
     background: transparent;
@@ -58,6 +60,14 @@
     line-height: 1.4;
     text-align: center;
     white-space: nowrap;
+  }
+
+  .chayns-segmented-control__segment:not(.chayns-segmented-control__segment--selected) {
+    color: var(--text-3);
+  }
+
+  .chayns-segmented-control__segment--selected {
+    color: var(--accent);
   }
 
   .chayns-segmented-control__segment:focus-visible {
