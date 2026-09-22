@@ -67,13 +67,13 @@ There is no loading, selected, toggled, read-only, error or success state.
 
 ## State Priority and Combination Matrix — Conditional
 
-`disabled` has highest priority and suppresses hover/active behavior. `focus-visible` can coexist with default, hover or active while enabled. `active` overrides the applicable enabled default/hover color where specified. Solid icons appear for enabled Button and IconButton hover/active states; disabled always shows Regular.
+`disabled` has highest priority and suppresses hover/active behavior. `focus-visible` can coexist with default, hover or active while enabled. `active` overrides the applicable enabled default/hover color where specified. Solid Classic icons appear for enabled Button and IconButton hover/active states; disabled always shows Regular. Brands icons remain unchanged because they do not use Classic weight classes.
 
 ## Public API Contract — Required
 
 ```ts
 type ButtonVariant = 'primary' | 'outline' | 'ghost' | 'danger';
-type ButtonIcon = `fa-${string}`;
+type ButtonIcon = `fa-${string}` | `fab fa-${string}`;
 
 interface ButtonProps extends Omit<React.ComponentPropsWithRef<'button'>, 'children'> {
   variant: ButtonVariant;
@@ -99,11 +99,11 @@ Compatible native props, `data-*`, `aria-*`, handlers and `className` are forwar
 
 ## Native Props and DOM Contract — Conditional
 
-Each component emits exactly one native root button. Button adds only its documented decorative icon span when `icon` is present. IconButton has one documented decorative icon span inside its root. Each icon span contains the internally weighted Regular and Solid FontAwesome elements. The ref is stable and targets `HTMLButtonElement`. Native form behavior, name/value, autofocus, event and ARIA props remain browser/React behavior.
+Each component emits exactly one native root button. Button adds only its documented decorative icon span when `icon` is present. IconButton has one documented decorative icon span inside its root. A Classic `fa-*` icon span contains the internally weighted Regular and Solid FontAwesome elements. A Brands `fab fa-*` icon is rendered once without adding `far` or `fas`, because Brands icons do not use the Classic weight transfer. The ref is stable and targets `HTMLButtonElement`. Native form behavior, name/value, autofocus, event and ARIA props remain browser/React behavior.
 
 ## Composition — Required
 
-Button composes required consumer `children` as its meaningful visible label and accepts an optional leading `icon`. IconButton does not accept children and requires `icon`. Consumers provide only the `fa-*` icon name; both components own the decorative markup and Regular/Solid state transfer. Neither exposes subcomponents or Context.
+Button composes required consumer `children` as its meaningful visible label and accepts an optional leading `icon`. IconButton does not accept children and requires `icon`. Consumers provide a Classic `fa-*` icon name or a Brands `fab fa-*` icon name; both components own the decorative markup and Classic Regular/Solid state transfer. Neither exposes subcomponents or Context.
 
 ## Context Dependencies — Required
 
@@ -171,7 +171,7 @@ Stateless function components with deterministic markup, no effects, IDs, DOM re
 
 ## Dependencies — Required
 
-Core peer: React `>=19.2 <20`. Runtime dependencies: none. CSS dependency: consumer explicitly loads resolved token CSS and Core Button or aggregate CSS. No icon-library runtime is bundled. The host supplies FontAwesome Classic; consumers pass a paired icon's `fa-*` name while Core owns its Regular/Solid classes.
+Core peer: React `>=19.2 <20`. Runtime dependencies: none. CSS dependency: consumer explicitly loads resolved token CSS and Core Button or aggregate CSS. No icon-library runtime is bundled. The host supplies FontAwesome Classic and Brands; consumers pass a paired Classic `fa-*` name or a Brands `fab fa-*` name while Core owns the Classic Regular/Solid classes.
 
 ## Non-Goals — Required
 

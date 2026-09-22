@@ -8,6 +8,11 @@ export const validButton = (
     Create
   </Button>
 );
+export const validBrandsButton = (
+  <Button icon="fab fa-github" variant="primary">
+    Open GitHub
+  </Button>
+);
 export const validSubmitButton = (
   <Button ref={createRef<HTMLButtonElement>()} type="submit" variant="outline">
     Submit
@@ -15,6 +20,9 @@ export const validSubmitButton = (
 );
 export const validLabelledIconButton = (
   <IconButton aria-label="Settings" icon="fa-gear" variant="ghost" />
+);
+export const validBrandsIconButton = (
+  <IconButton aria-label="GitHub" icon="fab fa-github" variant="ghost" />
 );
 export const validReferencedIconButton = (
   <IconButton aria-labelledby="settings-label" icon="fa-gear" variant="danger" />

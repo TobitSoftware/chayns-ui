@@ -66,7 +66,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: { icon: 'fa-plus', onClick: fn() },
+  args: { icon: 'fab fa-google', onClick: fn() },
   play: async ({ args, canvasElement }) => {
     const button = within(canvasElement).getByRole('button', { name: 'Erstellen' });
     const target = button.getBoundingClientRect();

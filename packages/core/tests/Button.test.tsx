@@ -99,6 +99,20 @@ describe('Button', () => {
     expect(icon?.children[1]?.querySelector('i')).toHaveClass('fas', 'fa-plus');
   });
 
+  it('renders a Brands icon without Classic weight classes', () => {
+    render(
+      <Button icon="fab fa-github" variant="primary">
+        Open GitHub
+      </Button>,
+    );
+
+    const icon = screen.getByRole('button', { name: 'Open GitHub' }).querySelector('i');
+
+    expect(icon).toHaveClass('fab', 'fa-github');
+    expect(icon).not.toHaveClass('far');
+    expect(icon).not.toHaveClass('fas');
+  });
+
   it('renders safely on the server', () => {
     const markup = renderToString(<Button variant="primary">Server action</Button>);
 

@@ -37,9 +37,10 @@ interface IconButtonBaseProps extends Omit<
   variant: ButtonVariant;
 
   /**
-   * @description Required FontAwesome Classic icon name rendered Regular at
-   * rest and Solid on hover/active. `IconButton` has no visible label, so
-   * this is its only visible content.
+   * @description Required FontAwesome Classic or Brands icon name. Classic
+   * icons render Regular at rest and Solid on hover/active; Brands icons
+   * render without Classic weight classes. `IconButton` has no visible label,
+   * so this is its only visible content.
    */
   icon: ButtonIcon;
 }

@@ -61,6 +61,16 @@ describe('IconButton', () => {
     expect(icons[1]?.querySelector('i')).toHaveClass('fas', 'fa-star');
   });
 
+  it('renders a Brands icon without Classic weight classes', () => {
+    render(<IconButton aria-label="GitHub" icon="fab fa-github" variant="primary" />);
+
+    const icon = screen.getByRole('button', { name: 'GitHub' }).querySelector('i');
+
+    expect(icon).toHaveClass('fab', 'fa-github');
+    expect(icon).not.toHaveClass('far');
+    expect(icon).not.toHaveClass('fas');
+  });
+
   it('uses native disabled behavior', async () => {
     const user = userEvent.setup();
     const handleClick = vi.fn();

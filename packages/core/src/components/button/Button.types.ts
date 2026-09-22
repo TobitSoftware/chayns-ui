@@ -20,13 +20,13 @@ export const BUTTON_VARIANTS = [
 ] as const satisfies readonly ButtonVariant[];
 
 /**
- * @description A FontAwesome Classic icon name in its Regular form (e.g.
- * `fa-plus`). Button and IconButton resolve the matching Solid weight
- * internally and cross-fade between the two on hover/active; consumers must
- * not pass a pre-resolved weight and must supply a name that has both a
- * Regular and a Solid glyph available.
+ * @description A FontAwesome Classic icon name (e.g. `fa-plus`) or a
+ * FontAwesome Brands icon including its style prefix (e.g. `fab fa-github`).
+ * Classic icons resolve the matching Regular and Solid weights internally;
+ * Brands icons are rendered as a single icon and must not be combined with
+ * `far` or `fas`.
  */
-export type ButtonIcon = `fa-${string}`;
+export type ButtonIcon = `fa-${string}` | `fab fa-${string}`;
 
 /**
  * @description Visible content that gives a `Button` its accessible name.
@@ -50,9 +50,9 @@ export interface ButtonProps extends Omit<ComponentPropsWithRef<'button'>, 'chil
   variant: ButtonVariant;
 
   /**
-   * @description Optional leading FontAwesome Classic icon name. Always
-   * rendered before `children`; there is no trailing-icon or icon-only mode
-   * on `Button` itself — use `IconButton` for an icon-only action.
+   * @description Optional leading FontAwesome Classic or Brands icon name.
+   * Always rendered before `children`; there is no trailing-icon or icon-only
+   * mode on `Button` itself — use `IconButton` for an icon-only action.
    */
   icon?: ButtonIcon;
 

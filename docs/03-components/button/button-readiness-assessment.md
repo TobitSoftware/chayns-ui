@@ -45,7 +45,7 @@
 | 26 | Container Interaction | PASS | Container owns placement, external spacing and action scope. |
 | 27 | Loading and Async | PASS | Explicitly unsupported; native disabled remains available. |
 | 28 | Error / Invalid | N/A | Stateless action controls do not own validation/error presentation. |
-| 29 | Dependencies | PASS | React peer only; explicit token/Core CSS; host-supplied FontAwesome Classic and no bundled icon runtime. |
+| 29 | Dependencies | PASS | React peer only; explicit token/Core CSS; host-supplied FontAwesome Classic/Brands and no bundled icon runtime. |
 | 30 | Escape Hatches and Overrides | PASS | Native props/className limits and prohibited accessibility overrides are clear. |
 | 31 | Test Contract | PASS | Runtime, type, SSR, story, package and manual cases are enumerated. |
 | 32 | Visual Verification Contract | PASS | State/mode/density/content screenshot matrix is defined. |

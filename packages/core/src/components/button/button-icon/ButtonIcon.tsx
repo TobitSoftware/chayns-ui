@@ -4,15 +4,27 @@ interface ButtonIconProps {
   icon: ButtonIconName;
 }
 
-const ButtonIcon = ({ icon }: ButtonIconProps) => (
-  <span aria-hidden="true" className="chayns-button-icon">
-    <span className="chayns-button-icon__weight">
-      <i className={`far ${icon}`} />
+const ButtonIcon = ({ icon }: ButtonIconProps) => {
+  const isBrandIcon = icon.startsWith('fab ');
+
+  return (
+    <span aria-hidden="true" className="chayns-button-icon">
+      {isBrandIcon ? (
+        <span className="chayns-button-icon__weight">
+          <i className={icon} />
+        </span>
+      ) : (
+        <>
+          <span className="chayns-button-icon__weight">
+            <i className={`far ${icon}`} />
+          </span>
+          <span className="chayns-button-icon__weight chayns-button-icon__weight--active">
+            <i className={`fas ${icon}`} />
+          </span>
+        </>
+      )}
     </span>
-    <span className="chayns-button-icon__weight chayns-button-icon__weight--active">
-      <i className={`fas ${icon}`} />
-    </span>
-  </span>
-);
+  );
+};
 
 export default ButtonIcon;
