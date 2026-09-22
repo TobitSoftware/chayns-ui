@@ -7,11 +7,23 @@ export type {
   ButtonVariant,
 } from './components/button/Button.types.js';
 export { BUTTON_VARIANTS } from './components/button/Button.types.js';
-export type { IconButtonProps } from './components/icon-button/IconButton.types.js';
+export type {
+  IconButtonBaseProps,
+  IconButtonProps,
+} from './components/icon-button/IconButton.types.js';
 
 export { default as Badge } from './components/badge/Badge.js';
 export { BADGE_SIZES, BADGE_TONES } from './components/badge/Badge.types.js';
 export type { BadgeProps, BadgeSize, BadgeTone } from './components/badge/Badge.types.js';
+
+export { default as Banner } from './components/banner/Banner.js';
+export { BANNER_TONES } from './components/banner/Banner.types.js';
+export type {
+  BannerProps,
+  BannerTone,
+  ClosableBannerProps,
+  StaticBannerProps,
+} from './components/banner/Banner.types.js';
 
 export { default as ComboBox } from './components/combo-box/ComboBox.js';
 export type {

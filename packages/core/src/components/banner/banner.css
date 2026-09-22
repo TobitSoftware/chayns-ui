@@ -1,0 +1,85 @@
+@layer chayns.components {
+  .chayns-banner {
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--k13);
+    inline-size: 100%;
+    padding: var(--k13) var(--k16);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface-2);
+    color: var(--text);
+  }
+
+  .chayns-banner--success {
+    /* stylelint-disable-next-line custom-property-pattern */
+    border-color: var(--success);
+    /* stylelint-disable-next-line custom-property-pattern */
+    background: var(--success-bg);
+  }
+
+  .chayns-banner--warning {
+    border-color: var(--warning);
+    background: var(--warning-bg);
+  }
+
+  .chayns-banner--danger {
+    border-color: var(--danger);
+    background: var(--danger-bg);
+  }
+
+  .chayns-banner__icon {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--icon-lg);
+    block-size: var(--icon-lg);
+    color: var(--accent);
+  }
+
+  .chayns-banner--success .chayns-banner__icon {
+    /* stylelint-disable-next-line custom-property-pattern */
+    color: var(--success);
+  }
+
+  .chayns-banner--warning .chayns-banner__icon {
+    color: var(--warning);
+  }
+
+  .chayns-banner--danger .chayns-banner__icon {
+    color: var(--danger);
+  }
+
+  .chayns-banner__content {
+    min-inline-size: 0;
+    flex: 1;
+  }
+
+  .chayns-banner__close {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--ctrl-h);
+    block-size: var(--ctrl-h);
+    margin-block-start: calc((var(--k13) - var(--ctrl-h)) / 2);
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-2);
+    cursor: pointer;
+  }
+
+  .chayns-banner__close:hover {
+    background: var(--hover);
+    color: var(--text);
+  }
+
+  .chayns-banner__close:focus-visible {
+    outline: var(--focus-ring-size) solid rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-strong));
+    outline-offset: 2px;
+  }
+}

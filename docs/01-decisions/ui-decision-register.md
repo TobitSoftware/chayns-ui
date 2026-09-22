@@ -231,6 +231,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | MESSAGE-001 | MESSAGE | MessageBox unterstützt `info`, `success`, `warning` und `danger`, rendert statisch mit `role="note"` und ist im initialen Vertrag nicht schließbar. | SUPERSEDED | User decision, 2026-09-17 | Superseded by MESSAGE-003 after Bodywork review. |
 | MESSAGE-002 | MESSAGE | MessageBox besitzt ausschließlich `children` als frei komponierten Inhalt und keinen eigenen Titel-Prop. | CONFIRMED | User decision, 2026-09-17 | |
 | MESSAGE-003 | MESSAGE | MessageBox unterstützt die Bodywork-Varianten `neutral`, `admin` und `warning`. Sie ist statisch, nicht schließbar und verwendet `role="note"`; Icon und Folgeaktion bleiben frei komponierte Children-Inhalte. | CONFIRMED | Bodywork DesignSystem, User decision, 2026-09-17 | Admin-Tint und Border-Token in den Foundation-Transfer aufnehmen. |
+| MESSAGE-004 | MESSAGE | Banner ist ein eigenständiges, schließbares Bereichs-Muster. Es rendert ein natives `aside`, unterstützt `neutral`, `success`, `warning` und `danger`, optionale dekorative Icons sowie controlled/uncontrolled Sichtbarkeit. Eine Close-Aktion benötigt ein lokalisiertes `closeLabel`. | CONFIRMED | Bodywork `#status`, user rework plan, 2026-09-22 | MessageBox bleibt das statische Kontext-Muster. |
 
 ## Accordion
 
