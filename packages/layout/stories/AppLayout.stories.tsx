@@ -41,7 +41,7 @@ export const MailWorkspace: Story = {
         <AppLayout.Content>
           <div className="chayns-storybook-example-layout-content">
             <h1>Meetings am Donnerstag</h1>
-            <p>Der Inhalt liegt rechts neben der Navigation und unterhalb des 64px-Headers.</p>
+            <p>Der Inhalt liegt rechts neben der Navigation und unterhalb des Bodywork-Headers.</p>
           </div>
         </AppLayout.Content>
       </AppLayout>

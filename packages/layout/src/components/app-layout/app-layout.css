@@ -1,7 +1,7 @@
 @layer chayns.components {
   .chayns-app-layout {
     display: grid;
-    grid-template: var(--k64) minmax(0, 1fr) / calc(var(--k64) * 3) minmax(0, 1fr);
+    grid-template: calc(var(--k56) + var(--k2)) minmax(0, 1fr) / calc(172 * var(--u)) minmax(0, 1fr);
     grid-template-areas:
       'header header'
       'sidebar content';
@@ -15,7 +15,7 @@
     grid-area: header;
     align-items: center;
     min-inline-size: 0;
-    padding-inline: var(--sp-4);
+    padding-inline: var(--k18);
   }
 
   .chayns-app-layout__header > :not(.chayns-app-layout__logo) {
@@ -38,7 +38,7 @@
 
   .chayns-app-layout__logo {
     display: block;
-    max-block-size: calc(var(--k32) + var(--k8));
+    max-block-size: var(--k22);
     max-inline-size: 100%;
   }
 
@@ -49,6 +49,7 @@
     min-inline-size: 0;
     min-block-size: 0;
     padding: 0 var(--sp-2) var(--sp-2);
+    background: var(--accent-hover);
   }
 
   .chayns-app-layout__navigation {
@@ -232,9 +233,8 @@
     min-inline-size: 0;
     min-block-size: 0;
     overflow: auto;
-    border-start-start-radius: var(--k12);
-    background: var(--accent);
-    color: var(--on-accent);
+    background: var(--surface);
+    color: var(--text);
   }
 
   .chayns-app-layout--collapsed .chayns-app-layout__sidebar {
