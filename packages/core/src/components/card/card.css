@@ -34,7 +34,7 @@
 
   @media (hover: hover) {
     .chayns-card:hover {
-      box-shadow: var(--shadow-card);
+      box-shadow: var(--shadow-hover);
     }
   }
 }
