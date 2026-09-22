@@ -1,7 +1,7 @@
 @layer chayns.components {
   .chayns-checkbox {
     display: inline-flex;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--k12);
     margin: 0;
     color: var(--text);
@@ -34,8 +34,8 @@
   .chayns-checkbox__control::after {
     inline-size: calc(var(--k8) - 2px);
     block-size: var(--k12);
-    border-inline-end: 2px solid var(--on-accent);
-    border-block-end: 2px solid var(--on-accent);
+    border-inline-end: 1.5px solid var(--on-accent);
+    border-block-end: 1.5px solid var(--on-accent);
     content: '';
     opacity: 0;
     transform: rotate(45deg) scale(0.6);

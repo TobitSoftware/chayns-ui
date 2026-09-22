@@ -9,7 +9,7 @@
 
 ## Purpose and boundary
 
-SegmentedControl is a compact, immediate single selection among two to four closely related views or settings. It is not navigation Tabs, a form RadioGroup or a menu. `SegmentedControl.Segment` is only valid below `SegmentedControl`.
+SegmentedControl is a compact, immediate single selection among two to four closely related views or settings. It is not navigation Tabs, a form RadioGroup or a menu. `SegmentedControl.Segment` is only valid below `SegmentedControl` and may combine one leading icon with its visible label.
 
 ## Public API and native-prop ownership
 

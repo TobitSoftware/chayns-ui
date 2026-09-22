@@ -46,7 +46,7 @@ interface RadioProps
 
 ## DOM, state and visual contract
 
-`RadioGroup` emits one fieldset with a legend and Context Provider. Each Radio emits one label that contains a native radio input, decorative circular control and visible label. The shared `name` is assigned by Context. A `value` prop makes the group controlled; otherwise `defaultValue` initializes internal state. Selection invokes `onValueChange` after the native input change. A Radio outside its parent throws a clear development error.
+`RadioGroup` emits one fieldset with an optional legend and Context Provider. Without a visible `label`, the consumer supplies a programmatic name through native `aria-label` or `aria-labelledby`. Each Radio emits one label that contains a native radio input, decorative circular control and visible label. The shared `name` is assigned by Context. A `value` prop makes the group controlled; otherwise `defaultValue` initializes internal state. Selection invokes `onValueChange` after the native input change. A Radio outside its parent throws a clear development error.
 
 Bodywork defines a `--k20` control with a 2px `--input-border` ring and centred `--accent` dot, a `--k12` label gap and body weight 500. Selected state uses accent; disabled state uses semantic disabled tokens. The dot uses only opacity/transform motion and disables it for reduced motion. No external margin or local density prop exists.
 

@@ -24,14 +24,19 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: { children: null, defaultValue: 'all', label: 'Sichtbarkeit', name: 'visibility' },
+  args: {
+    'aria-label': 'Sichtbarkeit',
+    children: null,
+    defaultValue: 'all',
+    name: 'visibility',
+  },
 };
 export const Disabled: Story = {
   args: {
     children: null,
     defaultValue: 'members',
     disabled: true,
-    label: 'Sichtbarkeit',
+    'aria-label': 'Sichtbarkeit',
     name: 'visibility',
   },
 };

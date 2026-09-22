@@ -5,8 +5,8 @@ export interface RadioGroupProps extends Omit<
   ComponentPropsWithRef<'fieldset'>,
   'children' | 'name'
 > {
-  /** Visible, localized group label rendered as its legend. */
-  label: Exclude<ReactNode, boolean | null | undefined>;
+  /** Optional visible, localized group label rendered as its legend. */
+  label?: Exclude<ReactNode, boolean | null | undefined>;
   /** Shared native name forwarded to every Radio. */
   name: string;
   /** Controlled selected option value. */

@@ -1,5 +1,7 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 
+import type { ButtonIcon } from '../button/Button.types.js';
+
 export interface ControlledSelection {
   /** Controlled selected segment value. */
   value: string;
@@ -41,6 +43,8 @@ export interface SegmentProps extends Omit<
   value: string;
   /** Visible, localized button label. */
   children: Exclude<ReactNode, boolean | null | undefined>;
+  /** Optional leading FontAwesome icon shown with the segment label. */
+  icon?: ButtonIcon;
   /** SegmentedControl owns the native button semantics and interactions. */
   type?: never;
   role?: never;

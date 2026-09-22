@@ -15,7 +15,9 @@
   .chayns-segmented-control__segments {
     position: relative;
     display: inline-grid;
-    grid-auto-columns: minmax(0, 1fr);
+    inline-size: max-content;
+    max-inline-size: 100%;
+    grid-auto-columns: max-content;
     grid-auto-flow: column;
     gap: var(--k4);
     padding: var(--k4);
@@ -37,11 +39,15 @@
   }
 
   .chayns-segmented-control__segment {
-    min-block-size: var(--ctrl-h);
+    min-block-size: var(--k32);
     position: relative;
     z-index: 1;
     min-inline-size: 0;
-    padding: calc(9 * var(--u)) var(--k12);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--k6);
+    padding: var(--k8) var(--k12);
     border: 0;
     border-radius: 8px;
     background: transparent;
@@ -51,6 +57,7 @@
     font-weight: 500;
     line-height: 1.4;
     text-align: center;
+    white-space: nowrap;
   }
 
   .chayns-segmented-control__segment:focus-visible {

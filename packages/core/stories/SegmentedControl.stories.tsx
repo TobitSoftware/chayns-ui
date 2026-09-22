@@ -9,9 +9,15 @@ const meta = {
   parameters: { a11y: { test: 'error' } },
   render: (args) => (
     <SegmentedControl {...args}>
-      <SegmentedControl.Segment value="week">Woche</SegmentedControl.Segment>
-      <SegmentedControl.Segment value="month">Monat</SegmentedControl.Segment>
-      <SegmentedControl.Segment value="year">Jahr</SegmentedControl.Segment>
+      <SegmentedControl.Segment icon="fa-calendar-week" value="week">
+        Woche
+      </SegmentedControl.Segment>
+      <SegmentedControl.Segment icon="fa-calendar-days" value="month">
+        Monat
+      </SegmentedControl.Segment>
+      <SegmentedControl.Segment icon="fa-calendar" value="year">
+        Jahr
+      </SegmentedControl.Segment>
     </SegmentedControl>
   ),
 } satisfies Meta<typeof SegmentedControl>;

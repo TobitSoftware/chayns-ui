@@ -23,7 +23,7 @@
 
   .chayns-radio {
     display: inline-flex;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--k12);
     color: var(--text);
     cursor: pointer;
@@ -47,13 +47,13 @@
     flex: none;
     place-items: center;
     margin-block-start: 1px;
-    border: 2px solid var(--input-border);
+    border: 1.5px solid var(--input-border);
     border-radius: 50%;
   }
 
   .chayns-radio__control::after {
-    inline-size: var(--k10);
-    block-size: var(--k10);
+    inline-size: var(--k8);
+    block-size: var(--k8);
     border-radius: 50%;
     background: var(--accent);
     content: '';

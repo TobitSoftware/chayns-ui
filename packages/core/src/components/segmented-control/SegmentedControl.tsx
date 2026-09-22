@@ -1,6 +1,7 @@
 import { forwardRef, useId, useLayoutEffect, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 
+import ButtonIcon from '../button/button-icon/ButtonIcon.js';
 import { SegmentedControlContext, useSegmentedControlContext } from './SegmentedControlContext.js';
 import type { SegmentedControlProps, SegmentProps } from './SegmentedControl.types.js';
 
@@ -14,7 +15,7 @@ function getOrderedSegments(segments: Map<string, HTMLButtonElement>) {
 }
 
 const Segment = forwardRef<HTMLButtonElement, SegmentProps>(function Segment(
-  { children, className, disabled, onClick, onKeyDown, value, ...buttonProps },
+  { children, className, disabled, icon, onClick, onKeyDown, value, ...buttonProps },
   ref,
 ) {
   const control = useSegmentedControlContext();
@@ -80,6 +81,7 @@ const Segment = forwardRef<HTMLButtonElement, SegmentProps>(function Segment(
       tabIndex={isSelected ? 0 : -1}
       type="button"
     >
+      {icon ? <ButtonIcon icon={icon} /> : null}
       {children}
     </button>
   );

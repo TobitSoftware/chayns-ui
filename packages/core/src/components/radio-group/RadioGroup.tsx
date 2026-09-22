@@ -72,7 +72,9 @@ const RadioGroupRoot = forwardRef<HTMLFieldSetElement, RadioGroupProps>(function
       value={{ disabled: disabled === true, name, selectValue, value: selectedValue }}
     >
       <fieldset {...fieldsetProps} className={resolvedClassName} disabled={disabled} ref={ref}>
-        <legend className="chayns-radio-group__legend">{label}</legend>
+        {label !== undefined ? (
+          <legend className="chayns-radio-group__legend">{label}</legend>
+        ) : null}
         <div className="chayns-radio-group__options">{children}</div>
       </fieldset>
     </RadioGroupContext.Provider>

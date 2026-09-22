@@ -6,6 +6,7 @@ export const validSegmentedControl = (
   <SegmentedControl defaultValue="week" label="Zeitraum" ref={createRef<HTMLDivElement>()}>
     <SegmentedControl.Segment
       data-purpose="range"
+      icon="fa-calendar-week"
       ref={createRef<HTMLButtonElement>()}
       value="week"
     >
