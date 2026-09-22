@@ -233,6 +233,7 @@
     min-inline-size: 0;
     min-block-size: 0;
     overflow: auto;
+    border-start-start-radius: var(--k12);
     background: var(--surface);
     color: var(--text);
   }

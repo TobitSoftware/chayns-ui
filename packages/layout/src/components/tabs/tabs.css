@@ -11,13 +11,15 @@
 
   .chayns-tabs__list {
     display: flex;
-    gap: var(--k8);
-    align-items: center;
+    position: relative;
+    z-index: 1;
+    gap: var(--k4);
+    align-items: flex-end;
     block-size: auto;
     min-inline-size: 0;
     overflow-x: auto;
-    padding-inline-end: var(--k8);
-    background: transparent;
+    padding-inline: var(--k8);
+    background: var(--accent-hover);
   }
 
   .chayns-tabs__tab {
@@ -30,18 +32,18 @@
     min-inline-size: var(--k32);
     padding: var(--k8) var(--k15);
     border: 0;
-    border-radius: 999px;
-    background: var(--surface-alt);
+    border-radius: var(--k12) var(--k12) 0 0;
+    background: color-mix(in srgb, var(--on-accent) 10%, var(--accent-hover));
     font: inherit;
     font-size: var(--fs-body);
     font-weight: 500;
-    color: var(--text-2);
+    color: var(--on-accent);
     cursor: pointer;
   }
 
   .chayns-tabs__tab--active {
-    background: var(--accent);
-    color: var(--on-accent);
+    background: var(--surface);
+    color: var(--text);
   }
 
   .chayns-tabs__add {
@@ -54,11 +56,11 @@
     min-block-size: var(--k32);
     padding: 0 var(--sp-2);
     border: 0;
-    border-radius: 50%;
-    color: var(--accent);
+    border-radius: var(--k12) var(--k12) 0 0;
+    color: var(--on-accent);
     font: inherit;
     cursor: pointer;
-    background: var(--surface-alt);
+    background: transparent;
     position: absolute;
     inset-block-start: 0;
     inset-inline-end: 0;
@@ -91,6 +93,8 @@
     min-inline-size: 0;
     min-block-size: 0;
     padding: var(--k16);
+    border: 1px solid var(--border);
+    border-block-start: 0;
     overflow: auto;
     background: var(--surface);
     color: var(--text);
