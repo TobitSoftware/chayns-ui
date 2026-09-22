@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 
 /**
  * Nesting depth of the current accordion subtree. Depth 0 is a top-level
@@ -22,3 +22,23 @@ export interface AccordionGroupContextValue {
  * share the group's exclusive open state instead of owning local state.
  */
 export const AccordionGroupContext = createContext<AccordionGroupContextValue | null>(null);
+
+export interface AccordionItemContextValue {
+  disabled: boolean;
+  headerId: string;
+  isOpen: boolean;
+  panelId: string;
+  onToggle: () => void;
+}
+
+export const AccordionItemContext = createContext<AccordionItemContextValue | null>(null);
+
+export function useAccordionItemContext(part: string) {
+  const context = useContext(AccordionItemContext);
+
+  if (context === null) {
+    throw new Error(`Accordion.${part} must be used inside Accordion`);
+  }
+
+  return context;
+}

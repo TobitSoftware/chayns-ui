@@ -86,7 +86,7 @@
     color: var(--text);
   }
 
-  .chayns-accordion__list-copy {
+  .chayns-accordion__head-content {
     display: flex;
     min-inline-size: 0;
     flex: 1;
@@ -126,7 +126,7 @@
     max-block-size: 100%;
   }
 
-  .chayns-accordion--open > .chayns-accordion__header > .chayns-accordion__title {
+  .chayns-accordion--open .chayns-accordion__title {
     font-weight: 600;
   }
 
@@ -185,7 +185,7 @@
     color: var(--muted);
   }
 
-  .chayns-accordion--disabled > .chayns-accordion__header > .chayns-accordion__title {
+  .chayns-accordion--disabled .chayns-accordion__title {
     color: var(--muted);
   }
 

@@ -37,8 +37,9 @@ Grouping (exclusivity) and Wrapped (nesting) are independent mechanisms. Wrapped
 ## Anatomy — Conditional
 
 - Accordion root: `<div class="chayns-accordion chayns-accordion--{standalone|grouped|wrapped}">`, plus `--open` and `--disabled` modifiers. Compatible native `div` props and the public ref target this root.
-- Header: native `<button class="chayns-accordion__header">` containing a decorative chevron (`chayns-accordion__chevron`, FontAwesome `far fa-chevron-right`) and a title (`chayns-accordion__title`).
-- Panel: `<div class="chayns-accordion__panel" role="region">` with an inner overflow wrapper (`chayns-accordion__panel-inner`) and content (`chayns-accordion__content`) that provides the next nesting depth to children.
+- Header: public `Accordion.Head` rendering one native `<button class="chayns-accordion__header">` with a decorative chevron and the compound parts `Accordion.Head.Leading`, `Accordion.Head.Content` and `Accordion.Head.Trailing`.
+- `Accordion.Head.Content` owns the `title` and optional `subtitle` text rows. Leading and trailing parts are non-interactive layout slots; independent actions are not placed inside the native header button.
+- Panel: public `Accordion.Content` rendering `<div class="chayns-accordion__panel" role="region">` with an inner overflow wrapper and content (`chayns-accordion__content`) that provides the next nesting depth to children.
 - AccordionGroup root: `<div class="chayns-accordion-group">` wrapping grouped Accordions. Compatible native `div` props and the public ref target this root.
 
 ## Semantic Contract — Conditional
@@ -96,7 +97,7 @@ Each Accordion renders one root `div`, one native header `button`, and one panel
 
 ## Composition — Required
 
-Accordion composes a `title`, optional `subtitle`, optional `leading` slot and `children` panel content. The `list` appearance uses the Bodywork two-line row geometry: `k12/k16` header padding, a `k38` leading area, `fs-meta` muted subtitle and a panel inset that remains fixed at the chevron/title column regardless of the leading content. Nesting is achieved by rendering another Accordion within `children`; the inner Accordion reads an incremented nesting depth from context and renders Wrapped. AccordionGroup composes Accordion children and shares exclusive open state via context.
+Accordion composes `Accordion.Head` and `Accordion.Content`. The `list` appearance uses the Bodywork two-line row geometry: `k12/k16` header padding, a `k38` leading area, `fs-meta` muted subtitle and a panel inset that remains fixed at the chevron/leading column regardless of the leading content. Nesting is achieved by rendering another Accordion within `Accordion.Content`; the inner Accordion reads an incremented nesting depth from context and renders Wrapped. AccordionGroup composes Accordion children and shares exclusive open state via context.
 
 ## Context Dependencies — Required
 

@@ -98,6 +98,29 @@ describe('Accordion', () => {
     );
   });
 
+  it('supports the documented compound Head and Content contract', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <Accordion>
+        <Accordion.Head>
+          <Accordion.Head.Leading>Icon</Accordion.Head.Leading>
+          <Accordion.Head.Content subtitle="Untertitel" title="Titel" />
+          <Accordion.Head.Trailing>Badge</Accordion.Head.Trailing>
+        </Accordion.Head>
+        <Accordion.Content>Inhalt</Accordion.Content>
+      </Accordion>,
+    );
+
+    const header = screen.getByRole('button', { name: /Icon.*Titel.*Untertitel.*Badge/ });
+    expect(header).toHaveAttribute('aria-expanded', 'false');
+    const panel = screen.getByRole('region', { hidden: true });
+    expect(panel).toHaveAttribute('aria-hidden', 'true');
+
+    await user.click(header);
+    expect(panel).toHaveAttribute('aria-hidden', 'false');
+  });
+
   it('auto-detects nesting and renders the inner accordion as wrapped', async () => {
     const user = userEvent.setup();
 

@@ -83,6 +83,10 @@ export { default as AccordionGroup } from './components/accordion-group/Accordio
 export { ACCORDION_APPEARANCES } from './components/accordion/Accordion.types.js';
 export type {
   AccordionAppearance,
+  AccordionContentProps,
+  AccordionHeadContentProps,
+  AccordionHeadProps,
   AccordionProps,
   AccordionGroupProps,
+  AccordionPartProps,
 } from './components/accordion/Accordion.types.js';

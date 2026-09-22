@@ -52,8 +52,14 @@ export const controlledGroup = (
   </AccordionGroup>
 );
 
-// @ts-expect-error title is required
-export const missingTitle = <Accordion>Content</Accordion>;
+export const compound = (
+  <Accordion>
+    <Accordion.Head>
+      <Accordion.Head.Content subtitle="Untertitel" title="Titel" />
+    </Accordion.Head>
+    <Accordion.Content>Content</Accordion.Content>
+  </Accordion>
+);
 export const wrappedProp = (
   <Accordion
     // @ts-expect-error there is no isWrapped prop; wrapping is auto-detected

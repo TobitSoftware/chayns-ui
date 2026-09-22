@@ -103,23 +103,26 @@ export const List: Story = {
   render: () => (
     <div className="chayns-storybook-example-constrained">
       <AccordionGroup defaultOpenId="budget">
-        <Accordion
-          id="budget"
-          appearance="list"
-          leading={<Avatar name="Eva Sommer" size="small" />}
-          subtitle="Freigabe durch Eva Sommer"
-          title="Q3-Budget"
-        >
-          Das Budget wurde geprüft und kann verwendet werden.
+        <Accordion appearance="list" id="budget">
+          <Accordion.Head>
+            <Accordion.Head.Leading>
+              <Avatar name="Eva Sommer" size="small" />
+            </Accordion.Head.Leading>
+            <Accordion.Head.Content subtitle="Freigabe durch Eva Sommer" title="Q3-Budget" />
+          </Accordion.Head>
+          <Accordion.Content>Das Budget wurde geprüft und kann verwendet werden.</Accordion.Content>
         </Accordion>
-        <Accordion
-          id="planung"
-          appearance="list"
-          leading={<i aria-hidden="true" className="far fa-calendar" />}
-          subtitle="Die nächste Planungsrunde startet am Montag"
-          title="Planung"
-        >
-          Die nächste Planungsrunde startet am Montag.
+        <Accordion appearance="list" id="planung">
+          <Accordion.Head>
+            <Accordion.Head.Leading>
+              <i aria-hidden="true" className="far fa-calendar" />
+            </Accordion.Head.Leading>
+            <Accordion.Head.Content
+              subtitle="Die nächste Planungsrunde startet am Montag"
+              title="Planung"
+            />
+          </Accordion.Head>
+          <Accordion.Content>Die nächste Planungsrunde startet am Montag.</Accordion.Content>
         </Accordion>
       </AccordionGroup>
     </div>

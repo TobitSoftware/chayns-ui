@@ -18,7 +18,7 @@ export interface AccordionProps extends Omit<
    * @description Visible, localized header label used as the accordion's
    * accessible name.
    */
-  title: ReactNode;
+  title?: ReactNode;
 
   /** Optional second line used by the list presentation. */
   subtitle?: ReactNode;
@@ -106,4 +106,23 @@ export interface AccordionGroupProps extends Omit<ComponentPropsWithRef<'div'>, 
    * @description Additional class names appended to the group root element.
    */
   className?: string;
+}
+
+export interface AccordionHeadProps extends Omit<ComponentPropsWithRef<'button'>, 'children'> {
+  children?: ReactNode;
+}
+
+export interface AccordionHeadContentProps {
+  title: ReactNode;
+  subtitle?: ReactNode;
+  className?: string;
+}
+
+export interface AccordionPartProps {
+  children?: ReactNode;
+  className?: string;
+}
+
+export interface AccordionContentProps extends Omit<ComponentPropsWithRef<'div'>, 'children'> {
+  children?: ReactNode;
 }
