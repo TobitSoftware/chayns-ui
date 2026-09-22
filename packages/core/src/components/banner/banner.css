@@ -2,13 +2,13 @@
   .chayns-banner {
     box-sizing: border-box;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--k13);
     inline-size: 100%;
     padding: var(--k13) var(--k16);
     border: 1px solid var(--border);
     border-radius: 12px;
-    background: var(--surface-2);
+    background: var(--surface-alt);
     color: var(--text);
   }
 
@@ -17,6 +17,10 @@
     border-color: var(--success);
     /* stylelint-disable-next-line custom-property-pattern */
     background: var(--success-bg);
+  }
+
+  .chayns-banner--neutral {
+    border-color: var(--accent-300);
   }
 
   .chayns-banner--warning {
@@ -62,9 +66,9 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    inline-size: var(--ctrl-h);
-    block-size: var(--ctrl-h);
-    margin-block-start: calc((var(--k13) - var(--ctrl-h)) / 2);
+    inline-size: var(--k28);
+    block-size: var(--k28);
+    margin-block-start: 0;
     padding: 0;
     border: 0;
     border-radius: 50%;

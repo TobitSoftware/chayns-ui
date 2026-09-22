@@ -8,7 +8,12 @@ const meta = {
   component: Banner,
   tags: ['autodocs'],
   args: {
-    children: 'Deine Einstellungen wurden gespeichert.',
+    children: (
+      <>
+        <strong>Deine Einstellungen wurden gespeichert.</strong>{' '}
+        <span>Alle Änderungen wurden übernommen.</span>
+      </>
+    ),
     closeLabel: 'Meldung schließen',
     icon: 'fa-circle-check',
     onClose: () => undefined,
@@ -21,6 +26,26 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Success: Story = {};
+export const Neutral: Story = {
+  render: () => (
+    <Banner icon="fa-circle-info" tone="neutral">
+      <>
+        <strong>Synchronisierung läuft.</strong>{' '}
+        <span>Deine Daten werden im Hintergrund aktualisiert.</span>
+      </>
+    </Banner>
+  ),
+  args: {
+    children: (
+      <>
+        <strong>Synchronisierung läuft.</strong>{' '}
+        <span>Deine Daten werden im Hintergrund aktualisiert.</span>
+      </>
+    ),
+    icon: 'fa-circle-info',
+    tone: 'neutral',
+  },
+};
 export const Warning: Story = {
   args: {
     children: 'Bitte prüfe die Angaben vor dem Fortfahren.',
