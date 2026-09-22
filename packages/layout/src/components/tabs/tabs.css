@@ -11,12 +11,12 @@
 
   .chayns-tabs__list {
     display: flex;
-    gap: var(--sp-1);
-    align-items: stretch;
-    block-size: var(--ctrl-h);
+    gap: var(--k8);
+    align-items: center;
+    block-size: auto;
     min-inline-size: 0;
     overflow-x: auto;
-    padding-inline-end: var(--ctrl-h);
+    padding-inline-end: var(--k8);
     background: transparent;
   }
 
@@ -25,23 +25,23 @@
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-    gap: var(--sp-2);
-    block-size: var(--ctrl-h);
-    min-block-size: var(--ctrl-h);
-    min-inline-size: var(--ctrl-h);
-    padding-block: 0;
-    padding-inline: var(--sp-3) var(--sp-2);
+    gap: var(--k8);
+    min-block-size: var(--k32);
+    min-inline-size: var(--k32);
+    padding: var(--k8) var(--k15);
     border: 0;
-    border-radius: var(--k12) var(--k12) 0 0;
-    color: var(--on-accent);
+    border-radius: 999px;
+    background: var(--surface-alt);
     font: inherit;
+    font-size: var(--fs-body);
+    font-weight: 500;
+    color: var(--text-2);
     cursor: pointer;
-    background: color-mix(in srgb, var(--surface) 10%, transparent);
   }
 
   .chayns-tabs__tab--active {
-    background: var(--surface);
-    color: var(--accent);
+    background: var(--accent);
+    color: var(--on-accent);
   }
 
   .chayns-tabs__add {
@@ -49,15 +49,16 @@
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-    inline-size: var(--ctrl-h);
-    block-size: var(--ctrl-h);
-    min-block-size: var(--ctrl-h);
+    inline-size: var(--k32);
+    block-size: var(--k32);
+    min-block-size: var(--k32);
     padding: 0 var(--sp-2);
     border: 0;
-    color: var(--on-accent);
+    border-radius: 50%;
+    color: var(--accent);
     font: inherit;
     cursor: pointer;
-    background: transparent;
+    background: var(--surface-alt);
     position: absolute;
     inset-block-start: 0;
     inset-inline-end: 0;
@@ -89,7 +90,7 @@
     flex: 1 1 auto;
     min-inline-size: 0;
     min-block-size: 0;
-    padding: var(--sp-2);
+    padding: var(--k16);
     overflow: auto;
     background: var(--surface);
     color: var(--text);
