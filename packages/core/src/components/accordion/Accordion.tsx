@@ -1,20 +1,22 @@
-import { useContext, useId, useState } from 'react';
+import { forwardRef, useContext, useId, useState } from 'react';
 
 import { AccordionDepthContext, AccordionGroupContext } from './AccordionContext.js';
 import type { AccordionProps } from './Accordion.types.js';
 
-const Accordion = ({
-  children,
-  className,
-  defaultOpen = false,
-  disabled = false,
-  id,
-  onOpenChange,
-  open,
+const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
+  {
+    children,
+    className,
+    defaultOpen = false,
+    disabled = false,
+    id,
+    onOpenChange,
+    open,
+    title,
+    ...rootProps
+  },
   ref,
-  title,
-  ...rootProps
-}: AccordionProps) => {
+) {
   const depth = useContext(AccordionDepthContext);
   const group = useContext(AccordionGroupContext);
   const generatedId = useId();
@@ -96,6 +98,6 @@ const Accordion = ({
       </div>
     </div>
   );
-};
+});
 
 export default Accordion;

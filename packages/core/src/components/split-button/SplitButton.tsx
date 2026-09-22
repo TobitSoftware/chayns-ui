@@ -1,26 +1,21 @@
-import { useId } from 'react';
+import { forwardRef, useId } from 'react';
 
 import Button from '../button/Button.js';
 import ButtonIcon from '../button/button-icon/ButtonIcon.js';
 import PopupList from '../popup/PopupList.js';
 import type { SplitButtonProps } from './SplitButton.types.js';
 
-const SplitButton = ({
-  children,
-  className,
-  disabled,
-  icon,
-  items,
-  onClick,
-  variant,
-  ...containerProps
-}: SplitButtonProps) => {
+const SplitButton = forwardRef<HTMLDivElement, SplitButtonProps>(function SplitButton(
+  { children, className, disabled, icon, items, onClick, variant, ...containerProps },
+  ref,
+) {
   const labelId = useId();
 
   return (
     <div
       {...containerProps}
       className={['chayns-split-button', className].filter(Boolean).join(' ')}
+      ref={ref}
     >
       {icon ? (
         <Button
@@ -61,6 +56,6 @@ const SplitButton = ({
       />
     </div>
   );
-};
+});
 
 export default SplitButton;

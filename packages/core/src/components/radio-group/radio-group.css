@@ -94,6 +94,18 @@
     line-height: 1.4;
   }
 
+  .chayns-radio__content {
+    display: grid;
+    gap: var(--k2);
+    min-inline-size: 0;
+  }
+
+  .chayns-radio__description {
+    color: var(--muted);
+    font-size: var(--fs-meta);
+    line-height: 1.4;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .chayns-radio__control::after {
       transition: none;

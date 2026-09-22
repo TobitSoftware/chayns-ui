@@ -4,7 +4,7 @@ import { RadioGroupContext, useRadioGroupContext } from './RadioGroupContext.js'
 import type { RadioGroupProps, RadioProps } from './RadioGroup.types.js';
 
 const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
-  { children, className, disabled, value, ...inputProps },
+  { children, className, description, disabled, onChange, value, ...inputProps },
   ref,
 ) {
   const group = useRadioGroupContext();
@@ -19,13 +19,23 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
         className={inputClassName}
         disabled={isDisabled}
         name={group.name}
-        onChange={() => group.selectValue(value)}
+        onChange={(event) => {
+          onChange?.(event);
+          if (!event.defaultPrevented) {
+            group.selectValue(value);
+          }
+        }}
         ref={ref}
         type="radio"
         value={value}
       />
       <span aria-hidden="true" className="chayns-radio__control" />
-      <span className="chayns-radio__label">{children}</span>
+      <span className="chayns-radio__content">
+        <span className="chayns-radio__label">{children}</span>
+        {description !== undefined ? (
+          <span className="chayns-radio__description">{description}</span>
+        ) : null}
+      </span>
     </label>
   );
 });

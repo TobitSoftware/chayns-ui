@@ -65,11 +65,11 @@
   }
 
   :where(.chayns-button, .chayns-icon-button):active:not(:disabled) {
-    transform: scale(0.97);
+    transform: scale(0.96);
   }
 
   :where(.chayns-icon-button):active:not(:disabled) {
-    transform: scale(0.9);
+    transform: scale(0.96);
   }
 
   :where(.chayns-button--primary, .chayns-icon-button--primary):active:not(:disabled) {

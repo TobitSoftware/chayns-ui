@@ -29,10 +29,13 @@ export interface RadioProps extends Omit<
   /** Visible, localized option label. */
   children: Exclude<ReactNode, boolean | null | undefined>;
 
+  /** Optional localized supporting text associated with the radio label. */
+  description?: ReactNode;
+
   /** RadioGroup owns the input type and selection relationship. */
   type?: never;
   name?: never;
   checked?: never;
   defaultChecked?: never;
-  onChange?: never;
+  onChange?: ComponentPropsWithRef<'input'>['onChange'];
 }

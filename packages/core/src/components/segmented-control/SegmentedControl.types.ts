@@ -46,6 +46,6 @@ export interface SegmentProps extends Omit<
   role?: never;
   'aria-checked'?: never;
   tabIndex?: never;
-  onClick?: never;
-  onKeyDown?: never;
+  onClick?: ComponentPropsWithRef<'button'>['onClick'];
+  onKeyDown?: ComponentPropsWithRef<'button'>['onKeyDown'];
 }

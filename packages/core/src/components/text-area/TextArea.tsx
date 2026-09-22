@@ -1,16 +1,11 @@
-import { useId } from 'react';
+import { forwardRef, useId } from 'react';
 
 import type { TextAreaProps } from './TextArea.types.js';
 
-function TextArea({
-  className,
-  counter,
-  error,
-  helpText,
-  id,
-  placeholder,
-  ...textareaProps
-}: TextAreaProps) {
+const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
+  { className, counter, error, helpText, id, placeholder, ...textareaProps },
+  ref,
+) {
   const generatedId = useId();
   const textareaId = id ?? generatedId;
   const hasError = error !== undefined;
@@ -28,6 +23,7 @@ function TextArea({
         className={textareaClassName}
         id={textareaId}
         placeholder={placeholder === undefined ? undefined : ' '}
+        ref={ref}
       />
       {placeholder !== undefined ? (
         <label className="chayns-text-area__label" htmlFor={textareaId}>
@@ -49,6 +45,6 @@ function TextArea({
       ) : null}
     </div>
   );
-}
+});
 
 export default TextArea;

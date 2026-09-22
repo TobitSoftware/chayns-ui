@@ -25,11 +25,23 @@
     line-height: 1.4;
   }
 
+  .chayns-switch__content {
+    display: grid;
+    gap: var(--k2);
+    min-inline-size: 0;
+  }
+
+  .chayns-switch__description {
+    color: var(--muted);
+    font-size: var(--fs-meta);
+    line-height: 1.4;
+  }
+
   .chayns-switch__control {
     box-sizing: border-box;
     display: flex;
-    inline-size: 42px;
-    block-size: 24px;
+    inline-size: var(--k42);
+    block-size: var(--k24);
     flex: none;
     padding: var(--k3);
     border-radius: 999px;
@@ -51,7 +63,7 @@
   }
 
   .chayns-switch__input:checked + .chayns-switch__control .chayns-switch__knob {
-    transform: translateX(18px);
+    transform: translateX(var(--k18));
   }
 
   .chayns-switch__input:focus-visible + .chayns-switch__control {

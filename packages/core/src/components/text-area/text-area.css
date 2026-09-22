@@ -8,7 +8,7 @@
     box-sizing: border-box;
     display: block;
     inline-size: 100%;
-    min-block-size: 84px;
+    min-block-size: var(--k84);
     padding: var(--input-py) var(--input-px);
     border: 1.5px solid var(--input-border);
     border-radius: 10px;
@@ -112,7 +112,7 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--k10);
-    margin-block-start: 6px;
+    margin-block-start: var(--k6);
     font-size: var(--fs-caption);
     color: var(--text-3);
   }

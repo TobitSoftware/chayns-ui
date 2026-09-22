@@ -14,7 +14,7 @@ function getOrderedSegments(segments: Map<string, HTMLButtonElement>) {
 }
 
 const Segment = forwardRef<HTMLButtonElement, SegmentProps>(function Segment(
-  { children, className, disabled, value, ...buttonProps },
+  { children, className, disabled, onClick, onKeyDown, value, ...buttonProps },
   ref,
 ) {
   const control = useSegmentedControlContext();
@@ -47,11 +47,23 @@ const Segment = forwardRef<HTMLButtonElement, SegmentProps>(function Segment(
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
+    onKeyDown?.(event);
+    if (event.defaultPrevented) {
+      return;
+    }
+
     const keys = ['ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'End', 'Home'];
 
     if (keys.includes(event.key)) {
       event.preventDefault();
       control.moveFocus(value, event.key);
+    }
+  }
+
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    onClick?.(event);
+    if (!event.defaultPrevented) {
+      control.selectValue(value);
     }
   }
 
@@ -61,7 +73,7 @@ const Segment = forwardRef<HTMLButtonElement, SegmentProps>(function Segment(
       aria-checked={isSelected}
       className={resolvedClassName}
       disabled={disabled}
-      onClick={() => control.selectValue(value)}
+      onClick={handleClick}
       onKeyDown={handleKeyDown}
       ref={setRef}
       role="radio"

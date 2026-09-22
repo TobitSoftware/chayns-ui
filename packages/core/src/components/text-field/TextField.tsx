@@ -1,16 +1,11 @@
-import { useId } from 'react';
+import { forwardRef, useId } from 'react';
 
 import type { TextFieldProps } from './TextField.types.js';
 
-function TextField({
-  className,
-  counter,
-  error,
-  helpText,
-  id,
-  placeholder,
-  ...inputProps
-}: TextFieldProps) {
+const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
+  { className, counter, error, helpText, id, placeholder, ...inputProps },
+  ref,
+) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const hasError = error !== undefined;
@@ -28,6 +23,7 @@ function TextField({
         className={inputClassName}
         id={inputId}
         placeholder={placeholder === undefined ? undefined : ' '}
+        ref={ref}
       />
       {placeholder !== undefined ? (
         <label className="chayns-text-field__label" htmlFor={inputId}>
@@ -49,6 +45,6 @@ function TextField({
       ) : null}
     </div>
   );
-}
+});
 
 export default TextField;

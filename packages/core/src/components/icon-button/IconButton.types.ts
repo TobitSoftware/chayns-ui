@@ -26,7 +26,7 @@ type IconButtonAccessibleName =
       'aria-labelledby': string;
     };
 
-interface IconButtonBaseProps extends Omit<
+export interface IconButtonBaseProps extends Omit<
   ComponentPropsWithRef<'button'>,
   'aria-label' | 'aria-labelledby' | 'children'
 > {

@@ -1,18 +1,13 @@
-import { useCallback, useMemo, useState } from 'react';
+import { forwardRef, useCallback, useMemo, useState } from 'react';
 
 import { AccordionGroupContext } from '../accordion/AccordionContext.js';
 import type { AccordionGroupContextValue } from '../accordion/AccordionContext.js';
 import type { AccordionGroupProps } from '../accordion/Accordion.types.js';
 
-const AccordionGroup = ({
-  children,
-  className,
-  defaultOpenId = null,
-  onOpenChange,
-  openId,
+const AccordionGroup = forwardRef<HTMLDivElement, AccordionGroupProps>(function AccordionGroup(
+  { children, className, defaultOpenId = null, onOpenChange, openId, ...rootProps },
   ref,
-  ...rootProps
-}: AccordionGroupProps) => {
+) {
   const [uncontrolledOpenId, setUncontrolledOpenId] = useState<string | null>(defaultOpenId);
 
   const isControlled = openId !== undefined;
@@ -43,6 +38,6 @@ const AccordionGroup = ({
       </div>
     </AccordionGroupContext.Provider>
   );
-};
+});
 
 export default AccordionGroup;

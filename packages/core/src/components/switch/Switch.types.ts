@@ -5,6 +5,9 @@ export interface SwitchProps extends Omit<ComponentPropsWithRef<'input'>, 'child
   /** Visible, localized label associated with the native checkbox. */
   children: Exclude<ReactNode, boolean | null | undefined>;
 
+  /** Optional localized supporting text associated with the switch label. */
+  description?: ReactNode;
+
   /** Switch owns its native input type. */
   type?: never;
 }

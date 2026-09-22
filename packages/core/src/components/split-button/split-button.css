@@ -66,7 +66,7 @@
   }
 
   .chayns-split-button__trigger:active:not(:disabled) {
-    transform: scale(0.97);
+    transform: scale(0.96);
   }
 
   .chayns-split-button__trigger.chayns-button--primary:active:not(:disabled) {
