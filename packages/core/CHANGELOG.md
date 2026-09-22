@@ -1,5 +1,13 @@
 # @chayns-ui/core
 
+## 0.7.0
+
+### Minor Changes
+
+- 83e6c9e: Complete the Bodywork component rework baseline with Banner, native ownership and
+  ref forwarding improvements, supporting form descriptions, and accessible
+  ComboBox option interaction.
+
 ## 0.6.0
 
 ### Minor Changes
