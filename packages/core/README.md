@@ -40,7 +40,7 @@ import '@chayns-ui/core/button.css';
 | `Card` | `@chayns-ui/core/card.css` |
 | `Avatar`, `AvatarGroup`, `Badge`, `Banner` | matching CSS exports |
 | `List` | `@chayns-ui/core/list.css` |
-| `TextField`, `TextArea`, `Checkbox`, `Switch`, `RadioGroup`, `SegmentedControl`, `MessageBox`, `ComboBox` | matching CSS exports |
+| `TextField`, `TextArea`, `Checkbox`, `Switch`, `RadioGroup`, `SegmentedControl`, `Banner`, `ComboBox` | matching CSS exports |
 | `Accordion`, `AccordionGroup` | `@chayns-ui/core/accordion.css` |
 | `Popup`, `PopupList` | `@chayns-ui/core/popup.css` |
 | `SplitButton` | `@chayns-ui/core/split-button.css` |

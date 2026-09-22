@@ -106,7 +106,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | TOKEN-005 | TOKEN | Radien stammen aus einer globalen primitiven Skala. | CONFIRMED | AGENTS.md | |
 | TOKEN-006 | TOKEN | Der vollständige Token-Katalog deckt alle Foundation-Kategorien ab und führt unbelegte Einzelwerte ausdrücklich als OPEN-Lücken. Eine Lücke blockiert nur Components, die diesen Wert benötigen; Werte werden nicht geschätzt. | CONFIRMED | User decision, 2026-09-21 | Katalogisierung und Evidence-Transfer fortführen; komponentenrelevante Lücken bleiben Gate-relevant. |
 | TOKEN-007 | TOKEN | Globale Motion-Durations- und Easing-Werte werden als Foundation-Primitives definiert und nicht komponentenweise frei erfunden. | CONFIRMED | User decision, 2026-09-21 | Konkrete Werte und DesignSystem-Evidence bleiben Gegenstand von OPEN-023/MOTION-009. |
-| TOKEN-008 | TOKEN | Form Controls und MessageBox erhalten einen separaten Foundation-Transfer mit belegten Werten und einem dokumentierten Component-Mapping. Bodywork- und Repository-Evidence bestimmen die Übernahme; fehlende Werte werden nicht geschätzt. | CONFIRMED | User decision, 2026-09-17 | Input-Padding sowie Success-/Warning-Rollen übertragen; weitere Bodywork-Rollen prüfen. |
+| TOKEN-008 | TOKEN | Form Controls erhalten einen separaten Foundation-Transfer mit belegten Werten und einem dokumentierten Component-Mapping. Bodywork- und Repository-Evidence bestimmen die Übernahme; fehlende Werte werden nicht geschätzt. | CONFIRMED | User decision, 2026-09-17 | Input-Padding sowie Success-/Warning-Rollen übertragen; weitere Bodywork-Rollen prüfen. |
 | TOKEN-009 | TOKEN | Der vollständige Token-Katalog deckt alle Foundation-Kategorien ab: Spacing, Radius, Typography, Color, Border, Shadow, Z-Layer, Motion und Density. Jede konkrete Zuordnung benötigt DesignSystem- oder Repository-Evidence. | CONFIRMED | User decision, 2026-09-21 | TOKEN-006 bleibt für die technische Katalogisierung und Evidence-Übertragung relevant. |
 | TOKEN-010 | TOKEN | Belegte Motion-Werte werden als semantische Tokens `--motion-duration-micro`, `--motion-duration-short`, `--motion-duration-medium`, `--motion-duration-long`, `--motion-ease-enter`, `--motion-ease-exit` und `--motion-ease-constant` geführt. | CONFIRMED | User decision, 2026-09-21; DesignSystem token catalogue | Components mappen bestätigte Motion-Patterns auf diese Tokens. |
 
@@ -224,14 +224,11 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | SEGMENT-002 | SEGMENT | SegmentedControl.Segment benötigt immer ein sichtbares `children`-Label. | CONFIRMED | User decision, 2026-09-17 | |
 | SEGMENT-003 | SEGMENT | SegmentedControl benötigt ein sichtbares `label`; eine Auswahl wird über `value` (controlled) oder `defaultValue` (uncontrolled) verpflichtend festgelegt. | CONFIRMED | User decision, 2026-09-17 | |
 
-## MessageBox
+## Banner
 
 | ID | Category | Decision | Status | Source | Follow-up |
 |---|---|---|---|---|---|
-| MESSAGE-001 | MESSAGE | MessageBox unterstützt `info`, `success`, `warning` und `danger`, rendert statisch mit `role="note"` und ist im initialen Vertrag nicht schließbar. | SUPERSEDED | User decision, 2026-09-17 | Superseded by MESSAGE-003 after Bodywork review. |
-| MESSAGE-002 | MESSAGE | MessageBox besitzt ausschließlich `children` als frei komponierten Inhalt und keinen eigenen Titel-Prop. | CONFIRMED | User decision, 2026-09-17 | |
-| MESSAGE-003 | MESSAGE | MessageBox unterstützt die Bodywork-Varianten `neutral`, `admin` und `warning`. Sie ist statisch, nicht schließbar und verwendet `role="note"`; Icon und Folgeaktion bleiben frei komponierte Children-Inhalte. | CONFIRMED | Bodywork DesignSystem, User decision, 2026-09-17 | Admin-Tint und Border-Token in den Foundation-Transfer aufnehmen. |
-| MESSAGE-004 | MESSAGE | Banner ist ein eigenständiges, schließbares Bereichs-Muster. Es rendert ein natives `aside`, unterstützt `neutral`, `success`, `warning` und `danger`, optionale dekorative Icons sowie controlled/uncontrolled Sichtbarkeit. Eine Close-Aktion benötigt ein lokalisiertes `closeLabel`. | CONFIRMED | Bodywork `#status`, user rework plan, 2026-09-22 | MessageBox bleibt das statische Kontext-Muster. |
+| MESSAGE-004 | MESSAGE | Banner ist ein eigenständiges, schließbares Bereichs-Muster. Es rendert ein natives `aside`, unterstützt `neutral`, `success`, `warning` und `danger`, optionale dekorative Icons sowie controlled/uncontrolled Sichtbarkeit. Eine Close-Aktion benötigt ein lokalisiertes `closeLabel`. | CONFIRMED | Bodywork `#status`, user rework plan, 2026-09-22 | |
 
 ## Accordion
 

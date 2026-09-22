@@ -11,8 +11,7 @@
 
 Banner communicates a message that applies to a complete area and remains
 visible until the consumer closes it or the underlying condition changes. It
-is distinct from MessageBox, which is static explanatory context inside a
-page, panel or form section.
+It is the shared status surface for a page, panel or form section.
 
 ## Public API and native ownership
 
