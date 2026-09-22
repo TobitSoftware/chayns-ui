@@ -47,7 +47,7 @@
     flex: none;
     place-items: center;
     margin-block-start: 1px;
-    border: 1.5px solid var(--input-border);
+    border: 2px solid var(--input-border);
     border-radius: 50%;
   }
 
