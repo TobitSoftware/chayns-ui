@@ -95,7 +95,7 @@
 
   .chayns-accordion__subtitle {
     overflow: hidden;
-    color: var(--muted);
+    color: var(--text-3);
     font-size: var(--fs-meta);
     text-overflow: ellipsis;
     white-space: nowrap;

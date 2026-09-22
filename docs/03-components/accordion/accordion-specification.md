@@ -97,7 +97,7 @@ Each Accordion renders one root `div`, one native header `button`, and one panel
 
 ## Composition — Required
 
-Accordion composes `Accordion.Head` and `Accordion.Content`. The `list` appearance uses the Bodywork two-line row geometry: `k12/k16` header padding, a `k38` leading area, `fs-meta` muted subtitle and a panel inset that remains fixed at the chevron/leading column regardless of the leading content. Nesting is achieved by rendering another Accordion within `Accordion.Content`; the inner Accordion reads an incremented nesting depth from context and renders Wrapped. AccordionGroup composes Accordion children and shares exclusive open state via context.
+Accordion composes `Accordion.Head` and `Accordion.Content`. The `list` appearance uses the Bodywork two-line row geometry: `k12/k16` header padding, a `k38` leading area, `fs-meta` subtitle and a panel inset that remains fixed at the chevron/leading column regardless of the leading content. The subtitle uses `--text-3` rather than Bodywork's `--muted` value because the latter does not meet the confirmed WCAG 2.2 AA threshold at this size. Nesting is achieved by rendering another Accordion within `Accordion.Content`; the inner Accordion reads an incremented nesting depth from context and renders Wrapped. AccordionGroup composes Accordion children and shares exclusive open state via context.
 
 ## Context Dependencies — Required
 
