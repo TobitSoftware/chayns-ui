@@ -1,5 +1,11 @@
 # @chayns-ui/core
 
+## 0.6.0
+
+### Minor Changes
+
+- Extend Button and IconButton with FontAwesome Brands icon support.
+
 ## 0.5.0
 
 ### Minor Changes

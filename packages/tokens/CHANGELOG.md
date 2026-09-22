@@ -1,5 +1,11 @@
 # @chayns-ui/tokens
 
+## 0.4.0
+
+### Minor Changes
+
+- Publish the current success and warning background tokens required by status components.
+
 ## 0.3.0
 
 ### Minor Changes
