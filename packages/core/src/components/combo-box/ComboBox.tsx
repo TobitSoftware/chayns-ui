@@ -61,9 +61,22 @@ const Option = forwardRef<HTMLDivElement, ComboBoxOptionProps>(function Option(
       className={resolvedClassName}
       id={comboBox.optionId(value)}
       onMouseDown={(event) => event.preventDefault()}
-      onClick={() => comboBox.select(value)}
+      onClick={(event) => {
+        optionProps.onClick?.(event);
+        if (!event.defaultPrevented) {
+          comboBox.select(value);
+        }
+      }}
+      onKeyDown={(event) => {
+        optionProps.onKeyDown?.(event);
+        if (!event.defaultPrevented && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault();
+          comboBox.select(value);
+        }
+      }}
       ref={ref}
       role="option"
+      tabIndex={-1}
     >
       {comboBox.multiple ? (
         <span

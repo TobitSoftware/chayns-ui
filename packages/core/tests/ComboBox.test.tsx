@@ -1,9 +1,11 @@
 import { renderToString } from 'react-dom/server';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import type { ReactElement } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import ComboBox from '../src/components/combo-box/ComboBox.js';
+import type { ComboBoxOptionProps } from '../src/components/combo-box/ComboBox.types.js';
 
 const options = (
   <>
@@ -15,7 +17,7 @@ const options = (
 
 describe('ComboBox', () => {
   it('selects the active single option with the keyboard', async () => {
-    const onValueChange = vi.fn();
+    const onValueChange = vi.fn<(value: string) => void>();
     const user = userEvent.setup();
 
     render(
@@ -55,7 +57,10 @@ describe('ComboBox', () => {
   });
 
   it('returns selected option elements in multiple mode', async () => {
-    const onValueChange = vi.fn();
+    let selectedOptions: ReactElement<ComboBoxOptionProps>[] | undefined;
+    const onValueChange = (value: ReactElement<ComboBoxOptionProps>[]) => {
+      selectedOptions = value;
+    };
     const user = userEvent.setup();
 
     render(
@@ -70,9 +75,7 @@ describe('ComboBox', () => {
     expect(
       screen.getByRole('option', { name: 'Design' }).querySelector('[data-checked="true"]'),
     ).toBeInTheDocument();
-    expect(onValueChange).toHaveBeenCalledWith([
-      expect.objectContaining({ props: expect.objectContaining({ value: 'design' }) }),
-    ]);
+    expect(selectedOptions?.[0]?.props.value).toBe('design');
   });
 
   it('requires its documented parent for options and renders on the server', () => {
