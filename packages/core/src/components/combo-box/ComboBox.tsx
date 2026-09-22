@@ -11,6 +11,7 @@ import {
 } from 'react';
 import type { ChangeEvent, FocusEvent, KeyboardEvent, ReactElement, ReactNode } from 'react';
 
+import ButtonIcon from '../button/button-icon/ButtonIcon.js';
 import { ComboBoxContext, getOptionLabel, useComboBoxContext } from './ComboBoxContext.js';
 import type { ComboBoxOptionProps, ComboBoxProps } from './ComboBox.types.js';
 
@@ -325,6 +326,9 @@ const ComboBoxRoot = forwardRef<HTMLInputElement, ComboBoxProps>(function ComboB
             {placeholder}
           </label>
         ) : null}
+        <span aria-hidden="true" className="chayns-combo-box__chevron">
+          <ButtonIcon icon="fa-chevron-down" />
+        </span>
         {open ? (
           <div
             aria-multiselectable={multiple || undefined}

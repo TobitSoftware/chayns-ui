@@ -8,7 +8,7 @@
     box-sizing: border-box;
     inline-size: 100%;
     min-block-size: calc(1.2em + 2 * var(--input-py) + 3px);
-    padding: var(--input-py) var(--input-px);
+    padding: var(--input-py) var(--k36) var(--input-py) var(--input-px);
     border: 1.5px solid var(--input-border);
     border-radius: 10px;
     background: var(--surface);
@@ -43,6 +43,23 @@
       transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
       color 0.15s ease;
     white-space: nowrap;
+  }
+
+  .chayns-combo-box__chevron {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-end: var(--input-px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: transform 0.18s ease;
+  }
+
+  .chayns-combo-box--open .chayns-combo-box__chevron {
+    transform: translateY(-50%) rotate(180deg);
   }
 
   .chayns-combo-box--open .chayns-combo-box__label,
@@ -137,7 +154,8 @@
 
   @media (prefers-reduced-motion: reduce) {
     .chayns-combo-box__input,
-    .chayns-combo-box__label {
+    .chayns-combo-box__label,
+    .chayns-combo-box__chevron {
       transition: none;
     }
   }
