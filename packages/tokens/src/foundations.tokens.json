@@ -322,6 +322,56 @@
     }
   },
   "color": {
+    "grey-000": {
+      "$type": "color",
+      "$value": "#ffffff",
+      "$extensions": { "chayns": { "cssName": "--grey-000", "dark": "#000000" } }
+    },
+    "grey-001": {
+      "$type": "color",
+      "$value": "#f7f7f7",
+      "$extensions": { "chayns": { "cssName": "--grey-001", "dark": "#070707" } }
+    },
+    "grey-002": {
+      "$type": "color",
+      "$value": "#e5e5e5",
+      "$extensions": { "chayns": { "cssName": "--grey-002", "dark": "#191919" } }
+    },
+    "grey-003": {
+      "$type": "color",
+      "$value": "#bfbfbf",
+      "$extensions": { "chayns": { "cssName": "--grey-003", "dark": "#3f3f3f" } }
+    },
+    "grey-004": {
+      "$type": "color",
+      "$value": "#999999",
+      "$extensions": { "chayns": { "cssName": "--grey-004", "dark": "#666666" } }
+    },
+    "grey-005": {
+      "$type": "color",
+      "$value": "#7f7f7f",
+      "$extensions": { "chayns": { "cssName": "--grey-005", "dark": "#7f7f7f" } }
+    },
+    "grey-006": {
+      "$type": "color",
+      "$value": "#666666",
+      "$extensions": { "chayns": { "cssName": "--grey-006", "dark": "#999999" } }
+    },
+    "grey-007": {
+      "$type": "color",
+      "$value": "#3f3f3f",
+      "$extensions": { "chayns": { "cssName": "--grey-007", "dark": "#bfbfbf" } }
+    },
+    "grey-008": {
+      "$type": "color",
+      "$value": "#191919",
+      "$extensions": { "chayns": { "cssName": "--grey-008", "dark": "#e5e5e5" } }
+    },
+    "grey-009": {
+      "$type": "color",
+      "$value": "#000000",
+      "$extensions": { "chayns": { "cssName": "--grey-009", "dark": "#ffffff" } }
+    },
     "page": {
       "$type": "color",
       "$value": "#f4f6f6",
@@ -407,10 +457,50 @@
       "$value": "15, 109, 126",
       "$extensions": { "chayns": { "cssName": "--accent-rgb", "dark": "85, 191, 212" } }
     },
+    "on-accent-rgb": {
+      "$type": "string",
+      "$value": "255, 255, 255",
+      "$extensions": { "chayns": { "cssName": "--on-accent-rgb", "dark": "14, 23, 27" } }
+    },
+    "accent-100": {
+      "$type": "color",
+      "$value": "#eef7f8",
+      "$extensions": { "chayns": { "cssName": "--accent-100", "dark": "#e2f7fa" } }
+    },
+    "accent-200": {
+      "$type": "color",
+      "$value": "#d3e7eb",
+      "$extensions": { "chayns": { "cssName": "--accent-200", "dark": "#caeff3" } }
+    },
     "accent-300": {
       "$type": "color",
       "$value": "#a8c3ca",
       "$extensions": { "chayns": { "cssName": "--accent-300", "dark": "#aee4ed" } }
+    },
+    "accent-400": {
+      "$type": "color",
+      "$value": "#629fac",
+      "$extensions": { "chayns": { "cssName": "--accent-400", "dark": "#90d8e5" } }
+    },
+    "accent-500": {
+      "$type": "color",
+      "$value": "#3f93a1",
+      "$extensions": { "chayns": { "cssName": "--accent-500", "dark": "#72cbdd" } }
+    },
+    "accent-600": {
+      "$type": "color",
+      "$value": "#278090",
+      "$extensions": { "chayns": { "cssName": "--accent-600", "dark": "#55bfd4" } }
+    },
+    "accent-700": {
+      "$type": "color",
+      "$value": "#0d6271",
+      "$extensions": { "chayns": { "cssName": "--accent-700", "dark": "#3eaec4" } }
+    },
+    "accent-800": {
+      "$type": "color",
+      "$value": "#0c5765",
+      "$extensions": { "chayns": { "cssName": "--accent-800", "dark": "#2f90a3" } }
     },
     "tint": {
       "$type": "color",

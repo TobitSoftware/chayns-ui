@@ -98,7 +98,24 @@ Font Provision remains outside components. The entries below are confirmed size 
 
 The delivered Button CSS assigns `font-size: var(--fs-body)`, `font-weight: 500` and `line-height: 1.1` to the canonical Button classes. The delivered typography data identifies the Body role with Weight `400` and Letter Spacing `0`; the Button CSS itself does not declare Letter Spacing. This is direct source evidence, but it does not create a `button` Typography role or a component-specific Typography token. The complete chayns-UI role and component-token mapping remains PARTIAL.
 
-## 9. Surface and Text Colors
+## 9. Primitive Color Scales
+
+Primitive scales are Foundation data, not a general Component color-selection API. Semantic roles remain the default Component color contract.
+
+| Token | Category | Level | Semantic responsibility | Value / mapping | Density | Variants / modes | Status | Source | Notes |
+|---|---|---|---|---|---|---|---|---|---|
+| `--grey-000` | Color | Primitive | Lightest neutral scale step. | Light `#ffffff`; Dark `#000000`. | density-independent | Light / Dark | CONFIRMED | User-provided color-scale reference, 2026-09-23 | — |
+| `--grey-001` | Color | Primitive | Neutral scale step. | Light `#f7f7f7`; Dark `#070707`. | density-independent | Light / Dark | CONFIRMED | User-provided color-scale reference, 2026-09-23 | — |
+| `--grey-002` | Color | Primitive | Neutral scale step. | Light `#e5e5e5`; Dark `#191919`. | density-independent | Light / Dark | CONFIRMED | User-provided color-scale reference, 2026-09-23 | — |
+| `--grey-003` | Color | Primitive | Neutral scale step. | Light `#bfbfbf`; Dark `#3f3f3f`. | density-independent | Light / Dark | CONFIRMED | User-provided color-scale reference, 2026-09-23 | — |
+| `--grey-004` | Color | Primitive | Neutral scale step. | Light `#999999`; Dark `#666666`. | density-independent | Light / Dark | CONFIRMED | User-provided color-scale reference, 2026-09-23 | — |
+| `--grey-005` | Color | Primitive | Middle neutral scale step. | Light/Dark `#7f7f7f`. | density-independent | Light / Dark | CONFIRMED | User-provided color-scale reference, 2026-09-23 | — |
+| `--grey-006` | Color | Primitive | Neutral scale step. | Light `#666666`; Dark `#999999`. | density-independent | Light / Dark | CONFIRMED | User-provided color-scale reference, 2026-09-23 | — |
+| `--grey-007` | Color | Primitive | Neutral scale step. | Light `#3f3f3f`; Dark `#bfbfbf`. | density-independent | Light / Dark | CONFIRMED | User-provided color-scale reference, 2026-09-23 | — |
+| `--grey-008` | Color | Primitive | Neutral scale step. | Light `#191919`; Dark `#e5e5e5`. | density-independent | Light / Dark | CONFIRMED | User-provided color-scale reference, 2026-09-23 | — |
+| `--grey-009` | Color | Primitive | Darkest neutral scale step. | Light `#000000`; Dark `#ffffff`. | density-independent | Light / Dark | CONFIRMED | User-provided color-scale reference, 2026-09-23 | — |
+
+## 10. Surface and Text Colors
 
 All entries in this section are Semantic, density-independent Color roles. Contrast/Color-Deficiency CSS mappings for these individual roles are not directly defined in the current stylesheet; Color System governs any later resolver mapping.
 
@@ -113,7 +130,7 @@ All entries in this section are Semantic, density-independent Color roles. Contr
 | `--text-3` | Color | Semantic | Tertiary supporting text. | Light `#5a6466`; Dark `#acbcc0`. | density-independent | Light / Dark | CONFIRMED | DesignSystem CSS; `color-system.md` | — |
 | `--muted` | Color | Semantic | Most de-emphasized text role. | Light `#7f7f7f`; Dark `#a3b4b8`. | density-independent | Light / Dark | CONFIRMED | DesignSystem CSS; `color-system.md` | — |
 
-## 10. Accent
+## 11. Accent
 
 Accent input is not automatically `--accent`. The resolved Accent role may be calibrated for accessibility. Components consume Semantic Accent roles; Primitive Accent levels are not a general public Component API.
 
@@ -134,7 +151,7 @@ Accent input is not automatically `--accent`. The resolved Accent role may be ca
 | `--accent-700` | Color | Primitive | Accent scale step. | Light `#0d6271`; Dark `#3eaec4`. | density-independent | Light / Dark | CONFIRMED | DesignSystem CSS | Source primitive; not public Component API. |
 | `--accent-800` | Color | Primitive | Darkest documented Accent scale step. | Light `#0c5765`; Dark `#2f90a3`. | density-independent | Light / Dark | CONFIRMED | DesignSystem CSS | Source primitive; not public Component API. |
 
-## 11. Status Colors
+## 12. Status Colors
 
 Danger retains the confirmed chayns-UI meaning: destructive actions, not only technically irreversible ones.
 
@@ -148,7 +165,7 @@ Danger retains the confirmed chayns-UI meaning: destructive actions, not only te
 | `--danger-bg` | Color | Semantic | Destructive/danger background role. | Light `#fdeceb`; Dark `rgba(249, 112, 102, 0.22)`. | density-independent | Light / Dark | CONFIRMED | DesignSystem CSS | — |
 | `--danger-bg-hover` | Color | Semantic | Hover background for documented danger usage. | Light `#f7d3cf`; Dark `rgba(249, 112, 102, 0.34)`. | density-independent | Light / Dark | CONFIRMED | DesignSystem CSS; `color-system.md` | Does not itself define a complete danger component state model. |
 
-## 12. Borders and Disabled
+## 13. Borders and Disabled
 
 No canonical Border-Width token is present in the current DesignSystem CSS. Direct occurrences of `1px`, `1.5px` and `2px` are DesignSystem evidence only; naming and allocation remain TECH REVIEW. Border widths are confirmed density-independent by the Foundation rules.
 
@@ -165,7 +182,7 @@ The documented Outline Button uses `1.5px solid var(--accent)`; its disabled pre
 | `--disabled-fg` | Color | Semantic | Disabled foreground. | Light `#9bb0b4`; Dark `#789197`. | density-independent | Light / Dark | CONFIRMED | DesignSystem CSS; `color-system.md` | No arbitrary local disabled opacity. |
 | `--disabled-border` | Border | Semantic | Disabled boundary. | Light `#d3e0e4`; Dark `#4a626a`. | density-independent | Light / Dark | CONFIRMED | DesignSystem CSS; `color-system.md` | Full component-state allocation remains TECH REVIEW. |
 
-## 13. Focus
+## 14. Focus
 
 Focus data is split into Color, Geometry and Strength as required by the Color and Accessibility Foundations.
 
@@ -176,7 +193,7 @@ Focus data is split into Color, Geometry and Strength as required by the Color a
 | `--focus-ring-alpha-soft` | Focus | Semantic | Softer focus indicator strength. | Light `0.10`; Dark `0.18`; High Contrast Light `0.34`, Dark `0.42`; Color Deficiency Light `0.20`, Dark `0.28`. | density-independent | Light / Dark / High Contrast / Color Deficiency | CONFIRMED | DesignSystem CSS | — |
 | `--focus-ring-alpha-strong` | Focus | Semantic | Stronger focus indicator strength. | Light `0.15`; Dark `0.26`; High Contrast Light `0.46`, Dark `0.56`; Color Deficiency Light `0.30`, Dark `0.40`. | density-independent | Light / Dark / High Contrast / Color Deficiency | CONFIRMED | DesignSystem CSS | — |
 
-## 14. Shadows
+## 15. Shadows
 
 All documented Shadow tokens are density-independent.
 
@@ -188,7 +205,7 @@ All documented Shadow tokens are density-independent.
 | `--shadow-btn` | Shadow | Component-specific | Elevation assigned to documented Primary buttons. | `0 4px 12px -4px rgba(var(--accent-rgb), 0.45)`; Dark uses same mapping. | density-independent | Accent-dependent | CONFIRMED | DesignSystem CSS; DesignSystem HTML “Buttons & Aktionen” | Source assignment only; it does not define a Button API. |
 | `--shadow-btn-hover` | Shadow | Component-specific | Hover elevation assigned to documented Primary and Outline buttons. | `0 8px 20px -6px rgba(var(--accent-rgb), 0.6)`; Dark uses same mapping. | density-independent | Accent-dependent | CONFIRMED | DesignSystem CSS; DesignSystem HTML “Buttons & Aktionen” | Source assignment only; it does not define a Button API. |
 
-## 15. Z-Layers
+## 16. Z-Layers
 
 | Token | Category | Level | Semantic responsibility | Value / mapping | Density | Variants / modes | Status | Source | Notes |
 |---|---|---|---|---|---|---|---|---|---|
@@ -199,7 +216,7 @@ All documented Shadow tokens are density-independent.
 | `--z-toast` | Z-Layer | Semantic | Toast layer. | `900` | density-independent | not applicable | CONFIRMED | DesignSystem CSS | — |
 | `--z-tooltip` | Z-Layer | Semantic | Tooltip layer. | `1000` | density-independent | not applicable | CONFIRMED | DesignSystem CSS | No separate backdrop token is confirmed. |
 
-## 16. Icon and Avatar Geometry
+## 17. Icon and Avatar Geometry
 
 The direct values are confirmed. Local size variants and global Density remain separate; no S/M/L-to-local-size mapping is inferred.
 
@@ -210,19 +227,19 @@ The direct values are confirmed. Local size variants and global Density remain s
 | `--avatar` | Avatar Geometry | Component-specific | Documented default avatar geometry. | `calc(42 * var(--u))` | density-dependent | S / M / L | CONFIRMED | DesignSystem CSS; DENSITY-005–006; AVATAR-005 | Used by Avatar `size="default"`. |
 | `--avatar-sm` | Avatar Geometry | Component-specific | Documented smaller avatar geometry. | `calc(34 * var(--u))` | density-dependent | S / M / L | CONFIRMED | DesignSystem CSS; DENSITY-005–006; AVATAR-005 | Used by Avatar `size="small"`. |
 
-## 17. Motion
+## 18. Motion
 
 The currently delivered DesignSystem HTML directly exposes the following Motion source data: Micro `120–160 ms` for hover/color changes, icon swap and row highlighting; Kurz `200–240 ms` for Dialog, Popover and Menu; Mittel `260–300 ms` for Drawer, Toast and Scrim; Lang `550–600 ms` for initial page reveal. It also exposes Eintritt `cubic-bezier(.22, .61, .36, 1)`, Austritt `cubic-bezier(.4, 0, .7, .2)` and Konstant `linear` for Spinner/Skeleton.
 
 Those labels and values are authoritative DesignSystem property evidence. chayns UI maps them to the semantic Motion tokens `--motion-duration-micro`, `--motion-duration-short`, `--motion-duration-medium`, `--motion-duration-long`, `--motion-ease-enter`, `--motion-ease-exit` and `--motion-ease-constant`. The Button CSS uses several transition declarations rather than one documented semantic Button mapping; some source properties are outside the confirmed chayns-UI Motion property guardrail. Therefore Button Motion adoption remains component-specific and may not introduce additional properties. The confirmed rules `transform`, `opacity` and the limited `grid-template-rows` exception remain in [motion.md](motion.md). Missing Foundation categories remain explicit catalog gaps under TOKEN-006.
 
-## 18. Other DesignSystem Source Tokens
+## 19. Other DesignSystem Source Tokens
 
 The current CSS also declares `--toggle-bg` and `--hover` with Light/Dark values. They are direct DesignSystem source data, but no specialized chayns-UI Foundation currently confirms their public semantic contract. They are therefore **DesignSystem source data – not chayns UI public token contract** (TECH REVIEW), not entries that Components may freely consume.
 
 Other CSS variables are likewise source-only unless a later Foundation confirms them: `--hero-grad-a`, `--hero-grad-b`, `--hero-grad-c`, `--accent-rail-fg`, `--accent-rail-active-bg`, `--accent-rail-active-fg`, `--ai-tint`, `--tint` and `--hover-shift`.
 
-## 19. Legacy / Source-only Tokens
+## 20. Legacy / Source-only Tokens
 
 The external `k` scale is source data and not a parallel public chayns-UI Spacing API:
 
@@ -236,7 +253,7 @@ The external `k` scale is source data and not a parallel public chayns-UI Spacin
 
 Each is directly mapped in DesignSystem CSS as `calc(<documented number> * var(--u))`. They are **DesignSystem source data – not chayns UI public token contract**. General chayns-UI spacing remains `--sp-*`.
 
-## 20. Token Completeness Matrix
+## 21. Token Completeness Matrix
 
 | Category | Names complete | Values complete | Density mapping complete | Mode mapping complete | Ready for component specs |
 |---|---|---|---|---|---|
@@ -318,7 +335,7 @@ All catalogued Color, Border, Disabled, Focus, Shadow and Z-Layer tokens; Radius
 
 The complete effective S/M/L value matrix and any final Component-specific allocation. `--sf` and the direct `calc(... * var(--u))` mappings are confirmed source data, but no additional values are calculated here.
 
-## 21. Decision Register Follow-ups
+## 22. Decision Register Follow-ups
 
 * TOKEN-001 and TOKEN-002 can reference this catalogue for confirmed names and values.
 * TOKEN-006 is CONFIRMED as an evidence-based complete catalogue strategy: all Foundation categories are represented, while unconfirmed individual values remain explicit OPEN gaps.
@@ -326,11 +343,11 @@ The complete effective S/M/L value matrix and any final Component-specific alloc
 * COLOR-001–005, TYPE-004, MOTION-001–007 and A11Y-001–006 can reference the catalogued Foundation data where applicable.
 * OPEN-006 remains the technical token-source/build decision. No new Decision-Register follow-up is required from this inventory alone.
 
-## 22. Relationship to Future Technical Token Source
+## 23. Relationship to Future Technical Token Source
 
 `token-catalogue.md` is not automatically the future technical token source format. Source-file format, generation, validation, CSS creation and possible TypeScript or metadata artifacts remain separately decided work. Until then, this document is the traceable factual inventory.
 
-## 23. AI Rules
+## 24. AI Rules
 
 Agents may reference CONFIRMED Catalogue entries and, once implementation is authorized, use their directly documented values. Agents must not treat PARTIAL as complete, replace `not yet confirmed`, interpolate scales, expose Legacy/source-only variables as public chayns-UI API, invent related token names, derive Density outputs merely from `--sf`, or create a missing Component-specific token for implementation convenience.
 

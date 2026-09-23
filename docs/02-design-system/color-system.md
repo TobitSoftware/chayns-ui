@@ -47,7 +47,7 @@ Density und Reduced Motion sind Theme-/Environment-Inputs, aber keine Farbinputs
 
 Primitive Color Data ist die technische Farbgrundlage des Resolvers. Dazu gehören vorhandene Accent-Stufen, neutrale und Statusgrundwerte sowie erforderliche RGB-Kanalrepräsentationen. Sie dürfen innerhalb der Foundation-/Resolver-Ebene verwendet werden; Core Components konsumieren sie grundsätzlich nicht direkt.
 
-Das aktuelle DesignSystem belegt als primitive Accent-Daten `--accent-100` bis `--accent-800`, `--accent-rgb` und `--on-accent-rgb`. Es belegt außerdem konkrete Light-/Dark-Werte für semantische Rollen und Statusrollen. Ein vollständiger chayns-UI-Katalog primitiver Skalen und deren öffentliche Namen ist noch nicht festgelegt.
+Das aktuelle DesignSystem belegt als primitive Accent-Daten `--accent-100` bis `--accent-800`, `--accent-rgb` und `--on-accent-rgb`. Die bestätigte neutrale Foundation-Skala verwendet `--grey-000` bis `--grey-009`. Beide Skalen sind Foundation-Daten, keine allgemeine Component-Farbauswahl.
 
 ### 3.3 Semantic Color Tokens
 

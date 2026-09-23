@@ -15,7 +15,12 @@ describe('generated token CSS', () => {
     expect(baseline).toContain('--input-px: calc(16 * var(--u));');
     expect(baseline).toContain('--success: #039855;');
     expect(baseline).toContain('--warning: #dc6803;');
+    expect(baseline).toContain('--grey-000: #ffffff;');
+    expect(baseline).toContain('--grey-009: #000000;');
+    expect(baseline).toContain('--accent-100: #eef7f8;');
     expect(baseline).toContain('--accent-300: #a8c3ca;');
+    expect(baseline).toContain('--accent-800: #0c5765;');
+    expect(baseline).toContain('--on-accent-rgb: 255, 255, 255;');
     expect(baseline).toContain('--tint: #eef7f8;');
     expect(baseline).toContain('--toggle-bg: #e9eded;');
     expect(baseline).toContain('.chayns-theme--dark');
