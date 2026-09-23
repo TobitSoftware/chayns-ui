@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useState, type CSSProperties } from 'react';
 
 import type { AvatarProps } from './Avatar.types.js';
 
@@ -13,23 +13,28 @@ const getInitials = (name: string) => {
   return `${first}${last}`.toUpperCase();
 };
 
-const getTone = (name: string) => {
+export const getColorFromInitials = (input: string): string => {
   let hash = 0;
-  for (const character of name) {
-    hash = (hash * 31 + character.codePointAt(0)!) >>> 0;
+
+  for (let index = 0; index < input.length; index += 1) {
+    hash = input.charCodeAt(index) + ((hash << 5) - hash);
   }
 
-  return hash % 3;
+  const hue = Math.abs(hash) % 360;
+  return `hsl(${hue} 65% var(--chayns-avatar-initials-lightness))`;
 };
 
 const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
-  { alt, badge, className, name, size = 'default', src, ...spanProps },
+  { alt, badge, className, name, size = 'default', src, style, ...spanProps },
   ref,
 ) {
   const [failedSource, setFailedSource] = useState<string>();
   const showImage = Boolean(src) && failedSource !== src;
   const initials = getInitials(name);
-  const tone = getTone(name);
+  const initialsColorStyle: CSSProperties & Record<'--chayns-avatar-initials-color', string> = {
+    '--chayns-avatar-initials-color': getColorFromInitials(name),
+    ...style,
+  };
 
   return (
     <span
@@ -37,7 +42,6 @@ const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
       aria-label={alt ?? name}
       className={[
         'chayns-avatar',
-        `chayns-avatar--tone-${tone}`,
         `chayns-avatar--${size}`,
         className,
       ]
@@ -45,6 +49,7 @@ const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
         .join(' ')}
       role="img"
       ref={ref}
+      style={initialsColorStyle}
     >
       {showImage ? (
         <img

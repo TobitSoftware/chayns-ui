@@ -387,9 +387,10 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | AVATAR-001 | AVATAR | Avatar bildet aus dem ersten und letzten Namenswort maximal zwei großgeschriebene Initialen; bei einem Namenswort wird nur dessen erster Buchstabe verwendet. | CONFIRMED | User input 2026-09-14 | |
 | AVATAR-002 | AVATAR | Avatar unterstützt optional `src`; ohne verwendbares Bild werden die Initialen angezeigt. | CONFIRMED | User input 2026-09-14 | Bildfehler- und Accessible-Name-Verhalten spezifizieren. |
 | AVATAR-003 | AVATAR | Avatar unterstützt einen frei komponierbaren optionalen Badge-/Bottom-Slot. | CONFIRMED | User input 2026-09-14 | Dekorative versus interaktive Badge-Semantik spezifizieren. |
-| AVATAR-004 | AVATAR | Der Initialen-Fallback verwendet eine deterministisch aus dem Namen abgeleitete Farbe aus `--accent`, `--accent-hover` oder `--accent-active` mit `--on-accent` als Vordergrund. | CONFIRMED | User input 2026-09-14, Avatar specification | |
+| AVATAR-004 | AVATAR | Der Initialen-Fallback verwendet eine deterministisch aus dem Namen abgeleitete Farbe aus `--accent`, `--accent-hover` oder `--accent-active` mit `--on-accent` als Vordergrund. | SUPERSEDED | User input 2026-09-14, Avatar specification | Superseded by AVATAR-007. |
 | AVATAR-005 | AVATAR | Avatar unterstützt die Bodywork-Größen `small`, `default` und `large`, gemappt auf 36, 44 und 52 px; dies ist keine globale S/M/L-API. | SUPERSEDED | User decision, 2026-09-21, Bodywork `#medien` | Ersetzt die frühere AVATAR-005-Entscheidung. |
 | AVATAR-006 | AVATAR | `AvatarGroup` komponiert Avatar-Children überlappend, begrenzt mit `max` die sichtbaren Tiles auf `max - 1` Avatare plus eine dekorative `+N`-Restkachel und wendet `size` auf alle Children an. | CONFIRMED | User input 2026-09-14, Avatar specification | |
+| AVATAR-007 | AVATAR | Der Initialen-Fallback leitet den Hue mit einem deterministischen Character-Code-Hash aus dem Namen ab und verwendet HSL mit 65% Sättigung. Er verwendet 25% Helligkeit im Light Mode und 70% im Dark Mode, damit der zentral aufgelöste `--on-accent`-Vordergrund (weiß beziehungsweise nahezu schwarz) WCAG 2.2 AA kontrastiert. | CONFIRMED | User decision, 2026-09-23 | Replaces AVATAR-004. |
 
 ## Milestone 1 Token Transfer
 

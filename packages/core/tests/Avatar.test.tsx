@@ -2,7 +2,7 @@ import { createRef } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import Avatar from '../src/components/avatar/Avatar.js';
+import Avatar, { getColorFromInitials } from '../src/components/avatar/Avatar.js';
 
 describe('Avatar', () => {
   it('renders initials from the first and last name words', () => {
@@ -15,6 +15,23 @@ describe('Avatar', () => {
     render(<Avatar name="Madonna" />);
 
     expect(screen.getByRole('img', { name: 'Madonna' })).toHaveTextContent('M');
+  });
+
+  it('derives a deterministic HSL color from the name', () => {
+    expect(getColorFromInitials('Peter Schmidt')).toBe(
+      'hsl(328 65% var(--chayns-avatar-initials-lightness))',
+    );
+    expect(getColorFromInitials('Peter Schmidt')).toBe(getColorFromInitials('Peter Schmidt'));
+    expect(getColorFromInitials('Eva Fischer')).not.toBe(getColorFromInitials('Peter Schmidt'));
+  });
+
+  it('provides the derived initials color through a CSS custom property', () => {
+    render(<Avatar name="Peter Schmidt" />);
+
+    expect(screen.getByRole('img', { name: 'Peter Schmidt' })).toHaveAttribute(
+      'style',
+      '--chayns-avatar-initials-color: hsl(328 65% var(--chayns-avatar-initials-lightness));',
+    );
   });
 
   it('supports the small avatar geometry', () => {

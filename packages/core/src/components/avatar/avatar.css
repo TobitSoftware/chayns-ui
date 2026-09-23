@@ -1,5 +1,7 @@
 @layer chayns.components {
   .chayns-avatar {
+    --chayns-avatar-initials-lightness: 25%;
+
     position: relative;
     display: inline-flex;
     flex: none;
@@ -9,7 +11,7 @@
     block-size: var(--k44);
     overflow: visible;
     border-radius: 50%;
-    background: var(--accent);
+    background: var(--chayns-avatar-initials-color, var(--accent));
     color: var(--on-accent);
     font-size: var(--fs-body);
     font-weight: 600;
@@ -17,16 +19,8 @@
     vertical-align: middle;
   }
 
-  .chayns-avatar--tone-0 {
-    background: var(--accent);
-  }
-
-  .chayns-avatar--tone-1 {
-    background: var(--accent-hover);
-  }
-
-  .chayns-avatar--tone-2 {
-    background: var(--accent-active);
+  :is(.chayns-theme--dark .chayns-avatar, .chayns-theme--dark.chayns-avatar) {
+    --chayns-avatar-initials-lightness: 70%;
   }
 
   .chayns-avatar--small {

@@ -47,9 +47,12 @@ whitespace-separated name words, or the first character only when there is one
 word. The result is uppercased and limited to two characters.
 
 When no image is shown, the background color is deterministic for the same
-name. The implementation selects deterministically from the confirmed
-`--accent`, `--accent-hover`, and `--accent-active` palette and uses
-`--on-accent` for the foreground.
+name. Its hue is derived by the confirmed character-code hash, with 65%
+saturation. To preserve contrast with the centrally resolved `--on-accent`
+foreground, the initials fallback uses 25% HSL lightness in Light mode and
+70% in Dark mode. Core does not choose the foreground color; `--on-accent`
+continues to resolve it centrally as white in Light mode and near-black in
+Dark mode.
 
 ## Public API Proposal
 
@@ -87,16 +90,17 @@ row action.
 
 No blocking open decisions remain. `src` omission and image errors use the
 initials fallback; `alt` defaults to `name`; badges are decorative; colors use
-the confirmed Accent palette and `--on-accent`.
+the confirmed name-derived HSL fallback and `--on-accent`.
 
 ## Test and Visual Verification Contract
 
 Tests must cover one-word and multi-word names, whitespace normalization,
-uppercase initials, deterministic output, image rendering/fallback, badge
-composition, accessible naming, server rendering, no accidental focus target,
-group overlap, group size override, and overflow counts. Visual verification
-must cover density sizes, image/fallback states, badge placement, group
-overlap, overflow tile, light/dark/high-contrast and localized names.
+uppercase initials, deterministic HSL output, Light/Dark lightness mapping,
+image rendering/fallback, badge composition, accessible naming, server
+rendering, no accidental focus target, group overlap, group size override, and
+overflow counts. Visual verification must cover density sizes, image/fallback
+states, badge placement, group overlap, overflow tile, light/dark/high-contrast
+and localized names.
 
 ## Readiness
 

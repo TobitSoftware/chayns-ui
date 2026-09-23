@@ -6,9 +6,10 @@
 - Component Category: Core
 - Component Specification: `avatar-specification.md`
 - Specification Status: READY FOR IMPLEMENTATION
-- Relevant Decision IDs: AVATAR-001-006, A11Y-001-007, DENSITY-005-006
-- Foundation Dependencies: `--k36`, `--k44`, `--k52`, `--accent`,
-  `--accent-hover`, `--accent-active`, `--on-accent`
+- Relevant Decision IDs: AVATAR-001-003, AVATAR-006-007, A11Y-001-007,
+  DENSITY-005-006
+- Foundation Dependencies: `--k36`, `--k44`, `--k52`, `--on-accent`,
+  `.chayns-theme--dark`
 - Related Components: ListItem
 - Gate Date: 2026-09-21
 - Gate Result: READY
@@ -19,7 +20,7 @@
 |---|---|---|---|
 | 01 | Specification Exists | PASS | Normative specification exists. |
 | 02 | Specification Status | PASS | Specification is READY FOR IMPLEMENTATION. |
-| 03 | Source Decisions | PASS | Avatar decisions are confirmed in AVATAR-001-004. |
+| 03 | Source Decisions | PASS | Avatar decisions are confirmed in AVATAR-001-003 and AVATAR-006-007. |
 | 04 | Category and Boundary | PASS | Avatar is a presentational Core component with no business logic. |
 | 05 | Purpose and Selection Boundary | PASS | Identity presentation is separated from status and business data. |
 | 06 | Anatomy and Composition | PASS | Image/initials fallback, decorative badge slot, and AvatarGroup composition are defined. |
