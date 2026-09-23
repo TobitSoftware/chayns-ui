@@ -1,0 +1,41 @@
+@layer chayns.components {
+  .chayns-skeleton {
+    display: block;
+    background: linear-gradient(
+      90deg,
+      var(--surface-alt) 25%,
+      var(--border-soft) 37%,
+      var(--surface-alt) 63%
+    );
+    background-size: 800px 100%;
+    animation: chayns-skeleton-shimmer 1.4s ease infinite;
+  }
+
+  .chayns-skeleton--square {
+    border-radius: 0;
+  }
+
+  .chayns-skeleton--rounded {
+    border-radius: 6px;
+  }
+
+  .chayns-skeleton--circular {
+    border-radius: 50%;
+  }
+
+  @keyframes chayns-skeleton-shimmer {
+    0% {
+      background-position: -400px 0;
+    }
+
+    100% {
+      background-position: 400px 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chayns-skeleton {
+      animation: none;
+    }
+  }
+}

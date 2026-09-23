@@ -16,6 +16,10 @@ export { default as Badge } from './components/badge/Badge.js';
 export { BADGE_SIZES, BADGE_TONES } from './components/badge/Badge.types.js';
 export type { BadgeProps, BadgeSize, BadgeTone } from './components/badge/Badge.types.js';
 
+export { default as Skeleton } from './components/skeleton/Skeleton.js';
+export { SKELETON_SHAPES } from './components/skeleton/Skeleton.types.js';
+export type { SkeletonProps, SkeletonShape } from './components/skeleton/Skeleton.types.js';
+
 export { default as Banner } from './components/banner/Banner.js';
 export { BANNER_TONES } from './components/banner/Banner.types.js';
 export type {
