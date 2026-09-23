@@ -1,0 +1,121 @@
+@layer chayns.components {
+  .chayns-date-time-picker {
+    display: inline-block;
+    max-inline-size: 100%;
+    position: relative;
+  }
+
+  .chayns-date-time-picker--time {
+    min-inline-size: 100px;
+  }
+
+  .chayns-date-time-picker__trigger {
+    box-sizing: border-box;
+    max-inline-size: 100%;
+    min-block-size: calc(1.2em + 2 * var(--input-py) + 3px);
+    padding: var(--input-py) var(--input-px);
+    border: 1.5px solid var(--input-border);
+    border-radius: var(--k10);
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    font: inherit;
+    line-height: 1.2;
+    outline: none;
+    text-align: start;
+  }
+
+  .chayns-date-time-picker__trigger:focus-visible {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 var(--focus-ring-size)
+      rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-soft));
+  }
+
+  .chayns-date-time-picker__label {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: var(--k10);
+    padding-inline: var(--k5);
+    background: var(--surface);
+    color: var(--text-3);
+    font-size: var(--fs-body);
+    line-height: 1.2;
+    pointer-events: none;
+    transform: translateY(calc(var(--input-py) + 1.5px + 0.6em - 50%));
+    transform-origin: left center;
+    white-space: nowrap;
+  }
+
+  .chayns-date-time-picker--open .chayns-date-time-picker__label,
+  .chayns-date-time-picker--filled .chayns-date-time-picker__label {
+    color: var(--accent);
+    transform: translateY(-50%) scale(0.8);
+  }
+
+  .chayns-date-time-picker__popup {
+    position: absolute;
+    inset-block-start: calc(100% + var(--k4));
+    inset-inline: 0;
+    z-index: var(--z-popover);
+    overflow: hidden;
+    padding: var(--k8);
+    border: 1px solid var(--border);
+    border-radius: var(--k12);
+    background: var(--surface);
+    box-shadow: var(--shadow-pop);
+  }
+
+  .chayns-date-time-picker__wheels {
+    display: flex;
+    position: relative;
+    block-size: calc(var(--k40) * 5);
+  }
+
+  .chayns-date-time-picker__selection {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline: var(--k8);
+    z-index: 1;
+    block-size: var(--k40);
+    border-radius: var(--k6);
+    background: rgb(var(--accent-rgb), 0.1);
+    pointer-events: none;
+    transform: translateY(-50%);
+  }
+
+  .chayns-date-time-picker__wheel {
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-block: calc(var(--k40) * 2);
+    perspective: 18rem;
+    perspective-origin: center;
+    scrollbar-width: none;
+    scroll-snap-type: y mandatory;
+    text-align: center;
+    user-select: none;
+  }
+
+  .chayns-date-time-picker__wheel:focus-visible {
+    outline: var(--focus-ring-size) solid rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-strong));
+    outline-offset: 2px;
+  }
+
+  .chayns-date-time-picker__wheel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chayns-date-time-picker__wheel-option {
+    display: block;
+    inline-size: 100%;
+    min-block-size: var(--k40);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+    scroll-snap-align: center;
+    transform-origin: center;
+    transform-style: preserve-3d;
+  }
+}

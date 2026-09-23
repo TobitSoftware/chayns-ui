@@ -36,6 +36,16 @@ export type {
 export { default as TextField } from './components/text-field/TextField.js';
 export type { TextFieldProps } from './components/text-field/TextField.types.js';
 
+export { default as DateTimePicker } from './components/date-time-picker/DateTimePicker.js';
+export {
+  DATE_TIME_PICKER_MODES,
+  DATE_TIME_PICKER_MINUTE_STEPS,
+  type DateTimePickerMinuteStep,
+  type DateTimePickerMode,
+  type DateTimePickerProps,
+  type DateTimePickerWheelLabels,
+} from './components/date-time-picker/DateTimePicker.types.js';
+
 export { default as TextArea } from './components/text-area/TextArea.js';
 export type { TextAreaProps } from './components/text-area/TextArea.types.js';
 
