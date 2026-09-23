@@ -38,6 +38,8 @@ const packages = [
     expected: [
       'package/dist/baseline.css',
       'package/dist/patch.css',
+      'package/dist/index.js',
+      'package/dist/index.d.ts',
       'package/src/foundations.tokens.json',
     ],
   },

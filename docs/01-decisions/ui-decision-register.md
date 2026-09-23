@@ -152,6 +152,8 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | COLOR-004 | COLOR | Die verwendete Accent-Farbe darf für Accessibility/Kontrast kalibriert werden. | CONFIRMED | AGENTS.md, Architecture | |
 | COLOR-005 | COLOR | Nutzbarkeit und WCAG gehen vor exakter Farbübereinstimmung. | CONFIRMED | AGENTS.md, Architecture | |
 | COLOR-006 | COLOR | Die Theme-Resolver-Implementierung liegt im Tokens-Package. Der Resolver verarbeitet nur bestätigte globale Theme-/Environment-Eingaben und erzeugt semantische CSS-Tokens; Core Components berechnen keine Theme-Werte selbst. | CONFIRMED | User decision, 2026-09-21 | Resolver-Schnittstelle und bestätigte Eingabematrix dokumentieren. |
+| COLOR-007 | COLOR | Theme-/Environment-Eingaben werden global durch Host oder Anwendung gesetzt, damit sie das Design der gesamten Anwendung konsistent verändern. Lokale Component-Overrides für diese Eingaben sind nicht vorgesehen. | CONFIRMED | User decision, 2026-09-23 | Öffentliche Resolver-Schnittstelle und Scope dokumentieren. |
+| COLOR-008 | COLOR | `@chayns-ui/tokens` exportiert `applyTheme(options)` als framework-unabhängige globale API. Sie setzt die bestätigten Klassen ausschließlich auf `document.documentElement`; Aufrufe sind partiell und erhalten nicht übergebene Einstellungen. Die API unterstützt `colorMode` (`light`/`dark`), `density` (`s`/`m`/`l`) und den exklusiven `accessibilityMode` (`standard`/`high-contrast`/`color-deficiency`). Eine frei konfigurierbare Primary-/Accent-Farbe bleibt bis zur bestätigten Token-Ableitung und Kontrastkalibrierung ausgeschlossen. | CONFIRMED | User decisions, 2026-09-23 | Klassen- und API-Vertrag testen und veröffentlichen. |
 
 ## Typography
 
