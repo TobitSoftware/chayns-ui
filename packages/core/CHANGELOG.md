@@ -1,5 +1,11 @@
 # @chayns-ui/core
 
+## 0.8.0
+
+### Minor Changes
+
+- Add the Skeleton loading-state component and improve the deterministic avatar initials color fallback.
+
 ## 0.7.0
 
 ### Minor Changes

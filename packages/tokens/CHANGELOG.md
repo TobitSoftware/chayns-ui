@@ -1,5 +1,11 @@
 # @chayns-ui/tokens
 
+## 0.6.0
+
+### Minor Changes
+
+- Add the framework-independent `applyTheme` API for globally configuring color mode, density, and accessibility mode.
+
 ## 0.5.0
 
 ### Minor Changes
