@@ -1,5 +1,11 @@
 # @chayns-ui/layout
 
+## 0.6.3
+
+### Patch Changes
+
+- Require @chayns-ui/core 0.7.0 or newer.
+
 ## Unreleased
 
 ### Documentation and Story Changes

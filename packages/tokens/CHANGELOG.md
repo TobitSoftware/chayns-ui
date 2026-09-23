@@ -1,5 +1,11 @@
 # @chayns-ui/tokens
 
+## 0.5.0
+
+### Minor Changes
+
+- 153710d: Add DateTimePicker with controlled local date or time selection, cyclic wheel interaction and locale-aware formatting. Publish the `grey` and complete Accent primitive color scales.
+
 ## 0.4.0
 
 ### Minor Changes
