@@ -1,5 +1,11 @@
 # @chayns-ui/tokens
 
+## 0.6.1
+
+### Patch Changes
+
+- Add a Storybook accent color picker that applies the selected color through `applyTheme`.
+
 ## 0.6.0
 
 ### Minor Changes
