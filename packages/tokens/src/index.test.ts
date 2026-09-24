@@ -52,6 +52,39 @@ describe('applyTheme', () => {
     expect(root.classList.contains('chayns-theme--color-deficiency')).toBe(false);
   });
 
+  it('creates a deterministic accent class and its token declarations', () => {
+    applyTheme({ accentColor: '#0F6D7E' });
+
+    expect(root.classList.contains('chayns-accent--0f6d7e')).toBe(true);
+
+    const style = document.head.querySelector('style[data-chayns-ui-accent-colors]');
+    expect(style?.textContent).toContain('--accent: #0f6d7e;');
+    expect(style?.textContent).toContain('--accent-rgb: 15, 109, 126;');
+    expect(style?.textContent).toContain('--accent-100: #e7f0f2;');
+    expect(style?.textContent).toContain('--accent-800: #3f8a98;');
+    expect(style?.textContent).toContain('--on-accent: #ffffff;');
+  });
+
+  it('updates the accent class without changing other theme settings', () => {
+    applyTheme({ accentColor: '#0f6d7e', colorMode: 'dark' });
+    applyTheme({ accentColor: '#f97066' });
+
+    expect(root.classList.contains('chayns-accent--0f6d7e')).toBe(false);
+    expect(root.classList.contains('chayns-accent--f97066')).toBe(true);
+    expect(root.classList.contains('chayns-theme--dark')).toBe(true);
+    expect(document.head.querySelector('style[data-chayns-ui-accent-colors]')?.textContent).toContain(
+      '.chayns-accent--f97066.chayns-theme--dark',
+    );
+  });
+
+  it('uses a contrasting on-accent foreground without changing the supplied color', () => {
+    applyTheme({ accentColor: '#777777' });
+
+    const style = document.head.querySelector('style[data-chayns-ui-accent-colors]');
+    expect(style?.textContent).toContain('--accent: #777777;');
+    expect(style?.textContent).toContain('--on-accent: #000000;');
+  });
+
   it('rejects unsupported option values', () => {
     applyTheme({ colorMode: 'dark' });
 
@@ -59,5 +92,11 @@ describe('applyTheme', () => {
       "colorMode must be one of: 'light', 'dark'.",
     );
     expect(root.classList.contains('chayns-theme--dark')).toBe(true);
+  });
+
+  it('rejects accent colors that do not use the #RRGGBB format', () => {
+    expect(() => applyTheme({ accentColor: '#0f6d7' })).toThrow(
+      'accentColor must be a #RRGGBB hex color.',
+    );
   });
 });

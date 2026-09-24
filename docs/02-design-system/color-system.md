@@ -167,7 +167,18 @@ Der spätere Resolver folgt verbindlich diesem konzeptionellen Ablauf:
 5. Die semantischen Rollen `--accent`, `--accent-hover`, `--accent-active` und `--on-accent` werden aufgelöst.
 6. Die resultierenden Kombinationen erfüllen die Accessibility-Invarianten dieses Dokuments.
 
-Der konkrete Validierungs-, Normalisierungs- und Kalibrierungsalgorithmus ist nicht bestätigt und bleibt TECH REVIEW. Jede spätere Umsetzung muss jedoch die beschriebenen Invarianten erfüllen; sie darf keine Komponente zur lokalen Accent-Berechnung verpflichten.
+Die erste Resolver-Schnittstelle ist `applyTheme({ accentColor })` im Tokens-Package. Sie akzeptiert
+zunächst ausschließlich ein `#RRGGBB`-Format, normalisiert es zu Kleinschreibung und wendet eine
+deterministische `chayns-accent--rrggbb`-Klasse auf `document.documentElement` an. Eine vom
+Tokens-Package verwaltete CSS-Regel setzt die Accent-Tokens. Das Verfahren orientiert sich an der
+RGB-Mischrichtung von `chayns-colors`: `--accent-100` bis `--accent-800` entstehen aus 10 bis 80
+Prozent Accent-Farbe gegen Weiß. `--accent-hover` und `--accent-active` passen die HSL-Lightness
+im Light Mode um -5 beziehungsweise -8 Prozentpunkte und im Dark Mode um +8 beziehungsweise +4
+Prozentpunkte an. `--on-accent` wird zwischen Schwarz und Weiß mit dem höheren Kontrastverhältnis
+gewählt; die Accent-Eingabe selbst wird in diesem ersten Schritt nicht kalibriert.
+
+Die Regel ist zentral im Tokens-Package implementiert; Komponenten berechnen weiterhin keine
+lokalen Accent-Werte.
 
 ## 7. Contrast Mode
 
@@ -263,14 +274,14 @@ Dieses Dokument erstellt keine Button Component Specification und keine Komponen
 
 | Work item | Status | Required outcome |
 |---|---|---|
-| Accent-Kalibrierungsalgorithmus | TECH REVIEW | Nachweisbare, die Invarianten erfüllende Regel ohne lokale Komponentenberechnung. |
+| Accent-Kalibrierungsalgorithmus | CONFIRMED | `accentColor` bleibt unverändert; `--on-accent` verwendet den kontraststärkeren schwarzen oder weißen Vordergrund. User decision, 2026-09-24. |
 | Primitive Color Catalogue | TECH REVIEW | Vollständige, eindeutig belegte primitive Farbskalen und interne Verwendungsgrenzen. |
 | Semantic-to-Primitive Mapping | TECH REVIEW | Kanonisches Mapping je Theme Mode und Accessibility-Variante. |
 | Contrast-Mode-Mapping | TECH REVIEW | Vollständige Zuordnung der veränderbaren semantischen Rollen. |
 | Color-Deficiency-Mapping | TECH REVIEW | Vollständige Zuordnung der angepassten Rollen ohne erfundene Deficiency-Varianten. |
 | Disabled Token Naming and mapping | TECH REVIEW | Kanonische Zuordnung der belegten Disabled-Rollen zu Component States. |
 | Component-specific Color Token Catalogue | TECH REVIEW | Zugelassene Kategorien, Namen und Herleitung aus Foundation-Tokens. |
-| Theme Resolver Architecture | OPEN | Technische Architektur und Implementierung des Resolvers; COLOR-006 bleibt OPEN. |
+| Theme Resolver Architecture | CONFIRMED | `applyTheme` im Tokens-Package verwaltet Accent-Klassen und ihre CSS-Token-Regeln. User decision, 2026-09-24. |
 
 ## 18. Decision Register Impact
 
