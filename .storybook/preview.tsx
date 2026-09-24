@@ -1,6 +1,7 @@
 import { useEffect, type ReactNode } from 'react';
 import type { Preview } from '@storybook/react-vite';
 
+import { applyTheme } from '../packages/tokens/src';
 import '../packages/tokens/dist/baseline.css';
 import '../packages/tokens/dist/patch.css';
 import '../packages/core/src/styles.css';
@@ -10,9 +11,12 @@ import './preview.css';
 const COLOR_MODE_CLASSES = ['chayns-theme--light', 'chayns-theme--dark'];
 const DENSITY_CLASSES = ['chayns-density--s', 'chayns-density--m', 'chayns-density--l'];
 const ACCESSIBILITY_CLASSES = ['chayns-contrast--high', 'chayns-theme--color-deficiency'];
+const DEFAULT_ACCENT_COLOR = '#0f6d7e';
+const HEX_COLOR_PATTERN = /^#[\da-f]{6}$/i;
 
 interface PreviewEnvironmentProps {
   accessibilityMode: string;
+  accentColor: string;
   children: ReactNode;
   colorMode: string;
   density: string;
@@ -26,8 +30,13 @@ function getAccessibilityClass(accessibilityMode: string): string {
   return '';
 }
 
+function getAccentColor(accentColor: string): string {
+  return HEX_COLOR_PATTERN.test(accentColor) ? accentColor.toLowerCase() : DEFAULT_ACCENT_COLOR;
+}
+
 function PreviewEnvironment({
   accessibilityMode,
+  accentColor,
   children,
   colorMode,
   density,
@@ -53,15 +62,22 @@ function PreviewEnvironment({
     return () => previewRoot.classList.remove(...environmentClasses);
   }, [environmentClassName]);
 
+  useEffect(() => {
+    applyTheme({ accentColor: getAccentColor(accentColor) });
+  }, [accentColor]);
+
   const previewClassName = isDocs
     ? 'chayns-storybook-preview chayns-storybook-preview--docs'
     : 'chayns-storybook-preview';
 
-  return <div className={`${previewClassName} ${environmentClassName}`}>{children}</div>;
+  return <div className={previewClassName}>{children}</div>;
 }
 
 const preview: Preview = {
   globalTypes: {
+    accentColor: {
+      description: 'Accent color used by the component preview.',
+    },
     colorMode: {
       description: 'Resolved color mode used by the component preview.',
       toolbar: {
@@ -102,6 +118,7 @@ const preview: Preview = {
     },
   },
   initialGlobals: {
+    accentColor: DEFAULT_ACCENT_COLOR,
     colorMode: 'light',
     density: 'm',
     accessibilityMode: 'standard',
@@ -111,10 +128,12 @@ const preview: Preview = {
       const colorMode = String(context.globals.colorMode ?? 'light');
       const density = String(context.globals.density ?? 'm');
       const accessibilityMode = String(context.globals.accessibilityMode ?? 'standard');
+      const accentColor = String(context.globals.accentColor ?? DEFAULT_ACCENT_COLOR);
 
       return (
         <PreviewEnvironment
           accessibilityMode={accessibilityMode}
+          accentColor={accentColor}
           colorMode={colorMode}
           density={density}
           isDocs={context.viewMode === 'docs'}

@@ -1,6 +1,8 @@
 import { addons } from 'storybook/manager-api';
 import { create } from 'storybook/theming';
 
+import './accent-color-tool';
+
 const chaynsUiTheme = create({
   base: 'light',
   brandTarget: '_self',
