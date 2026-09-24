@@ -1,0 +1,24 @@
+@layer chayns.components {
+  .chayns-spinner {
+    box-sizing: border-box;
+    display: block;
+    width: var(--k30);
+    height: var(--k30);
+    border: 3px solid var(--surface-alt);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: chayns-spinner-spin 0.8s linear infinite;
+  }
+
+  @keyframes chayns-spinner-spin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chayns-spinner {
+      animation: none;
+    }
+  }
+}

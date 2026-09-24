@@ -20,6 +20,12 @@ export { default as Skeleton } from './components/skeleton/Skeleton.js';
 export { SKELETON_SHAPES } from './components/skeleton/Skeleton.types.js';
 export type { SkeletonProps, SkeletonShape } from './components/skeleton/Skeleton.types.js';
 
+export { default as Spinner } from './components/spinner/Spinner.js';
+export type { SpinnerProps } from './components/spinner/Spinner.types.js';
+
+export { default as Progress } from './components/progress/Progress.js';
+export type { ProgressProps } from './components/progress/Progress.types.js';
+
 export { default as Banner } from './components/banner/Banner.js';
 export { BANNER_TONES } from './components/banner/Banner.types.js';
 export type {
