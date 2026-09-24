@@ -78,4 +78,7 @@ const css = [
 
 await mkdir(outputDirectory, { recursive: true });
 await writeFile(outputPath, `${css}\n`, 'utf8');
-await copyFile(resolve(packageDirectory, 'src/patch.css'), resolve(outputDirectory, 'patch.css'));
+await Promise.all([
+  copyFile(resolve(packageDirectory, 'src/color.css'), resolve(outputDirectory, 'color.css')),
+  copyFile(resolve(packageDirectory, 'src/patch.css'), resolve(outputDirectory, 'patch.css')),
+]);

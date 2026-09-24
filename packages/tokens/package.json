@@ -24,6 +24,7 @@
       "import": "./dist/index.js"
     },
     "./baseline.css": "./dist/baseline.css",
+    "./color.css": "./dist/color.css",
     "./patch.css": "./dist/patch.css",
     "./package.json": "./package.json"
   },

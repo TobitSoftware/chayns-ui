@@ -1,49 +1,21 @@
-export const COLOR_MODES = ['light', 'dark'] as const;
-export const DENSITIES = ['s', 'm', 'l'] as const;
-export const ACCESSIBILITY_MODES = ['standard', 'high-contrast', 'color-deficiency'] as const;
-
-export type ColorMode = (typeof COLOR_MODES)[number];
-export type Density = (typeof DENSITIES)[number];
-export type AccessibilityMode = (typeof ACCESSIBILITY_MODES)[number];
-
-export interface ApplyThemeOptions {
-  accessibilityMode?: AccessibilityMode;
-  accentColor?: string;
-  colorMode?: ColorMode;
-  density?: Density;
-}
-
-const COLOR_MODE_CLASSES = COLOR_MODES.map((mode) => `chayns-theme--${mode}`);
-const DENSITY_CLASSES = DENSITIES.map((density) => `chayns-density--${density}`);
-const ACCESSIBILITY_CLASSES = ['chayns-contrast--high', 'chayns-theme--color-deficiency'] as const;
-const ACCENT_CLASS_PREFIX = 'chayns-accent--';
-const ACCENT_STYLE_ATTRIBUTE = 'data-chayns-ui-accent-colors';
 const HEX_COLOR_PATTERN = /^#[\da-f]{6}$/i;
+const LIGHT_SURFACE = '#f4f6f6';
+const DARK_SURFACE = '#0e171b';
+const MINIMUM_ACCENT_CONTRAST = 4.5;
 
-let activeAccentClass: string | undefined;
+type Oklch = readonly [lightness: number, chroma: number, hue: number];
 
-function assertSupportedOption<Value extends string>(
-  name: string,
-  value: unknown,
-  supportedValues: readonly Value[],
-): asserts value is Value {
-  if (
-    typeof value !== 'string' ||
-    !supportedValues.some((supportedValue) => supportedValue === value)
-  ) {
-    throw new TypeError(
-      `${name} must be one of: ${supportedValues.map((supportedValue) => `'${supportedValue}'`).join(', ')}.`,
-    );
-  }
-}
+export type ThemeAccentVariable =
+  | '--theme-accent-light'
+  | '--theme-accent-light-hover'
+  | '--theme-accent-light-active'
+  | '--theme-accent-light-rgb'
+  | '--theme-accent-dark'
+  | '--theme-accent-dark-hover'
+  | '--theme-accent-dark-active'
+  | '--theme-accent-dark-rgb';
 
-function documentRoot(): HTMLElement {
-  if (typeof document === 'undefined') {
-    throw new ReferenceError('applyTheme requires a browser document.');
-  }
-
-  return document.documentElement;
-}
+export type ThemeColors = Record<ThemeAccentVariable, string>;
 
 function assertAccentColor(value: unknown): asserts value is string {
   if (typeof value !== 'string' || !HEX_COLOR_PATTERN.test(value)) {
@@ -65,72 +37,81 @@ function rgbToHex(red: number, green: number, blue: number): string {
     .join('')}`;
 }
 
-function mixHex(color: string, target: string, colorWeight: number): string {
-  const source = hexToRgb(color);
-  const destination = hexToRgb(target);
-  const targetWeight = 1 - colorWeight;
-
-  return rgbToHex(
-    source[0] * colorWeight + destination[0] * targetWeight,
-    source[1] * colorWeight + destination[1] * targetWeight,
-    source[2] * colorWeight + destination[2] * targetWeight,
-  );
+function rgbValue(hex: string): string {
+  return hexToRgb(hex).join(', ');
 }
 
-function rgbToHsl(hex: string): readonly [number, number, number] {
-  const rgb = hexToRgb(hex);
-  const red = rgb[0] / 255;
-  const green = rgb[1] / 255;
-  const blue = rgb[2] / 255;
-  const maximum = Math.max(red, green, blue);
-  const minimum = Math.min(red, green, blue);
-  const lightness = (maximum + minimum) / 2;
-  const difference = maximum - minimum;
-
-  if (difference === 0) return [0, 0, lightness];
-
-  const saturation = difference / (1 - Math.abs(2 * lightness - 1));
-  let hue = 0;
-
-  if (maximum === red) hue = ((green - blue) / difference) % 6;
-  if (maximum === green) hue = (blue - red) / difference + 2;
-  if (maximum === blue) hue = (red - green) / difference + 4;
-
-  return [hue * 60 < 0 ? hue * 60 + 360 : hue * 60, saturation, lightness];
+function srgbToLinear(channel: number): number {
+  return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
 }
 
-function hslToHex(hue: number, saturation: number, lightness: number): string {
-  const chroma = (1 - Math.abs(2 * lightness - 1)) * saturation;
-  const secondary = chroma * (1 - Math.abs(((hue / 60) % 2) - 1));
-  const match = lightness - chroma / 2;
-  let red = 0;
-  let green = 0;
-  let blue = 0;
-
-  if (hue < 60) [red, green] = [chroma, secondary];
-  else if (hue < 120) [red, green] = [secondary, chroma];
-  else if (hue < 180) [green, blue] = [chroma, secondary];
-  else if (hue < 240) [green, blue] = [secondary, chroma];
-  else if (hue < 300) [red, blue] = [secondary, chroma];
-  else [red, blue] = [chroma, secondary];
-
-  return rgbToHex((red + match) * 255, (green + match) * 255, (blue + match) * 255);
+function linearToSrgb(channel: number): number {
+  return channel <= 0.0031308 ? channel * 12.92 : 1.055 * channel ** (1 / 2.4) - 0.055;
 }
 
-function changeLightness(color: string, amount: number): string {
-  const [hue, saturation, lightness] = rgbToHsl(color);
-  return hslToHex(hue, saturation, Math.min(1, Math.max(0, lightness + amount)));
+function hexToOklch(hex: string): Oklch {
+  const [sourceRed, sourceGreen, sourceBlue] = hexToRgb(hex);
+  const red = srgbToLinear(sourceRed / 255);
+  const green = srgbToLinear(sourceGreen / 255);
+  const blue = srgbToLinear(sourceBlue / 255);
+  const l = 0.4122214708 * red + 0.5363325363 * green + 0.0514459929 * blue;
+  const m = 0.2119034982 * red + 0.6806995451 * green + 0.1073969566 * blue;
+  const s = 0.0883024619 * red + 0.2817188376 * green + 0.6299787005 * blue;
+  const lRoot = Math.cbrt(l);
+  const mRoot = Math.cbrt(m);
+  const sRoot = Math.cbrt(s);
+  const lightness = 0.2104542553 * lRoot + 0.793617785 * mRoot - 0.0040720468 * sRoot;
+  const a = 1.9779984951 * lRoot - 2.428592205 * mRoot + 0.4505937099 * sRoot;
+  const b = 0.0259040371 * lRoot + 0.7827717662 * mRoot - 0.808675766 * sRoot;
+  const hue = (Math.atan2(b, a) * 180) / Math.PI;
+
+  return [lightness, Math.hypot(a, b), hue < 0 ? hue + 360 : hue];
+}
+
+function oklchToHex(lightness: number, chroma: number, hue: number): string | undefined {
+  const radians = (hue * Math.PI) / 180;
+  const a = chroma * Math.cos(radians);
+  const b = chroma * Math.sin(radians);
+  const lRoot = lightness + 0.3963377774 * a + 0.2158037573 * b;
+  const mRoot = lightness - 0.1055613458 * a - 0.0638541728 * b;
+  const sRoot = lightness - 0.0894841775 * a - 1.291485548 * b;
+  const l = lRoot ** 3;
+  const m = mRoot ** 3;
+  const s = sRoot ** 3;
+  const red = 4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
+  const green = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
+  const blue = -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s;
+
+  if (![red, green, blue].every((channel) => channel >= 0 && channel <= 1)) return undefined;
+
+  return rgbToHex(linearToSrgb(red) * 255, linearToSrgb(green) * 255, linearToSrgb(blue) * 255);
+}
+
+function oklchToGamutMappedHex(lightness: number, chroma: number, hue: number): string {
+  let minimum = 0;
+  let maximum = chroma;
+  let result = oklchToHex(lightness, minimum, hue) ?? '#000000';
+
+  for (let iteration = 0; iteration < 24; iteration += 1) {
+    const candidateChroma = (minimum + maximum) / 2;
+    const candidate = oklchToHex(lightness, candidateChroma, hue);
+
+    if (candidate) {
+      minimum = candidateChroma;
+      result = candidate;
+    } else {
+      maximum = candidateChroma;
+    }
+  }
+
+  return result;
 }
 
 function relativeLuminance(color: string): number {
-  const rgb = hexToRgb(color);
-  const linearize = (channel: number): number => {
-    const value = channel / 255;
-    return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
-  };
-  const red = linearize(rgb[0]);
-  const green = linearize(rgb[1]);
-  const blue = linearize(rgb[2]);
+  const [sourceRed, sourceGreen, sourceBlue] = hexToRgb(color);
+  const red = srgbToLinear(sourceRed / 255);
+  const green = srgbToLinear(sourceGreen / 255);
+  const blue = srgbToLinear(sourceBlue / 255);
 
   return red * 0.2126 + green * 0.7152 + blue * 0.0722;
 }
@@ -143,135 +124,63 @@ function contrastRatio(first: string, second: string): number {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-function onAccentColor(accentColor: string): string {
-  const candidates = ['#ffffff', '#000000'];
-  return candidates.reduce((best, candidate) =>
-    contrastRatio(candidate, accentColor) > contrastRatio(best, accentColor) ? candidate : best,
+function calibratedAccent(color: Oklch, surface: string, direction: 'lighter' | 'darker'): string {
+  const [lightness, chroma, hue] = color;
+  const original = oklchToGamutMappedHex(lightness, chroma, hue);
+
+  if (contrastRatio(original, surface) >= MINIMUM_ACCENT_CONTRAST) return original;
+
+  let minimum = direction === 'darker' ? 0 : lightness;
+  let maximum = direction === 'darker' ? lightness : 1;
+  let result = direction === 'darker' ? '#000000' : '#ffffff';
+
+  for (let iteration = 0; iteration < 24; iteration += 1) {
+    const candidateLightness = (minimum + maximum) / 2;
+    const candidate = oklchToGamutMappedHex(candidateLightness, chroma, hue);
+
+    if (contrastRatio(candidate, surface) >= MINIMUM_ACCENT_CONTRAST) {
+      result = candidate;
+      if (direction === 'darker') minimum = candidateLightness;
+      else maximum = candidateLightness;
+    } else if (direction === 'darker') {
+      maximum = candidateLightness;
+    } else {
+      minimum = candidateLightness;
+    }
+  }
+
+  return result;
+}
+
+function adjustedAccent(
+  accent: string,
+  surface: string,
+  direction: 'lighter' | 'darker',
+  lightnessOffset: number,
+): string {
+  const [lightness, chroma, hue] = hexToOklch(accent);
+  return calibratedAccent(
+    [Math.min(1, lightness + lightnessOffset), chroma, hue],
+    surface,
+    direction,
   );
 }
 
-function declarations(values: Record<string, string>): string {
-  return Object.entries(values)
-    .map(([name, value]) => `  ${name}: ${value};`)
-    .join('\n');
-}
+export function resolveThemeColors(accentColor: string): ThemeColors {
+  assertAccentColor(accentColor);
 
-function accentDeclarations(accentColor: string, colorMode: ColorMode): string {
-  const onAccent = onAccentColor(accentColor);
-  const [red, green, blue] = hexToRgb(accentColor);
-  const [onAccentRed, onAccentGreen, onAccentBlue] = hexToRgb(onAccent);
-  const scale = [
-    mixHex(accentColor, '#ffffff', 0.1),
-    mixHex(accentColor, '#ffffff', 0.2),
-    mixHex(accentColor, '#ffffff', 0.3),
-    mixHex(accentColor, '#ffffff', 0.4),
-    mixHex(accentColor, '#ffffff', 0.5),
-    mixHex(accentColor, '#ffffff', 0.6),
-    mixHex(accentColor, '#ffffff', 0.7),
-    mixHex(accentColor, '#ffffff', 0.8),
-  ] as const;
-  const hover = changeLightness(accentColor, colorMode === 'light' ? -0.05 : 0.08);
-  const active = changeLightness(accentColor, colorMode === 'light' ? -0.08 : 0.04);
+  const color = hexToOklch(accentColor);
+  const lightAccent = calibratedAccent(color, LIGHT_SURFACE, 'darker');
+  const darkAccent = calibratedAccent(color, DARK_SURFACE, 'lighter');
 
-  return declarations({
-    '--accent': accentColor,
-    '--accent-rgb': `${red}, ${green}, ${blue}`,
-    '--accent-hover': hover,
-    '--accent-active': active,
-    '--on-accent': onAccent,
-    '--on-accent-rgb': `${onAccentRed}, ${onAccentGreen}, ${onAccentBlue}`,
-    '--accent-100': scale[0],
-    '--accent-200': scale[1],
-    '--accent-300': scale[2],
-    '--accent-400': scale[3],
-    '--accent-500': scale[4],
-    '--accent-600': scale[5],
-    '--accent-700': scale[6],
-    '--accent-800': scale[7],
-    '--tint': scale[0],
-    '--focus-ring-rgb': `${red}, ${green}, ${blue}`,
-  });
-}
-
-function accentClassName(accentColor: string): string {
-  return `${ACCENT_CLASS_PREFIX}${accentColor.slice(1).toLowerCase()}`;
-}
-
-function accentStyleElement(): HTMLStyleElement {
-  const existing = document.head.querySelector<HTMLStyleElement>(
-    `style[${ACCENT_STYLE_ATTRIBUTE}]`,
-  );
-  if (existing) return existing;
-
-  const style = document.createElement('style');
-  style.setAttribute(ACCENT_STYLE_ATTRIBUTE, '');
-  document.head.append(style);
-  return style;
-}
-
-function applyAccentColor(root: HTMLElement, accentColor: string): void {
-  const accentClass = accentClassName(accentColor);
-
-  if (activeAccentClass) root.classList.remove(activeAccentClass);
-  root.classList.add(accentClass);
-  activeAccentClass = accentClass;
-
-  accentStyleElement().textContent = [
-    `.${accentClass} {\n${accentDeclarations(accentColor, 'light')}\n}`,
-    `.${accentClass}.chayns-theme--dark {\n${accentDeclarations(accentColor, 'dark')}\n}`,
-  ].join('\n\n');
-}
-
-/**
- * Applies global chayns UI theme classes to the document root.
- * Omitted options retain their current setting.
- */
-export function applyTheme(options: ApplyThemeOptions): void {
-  const accentColor = options.accentColor;
-  let normalizedAccentColor: string | undefined;
-
-  if (Object.hasOwn(options, 'accentColor')) {
-    assertAccentColor(accentColor);
-    normalizedAccentColor = accentColor.toLowerCase();
-  }
-
-  if (Object.hasOwn(options, 'colorMode')) {
-    assertSupportedOption('colorMode', options.colorMode, COLOR_MODES);
-  }
-
-  if (Object.hasOwn(options, 'density')) {
-    assertSupportedOption('density', options.density, DENSITIES);
-  }
-
-  if (Object.hasOwn(options, 'accessibilityMode')) {
-    assertSupportedOption('accessibilityMode', options.accessibilityMode, ACCESSIBILITY_MODES);
-  }
-
-  const root = documentRoot();
-
-  if (normalizedAccentColor) {
-    applyAccentColor(root, normalizedAccentColor);
-  }
-
-  if (Object.hasOwn(options, 'colorMode')) {
-    root.classList.remove(...COLOR_MODE_CLASSES);
-    root.classList.add(`chayns-theme--${options.colorMode}`);
-  }
-
-  if (Object.hasOwn(options, 'density')) {
-    root.classList.remove(...DENSITY_CLASSES);
-    root.classList.add(`chayns-density--${options.density}`);
-  }
-
-  if (Object.hasOwn(options, 'accessibilityMode')) {
-    root.classList.remove(...ACCESSIBILITY_CLASSES);
-
-    if (options.accessibilityMode === 'high-contrast') {
-      root.classList.add('chayns-contrast--high');
-    }
-
-    if (options.accessibilityMode === 'color-deficiency') {
-      root.classList.add('chayns-theme--color-deficiency');
-    }
-  }
+  return {
+    '--theme-accent-light': lightAccent,
+    '--theme-accent-light-hover': adjustedAccent(lightAccent, LIGHT_SURFACE, 'darker', 0.04),
+    '--theme-accent-light-active': adjustedAccent(lightAccent, LIGHT_SURFACE, 'darker', 0.08),
+    '--theme-accent-light-rgb': rgbValue(lightAccent),
+    '--theme-accent-dark': darkAccent,
+    '--theme-accent-dark-hover': adjustedAccent(darkAccent, DARK_SURFACE, 'lighter', 0.06),
+    '--theme-accent-dark-active': adjustedAccent(darkAccent, DARK_SURFACE, 'lighter', 0.12),
+    '--theme-accent-dark-rgb': rgbValue(darkAccent),
+  };
 }
