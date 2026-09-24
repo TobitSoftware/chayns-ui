@@ -1,5 +1,11 @@
 # @chayns-ui/core
 
+## 0.9.0
+
+### Minor Changes
+
+- Add decorative Spinner and accessible Progress components.
+
 ## 0.8.0
 
 ### Minor Changes

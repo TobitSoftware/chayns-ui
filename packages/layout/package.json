@@ -28,7 +28,7 @@
     "./package.json": "./package.json"
   },
   "peerDependencies": {
-    "@chayns-ui/core": ">=0.7.0",
+    "@chayns-ui/core": ">=0.9.0",
     "react": ">=18 <20"
   },
   "devDependencies": {
