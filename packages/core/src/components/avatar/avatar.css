@@ -37,7 +37,7 @@
   .chayns-avatar--large {
     inline-size: var(--k52);
     block-size: var(--k52);
-    font-size: var(--fs-subtitle);
+    font-size: var(--fs-micro);
   }
 
   .chayns-avatar__image {
