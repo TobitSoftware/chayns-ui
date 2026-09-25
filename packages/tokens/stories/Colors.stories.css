@@ -1,0 +1,43 @@
+.chayns-storybook-color-palette {
+  display: grid;
+  gap: var(--sp-6);
+}
+
+.chayns-storybook-color-palette__group {
+  display: grid;
+  gap: var(--sp-3);
+}
+
+.chayns-storybook-color-palette__group h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: var(--fs-h2);
+}
+
+.chayns-storybook-color-palette__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--sp-2);
+}
+
+.chayns-storybook-color-palette__tile {
+  display: grid;
+  gap: var(--sp-2);
+  min-inline-size: 0;
+  padding: var(--sp-2);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.chayns-storybook-color-palette__swatch {
+  display: block;
+  min-block-size: 5rem;
+  border: 1px solid var(--border-soft);
+}
+
+.chayns-storybook-color-palette__tile code {
+  overflow-wrap: anywhere;
+  color: var(--text-2);
+  font-size: var(--fs-caption);
+}
