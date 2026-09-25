@@ -13,6 +13,14 @@ describe('resolveThemeColors', () => {
       '--theme-accent-dark-hover': '#4593f1',
       '--theme-accent-dark-active': '#5ea6ff',
       '--theme-accent-dark-rgb': '49, 128, 220',
+      '--theme-accent-high-contrast-light': '#0058ad',
+      '--theme-accent-high-contrast-light-hover': '#0058ad',
+      '--theme-accent-high-contrast-light-active': '#0058ad',
+      '--theme-accent-high-contrast-light-rgb': '0, 88, 173',
+      '--theme-accent-high-contrast-dark': '#4997f5',
+      '--theme-accent-high-contrast-dark-hover': '#67abff',
+      '--theme-accent-high-contrast-dark-active': '#8bbeff',
+      '--theme-accent-high-contrast-dark-rgb': '73, 151, 245',
     });
   });
 

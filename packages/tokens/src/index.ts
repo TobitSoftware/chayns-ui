@@ -2,6 +2,8 @@ const HEX_COLOR_PATTERN = /^#[\da-f]{6}$/i;
 const LIGHT_SURFACE = '#f4f6f6';
 const DARK_SURFACE = '#0e171b';
 const MINIMUM_ACCENT_CONTRAST = 4.5;
+const HIGH_CONTRAST_LIGHT_SURFACE = '#ffffff';
+const HIGH_CONTRAST_DARK_SURFACE = '#000000';
 
 type Oklch = readonly [lightness: number, chroma: number, hue: number];
 
@@ -13,7 +15,15 @@ export type ThemeAccentVariable =
   | '--theme-accent-dark'
   | '--theme-accent-dark-hover'
   | '--theme-accent-dark-active'
-  | '--theme-accent-dark-rgb';
+  | '--theme-accent-dark-rgb'
+  | '--theme-accent-high-contrast-light'
+  | '--theme-accent-high-contrast-light-hover'
+  | '--theme-accent-high-contrast-light-active'
+  | '--theme-accent-high-contrast-light-rgb'
+  | '--theme-accent-high-contrast-dark'
+  | '--theme-accent-high-contrast-dark-hover'
+  | '--theme-accent-high-contrast-dark-active'
+  | '--theme-accent-high-contrast-dark-rgb';
 
 export type ThemeColors = Record<ThemeAccentVariable, string>;
 
@@ -124,11 +134,16 @@ function contrastRatio(first: string, second: string): number {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-function calibratedAccent(color: Oklch, surface: string, direction: 'lighter' | 'darker'): string {
+function calibratedAccent(
+  color: Oklch,
+  surface: string,
+  direction: 'lighter' | 'darker',
+  minimumContrast = MINIMUM_ACCENT_CONTRAST,
+): string {
   const [lightness, chroma, hue] = color;
   const original = oklchToGamutMappedHex(lightness, chroma, hue);
 
-  if (contrastRatio(original, surface) >= MINIMUM_ACCENT_CONTRAST) return original;
+  if (contrastRatio(original, surface) >= minimumContrast) return original;
 
   let minimum = direction === 'darker' ? 0 : lightness;
   let maximum = direction === 'darker' ? lightness : 1;
@@ -138,7 +153,7 @@ function calibratedAccent(color: Oklch, surface: string, direction: 'lighter' | 
     const candidateLightness = (minimum + maximum) / 2;
     const candidate = oklchToGamutMappedHex(candidateLightness, chroma, hue);
 
-    if (contrastRatio(candidate, surface) >= MINIMUM_ACCENT_CONTRAST) {
+    if (contrastRatio(candidate, surface) >= minimumContrast) {
       result = candidate;
       if (direction === 'darker') minimum = candidateLightness;
       else maximum = candidateLightness;
@@ -157,12 +172,14 @@ function adjustedAccent(
   surface: string,
   direction: 'lighter' | 'darker',
   lightnessOffset: number,
+  minimumContrast = MINIMUM_ACCENT_CONTRAST,
 ): string {
   const [lightness, chroma, hue] = hexToOklch(accent);
   return calibratedAccent(
     [Math.min(1, lightness + lightnessOffset), chroma, hue],
     surface,
     direction,
+    minimumContrast,
   );
 }
 
@@ -172,6 +189,8 @@ export function resolveThemeColors(accentColor: string): ThemeColors {
   const color = hexToOklch(accentColor);
   const lightAccent = calibratedAccent(color, LIGHT_SURFACE, 'darker');
   const darkAccent = calibratedAccent(color, DARK_SURFACE, 'lighter');
+  const highContrastLightAccent = calibratedAccent(color, HIGH_CONTRAST_LIGHT_SURFACE, 'darker', 7);
+  const highContrastDarkAccent = calibratedAccent(color, HIGH_CONTRAST_DARK_SURFACE, 'lighter', 7);
 
   return {
     '--theme-accent-light': lightAccent,
@@ -182,5 +201,37 @@ export function resolveThemeColors(accentColor: string): ThemeColors {
     '--theme-accent-dark-hover': adjustedAccent(darkAccent, DARK_SURFACE, 'lighter', 0.06),
     '--theme-accent-dark-active': adjustedAccent(darkAccent, DARK_SURFACE, 'lighter', 0.12),
     '--theme-accent-dark-rgb': rgbValue(darkAccent),
+    '--theme-accent-high-contrast-light': highContrastLightAccent,
+    '--theme-accent-high-contrast-light-hover': adjustedAccent(
+      highContrastLightAccent,
+      HIGH_CONTRAST_LIGHT_SURFACE,
+      'darker',
+      0.04,
+      7,
+    ),
+    '--theme-accent-high-contrast-light-active': adjustedAccent(
+      highContrastLightAccent,
+      HIGH_CONTRAST_LIGHT_SURFACE,
+      'darker',
+      0.08,
+      7,
+    ),
+    '--theme-accent-high-contrast-light-rgb': rgbValue(highContrastLightAccent),
+    '--theme-accent-high-contrast-dark': highContrastDarkAccent,
+    '--theme-accent-high-contrast-dark-hover': adjustedAccent(
+      highContrastDarkAccent,
+      HIGH_CONTRAST_DARK_SURFACE,
+      'lighter',
+      0.06,
+      7,
+    ),
+    '--theme-accent-high-contrast-dark-active': adjustedAccent(
+      highContrastDarkAccent,
+      HIGH_CONTRAST_DARK_SURFACE,
+      'lighter',
+      0.12,
+      7,
+    ),
+    '--theme-accent-high-contrast-dark-rgb': rgbValue(highContrastDarkAccent),
   };
 }

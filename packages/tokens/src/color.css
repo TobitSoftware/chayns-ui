@@ -8,6 +8,14 @@
   --theme-accent-dark-hover: #4593f1;
   --theme-accent-dark-active: #5ea6ff;
   --theme-accent-dark-rgb: 49, 128, 220;
+  --theme-accent-high-contrast-light: #0058ad;
+  --theme-accent-high-contrast-light-hover: #0058ad;
+  --theme-accent-high-contrast-light-active: #0058ad;
+  --theme-accent-high-contrast-light-rgb: 0, 88, 173;
+  --theme-accent-high-contrast-dark: #4997f5;
+  --theme-accent-high-contrast-dark-hover: #67abff;
+  --theme-accent-high-contrast-dark-active: #8bbeff;
+  --theme-accent-high-contrast-dark-rgb: 73, 151, 245;
 }
 
 .theme-light {
@@ -40,16 +48,22 @@
   --shadow-btn: 0 4px 12px -4px rgb(var(--accent-rgb) / 45%);
   --shadow-btn-hover: 0 8px 20px -6px rgb(var(--accent-rgb) / 60%);
   --success: #039855;
+  --success-hover: #027a48;
+  --on-success: var(--success);
   --success-bg: #e6f5ee;
   --success-2: #12b76a;
   --success-3: #32d583;
   --success-4: #6ce9a6;
   --warning: #dc6803;
+  --warning-hover: #b54708;
+  --on-warning: var(--warning);
   --warning-bg: #fcf0e6;
   --warning-2: #f79009;
   --warning-3: #fdb022;
   --warning-4: #fec84b;
   --danger: #d92d20;
+  --danger-hover: #b42318;
+  --on-danger: var(--danger);
   --danger-bg: #fbeae9;
   --danger-bg-hover: #f8d9d7;
   --danger-2: #f04438;
@@ -100,6 +114,45 @@
   --accent-309: color-mix(in srgb, var(--accent) 90%, #242424);
 }
 
+.theme-light.theme-high-contrast {
+  --page: #fff;
+  --surface: #fff;
+  --surface-2: #fff;
+  --surface-alt: #f2f2f2;
+  --hover: #f2f2f2;
+  --toggle-bg: #f2f2f2;
+  --text: #000;
+  --text-2: #000;
+  --text-3: #333;
+  --muted: #333;
+  --border: #000;
+  --input-border: #000;
+  --border-soft: #4d4d4d;
+  --accent: var(--theme-accent-high-contrast-light);
+  --accent-hover: var(--theme-accent-high-contrast-light-hover);
+  --accent-active: var(--theme-accent-high-contrast-light-active);
+  --accent-rgb: var(--theme-accent-high-contrast-light-rgb);
+  --on-accent: #fff;
+  --on-accent-rgb: 255, 255, 255;
+  --focus-ring-rgb: var(--accent-rgb);
+  --focus-ring-size: 4px;
+  --focus-ring-alpha-soft: 0.34;
+  --focus-ring-alpha-strong: 0.46;
+  --success: #026639;
+  --success-hover: #025c33;
+  --success-bg: #039855;
+  --on-success: #000;
+  --warning: #8f4402;
+  --warning-hover: #813d02;
+  --warning-bg: #dc6803;
+  --on-warning: #000;
+  --danger: #ab2419;
+  --danger-hover: #9a2017;
+  --danger-bg: #da3427;
+  --danger-bg-hover: #da3427;
+  --on-danger: #000;
+}
+
 .theme-dark {
   --page: #0e171b;
   --surface: #172329;
@@ -130,16 +183,22 @@
   --shadow-btn: 0 4px 12px -4px rgb(var(--accent-rgb) / 45%);
   --shadow-btn-hover: 0 8px 20px -6px rgb(var(--accent-rgb) / 60%);
   --success: #32d583;
+  --success-hover: #6ce9a6;
+  --on-success: var(--success);
   --success-bg: rgb(50 213 131 / 22%);
   --success-2: #6ce9a6;
   --success-3: #32d583;
   --success-4: #12b76a;
   --warning: #fdb022;
+  --warning-hover: #fec84b;
+  --on-warning: var(--warning);
   --warning-bg: rgb(253 176 34 / 22%);
   --warning-2: #fec84b;
   --warning-3: #fdb022;
   --warning-4: #f79009;
   --danger: #f97066;
+  --danger-hover: #fda29b;
+  --on-danger: var(--danger);
   --danger-bg: rgb(249 112 102 / 22%);
   --danger-bg-hover: rgb(249 112 102 / 34%);
   --danger-2: #fda29b;
@@ -188,4 +247,43 @@
   --accent-307: color-mix(in srgb, var(--accent) 20%, #242424);
   --accent-308: color-mix(in srgb, var(--accent) 10%, #242424);
   --accent-309: color-mix(in srgb, var(--accent) 0%, #242424);
+}
+
+.theme-dark.theme-high-contrast {
+  --page: #000;
+  --surface: #000;
+  --surface-2: #000;
+  --surface-alt: #1a1a1a;
+  --hover: #1a1a1a;
+  --toggle-bg: #1a1a1a;
+  --text: #fff;
+  --text-2: #fff;
+  --text-3: #ccc;
+  --muted: #ccc;
+  --border: #fff;
+  --input-border: #fff;
+  --border-soft: #b3b3b3;
+  --accent: var(--theme-accent-high-contrast-dark);
+  --accent-hover: var(--theme-accent-high-contrast-dark-hover);
+  --accent-active: var(--theme-accent-high-contrast-dark-active);
+  --accent-rgb: var(--theme-accent-high-contrast-dark-rgb);
+  --on-accent: #000;
+  --on-accent-rgb: 0, 0, 0;
+  --focus-ring-rgb: var(--accent-rgb);
+  --focus-ring-size: 4px;
+  --focus-ring-alpha-soft: 0.42;
+  --focus-ring-alpha-strong: 0.56;
+  --success: #2ba970;
+  --success-hover: #40b27e;
+  --success-bg: #03884c;
+  --on-success: #fff;
+  --warning: #e07b22;
+  --warning-hover: #e38838;
+  --warning-bg: #be5a03;
+  --on-warning: #fff;
+  --danger: #e6736a;
+  --danger-hover: #e98179;
+  --danger-bg: #d92d20;
+  --danger-bg-hover: #d92d20;
+  --on-danger: #fff;
 }
