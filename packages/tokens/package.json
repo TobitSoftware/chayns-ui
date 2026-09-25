@@ -14,7 +14,6 @@
   ],
   "files": [
     "dist",
-    "src/**/*.tokens.json",
     "LICENSE",
     "README.md"
   ],

@@ -58,6 +58,7 @@
   --fs-meta: calc(13 * var(--u));
   --fs-caption: calc(12 * var(--u));
   --fs-micro: calc(11 * var(--u));
+  --z-popover: 1000;
 }
 
 .theme-density-s {

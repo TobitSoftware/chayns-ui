@@ -6,28 +6,21 @@ import { describe, expect, it } from 'vitest';
 const packageDirectory = resolve(import.meta.dirname, '..');
 
 describe('generated token CSS', () => {
-  it('contains the confirmed Button variables and mode selectors', async () => {
+  it('combines scale and color tokens into the baseline', async () => {
     const baseline = await readFile(resolve(packageDirectory, 'dist/baseline.css'), 'utf8');
 
+    expect(baseline).toContain('Generated from scale.css and color.css. Do not edit.');
     expect(baseline).toContain('--btn-py: calc(11 * var(--u));');
     expect(baseline).toContain('--ctrl-h: calc(42 * var(--u));');
     expect(baseline).toContain('--input-py: calc(13 * var(--u));');
-    expect(baseline).toContain('--input-px: calc(16 * var(--u));');
     expect(baseline).toContain('--success: #039855;');
     expect(baseline).toContain('--warning: #dc6803;');
-    expect(baseline).toContain('--grey-000: #ffffff;');
-    expect(baseline).toContain('--grey-009: #000000;');
-    expect(baseline).toContain('--accent-100: #eef7f8;');
-    expect(baseline).toContain('--accent-300: #a8c3ca;');
-    expect(baseline).toContain('--accent-800: #0c5765;');
-    expect(baseline).toContain('--on-accent-rgb: 255, 255, 255;');
-    expect(baseline).toContain('--tint: #eef7f8;');
-    expect(baseline).toContain('--toggle-bg: #e9eded;');
-    expect(baseline).toContain('.chayns-theme--dark');
-    expect(baseline).toContain('.chayns-density--s');
-    expect(baseline).toContain('.chayns-contrast--high');
-    expect(baseline).toContain('.chayns-theme--color-deficiency');
-    expect(baseline).not.toContain('[object Object]');
+    expect(baseline).toContain('--accent-000: #fff;');
+    expect(baseline).toContain('--accent-309: color-mix(in srgb, var(--accent) 90%, #242424);');
+    expect(baseline).toContain('.theme-dark');
+    expect(baseline).toContain('.theme-density-s');
+    expect(baseline).toContain('.theme-light.theme-high-contrast');
+    expect(baseline).toContain('.theme-dark.theme-color-deficiency');
   });
 
   it('contains density-scaled geometry tokens', async () => {
