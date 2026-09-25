@@ -32,7 +32,7 @@
     "node": ">=24"
   },
   "scripts": {
-    "build": "vite build && tsc -b tsconfig.build.json --force && node style-dictionary.config.mjs",
+    "build": "vite build && tsc -b tsconfig.build.json --force && node build-tokens.mjs",
     "clean": "node ../../tooling/clean-package.mjs tokens",
     "test": "vitest run --environment jsdom"
   },

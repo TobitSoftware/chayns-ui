@@ -6,6 +6,89 @@ const HIGH_CONTRAST_LIGHT_SURFACE = '#ffffff';
 const HIGH_CONTRAST_DARK_SURFACE = '#000000';
 
 type Oklch = readonly [lightness: number, chroma: number, hue: number];
+type Digit = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+type AccentPaletteVariable = `--accent-${0 | 1 | 2 | 3}0${Digit}`;
+
+export type CssVariable =
+  | '--accent'
+  | '--accent-active'
+  | '--accent-hover'
+  | '--accent-rgb'
+  | AccentPaletteVariable
+  | '--avatar'
+  | '--avatar-sm'
+  | '--border'
+  | '--border-soft'
+  | '--btn-px'
+  | '--btn-py'
+  | '--ctrl-h'
+  | '--danger'
+  | '--danger-2'
+  | '--danger-3'
+  | '--danger-4'
+  | '--danger-bg'
+  | '--danger-bg-hover'
+  | '--danger-hover'
+  | '--disabled-bg'
+  | '--disabled-border'
+  | '--disabled-fg'
+  | '--focus-ring-alpha-soft'
+  | '--focus-ring-alpha-strong'
+  | '--focus-ring-rgb'
+  | '--focus-ring-size'
+  | '--fs-body'
+  | '--fs-bodyl'
+  | '--fs-caption'
+  | '--fs-display'
+  | '--fs-h1'
+  | '--fs-h2'
+  | '--fs-meta'
+  | '--fs-micro'
+  | '--hover'
+  | '--icon'
+  | '--icon-lg'
+  | '--input-border'
+  | '--input-px'
+  | '--input-py'
+  | '--muted'
+  | '--on-accent'
+  | '--on-accent-rgb'
+  | '--on-danger'
+  | '--on-success'
+  | '--on-warning'
+  | '--page'
+  | '--sf'
+  | '--shadow-btn'
+  | '--shadow-btn-hover'
+  | '--shadow-card'
+  | '--shadow-hover'
+  | '--shadow-pop'
+  | `--sp-${1 | 2 | 3 | 4 | 5 | 6}`
+  | '--success'
+  | '--success-2'
+  | '--success-3'
+  | '--success-4'
+  | '--success-bg'
+  | '--success-hover'
+  | '--surface'
+  | '--surface-2'
+  | '--surface-alt'
+  | '--text'
+  | '--text-2'
+  | '--text-3'
+  | '--theme-accent-color'
+  | ThemeAccentVariable
+  | '--toggle-bg'
+  | '--u'
+  | '--warning'
+  | '--warning-2'
+  | '--warning-3'
+  | '--warning-4'
+  | '--warning-bg'
+  | '--warning-hover'
+  | '--z-popover'
+  | `--k${2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 20 | 22 | 24 | 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44 | 48 | 52 | 56 | 64}`;
 
 export type ThemeAccentVariable =
   | '--theme-accent-light'
@@ -26,6 +109,10 @@ export type ThemeAccentVariable =
   | '--theme-accent-high-contrast-dark-rgb';
 
 export type ThemeColors = Record<ThemeAccentVariable, string>;
+
+export function cssVar<T extends CssVariable>(variable: T): `var(${T})` {
+  return `var(${variable})`;
+}
 
 function assertAccentColor(value: unknown): asserts value is string {
   if (typeof value !== 'string' || !HEX_COLOR_PATTERN.test(value)) {

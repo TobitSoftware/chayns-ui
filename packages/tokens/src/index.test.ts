@@ -1,6 +1,17 @@
 import { describe, expect, it } from 'vitest';
 
-import { resolveThemeColors } from './index.js';
+import { cssVar, resolveThemeColors } from './index.js';
+
+describe('cssVar', () => {
+  it('returns a CSS variable reference for a known token', () => {
+    expect(cssVar('--btn-py')).toBe('var(--btn-py)');
+  });
+
+  it('accepts only exported token names', () => {
+    // @ts-expect-error -- This variable is not part of the exported token catalogue.
+    cssVar('--unknown-token');
+  });
+});
 
 describe('resolveThemeColors', () => {
   it('returns calibrated CSS variables for both color modes', () => {
