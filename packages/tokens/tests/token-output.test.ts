@@ -65,6 +65,14 @@ describe('generated token CSS', () => {
     expect(color).toContain('--text: #fff;');
     expect(color).toContain('--border: #fff;');
     expect(color).toContain('--accent: var(--theme-accent-high-contrast-dark);');
+    expect(color).toContain('.theme-light.theme-color-deficiency');
+    expect(color).toContain('--success: #06c;');
+    expect(color).toContain('--warning: #a94700;');
+    expect(color).toContain('--danger: #6b3fa0;');
+    expect(color).toContain('.theme-dark.theme-color-deficiency');
+    expect(color).toContain('--success: #66b3ff;');
+    expect(color).toContain('--warning: #ffb366;');
+    expect(color).toContain('--danger: #d4a6ff;');
     expect(color).toContain('--success: #039855;');
     expect(color).toContain('--success-hover: #027a48;');
     expect(color).toContain('--on-success: var(--success);');

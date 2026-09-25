@@ -287,3 +287,35 @@
   --danger-bg-hover: #d92d20;
   --on-danger: #fff;
 }
+
+.theme-light.theme-color-deficiency {
+  --success: #06c;
+  --success-hover: #005bb8;
+  --on-success: var(--success);
+  --success-bg: color-mix(in srgb, var(--success) 10%, var(--surface));
+  --warning: #a94700;
+  --warning-hover: #923e00;
+  --on-warning: var(--warning);
+  --warning-bg: color-mix(in srgb, var(--warning) 10%, var(--surface));
+  --danger: #6b3fa0;
+  --danger-hover: #5f3890;
+  --on-danger: var(--danger);
+  --danger-bg: color-mix(in srgb, var(--danger) 10%, var(--surface));
+  --danger-bg-hover: color-mix(in srgb, var(--danger) 16%, var(--surface));
+}
+
+.theme-dark.theme-color-deficiency {
+  --success: #66b3ff;
+  --success-hover: #8ac7ff;
+  --on-success: var(--success);
+  --success-bg: color-mix(in srgb, var(--success) 22%, var(--surface));
+  --warning: #ffb366;
+  --warning-hover: #ffc58f;
+  --on-warning: var(--warning);
+  --warning-bg: color-mix(in srgb, var(--warning) 22%, var(--surface));
+  --danger: #d4a6ff;
+  --danger-hover: #e1c2ff;
+  --on-danger: var(--danger);
+  --danger-bg: color-mix(in srgb, var(--danger) 22%, var(--surface));
+  --danger-bg-hover: color-mix(in srgb, var(--danger) 34%, var(--surface));
+}
