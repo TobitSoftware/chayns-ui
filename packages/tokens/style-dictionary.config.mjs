@@ -80,5 +80,6 @@ await mkdir(outputDirectory, { recursive: true });
 await writeFile(outputPath, `${css}\n`, 'utf8');
 await Promise.all([
   copyFile(resolve(packageDirectory, 'src/color.css'), resolve(outputDirectory, 'color.css')),
+  copyFile(resolve(packageDirectory, 'src/scale.css'), resolve(outputDirectory, 'scale.css')),
   copyFile(resolve(packageDirectory, 'src/patch.css'), resolve(outputDirectory, 'patch.css')),
 ]);

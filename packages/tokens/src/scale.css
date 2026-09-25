@@ -1,0 +1,73 @@
+:root {
+  --sf: 1;
+  --u: calc(1px * var(--sf));
+  --sp-1: calc(4 * var(--u));
+  --sp-2: calc(8 * var(--u));
+  --sp-3: calc(12 * var(--u));
+  --sp-4: calc(16 * var(--u));
+  --sp-5: calc(20 * var(--u));
+  --sp-6: calc(24 * var(--u));
+  --btn-py: calc(11 * var(--u));
+  --btn-px: calc(22 * var(--u));
+  --ctrl-h: calc(42 * var(--u));
+  --input-py: calc(13 * var(--u));
+  --input-px: calc(16 * var(--u));
+  --icon: calc(16 * var(--u));
+  --icon-lg: calc(19 * var(--u));
+  --avatar: calc(42 * var(--u));
+  --avatar-sm: calc(34 * var(--u));
+  --k2: calc(2 * var(--u));
+  --k3: calc(3 * var(--u));
+  --k4: calc(4 * var(--u));
+  --k5: calc(5 * var(--u));
+  --k6: calc(6 * var(--u));
+  --k7: calc(7 * var(--u));
+  --k8: calc(8 * var(--u));
+  --k9: calc(9 * var(--u));
+  --k10: calc(10 * var(--u));
+  --k11: calc(11 * var(--u));
+  --k12: calc(12 * var(--u));
+  --k13: calc(13 * var(--u));
+  --k14: calc(14 * var(--u));
+  --k15: calc(15 * var(--u));
+  --k16: calc(16 * var(--u));
+  --k17: calc(17 * var(--u));
+  --k18: calc(18 * var(--u));
+  --k20: calc(20 * var(--u));
+  --k22: calc(22 * var(--u));
+  --k24: calc(24 * var(--u));
+  --k26: calc(26 * var(--u));
+  --k28: calc(28 * var(--u));
+  --k30: calc(30 * var(--u));
+  --k32: calc(32 * var(--u));
+  --k34: calc(34 * var(--u));
+  --k36: calc(36 * var(--u));
+  --k38: calc(38 * var(--u));
+  --k40: calc(40 * var(--u));
+  --k42: calc(42 * var(--u));
+  --k44: calc(44 * var(--u));
+  --k48: calc(48 * var(--u));
+  --k52: calc(52 * var(--u));
+  --k56: calc(56 * var(--u));
+  --k64: calc(64 * var(--u));
+  --fs-display: calc(40 * var(--u));
+  --fs-h1: calc(30 * var(--u));
+  --fs-h2: calc(22 * var(--u));
+  --fs-bodyl: calc(16 * var(--u));
+  --fs-body: calc(14 * var(--u));
+  --fs-meta: calc(13 * var(--u));
+  --fs-caption: calc(12 * var(--u));
+  --fs-micro: calc(11 * var(--u));
+}
+
+.theme-density-s {
+  --sf: 0.9;
+}
+
+.theme-density-m {
+  --sf: 1;
+}
+
+.theme-density-l {
+  --sf: 1.125;
+}

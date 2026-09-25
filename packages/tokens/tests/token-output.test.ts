@@ -30,6 +30,21 @@ describe('generated token CSS', () => {
     expect(baseline).not.toContain('[object Object]');
   });
 
+  it('contains density-scaled geometry tokens', async () => {
+    const scale = await readFile(resolve(packageDirectory, 'dist/scale.css'), 'utf8');
+
+    expect(scale).toContain('--sf: 1;');
+    expect(scale).toContain('--u: calc(1px * var(--sf));');
+    expect(scale).toContain('--sp-6: calc(24 * var(--u));');
+    expect(scale).toContain('--input-py: calc(13 * var(--u));');
+    expect(scale).toContain('--k64: calc(64 * var(--u));');
+    expect(scale).toContain('.theme-density-s');
+    expect(scale).toContain('--sf: 0.9;');
+    expect(scale).toContain('.theme-density-m');
+    expect(scale).toContain('.theme-density-l');
+    expect(scale).toContain('--sf: 1.125;');
+  });
+
   it('contains the root-scoped accent palette', async () => {
     const color = await readFile(resolve(packageDirectory, 'dist/color.css'), 'utf8');
 

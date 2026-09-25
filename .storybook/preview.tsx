@@ -4,13 +4,14 @@ import type { Preview } from '@storybook/react-vite';
 import { resolveThemeColors } from '../packages/tokens/src';
 import '../packages/tokens/dist/baseline.css';
 import '../packages/tokens/dist/color.css';
+import '../packages/tokens/dist/scale.css';
 import '../packages/tokens/dist/patch.css';
 import '../packages/core/src/styles.css';
 import '../packages/layout/src/styles.css';
 import './preview.css';
 
 const COLOR_MODE_CLASSES = ['theme-light', 'theme-dark'];
-const DENSITY_CLASSES = ['chayns-density--s', 'chayns-density--m', 'chayns-density--l'];
+const DENSITY_CLASSES = ['theme-density-s', 'theme-density-m', 'theme-density-l'];
 const ACCESSIBILITY_CLASSES = ['theme-high-contrast', 'theme-color-deficiency'];
 const DEFAULT_ACCENT_COLOR = '#005eb8';
 const HEX_COLOR_PATTERN = /^#[\da-f]{6}$/i;
@@ -46,7 +47,7 @@ function PreviewEnvironment({
   const accessibilityClass = getAccessibilityClass(accessibilityMode);
   const environmentClassName = [
     `theme-${colorMode}`,
-    `chayns-density--${density}`,
+    `theme-density-${density}`,
     accessibilityClass,
   ]
     .filter(Boolean)

@@ -25,6 +25,7 @@
     },
     "./baseline.css": "./dist/baseline.css",
     "./color.css": "./dist/color.css",
+    "./scale.css": "./dist/scale.css",
     "./patch.css": "./dist/patch.css",
     "./package.json": "./package.json"
   },
