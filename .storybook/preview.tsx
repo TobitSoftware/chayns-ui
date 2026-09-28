@@ -1,17 +1,19 @@
 import { useEffect, type ReactNode } from 'react';
 import type { Preview } from '@storybook/react-vite';
 
-import { applyTheme } from '../packages/tokens/src';
+import { resolveThemeColors } from '../packages/tokens/src';
 import '../packages/tokens/dist/baseline.css';
+import '../packages/tokens/dist/color.css';
+import '../packages/tokens/dist/scale.css';
 import '../packages/tokens/dist/patch.css';
 import '../packages/core/src/styles.css';
 import '../packages/layout/src/styles.css';
 import './preview.css';
 
-const COLOR_MODE_CLASSES = ['chayns-theme--light', 'chayns-theme--dark'];
-const DENSITY_CLASSES = ['chayns-density--s', 'chayns-density--m', 'chayns-density--l'];
-const ACCESSIBILITY_CLASSES = ['chayns-contrast--high', 'chayns-theme--color-deficiency'];
-const DEFAULT_ACCENT_COLOR = '#0f6d7e';
+const COLOR_MODE_CLASSES = ['theme-light', 'theme-dark'];
+const DENSITY_CLASSES = ['theme-density-s', 'theme-density-m', 'theme-density-l'];
+const ACCESSIBILITY_CLASSES = ['theme-high-contrast', 'theme-color-deficiency'];
+const DEFAULT_ACCENT_COLOR = '#005eb8';
 const HEX_COLOR_PATTERN = /^#[\da-f]{6}$/i;
 
 interface PreviewEnvironmentProps {
@@ -24,8 +26,8 @@ interface PreviewEnvironmentProps {
 }
 
 function getAccessibilityClass(accessibilityMode: string): string {
-  if (accessibilityMode === 'high-contrast') return 'chayns-contrast--high';
-  if (accessibilityMode === 'color-deficiency') return 'chayns-theme--color-deficiency';
+  if (accessibilityMode === 'high-contrast') return 'theme-high-contrast';
+  if (accessibilityMode === 'color-deficiency') return 'theme-color-deficiency';
 
   return '';
 }
@@ -44,8 +46,8 @@ function PreviewEnvironment({
 }: PreviewEnvironmentProps) {
   const accessibilityClass = getAccessibilityClass(accessibilityMode);
   const environmentClassName = [
-    `chayns-theme--${colorMode}`,
-    `chayns-density--${density}`,
+    `theme-${colorMode}`,
+    `theme-density-${density}`,
     accessibilityClass,
   ]
     .filter(Boolean)
@@ -63,7 +65,14 @@ function PreviewEnvironment({
   }, [environmentClassName]);
 
   useEffect(() => {
-    applyTheme({ accentColor: getAccentColor(accentColor) });
+    const previewRoot = document.documentElement;
+    const themeColors = resolveThemeColors(getAccentColor(accentColor));
+
+    Object.entries(themeColors).forEach(([name, value]) =>
+      previewRoot.style.setProperty(name, value),
+    );
+
+    return () => Object.keys(themeColors).forEach((name) => previewRoot.style.removeProperty(name));
   }, [accentColor]);
 
   const previewClassName = isDocs
