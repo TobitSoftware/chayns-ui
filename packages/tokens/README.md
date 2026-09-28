@@ -14,8 +14,10 @@ const themeColors = resolveThemeColors('#005eb8');
 const buttonPadding = cssVar('--btn-py');
 ```
 
-The application sets the returned CSS variables and exactly one of `.theme-light` or `.theme-dark`
-on `html`. `resolveThemeColors` calibrates accent colors in OKLCH against the mode surface and
+The application sets the returned CSS variables and one of `.theme-light`, `.theme-dark`, or
+`.theme-auto` on `html`. `.theme-auto` uses `prefers-color-scheme` to select Light or Dark mode.
+It can be combined with `.theme-high-contrast` and `.theme-color-deficiency` like the explicit
+mode classes. `resolveThemeColors` calibrates accent colors in OKLCH against the mode surface and
 returns the mode-specific accent, hover and active CSS variables. `scale.css` defaults to density M;
 `.theme-density-s` and `.theme-density-l` override only `--sf`. `cssVar` accepts only exported,
 known token names, providing autocomplete and type checking in TypeScript-aware IDEs.

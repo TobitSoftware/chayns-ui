@@ -5,6 +5,19 @@ import { describe, expect, it } from 'vitest';
 
 const packageDirectory = resolve(import.meta.dirname, '..');
 
+function ruleDeclarations(css: string, selector: string): string {
+  const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const match = css.match(new RegExp(`${escapedSelector}\\s*\\{([^}]*)\\}`));
+
+  if (!match) throw new Error(`Missing selector: ${selector}`);
+
+  return match[1]
+    .trim()
+    .split('\n')
+    .map((line) => line.trim())
+    .join('\n');
+}
+
 describe('generated token CSS', () => {
   it('combines scale and color tokens into the baseline', async () => {
     const baseline = await readFile(resolve(packageDirectory, 'dist/baseline.css'), 'utf8');
@@ -19,7 +32,7 @@ describe('generated token CSS', () => {
     expect(baseline).toContain('--accent-309: color-mix(in srgb, var(--accent) 90%, #242424);');
     expect(baseline).toContain('.theme-dark');
     expect(baseline).toContain('.theme-density-s');
-    expect(baseline).toContain('.theme-light.theme-high-contrast');
+    expect(baseline).toContain(':is(.theme-light, .theme-auto).theme-high-contrast');
     expect(baseline).toContain('.theme-dark.theme-color-deficiency');
   });
 
@@ -46,6 +59,8 @@ describe('generated token CSS', () => {
     expect(color).toContain('--theme-accent-dark: #3180dc;');
     expect(color).toContain('--theme-accent-high-contrast-dark: #4997f5;');
     expect(color).toContain('.theme-light');
+    expect(color).toContain('.theme-auto');
+    expect(color).toContain('@media (prefers-color-scheme: dark)');
     expect(color).toContain('--accent: var(--theme-accent-light);');
     expect(color).toContain('--accent-hover: var(--theme-accent-light-hover);');
     expect(color).toContain('--accent-active: var(--theme-accent-light-active);');
@@ -56,7 +71,7 @@ describe('generated token CSS', () => {
     expect(color).toContain('--accent: var(--theme-accent-dark);');
     expect(color).toContain('--accent-hover: var(--theme-accent-dark-hover);');
     expect(color).toContain('--accent-active: var(--theme-accent-dark-active);');
-    expect(color).toContain('.theme-light.theme-high-contrast');
+    expect(color).toContain(':is(.theme-light, .theme-auto).theme-high-contrast');
     expect(color).toContain('--text: #000;');
     expect(color).toContain('--border: #000;');
     expect(color).toContain('--accent: var(--theme-accent-high-contrast-light);');
@@ -73,11 +88,13 @@ describe('generated token CSS', () => {
     expect(color).toContain('--text: #fff;');
     expect(color).toContain('--border: #fff;');
     expect(color).toContain('--accent: var(--theme-accent-high-contrast-dark);');
-    expect(color).toContain('.theme-light.theme-color-deficiency');
+    expect(color).toContain(':is(.theme-light, .theme-auto).theme-color-deficiency');
     expect(color).toContain('--success: #06c;');
     expect(color).toContain('--warning: #a94700;');
     expect(color).toContain('--danger: #6b3fa0;');
     expect(color).toContain('.theme-dark.theme-color-deficiency');
+    expect(color).toContain('.theme-auto.theme-high-contrast');
+    expect(color).toContain('.theme-auto.theme-color-deficiency');
     expect(color).toContain('--success: #66b3ff;');
     expect(color).toContain('--warning: #ffb366;');
     expect(color).toContain('--danger: #d4a6ff;');
@@ -101,5 +118,17 @@ describe('generated token CSS', () => {
     expect(color).toContain('--accent-009: #fff;');
     expect(color).toContain('--accent-100: color-mix(in srgb, var(--accent) 10%, #fff);');
     expect(color).toContain('--accent-109: color-mix(in srgb, var(--accent) 100%, #2f2f2f);');
+  });
+
+  it('resolves automatic color mode to the corresponding explicit mode', async () => {
+    const color = await readFile(resolve(packageDirectory, 'dist/color.css'), 'utf8');
+
+    expect(ruleDeclarations(color, '.theme-dark')).toBe(ruleDeclarations(color, '.theme-auto'));
+    expect(ruleDeclarations(color, '.theme-dark.theme-high-contrast')).toBe(
+      ruleDeclarations(color, '.theme-auto.theme-high-contrast'),
+    );
+    expect(ruleDeclarations(color, '.theme-dark.theme-color-deficiency')).toBe(
+      ruleDeclarations(color, '.theme-auto.theme-color-deficiency'),
+    );
   });
 });
