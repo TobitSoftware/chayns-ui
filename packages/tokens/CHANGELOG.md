@@ -1,5 +1,11 @@
 # @chayns-ui/tokens
 
+## 0.7.0
+
+### Minor Changes
+
+- Add automatic color-mode tokens through the `theme-auto` class and type-safe CSS variable access.
+
 ## 0.6.1
 
 ### Patch Changes
