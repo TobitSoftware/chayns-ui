@@ -14,10 +14,16 @@ export const validMultiple = (
   </ComboBox>
 );
 
+export const validButtonProp = (
+  <ComboBox aria-label="Kategorie" title="Kategorie">
+    {design}
+  </ComboBox>
+);
+
 // prettier-ignore
-export const invalidMultipleValue = (
-  // @ts-expect-error multiple mode requires an option-element collection
-  <ComboBox aria-label="Kategorien" multiple value="design">
+export const invalidInputProp = (
+  // @ts-expect-error input-only props are not part of the button contract
+  <ComboBox aria-label="Kategorie" autoComplete="off">
     {design}
   </ComboBox>
 );

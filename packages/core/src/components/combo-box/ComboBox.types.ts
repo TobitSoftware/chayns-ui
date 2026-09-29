@@ -2,37 +2,29 @@ import type { ComponentPropsWithRef, ReactElement, ReactNode } from 'react';
 
 export interface ComboBoxOptionProps extends Omit<
   ComponentPropsWithRef<'div'>,
-  'children' | 'role' | 'aria-selected'
+  'children' | 'role' | 'aria-selected' | 'tabIndex'
 > {
   value: string;
   children: Exclude<ReactNode, boolean | null | undefined>;
+  disabled?: boolean;
   role?: never;
   'aria-selected'?: never;
+  tabIndex?: never;
 }
 
 type ComboBoxBaseProps = Omit<
-  ComponentPropsWithRef<'input'>,
+  ComponentPropsWithRef<'button'>,
   | 'children'
   | 'defaultValue'
   | 'value'
   | 'multiple'
-  | 'role'
-  | 'aria-activedescendant'
+  | 'type'
   | 'aria-controls'
   | 'aria-expanded'
-  | 'aria-autocomplete'
-  | 'onBlur'
-  | 'onChange'
-  | 'onKeyDown'
+  | 'aria-haspopup'
 > & {
   children: ReactNode;
-  /** Bodywork floating label. */
   placeholder?: string;
-  /** Opens the popup when the input receives focus. */
-  openOnFocus?: boolean;
-  onBlur?: ComponentPropsWithRef<'input'>['onBlur'];
-  onChange?: ComponentPropsWithRef<'input'>['onChange'];
-  onKeyDown?: ComponentPropsWithRef<'input'>['onKeyDown'];
 };
 
 export interface ComboBoxSingleProps extends ComboBoxBaseProps {

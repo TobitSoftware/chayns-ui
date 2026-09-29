@@ -16,7 +16,7 @@ const options = (
 );
 
 describe('ComboBox', () => {
-  it('selects the active single option with the keyboard', async () => {
+  it('opens all options and selects a single option with the keyboard', async () => {
     const onValueChange = vi.fn<(value: string) => void>();
     const user = userEvent.setup();
 
@@ -26,37 +26,22 @@ describe('ComboBox', () => {
       </ComboBox>,
     );
 
-    const input = screen.getByRole('combobox', { name: 'Kategorie' });
-    await user.click(input);
+    const trigger = screen.getByRole('button', { name: 'Kategorie' });
+    await user.click(trigger);
+
+    expect(screen.getByRole('option', { name: 'Design' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: 'Engineering' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: 'Support' })).toBeInTheDocument();
+
     await user.keyboard('{Enter}');
 
-    expect(input).toHaveValue('Design');
+    expect(trigger).toHaveTextContent('Design');
     expect(onValueChange).toHaveBeenCalledWith('design');
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
   });
 
-  it('filters options and restores the selected value on Escape', async () => {
-    const user = userEvent.setup();
-
-    render(
-      <ComboBox aria-label="Kategorie" defaultValue="design" placeholder="Kategorie">
-        {options}
-      </ComboBox>,
-    );
-
-    const input = screen.getByRole('combobox', { name: 'Kategorie' });
-    await user.click(input);
-    await user.clear(input);
-    await user.type(input, 'eng');
-
-    expect(screen.getByRole('option', { name: 'Engineering' })).toBeInTheDocument();
-    expect(screen.queryByRole('option', { name: 'Design' })).not.toBeInTheDocument();
-
-    await user.keyboard('{Escape}');
-    expect(input).toHaveValue('design');
-  });
-
-  it('returns selected option elements in multiple mode', async () => {
+  it('closes a multi-select popup after every selection while retaining all options', async () => {
     let selectedOptions: ReactElement<ComboBoxOptionProps>[] | undefined;
     const onValueChange = (value: ReactElement<ComboBoxOptionProps>[]) => {
       selectedOptions = value;
@@ -64,21 +49,48 @@ describe('ComboBox', () => {
     const user = userEvent.setup();
 
     render(
-      <ComboBox aria-label="Kategorien" multiple onValueChange={onValueChange}>
+      <ComboBox aria-label="Kategorien" multiple onValueChange={onValueChange} placeholder="Kategorien">
         {options}
       </ComboBox>,
     );
 
-    await user.click(screen.getByRole('combobox', { name: 'Kategorien' }));
+    const trigger = screen.getByRole('button', { name: 'Kategorien' });
+    await user.click(trigger);
     await user.click(screen.getByRole('option', { name: 'Design' }));
 
-    expect(
-      screen.getByRole('option', { name: 'Design' }).querySelector('[data-checked="true"]'),
-    ).toBeInTheDocument();
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
     expect(selectedOptions?.[0]?.props.value).toBe('design');
+    expect(trigger).toHaveFocus();
+
+    await user.click(trigger);
+    expect(screen.getByRole('option', { name: 'Design' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('option', { name: 'Engineering' })).toBeInTheDocument();
   });
 
-  it('requires its documented parent for options and renders on the server', () => {
+  it('skips disabled options and restores trigger focus on Escape', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <ComboBox aria-label="Kategorie" placeholder="Kategorie">
+        <ComboBox.Option disabled value="design">
+          Design
+        </ComboBox.Option>
+        <ComboBox.Option value="engineering">Engineering</ComboBox.Option>
+      </ComboBox>,
+    );
+
+    const trigger = screen.getByRole('button', { name: 'Kategorie' });
+    await user.click(trigger);
+
+    expect(screen.getByRole('option', { name: 'Engineering' })).toHaveFocus();
+    await user.keyboard('{Escape}');
+
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+  });
+
+  it('requires an accessible name and renders on the server', () => {
+    expect(() => render(<ComboBox>{options}</ComboBox>)).toThrow();
     expect(() => render(<ComboBox.Option value="orphan">Orphan</ComboBox.Option>)).toThrow(
       'ComboBox.Option must be rendered within ComboBox.',
     );

@@ -4,19 +4,23 @@
 
 - Component Category: Core
 - Specification Status: READY FOR IMPLEMENTATION
-- Design Reference: Bodywork Design System `#picker`, checked 2026-09-21
-- Relevant Decisions: COMBO-001–005, DESIGN-011
+- Design Reference: user-provided ComboBox screenshot, checked 2026-09-29; Bodywork Design System `#picker`, checked 2026-09-21
+- Relevant Decisions: COMBO-001–002, COMBO-005–010, DESIGN-011
 
 ## Confirmed contract
 
-ComboBox is an editable ARIA combobox with a native text input and a popup list of `ComboBox.Option` children. The parent owns the selected value, input text, option identity, popup state, active descendant and keyboard interaction through React Context. `Option` is valid only under `ComboBox` and owns its native option row. Options use a unique string `value` and visible `children` as their label.
+ComboBox is a non-editable native button that opens a popup listbox of `ComboBox.Option` children. The parent owns the selected value, option identity, popup state and keyboard interaction through React Context. `Option` is valid only under `ComboBox`, owns its native option row and uses a unique string `value` with visible `children` as its label.
 
-The `multiple` prop selects the mode. Without `multiple`, `value`/`defaultValue` and `onValueChange` use a single string. With `multiple`, the value is the selected `ComboBox.Option` element collection and `onValueChange` returns that collection. The input filters options, free text is allowed, Escape restores the last confirmed text and closes the popup, and blur commits the current text in single-select mode. Native input props and ref target the input; the component owns the combobox ARIA relationship and generated option IDs.
+The `multiple` prop selects the mode. Without `multiple`, `value`/`defaultValue` and `onValueChange` use a single string. With `multiple`, the value is the selected `ComboBox.Option` element collection and `onValueChange` returns that collection. The trigger displays the selected label in single-select and selected labels as a comma-separated list in multi-select; it displays the placeholder when no option is selected. Options remain visible when the popup opens, including selected options. The trigger has a pointer cursor. Enter, Space, Alt+ArrowDown, ArrowDown and ArrowUp open the popup. Opening focuses the first selected option, or the first option if none is selected. Options use the Listbox pattern with `role="option"`, roving `tabIndex` and `aria-selected`. Each selection closes the popup.
+
+Escape closes the popup and restores focus to the trigger. An outside click closes it and follows normal pointer focus. Tab and Shift+Tab close the popup without focus manipulation, preserving normal tab order. Selection closes the popup and restores focus to the trigger. ArrowUp and ArrowDown navigate cyclically through focusable options; Home and End focus the first and last focusable options. Disabled options remain visible but are neither focusable nor selectable. When no visible placeholder is provided, `aria-label` or `aria-labelledby` is required.
+
+Compatible native Button props and the ref target the trigger; `type` is always `button`. Consumer `onClick` and `onKeyDown` run before internal behavior, and `preventDefault()` suppresses that behavior. The user-provided screenshot, checked 2026-09-29, is the design reference for the revised trigger, selected single option and popup. Verification covers controlled and uncontrolled values, selected-option visibility, single- and multi-select closing behavior, keyboard navigation, disabled options, focus restoration, native Button props/ref, SSR, long localized content and reduced motion.
 
 ## Bodywork evidence
 
-Bodywork defines the field as a `.ff-field` using `--input-py`, `--input-px`, a 1.5px border, 10px radius and the floating label pattern. The popup uses `--z-popover`, `--surface`, `--border`, 12px radius, `--shadow-pop` and compact option rows with `--k9`/`--k12` padding. Multi-Select renders selected values as accent chips and options with checkbox geometry. The documented use case is four or more options; the component also exposes the confirmed single-select mode.
+The user-provided screenshot defines the revised non-editable trigger, selected single-option checkmark, pointer cursor and popup state. The trigger retains the field geometry of `--input-py`, `--input-px`, a 1.5px border, 10px radius and the floating label pattern. The popup uses `--z-popover`, `--surface`, `--border`, 12px radius, `--shadow-pop` and compact option rows with `--k9`/`--k12` padding. Multi-Select uses checkbox option geometry and comma-separated trigger labels. The documented use case is four or more options; the component also exposes the confirmed single-select mode.
 
 ## Verification contract
 
-The implementation covers controlled and uncontrolled values, filtering, free text, option selection, Escape restore, blur commit, keyboard navigation, focus, generated ARIA relationships, native props/ref, SSR and long localized content. Storybook includes the canonical compound example and interaction evidence. Bodywork review states are default, focus, open, selected, multi-selected and reduced motion.
+The implementation covers controlled and uncontrolled values, opening with all options visible, single- and multi-option selection, Escape and outside-close behavior, cyclic keyboard navigation, disabled options, focus restoration, generated ARIA relationships, native Button props/ref, SSR and long localized content. Storybook includes the canonical compound example and interaction evidence. Reviewed states are default, focus, open, selected, multi-selected and reduced motion.

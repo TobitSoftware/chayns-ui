@@ -9,7 +9,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import type { ChangeEvent, FocusEvent, KeyboardEvent, ReactElement, ReactNode } from 'react';
+import type { KeyboardEvent, MouseEvent, ReactElement, ReactNode } from 'react';
 
 import ButtonIcon from '../button/button-icon/ButtonIcon.js';
 import { ComboBoxContext, getOptionLabel, useComboBoxContext } from './ComboBoxContext.js';
@@ -36,48 +36,45 @@ function getOptionElements(children: ComboBoxProps['children']) {
 }
 
 const Option = forwardRef<HTMLDivElement, ComboBoxOptionProps>(function Option(
-  { children, className, value, ...optionProps },
+  { children, className, disabled = false, value, ...optionProps },
   ref,
 ) {
   const comboBox = useComboBoxContext();
-  const isVisible = comboBox.visibleValues.includes(value);
   const isSelected = comboBox.isSelected(value);
+  const isActive = comboBox.activeValue === value;
   const resolvedClassName = [
     'chayns-combo-box__option',
     isSelected ? 'chayns-combo-box__option--selected' : '',
-    comboBox.activeValue === value ? 'chayns-combo-box__option--active' : '',
+    isActive ? 'chayns-combo-box__option--active' : '',
+    disabled ? 'chayns-combo-box__option--disabled' : '',
     className,
   ]
     .filter(Boolean)
     .join(' ');
 
-  if (!isVisible) {
-    return null;
-  }
-
   return (
     <div
       {...optionProps}
+      aria-disabled={disabled || undefined}
       aria-selected={isSelected}
       className={resolvedClassName}
       id={comboBox.optionId(value)}
-      onMouseDown={(event) => event.preventDefault()}
       onClick={(event) => {
         optionProps.onClick?.(event);
-        if (!event.defaultPrevented) {
+        if (!event.defaultPrevented && !disabled) {
           comboBox.select(value);
         }
       }}
       onKeyDown={(event) => {
         optionProps.onKeyDown?.(event);
-        if (!event.defaultPrevented && (event.key === 'Enter' || event.key === ' ')) {
+        if (!event.defaultPrevented && !disabled && (event.key === 'Enter' || event.key === ' ')) {
           event.preventDefault();
           comboBox.select(value);
         }
       }}
       ref={ref}
       role="option"
-      tabIndex={-1}
+      tabIndex={isActive && !disabled ? 0 : -1}
     >
       {comboBox.multiple ? (
         <span
@@ -87,35 +84,46 @@ const Option = forwardRef<HTMLDivElement, ComboBoxOptionProps>(function Option(
         />
       ) : null}
       {children}
+      {!comboBox.multiple && isSelected ? (
+        <span aria-hidden="true" className="chayns-combo-box__checkmark">
+          <i className="fas fa-check" />
+        </span>
+      ) : null}
     </div>
   );
 });
 
-const ComboBoxRoot = forwardRef<HTMLInputElement, ComboBoxProps>(function ComboBoxRoot(props, ref) {
+const ComboBoxRoot = forwardRef<HTMLButtonElement, ComboBoxProps>(function ComboBoxRoot(props, ref) {
   const {
     'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
     children,
     className,
     defaultValue,
     disabled,
     id,
     multiple = false,
+    onClick,
+    onKeyDown,
     onValueChange,
-    openOnFocus = true,
     placeholder,
     value,
-    ...inputProps
+    ...buttonProps
   } = props;
   const generatedId = useId();
-  const inputId = id ?? generatedId;
-  const listboxId = `${inputId}-listbox`;
+  const triggerId = id ?? generatedId;
+  const listboxId = `${triggerId}-listbox`;
+  const labelId = `${triggerId}-label`;
   const rootRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const optionElements = useMemo(() => getOptionElements(children), [children]);
   const optionMap = useMemo(
     () => new Map(optionElements.map((option) => [option.props.value, option])),
     [optionElements],
   );
+  const focusableValues = optionElements
+    .filter((option) => !option.props.disabled)
+    .map((option) => option.props.value);
   const defaultValues = multiple
     ? ((defaultValue as ReactElement<ComboBoxOptionProps>[] | undefined)?.map(
         (option) => option.props.value,
@@ -130,27 +138,39 @@ const ComboBoxRoot = forwardRef<HTMLInputElement, ComboBoxProps>(function ComboB
     multiple ? '' : ((defaultValue as string | undefined) ?? ''),
   );
   const [uncontrolledValues, setUncontrolledValues] = useState(defaultValues);
-  const [inputText, setInputText] = useState(
-    multiple ? '' : ((defaultValue as string | undefined) ?? ''),
-  );
   const [open, setOpen] = useState(false);
   const [activeValue, setActiveValue] = useState<string>();
   const isControlled = value !== undefined;
   const selectedValue = multiple ? '' : isControlled ? (value as string) : uncontrolledValue;
   const selectedValues = multiple ? (isControlled ? controlledValues : uncontrolledValues) : [];
-  const normalizedFilter = inputText.trim().toLocaleLowerCase();
-  const visibleValues = optionElements
-    .filter((option) => {
-      const label = getOptionLabel(option.props.children).toLocaleLowerCase();
-      return normalizedFilter === '' || label.includes(normalizedFilter);
-    })
-    .map((option) => option.props.value);
+  const selectedOptions = selectedValues
+    .map((selected) => optionMap.get(selected))
+    .filter((option): option is ReactElement<ComboBoxOptionProps> => option !== undefined);
+  const selectedOption = optionMap.get(selectedValue);
+  const displayValue = multiple
+    ? selectedOptions.map((option) => getOptionLabel(option.props.children)).join(', ')
+    : selectedOption === undefined
+      ? ''
+      : getOptionLabel(selectedOption.props.children);
+  const resolvedClassName = ['chayns-combo-box', open ? 'chayns-combo-box--open' : '']
+    .filter(Boolean)
+    .join(' ');
+  const triggerClassName = ['chayns-combo-box__trigger', className].filter(Boolean).join(' ');
+  const accessibleName = ariaLabelledBy ?? (ariaLabel === undefined && placeholder !== undefined ? labelId : undefined);
+
+  if (ariaLabel === undefined && ariaLabelledBy === undefined && placeholder === undefined) {
+    throw new Error('ComboBox requires placeholder, aria-label or aria-labelledby.');
+  }
 
   useEffect(() => {
-    if (open && activeValue === undefined) {
-      setActiveValue(visibleValues[0]);
+    if (!open || activeValue === undefined) {
+      return;
     }
-  }, [activeValue, open, visibleValues]);
+
+    document
+      .getElementById(`${listboxId}-${activeValue.replace(/[^a-zA-Z0-9_-]/g, '-')}`)
+      ?.focus();
+  }, [activeValue, listboxId, open]);
 
   useEffect(() => {
     if (!open) {
@@ -159,17 +179,17 @@ const ComboBoxRoot = forwardRef<HTMLInputElement, ComboBoxProps>(function ComboB
 
     function closeOnOutsidePress(event: PointerEvent) {
       if (event.target instanceof Node && !rootRef.current?.contains(event.target)) {
-        commitInput();
         setOpen(false);
+        setActiveValue(undefined);
       }
     }
 
     document.addEventListener('pointerdown', closeOnOutsidePress);
     return () => document.removeEventListener('pointerdown', closeOnOutsidePress);
-  });
+  }, [open]);
 
-  function setInputElement(element: HTMLInputElement | null) {
-    inputRef.current = element;
+  function setTriggerElement(element: HTMLButtonElement | null) {
+    triggerRef.current = element;
 
     if (typeof ref === 'function') {
       ref(element);
@@ -199,10 +219,10 @@ const ComboBoxRoot = forwardRef<HTMLInputElement, ComboBoxProps>(function ComboB
     );
   }
 
-  function commitInput() {
-    if (!multiple && inputText !== selectedValue) {
-      emitValue(inputText);
-    }
+  function closeAndFocusTrigger() {
+    setOpen(false);
+    setActiveValue(undefined);
+    triggerRef.current?.focus();
   }
 
   function select(nextValue: string) {
@@ -211,130 +231,136 @@ const ComboBoxRoot = forwardRef<HTMLInputElement, ComboBoxProps>(function ComboB
         ? selectedValues.filter((selected) => selected !== nextValue)
         : [...selectedValues, nextValue];
       emitValues(nextValues);
-      setInputText('');
-      setActiveValue(undefined);
-      setOpen(true);
+    } else {
+      emitValue(nextValue);
+    }
+
+    closeAndFocusTrigger();
+  }
+
+  function openPopup() {
+    if (disabled || focusableValues.length === 0) {
       return;
     }
 
-    const option = optionMap.get(nextValue);
-    emitValue(nextValue);
-    setInputText(option === undefined ? nextValue : getOptionLabel(option.props.children));
-    setActiveValue(undefined);
-    setOpen(false);
-  }
-
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setInputText(event.target.value);
-    setActiveValue(undefined);
+    const selectedFocusableValue = focusableValues.find((optionValue) =>
+      multiple ? selectedValues.includes(optionValue) : selectedValue === optionValue,
+    );
+    setActiveValue(selectedFocusableValue ?? focusableValues[0]);
     setOpen(true);
-    props.onChange?.(event);
   }
 
-  function handleBlur(event: FocusEvent<HTMLInputElement>) {
-    props.onBlur?.(event);
-    if (!rootRef.current?.contains(event.relatedTarget)) {
-      commitInput();
-      setOpen(false);
+  function moveActive(direction: 1 | -1) {
+    if (focusableValues.length === 0) {
+      return;
+    }
+
+    const currentIndex = activeValue === undefined ? -1 : focusableValues.indexOf(activeValue);
+    const nextIndex =
+      currentIndex === -1
+        ? direction === 1
+          ? 0
+          : focusableValues.length - 1
+        : (currentIndex + direction + focusableValues.length) % focusableValues.length;
+    setActiveValue(focusableValues[nextIndex]);
+  }
+
+  function handleTriggerClick(event: MouseEvent<HTMLButtonElement>) {
+    onClick?.(event);
+    if (!event.defaultPrevented) {
+      if (open) {
+        closeAndFocusTrigger();
+      } else {
+        openPopup();
+      }
     }
   }
 
-  function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
-    const currentIndex = activeValue === undefined ? -1 : visibleValues.indexOf(activeValue);
-    let nextIndex = currentIndex;
+  function handleTriggerKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
+    onKeyDown?.(event);
+    if (event.defaultPrevented) {
+      return;
+    }
 
-    if (event.key === 'ArrowDown') nextIndex = Math.min(currentIndex + 1, visibleValues.length - 1);
-    if (event.key === 'ArrowUp') nextIndex = Math.max(currentIndex - 1, 0);
-    if (event.key === 'Home') nextIndex = 0;
-    if (event.key === 'End') nextIndex = visibleValues.length - 1;
+    if (
+      event.key === 'Enter' ||
+      event.key === ' ' ||
+      event.key === 'ArrowDown' ||
+      event.key === 'ArrowUp' ||
+      (event.key === 'ArrowDown' && event.altKey)
+    ) {
+      event.preventDefault();
+      openPopup();
+    }
+  }
 
-    if (nextIndex !== currentIndex && visibleValues[nextIndex] !== undefined) {
+  function handleListboxKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.key === 'ArrowDown') {
       event.preventDefault();
-      setActiveValue(visibleValues[nextIndex]);
-      setOpen(true);
-    } else if (event.key === 'Enter' && activeValue !== undefined) {
+      moveActive(1);
+    } else if (event.key === 'ArrowUp') {
       event.preventDefault();
-      select(activeValue);
+      moveActive(-1);
+    } else if (event.key === 'Home') {
+      event.preventDefault();
+      setActiveValue(focusableValues[0]);
+    } else if (event.key === 'End') {
+      event.preventDefault();
+      setActiveValue(focusableValues.at(-1));
     } else if (event.key === 'Escape') {
       event.preventDefault();
-      setInputText(multiple ? '' : selectedValue);
-      setActiveValue(undefined);
+      closeAndFocusTrigger();
+    } else if (event.key === 'Tab') {
       setOpen(false);
+      setActiveValue(undefined);
     }
-
-    props.onKeyDown?.(event);
   }
-
-  const resolvedClassName = ['chayns-combo-box', open ? 'chayns-combo-box--open' : '']
-    .filter(Boolean)
-    .join(' ');
-  const describedLabel = placeholder === undefined ? undefined : `${inputId}-label`;
-  const selectedOptions = selectedValues
-    .map((selected) => optionMap.get(selected))
-    .filter((option): option is ReactElement<ComboBoxOptionProps> => option !== undefined);
-  const inputClassName = ['chayns-combo-box__input', className].filter(Boolean).join(' ');
 
   return (
     <ComboBoxContext.Provider
       value={{
         activeValue,
-        close: () => setOpen(false),
-        inputText,
         isSelected: (optionValue) =>
           multiple ? selectedValues.includes(optionValue) : selectedValue === optionValue,
         multiple,
         optionId: (optionValue) => `${listboxId}-${optionValue.replace(/[^a-zA-Z0-9_-]/g, '-')}`,
         select,
-        visibleValues,
       }}
     >
       <div className={resolvedClassName} ref={rootRef}>
-        {multiple ? (
-          <div className="chayns-combo-box__chips" aria-hidden="true">
-            {selectedOptions.map((option) => (
-              <span className="chayns-combo-box__chip" key={option.props.value}>
-                {option.props.children}
-              </span>
-            ))}
-          </div>
-        ) : null}
-        <input
-          {...inputProps}
-          aria-activedescendant={
-            open && activeValue
-              ? `${listboxId}-${activeValue.replace(/[^a-zA-Z0-9_-]/g, '-')}`
-              : undefined
-          }
-          aria-autocomplete="list"
+        <button
+          {...buttonProps}
           aria-controls={listboxId}
           aria-expanded={open}
+          aria-haspopup="listbox"
           aria-label={ariaLabel}
-          className={inputClassName}
+          aria-labelledby={accessibleName}
+          className={triggerClassName}
           disabled={disabled}
-          id={inputId}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          onFocus={() => openOnFocus && setOpen(true)}
-          onKeyDown={handleKeyDown}
-          placeholder={placeholder === undefined ? undefined : ' '}
-          ref={setInputElement}
-          role="combobox"
-          value={inputText}
-        />
+          id={triggerId}
+          onClick={handleTriggerClick}
+          onKeyDown={handleTriggerKeyDown}
+          ref={setTriggerElement}
+          type="button"
+        >
+          <span className="chayns-combo-box__value">{displayValue || placeholder}</span>
+          <span aria-hidden="true" className="chayns-combo-box__chevron">
+            <ButtonIcon icon="fa-chevron-down" />
+          </span>
+        </button>
         {placeholder !== undefined ? (
-          <label className="chayns-combo-box__label" htmlFor={inputId} id={describedLabel}>
+          <span className="chayns-combo-box__label" id={labelId}>
             {placeholder}
-          </label>
+          </span>
         ) : null}
-        <span aria-hidden="true" className="chayns-combo-box__chevron">
-          <ButtonIcon icon="fa-chevron-down" />
-        </span>
         {open ? (
           <div
             aria-multiselectable={multiple || undefined}
             className="chayns-combo-box__popup"
             id={listboxId}
+            onKeyDown={handleListboxKeyDown}
             role="listbox"
+            tabIndex={-1}
           >
             {children}
           </div>

@@ -4,27 +4,43 @@
     min-inline-size: 0;
   }
 
-  .chayns-combo-box__input {
+  .chayns-combo-box__trigger {
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     inline-size: 100%;
     min-block-size: calc(1.2em + 2 * var(--input-py) + 3px);
-    padding: var(--input-py) var(--k36) var(--input-py) var(--input-px);
+    padding: var(--input-py) var(--input-px);
     border: 1.5px solid var(--input-border);
     border-radius: 10px;
     background: var(--surface);
     color: var(--text);
+    cursor: pointer;
     font: inherit;
     line-height: 1.2;
     outline: none;
+    text-align: start;
     transition:
       border-color 0.18s ease,
       box-shadow 0.18s ease;
   }
 
-  .chayns-combo-box__input:focus {
+  .chayns-combo-box__trigger:focus-visible {
     border-color: var(--accent);
     box-shadow: 0 0 0 var(--focus-ring-size)
       rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-soft));
+  }
+
+  .chayns-combo-box__trigger:disabled {
+    cursor: not-allowed;
+  }
+
+  .chayns-combo-box__value {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .chayns-combo-box__label {
@@ -33,61 +49,26 @@
     inset-inline-start: 10px;
     padding-inline: var(--k5);
     background: var(--surface);
-    color: var(--text-3);
+    color: var(--accent);
     font-size: var(--fs-body);
     line-height: 1.2;
     pointer-events: none;
-    transform: translateY(calc(var(--input-py) + 1.5px + 0.6em - 50%));
+    transform: translateY(-50%) scale(0.8);
     transform-origin: left center;
-    transition:
-      transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
-      color 0.15s ease;
     white-space: nowrap;
   }
 
   .chayns-combo-box__chevron {
-    position: absolute;
-    inset-block-start: 50%;
-    inset-inline-end: var(--input-px);
     display: inline-flex;
+    flex: none;
     align-items: center;
     justify-content: center;
     color: var(--muted);
-    pointer-events: none;
-    transform: translateY(-50%);
     transition: transform 0.18s ease;
   }
 
   .chayns-combo-box--open .chayns-combo-box__chevron {
-    transform: translateY(-50%) rotate(180deg);
-  }
-
-  .chayns-combo-box--open .chayns-combo-box__label,
-  .chayns-combo-box__input:not(:placeholder-shown) + .chayns-combo-box__label {
-    color: var(--accent);
-    transform: translateY(-50%) scale(0.8);
-  }
-
-  .chayns-combo-box__chips {
-    position: absolute;
-    inset: 1.5px var(--input-px) auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--k5);
-    pointer-events: none;
-    transform: translateY(var(--input-py));
-  }
-
-  .chayns-combo-box__chip {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--k5);
-    padding: var(--k3) var(--k9);
-    border-radius: 999px;
-    background: var(--accent);
-    color: var(--on-accent);
-    font-size: var(--fs-caption);
-    font-weight: 500;
+    transform: rotate(180deg);
   }
 
   .chayns-combo-box__popup {
@@ -107,22 +88,29 @@
   .chayns-combo-box__option {
     display: flex;
     align-items: center;
-    min-block-size: var(--k40);
-    padding: var(--k9) var(--k12);
+    min-block-size: var(--k32);
+    padding: var(--k6) var(--k12);
     border-radius: 8px;
     color: var(--text);
     cursor: pointer;
     font-size: var(--fs-body);
+    outline: none;
   }
 
   .chayns-combo-box__option:hover,
-  .chayns-combo-box__option--active {
+  .chayns-combo-box__option--active,
+  .chayns-combo-box__option:focus-visible {
     background: var(--surface-alt);
   }
 
   .chayns-combo-box__option--selected {
     color: var(--accent);
     font-weight: 600;
+  }
+
+  .chayns-combo-box__option--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 
   .chayns-combo-box__checkbox {
@@ -152,9 +140,13 @@
     transform: rotate(-45deg) translate(1px, -1px);
   }
 
+  .chayns-combo-box__checkmark {
+    margin-inline-start: auto;
+    color: var(--accent);
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .chayns-combo-box__input,
-    .chayns-combo-box__label,
+    .chayns-combo-box__trigger,
     .chayns-combo-box__chevron {
       transition: none;
     }

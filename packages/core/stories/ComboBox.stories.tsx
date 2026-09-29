@@ -24,11 +24,11 @@ export const SingleSelect: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByRole('combobox', { name: 'Kategorie' });
+    const trigger = canvas.getByRole('button', { name: 'Kategorie' });
 
-    await userEvent.click(input);
-    await userEvent.keyboard('{Enter}');
-    await expect(input).toHaveValue('Design');
+    await userEvent.click(trigger);
+    await expect(canvas.getByRole('option', { name: 'Design' })).toBeInTheDocument();
+    await expect(canvas.getByRole('option', { name: 'Engineering' })).toBeInTheDocument();
   },
 };
 

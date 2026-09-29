@@ -4,13 +4,10 @@ import type { ComboBoxOptionProps } from './ComboBox.types.js';
 
 export interface ComboBoxContextValue {
   activeValue?: string | undefined;
-  close: () => void;
-  inputText: string;
   isSelected: (value: string) => boolean;
   multiple: boolean;
   optionId: (value: string) => string;
   select: (value: string) => void;
-  visibleValues: string[];
 }
 
 export const ComboBoxContext = createContext<ComboBoxContextValue | null>(null);
