@@ -58,7 +58,14 @@
   --fs-meta: calc(13 * var(--u));
   --fs-caption: calc(12 * var(--u));
   --fs-micro: calc(11 * var(--u));
-  --z-popover: 1000;
+  --z-sticky: 100;
+  --z-popover: 500;
+  --z-drawer: 700;
+  --z-dialog: 800;
+  --z-toast: 900;
+  --z-tooltip: 1000;
+  --backdrop-dialog: rgba(14, 23, 27, 0.55);
+  --backdrop-drawer: rgba(14, 23, 27, 0.45);
 }
 
 .theme-density-s {
