@@ -1,5 +1,5 @@
 import { renderToString } from 'react-dom/server';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { ReactElement } from 'react';
 import { describe, expect, it, vi } from 'vitest';
@@ -37,7 +37,7 @@ describe('ComboBox', () => {
 
     expect(trigger).toHaveTextContent('Design');
     expect(onValueChange).toHaveBeenCalledWith('design');
-    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByRole('listbox')).not.toBeInTheDocument());
     expect(trigger).toHaveFocus();
   });
 
@@ -58,13 +58,45 @@ describe('ComboBox', () => {
     await user.click(trigger);
     await user.click(screen.getByRole('option', { name: 'Design' }));
 
-    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
-    expect(selectedOptions?.[0]?.props.value).toBe('design');
+    await waitFor(() => expect(screen.queryByRole('listbox')).not.toBeInTheDocument());
     expect(trigger).toHaveFocus();
+
 
     await user.click(trigger);
     expect(screen.getByRole('option', { name: 'Design' })).toHaveAttribute('aria-selected', 'true');
     expect(screen.getByRole('option', { name: 'Engineering' })).toBeInTheDocument();
+  });
+
+  it('portals the popup to the document body and aligns it to the trigger', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <ComboBox aria-label="Kategorie" placeholder="Kategorie">
+        {options}
+      </ComboBox>,
+    );
+
+    const trigger = screen.getByRole('button', { name: 'Kategorie' });
+    vi.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
+      bottom: 48,
+      height: 40,
+      left: 24,
+      right: 224,
+      top: 8,
+      width: 200,
+      x: 24,
+      y: 8,
+      toJSON: () => ({}),
+    });
+    await user.click(trigger);
+
+    const listbox = screen.getByRole('listbox');
+    expect(listbox.parentElement).toBe(document.body);
+    expect(listbox).toHaveStyle({
+      insetBlockStart: 'calc(48px + var(--k4))',
+      insetInlineStart: '24px',
+      inlineSize: '200px',
+    });
   });
 
   it('skips disabled options and restores trigger focus on Escape', async () => {

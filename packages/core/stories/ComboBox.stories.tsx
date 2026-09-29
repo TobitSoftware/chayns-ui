@@ -27,8 +27,9 @@ export const SingleSelect: Story = {
     const trigger = canvas.getByRole('button', { name: 'Kategorie' });
 
     await userEvent.click(trigger);
-    await expect(canvas.getByRole('option', { name: 'Design' })).toBeInTheDocument();
-    await expect(canvas.getByRole('option', { name: 'Engineering' })).toBeInTheDocument();
+    const popup = within(document.body);
+    await expect(popup.getByRole('option', { name: 'Design' })).toBeInTheDocument();
+    await expect(popup.getByRole('option', { name: 'Engineering' })).toBeInTheDocument();
   },
 };
 

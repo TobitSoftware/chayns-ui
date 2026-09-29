@@ -72,10 +72,9 @@
   }
 
   .chayns-combo-box__popup {
-    position: absolute;
-    inset-block-start: calc(100% + var(--k4));
-    inset-inline: 0;
+    position: fixed;
     z-index: var(--z-popover);
+    box-sizing: border-box;
     max-block-size: min(320px, 50vh);
     overflow: auto;
     padding: var(--k6);
@@ -83,6 +82,17 @@
     border-radius: 12px;
     background: var(--surface);
     box-shadow: var(--shadow-pop);
+    opacity: 1;
+    transform: translateY(0);
+    transform-origin: top center;
+    transition:
+      opacity 0.18s ease,
+      transform 0.18s ease;
+  }
+
+  .chayns-combo-box__popup[data-state='closed'] {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--k4)));
   }
 
   .chayns-combo-box__option {
@@ -147,7 +157,8 @@
 
   @media (prefers-reduced-motion: reduce) {
     .chayns-combo-box__trigger,
-    .chayns-combo-box__chevron {
+    .chayns-combo-box__chevron,
+    .chayns-combo-box__popup {
       transition: none;
     }
   }

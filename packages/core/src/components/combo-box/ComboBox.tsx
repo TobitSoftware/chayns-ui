@@ -9,7 +9,8 @@ import {
   useRef,
   useState,
 } from 'react';
-import type { KeyboardEvent, MouseEvent, ReactElement, ReactNode } from 'react';
+import { createPortal } from 'react-dom';
+import type { CSSProperties, KeyboardEvent, MouseEvent, ReactElement, ReactNode } from 'react';
 
 import ButtonIcon from '../button/button-icon/ButtonIcon.js';
 import { ComboBoxContext, getOptionLabel, useComboBoxContext } from './ComboBoxContext.js';
@@ -115,7 +116,9 @@ const ComboBoxRoot = forwardRef<HTMLButtonElement, ComboBoxProps>(function Combo
   const listboxId = `${triggerId}-listbox`;
   const labelId = `${triggerId}-label`;
   const rootRef = useRef<HTMLDivElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const [popupStyle, setPopupStyle] = useState<CSSProperties>();
   const optionElements = useMemo(() => getOptionElements(children), [children]);
   const optionMap = useMemo(
     () => new Map(optionElements.map((option) => [option.props.value, option])),
@@ -139,6 +142,8 @@ const ComboBoxRoot = forwardRef<HTMLButtonElement, ComboBoxProps>(function Combo
   );
   const [uncontrolledValues, setUncontrolledValues] = useState(defaultValues);
   const [open, setOpen] = useState(false);
+  const [popupMounted, setPopupMounted] = useState(false);
+  const [popupClosing, setPopupClosing] = useState(false);
   const [activeValue, setActiveValue] = useState<string>();
   const isControlled = value !== undefined;
   const selectedValue = multiple ? '' : isControlled ? (value as string) : uncontrolledValue;
@@ -163,6 +168,25 @@ const ComboBoxRoot = forwardRef<HTMLButtonElement, ComboBoxProps>(function Combo
   }
 
   useEffect(() => {
+    if (open) {
+      if (!popupMounted) {
+        setPopupMounted(true);
+        setPopupClosing(true);
+        return undefined;
+      }
+
+      if (popupClosing) {
+        const frame = requestAnimationFrame(() => setPopupClosing(false));
+        return () => cancelAnimationFrame(frame);
+      }
+    } else if (popupMounted) {
+      setPopupClosing(true);
+    }
+
+    return undefined;
+  }, [open, popupClosing, popupMounted]);
+
+  useEffect(() => {
     if (!open || activeValue === undefined) {
       return;
     }
@@ -177,15 +201,40 @@ const ComboBoxRoot = forwardRef<HTMLButtonElement, ComboBoxProps>(function Combo
       return undefined;
     }
 
+    function updatePopupPosition() {
+      const trigger = triggerRef.current;
+      if (!trigger) {
+        return;
+      }
+
+      const { bottom, left, width } = trigger.getBoundingClientRect();
+      setPopupStyle({
+        insetBlockStart: `calc(${bottom}px + var(--k4))`,
+        insetInlineStart: left,
+        inlineSize: width,
+      });
+    }
+
     function closeOnOutsidePress(event: PointerEvent) {
-      if (event.target instanceof Node && !rootRef.current?.contains(event.target)) {
+      if (
+        event.target instanceof Node &&
+        !rootRef.current?.contains(event.target) &&
+        !popupRef.current?.contains(event.target)
+      ) {
         setOpen(false);
         setActiveValue(undefined);
       }
     }
 
+    updatePopupPosition();
+    window.addEventListener('resize', updatePopupPosition);
+    window.addEventListener('scroll', updatePopupPosition, true);
     document.addEventListener('pointerdown', closeOnOutsidePress);
-    return () => document.removeEventListener('pointerdown', closeOnOutsidePress);
+    return () => {
+      window.removeEventListener('resize', updatePopupPosition);
+      window.removeEventListener('scroll', updatePopupPosition, true);
+      document.removeEventListener('pointerdown', closeOnOutsidePress);
+    };
   }, [open]);
 
   function setTriggerElement(element: HTMLButtonElement | null) {
@@ -353,18 +402,32 @@ const ComboBoxRoot = forwardRef<HTMLButtonElement, ComboBoxProps>(function Combo
             {placeholder}
           </span>
         ) : null}
-        {open ? (
-          <div
-            aria-multiselectable={multiple || undefined}
-            className="chayns-combo-box__popup"
-            id={listboxId}
-            onKeyDown={handleListboxKeyDown}
-            role="listbox"
-            tabIndex={-1}
-          >
-            {children}
-          </div>
-        ) : null}
+        {popupMounted && typeof document !== 'undefined'
+          ? createPortal(
+              <div
+                aria-hidden={!open && popupClosing ? true : undefined}
+                aria-multiselectable={multiple || undefined}
+                className="chayns-combo-box__popup"
+                data-state={popupClosing ? 'closed' : 'open'}
+                id={listboxId}
+                inert={!open && popupClosing}
+                onKeyDown={handleListboxKeyDown}
+                onTransitionEnd={(event) => {
+                  if (popupClosing && event.propertyName === 'opacity') {
+                    setPopupMounted(false);
+                    setPopupClosing(false);
+                  }
+                }}
+                ref={popupRef}
+                role="listbox"
+                style={popupStyle}
+                tabIndex={-1}
+              >
+                {children}
+              </div>,
+              document.body,
+            )
+          : null}
       </div>
     </ComboBoxContext.Provider>
   );
