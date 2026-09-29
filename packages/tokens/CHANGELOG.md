@@ -1,5 +1,11 @@
 # @chayns-ui/tokens
 
+## 0.8.0
+
+### Minor Changes
+
+- Add semantic overlay z-layer and dialog/drawer backdrop tokens.
+
 ## 0.7.0
 
 ### Minor Changes

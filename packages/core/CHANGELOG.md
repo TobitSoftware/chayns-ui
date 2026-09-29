@@ -1,5 +1,11 @@
 # @chayns-ui/core
 
+## 0.9.2
+
+### Patch Changes
+
+- Release compatibility update for the semantic overlay z-layer and dialog/drawer backdrop token scale.
+
 ## 0.9.1
 
 ### Patch Changes
