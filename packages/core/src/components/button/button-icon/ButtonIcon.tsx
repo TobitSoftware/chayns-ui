@@ -5,11 +5,11 @@ interface ButtonIconProps {
 }
 
 const ButtonIcon = ({ icon }: ButtonIconProps) => {
-  const isBrandIcon = icon.startsWith('fab ');
+  const isPlainIcon = icon.startsWith('fab ') || icon.startsWith('ts-');
 
   return (
     <span aria-hidden="true" className="chayns-button-icon">
-      {isBrandIcon ? (
+      {isPlainIcon ? (
         <span className="chayns-button-icon__weight">
           <i className={icon} />
         </span>

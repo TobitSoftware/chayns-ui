@@ -26,7 +26,7 @@ export const BUTTON_VARIANTS = [
  * Brands icons are rendered as a single icon and must not be combined with
  * `far` or `fas`.
  */
-export type ButtonIcon = `fa-${string}` | `fab fa-${string}`;
+export type ButtonIcon = `fa-${string}` | `fab fa-${string}` | `ts-${string}`;
 
 /**
  * @description Visible content that gives a `Button` its accessible name.
