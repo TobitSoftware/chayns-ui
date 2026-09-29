@@ -1,11 +1,9 @@
 import { renderToString } from 'react-dom/server';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import type { ReactElement } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import ComboBox from '../src/components/combo-box/ComboBox.js';
-import type { ComboBoxOptionProps } from '../src/components/combo-box/ComboBox.types.js';
 
 const options = (
   <>
@@ -42,14 +40,16 @@ describe('ComboBox', () => {
   });
 
   it('closes a multi-select popup after every selection while retaining all options', async () => {
-    let selectedOptions: ReactElement<ComboBoxOptionProps>[] | undefined;
-    const onValueChange = (value: ReactElement<ComboBoxOptionProps>[]) => {
-      selectedOptions = value;
-    };
+    const onValueChange = vi.fn();
     const user = userEvent.setup();
 
     render(
-      <ComboBox aria-label="Kategorien" multiple onValueChange={onValueChange} placeholder="Kategorien">
+      <ComboBox
+        aria-label="Kategorien"
+        multiple
+        onValueChange={onValueChange}
+        placeholder="Kategorien"
+      >
         {options}
       </ComboBox>,
     );
@@ -60,7 +60,6 @@ describe('ComboBox', () => {
 
     await waitFor(() => expect(screen.queryByRole('listbox')).not.toBeInTheDocument());
     expect(trigger).toHaveFocus();
-
 
     await user.click(trigger);
     expect(screen.getByRole('option', { name: 'Design' })).toHaveAttribute('aria-selected', 'true');

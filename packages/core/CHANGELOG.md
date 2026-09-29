@@ -1,5 +1,11 @@
 # @chayns-ui/core
 
+## 0.9.4
+
+### Patch Changes
+
+- 842c961: Fix ComboBox popup positioning, motion and overflow handling.
+
 ## 0.9.3
 
 ### Patch Changes
