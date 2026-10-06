@@ -339,7 +339,7 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | AI-004 | AI | Dokumentation und maschinenlesbare Spezifikationen gehören zum Produkt. | CONFIRMED | Vision, Philosophy | |
 | AI-005 | AI | Das maschinenlesbare Komponenten-Specification-Format ist offen. | SUPERSEDED | User decision, 2026-09-21 | Superseded by AI-006: Markdown with schema-validated frontmatter. |
 | AI-006 | AI | Markdown bleibt die normative Component Specification. Standardisierte Frontmatter-Felder werden durch ein JSON Schema validiert. | CONFIRMED | User decision, 2026-09-21 | Frontmatter-Felder, Schema-Ablage und Validator im Specification Format festlegen. |
-| AI-006 | AI | Ein KI-Agent muss bei implementierungsrelevanter Mehrdeutigkeit stoppen und eine konkrete Klärungsfrage formulieren; eine plausible Annahme oder Best-Guess-Implementierung ist nicht zulässig. | CONFIRMED | Planning | AI Development Rules |
+| AI-007 | AI | Ein KI-Agent muss bei implementierungsrelevanter Mehrdeutigkeit stoppen und eine konkrete Klärungsfrage formulieren; eine plausible Annahme oder Best-Guess-Implementierung ist nicht zulässig. | CONFIRMED | Planning | AI Development Rules |
 
 ## Distribution
 
@@ -496,3 +496,16 @@ OPEN-Punkte werden nicht durch Implementierung stillschweigend geschlossen. Vor 
 ## Source of Truth
 
 Das Register ist die schnelle Entscheidungsübersicht; ausführlichere Dokumente liefern Kontext und Begründung. Widersprüche müssen geklärt werden, statt eine Quelle stillschweigend zu bevorzugen.
+
+## Confirmed additions — 2026-10-06
+
+| ID | Category | Decision | Status | Source | Follow-up |
+| --- | --- | --- | --- | --- | --- |
+| PLATFORM-005 | PLATFORM | Modern standardized ECMAScript source preserves existing React, Node and browser consumer compatibility. No experimental ESNext runtime APIs or automatic minimum-version increase. | CONFIRMED | User structured answer 2026-10-06 | Existing build targets remain. |
+| LAYOUT-037 | LAYOUT | Tabs appearance is attached (existing default) or underline (peer views on a shared surface). Both preserve the compound/state/keyboard contract. | CONFIRMED | User structured answer 2026-10-06 | Screenshot and dashboard SCSS are the authorized underline reference; tokens, density and accessibility apply; external spacing stays consumer-owned. |
+| AI-008 | AI | Each component specification has schema-validated Markdown frontmatter with name, package, category, status, useWhen, doNotUseWhen, alternatives, sourceReferences, checkedOn and stories. | CONFIRMED | User structured answer 2026-10-06 | Implement AI-006 via local dependency-free validation; AI-007 resolves the former duplicate AI-006 identifier for the ambiguity rule. |
+| NAV-001 | NAVIGATION | Breadcrumb uses items with label/href/icon and native nav props; only the terminal current item omits href. Pagination uses controlled page/pageCount/onPageChange, localized labels, at most seven numeric/ellipsis positions and previous/next controls. | CONFIRMED | User structured answer 2026-10-06 | Initial Pagination excludes table-specific totals/range/page-size composition. |
+| INPUT-011 | INPUT | Slider initially represents one native range value with label, native value/defaultValue/onChange and required formatValue for visible and spoken output. | CONFIRMED | User structured answer 2026-10-06 | Multi-thumb ranges require a separate gate. |
+| INPUT-012 | INPUT | Stepper initially uses controlled value/min/max/step/onValueChange plus label, decreaseLabel, increaseLabel and formatValue; no direct text input or press-and-hold repetition. | CONFIRMED | User structured answer 2026-10-06 | Integer/decimal precision decision remains OPEN until clarified. |
+| TOOLTIP-004 | TOOLTIP | Tooltip uses its Children element as trigger and opens on hover, focus or mobile click; Bodywork Tooltip & Dropdown is the visual reference. | CONFIRMED | User structured answer 2026-10-06 | Touch action composition remains OPEN until clarified. |
+| SCOPE-001 | SCOPE | Dialog and Drawer modernization belongs initially to the global chayns dialog API; the selected library additions are Tooltip, Breadcrumb, Pagination, Slider and Stepper. Existing PopupList supplies the dropdown action-menu function. | CONFIRMED | User structured answer 2026-10-06 | No new global dialog API in this change. |

@@ -8,7 +8,7 @@ Das Ziel ist nicht nur eine Komponentenbibliothek, sondern ein konsistentes, dok
 
 ## Current Phase
 
-**The project remains generally in PLANNING AND SPECIFICATION PHASE, with a gate-scoped Milestone 1 implementation exception for Button and IconButton.**
+**The project remains specification-led. Implementation is permitted only within a documented component-specific READY scope.**
 
 Außerhalb einer dokumentierten READY-Bewertung darf ein Agent:
 
@@ -18,7 +18,7 @@ Außerhalb einer dokumentierten READY-Bewertung darf ein Agent:
 * keine Dependencies hinzufügen,
 * keine Build-Infrastruktur einführen.
 
-Die auf den 21.08.2026 datierte READY-Bewertung unter `docs/03-components/button/` erlaubt ausschließlich die dort spezifizierte Implementierung von Button und IconButton auf der in ADR 0001–0003 bestätigten Milestone-1-Infrastruktur. Sie ist keine allgemeine Freigabe für weitere Komponenten, APIs, Varianten, Tokens oder Architekturentscheidungen.
+Die erste READY-Bewertung vom 21.08.2026 unter `docs/03-components/button/` erlaubte Button und IconButton auf der in ADR 0001–0003 bestätigten Infrastruktur. Spätere komponentenspezifische Specifications und READY-Bewertungen unter `docs/03-components/` erweitern ausschließlich ihren jeweils dokumentierten Scope. Vorhandener Code allein und der Audit-Auftrag vom 06.10.2026 sind keine allgemeine Freigabe für neue APIs, Varianten, Tokens oder Architekturentscheidungen.
 
 Die aktuelle Aufgabe besteht darin:
 
