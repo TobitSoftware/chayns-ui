@@ -1,4 +1,8 @@
 @layer chayns.components {
+  .chayns-tabs__icon {
+    pointer-events: none;
+  }
+
   .chayns-tabs {
     position: relative;
     display: flex;

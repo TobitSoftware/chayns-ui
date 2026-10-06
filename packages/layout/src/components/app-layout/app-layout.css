@@ -187,6 +187,7 @@
   }
 
   .chayns-app-layout__icon {
+    pointer-events: none;
     display: inline-flex;
     flex: none;
     align-items: center;
