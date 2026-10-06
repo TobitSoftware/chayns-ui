@@ -20,11 +20,12 @@ const baseline = readFileSync(baselinePath, 'utf8');
 const patch = readFileSync(patchPath, 'utf8');
 for (const selector of [
   ':root',
-  '.chayns-theme--light',
-  '.chayns-theme--dark',
-  '.chayns-density--s',
-  '.chayns-density--m',
-  '.chayns-density--l',
+  '.theme-light',
+  '.theme-auto',
+  '.theme-dark',
+  '.theme-density-s',
+  '.theme-density-m',
+  '.theme-density-l',
 ]) {
   if (!baseline.includes(selector)) throw new Error(`Baseline misses ${selector}`);
 }
