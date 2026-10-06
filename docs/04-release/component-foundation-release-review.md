@@ -25,12 +25,27 @@ Core 0.10.0, Layout 0.7.0 and Tokens 0.8.1, matching the plan above.
 ## Validation and remaining review
 
 `corepack pnpm verify` passed: 185 unit tests, 89 Storybook interaction/a11y tests,
-31 specifications and concise usage guides, 61 explicit component names, 11 enum/list pairs, lint/types,
+31 specifications and usage guides with 31 typechecked public-import examples,
+61 explicit component names, 11 enum/list pairs, lint/types,
 deterministic token generation, distribution checks, tree-shaking and packed
 consumer typecheck/build/SSR. All 89 static stories load in Chromium and WebKit.
 The guides render their six consumer sections on all 29 shared documentation pages;
 cross-component navigation was checked in the rendered Storybook. Underline Tabs
 now demonstrates both fixed entries and working optional add/remove composition.
+
+The documentation follow-up expands all six consumer sections with concrete
+selection reasons, composition roles, state ownership and relevant limitations.
+AccordionGroup is an Accordion companion rather than a replacement; equivalent
+selection corrections cover AppLayout, Avatar and DateTimePicker. Spinner guidance
+now matches its confirmed Reduced Motion behavior. Specifications expose separate
+`alternatives` and `combinations` metadata. The authoring standard explains how to
+maintain these distinctions, shared Docs/story links and public-import examples.
+The verifier typechecks all 31 Markdown TSX examples against public package exports
+and rejects unknown props or enum members. Rendered sections and the AccordionGroup
+and PopupList companion links were checked in Chromium and WebKit. This follow-up
+changes documentation and verification only, without changing component APIs.
+The [Bodywork selection review](../03-components/bodywork-selection-review.md)
+records the checked reference and reconciliation.
 
 The icon-rule follow-up reuses the existing renderer for Stepper and consistently
 switches owned action glyphs to Solid on enabled hover/active, while informational
