@@ -110,3 +110,12 @@ Root/child props, event cancellation, density, geometry and reduced motion stay 
 READY extends to this confirmed state handling. Acceptance checks cover disabled
 first entries, DOM reorder, removal, controlled refusal/acceptance, no enabled entries
 and StrictMode callback de-duplication.
+
+## Global icon rule follow-up — 2026-10-06
+
+Owned action glyphs follow ICON-001–003: Regular at rest/disabled and Solid on
+enabled hover/active; informational markers stay Regular. The existing internal
+renderers use wrappers to remain stable under Font Awesome SVG replacement. Public
+props, token geometry, native events and focus ownership remain unchanged. The
+[icon rule review](../icon-rule-review-2026-10-06.md) records owner-specific findings
+and consumer-content boundaries.

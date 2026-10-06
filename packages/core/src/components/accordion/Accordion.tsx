@@ -1,3 +1,4 @@
+import ButtonIcon from '../button/button-icon/ButtonIcon.js';
 import {
   Children,
   createElement,
@@ -86,7 +87,9 @@ const AccordionHead = forwardRef<HTMLButtonElement, AccordionHeadProps>(function
       ref={ref}
       type="button"
     >
-      <i aria-hidden="true" className="chayns-accordion__chevron far fa-chevron-right" />
+      <span aria-hidden="true" className="chayns-accordion__chevron">
+        <ButtonIcon icon="fa-chevron-right" />
+      </span>
       {children}
     </button>
   );

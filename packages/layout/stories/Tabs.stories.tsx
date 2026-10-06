@@ -1,3 +1,4 @@
+import TabsIcon from '../src/components/tabs/tabs-icon/TabsIcon.js';
 import usage from '../../../docs/03-components/tabs/tabs-usage.md?raw';
 import { useRef, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -20,7 +21,15 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const INITIAL_ENTRIES = [
+interface WorkspaceEntry {
+  value: string;
+  label: string;
+  icon: `fa-${string}`;
+  content: string;
+  isRemovable: boolean;
+}
+
+const INITIAL_ENTRIES: WorkspaceEntry[] = [
   {
     value: 'inbox',
     label: 'Inbox',
@@ -54,7 +63,7 @@ function TabsExample({ isEditable = false, ...args }: TabsProps & { isEditable?:
 
   function handleAdd() {
     const number = nextEntry.current++;
-    const entry = {
+    const entry: WorkspaceEntry = {
       value: `new-${number}`,
       label: `New view ${number}`,
       icon: 'fa-file',
@@ -76,14 +85,14 @@ function TabsExample({ isEditable = false, ...args }: TabsProps & { isEditable?:
               key={entry.value}
               value={entry.value}
             >
-              <i aria-hidden="true" className={`far ${entry.icon}`} />
+              <TabsIcon icon={entry.icon} />
               <span className="chayns-tabs__label">{entry.label}</span>
             </Tabs.Tab>
           ))}
         </Tabs.List>
         {isEditable ? (
           <Tabs.Add aria-label="Add tab" onClick={handleAdd}>
-            <i aria-hidden="true" className="far fa-plus" />
+            <TabsIcon icon="fa-plus" />
           </Tabs.Add>
         ) : null}
         {entries.map((entry) => (

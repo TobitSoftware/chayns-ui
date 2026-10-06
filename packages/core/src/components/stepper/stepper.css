@@ -1,3 +1,5 @@
+@import url('../button/button.css');
+
 @layer chayns.components {
   .chayns-stepper {
     min-inline-size: 0;
@@ -65,18 +67,6 @@
     color: var(--text);
     font-size: var(--fs-body);
     font-weight: 600;
-  }
-
-  .chayns-stepper__icon--active {
-    display: none;
-  }
-
-  .chayns-stepper__button:is(:hover, :active):not(:disabled) > .chayns-stepper__icon {
-    display: none;
-  }
-
-  .chayns-stepper__button:is(:hover, :active):not(:disabled) > .chayns-stepper__icon--active {
-    display: inline;
   }
 
   @media (prefers-reduced-motion: reduce) {

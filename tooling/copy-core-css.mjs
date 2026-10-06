@@ -1,4 +1,4 @@
-import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { basename, resolve } from 'node:path';
 
 const coreDirectory = resolve(import.meta.dirname, '..', 'packages/core');
@@ -15,7 +15,14 @@ const copyTasks = imports.map((importPath) => {
   const fileName = basename(importPath);
   flattenedCss = flattenedCss.replace(importPath, `./${fileName}`);
 
-  return copyFile(resolve(coreDirectory, 'src', importPath), resolve(outputDirectory, fileName));
+  return readFile(resolve(coreDirectory, 'src', importPath), 'utf8').then((source) => {
+    // All component CSS files are shipped beside each other in dist.
+    const packagedCss = source.replace(
+      importPattern,
+      (_, dependency) => `@import url('./${basename(dependency)}');`,
+    );
+    return writeFile(resolve(outputDirectory, fileName), packagedCss, 'utf8');
+  });
 });
 
 await Promise.all([

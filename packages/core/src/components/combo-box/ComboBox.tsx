@@ -88,7 +88,7 @@ const Option = forwardRef<HTMLDivElement, ComboBoxOptionProps>(function Option(
       {children}
       {!comboBox.multiple && isSelected ? (
         <span aria-hidden="true" className="chayns-combo-box__checkmark">
-          <i className="fas fa-check" />
+          <i className="far fa-check" />
         </span>
       ) : null}
     </div>

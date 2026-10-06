@@ -37,16 +37,24 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     const increase = canvas.getByRole('button', { name: 'Anzahl erhöhen' });
     for (const button of canvas.getAllByRole('button')) {
-      await expect(button.querySelector('.chayns-stepper__icon')).toBeVisible();
-      await expect(button.querySelector('.chayns-stepper__icon--active')).not.toBeVisible();
+      await expect(
+        button.querySelector(
+          '.chayns-button-icon__weight:not(.chayns-button-icon__weight--active)',
+        ),
+      ).toBeVisible();
+      await expect(button.querySelector('.chayns-button-icon__weight--active')).not.toBeVisible();
     }
     await userEvent.click(increase);
     await expect(canvas.getByText('3')).toBeVisible();
     await userEvent.click(increase);
     await userEvent.click(increase);
     await expect(increase).toBeDisabled();
-    await expect(increase.querySelector('.chayns-stepper__icon')).toBeVisible();
-    await expect(increase.querySelector('.chayns-stepper__icon--active')).not.toBeVisible();
+    await expect(
+      increase.querySelector(
+        '.chayns-button-icon__weight:not(.chayns-button-icon__weight--active)',
+      ),
+    ).toBeVisible();
+    await expect(increase.querySelector('.chayns-button-icon__weight--active')).not.toBeVisible();
   },
 };
 export const Decimal: Story = {

@@ -1,3 +1,5 @@
+@import url('../button/button.css');
+
 @layer chayns.components {
   .chayns-split-button {
     display: inline-flex;
@@ -85,18 +87,6 @@
 
   .chayns-split-button__trigger.chayns-button--danger:active:not(:disabled) {
     background: var(--danger-bg-hover);
-  }
-
-  .chayns-split-button__trigger:active:not(:disabled)
-    .chayns-button-icon__weight:not(.chayns-button-icon__weight--active),
-  .chayns-split-button__trigger:hover:not(:disabled)
-    .chayns-button-icon__weight:not(.chayns-button-icon__weight--active) {
-    display: none;
-  }
-
-  .chayns-split-button__trigger:active:not(:disabled) .chayns-button-icon__weight--active,
-  .chayns-split-button__trigger:hover:not(:disabled) .chayns-button-icon__weight--active {
-    display: inline-flex;
   }
 
   @media (hover: hover) {

@@ -48,3 +48,12 @@ Navigation.Item forwards compatible anchor props when href exists, otherwise nat
 button props, and the matching native ref. Rich ReactNode labels name the separate
 disclosure button through aria-labelledby. aria-current belongs to page links.
 Navigation and disclosure remain separate native controls as already specified.
+
+## Global icon rule follow-up — 2026-10-06
+
+Owned action glyphs follow ICON-001–003: Regular at rest/disabled and Solid on
+enabled hover/active; informational markers stay Regular. The existing internal
+renderers use wrappers to remain stable under Font Awesome SVG replacement. Public
+props, token geometry, native events and focus ownership remain unchanged. The
+[icon rule review](../icon-rule-review-2026-10-06.md) records owner-specific findings
+and consumer-content boundaries.

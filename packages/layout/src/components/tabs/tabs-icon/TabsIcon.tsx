@@ -2,7 +2,12 @@ type TabsIconName = `fa-${string}`;
 
 const TabsIcon = ({ icon }: { icon: TabsIconName }) => (
   <span aria-hidden="true" className="chayns-tabs__icon">
-    <i className={`far ${icon}`} />
+    <span className="chayns-tabs__weight">
+      <i className={`far ${icon}`} />
+    </span>
+    <span className="chayns-tabs__weight chayns-tabs__weight--active">
+      <i className={`fas ${icon}`} />
+    </span>
   </span>
 );
 

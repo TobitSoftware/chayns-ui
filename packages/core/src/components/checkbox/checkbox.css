@@ -35,7 +35,7 @@
     transition: all 0.15s ease;
   }
 
-  .chayns-checkbox__control > i {
+  .chayns-checkbox__control > :is(i, svg) {
     opacity: 0;
     transform: scale(0.4);
     transition:
@@ -48,7 +48,7 @@
     background: var(--accent);
   }
 
-  .chayns-checkbox__input:checked + .chayns-checkbox__control > i {
+  .chayns-checkbox__input:checked + .chayns-checkbox__control > :is(i, svg) {
     opacity: 1;
     transform: scale(1);
   }
@@ -87,7 +87,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .chayns-checkbox__control > i {
+    .chayns-checkbox__control > :is(i, svg) {
       transition: none;
     }
   }

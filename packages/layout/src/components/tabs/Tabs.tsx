@@ -1,3 +1,4 @@
+import TabsIcon from './tabs-icon/TabsIcon.js';
 import {
   createContext,
   forwardRef,
@@ -141,7 +142,7 @@ const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
       {children}
       {onRemove ? (
         <span aria-hidden="true" className="chayns-tabs__remove" data-tabs-remove>
-          <i className="far fa-xmark" />
+          <TabsIcon icon="fa-xmark" />
         </span>
       ) : null}
     </button>

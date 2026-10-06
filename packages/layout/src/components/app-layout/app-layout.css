@@ -209,20 +209,24 @@
   }
 
   :where(
-      .chayns-app-layout__action:hover,
-      .chayns-app-layout__action:focus-visible,
-      .chayns-app-layout__disclosure:hover,
-      .chayns-app-layout__collapse:hover
+      .chayns-app-layout__action:active:not(:disabled),
+      .chayns-app-layout__action:hover:not(:disabled),
+      .chayns-app-layout__disclosure:active:not(:disabled),
+      .chayns-app-layout__disclosure:hover:not(:disabled),
+      .chayns-app-layout__collapse:active:not(:disabled),
+      .chayns-app-layout__collapse:hover:not(:disabled)
     )
     .chayns-app-layout__weight:not(.chayns-app-layout__weight--active) {
     display: none;
   }
 
   :where(
-      .chayns-app-layout__action:hover,
-      .chayns-app-layout__action:focus-visible,
-      .chayns-app-layout__disclosure:hover,
-      .chayns-app-layout__collapse:hover
+      .chayns-app-layout__action:active:not(:disabled),
+      .chayns-app-layout__action:hover:not(:disabled),
+      .chayns-app-layout__disclosure:active:not(:disabled),
+      .chayns-app-layout__disclosure:hover:not(:disabled),
+      .chayns-app-layout__collapse:active:not(:disabled),
+      .chayns-app-layout__collapse:hover:not(:disabled)
     )
     .chayns-app-layout__weight--active {
     display: inline-flex;

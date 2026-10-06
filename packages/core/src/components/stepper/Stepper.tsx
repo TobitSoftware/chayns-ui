@@ -1,4 +1,5 @@
 import { forwardRef, useId, type MouseEvent } from 'react';
+import ButtonIcon from '../button/button-icon/ButtonIcon.js';
 import { stepperValues } from './stepper-values.js';
 import type { StepperProps } from './Stepper.types.js';
 
@@ -51,12 +52,7 @@ const Stepper = forwardRef<HTMLDivElement, StepperProps>(function Stepper(
           disabled={value === min}
           type="button"
         >
-          <span aria-hidden="true" className="chayns-stepper__icon">
-            <i className="far fa-minus" />
-          </span>
-          <span aria-hidden="true" className="chayns-stepper__icon--active">
-            <i className="fas fa-minus" />
-          </span>
+          <ButtonIcon icon="fa-minus" />
         </button>
         <span aria-atomic="true" aria-live="polite" className="chayns-stepper__value">
           {formatValue(value)}
@@ -68,12 +64,7 @@ const Stepper = forwardRef<HTMLDivElement, StepperProps>(function Stepper(
           disabled={value === max}
           type="button"
         >
-          <span aria-hidden="true" className="chayns-stepper__icon">
-            <i className="far fa-plus" />
-          </span>
-          <span aria-hidden="true" className="chayns-stepper__icon--active">
-            <i className="fas fa-plus" />
-          </span>
+          <ButtonIcon icon="fa-plus" />
         </button>
       </div>
     </div>

@@ -45,3 +45,12 @@ SplitButton composes one native primary Button and the public PopupList trigger 
 All four Button variants are supported. Disabled disables both buttons. The primary action and alternatives use their native handlers; alternative activation closes the PopupList through its public composition and restores trigger focus. SplitButton owns no overlay state, ARIA menu attributes or private portal. The primary label provides the secondary trigger name through `aria-labelledby` while the chevron remains decorative.
 
 Bodywork joined geometry applies: the primary end radius is removed, trigger start border separates both actions, and only transform is used for active motion. Tests cover independent primary/secondary activation, disabled state, visible trigger name and PopupList integration.
+
+## Global icon rule follow-up — 2026-10-06
+
+Owned action glyphs follow ICON-001–003: Regular at rest/disabled and Solid on
+enabled hover/active; informational markers stay Regular. The existing internal
+renderers use wrappers to remain stable under Font Awesome SVG replacement. Public
+props, token geometry, native events and focus ownership remain unchanged. The
+[icon rule review](../icon-rule-review-2026-10-06.md) records owner-specific findings
+and consumer-content boundaries.

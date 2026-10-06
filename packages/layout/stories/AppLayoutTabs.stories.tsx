@@ -1,3 +1,4 @@
+import TabsIcon from '../src/components/tabs/tabs-icon/TabsIcon.js';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 
@@ -35,11 +36,11 @@ export const Workspace: Story = {
           <Tabs defaultValue="inbox">
             <Tabs.List aria-label="Workspace tabs">
               <Tabs.Tab onRemove={() => undefined} value="inbox">
-                <i aria-hidden="true" className="far fa-inbox" />
+                <TabsIcon icon="fa-inbox" />
                 <span>Inbox</span>
               </Tabs.Tab>
               <Tabs.Tab onRemove={() => undefined} value="calendar">
-                <i aria-hidden="true" className="far fa-calendar" />
+                <TabsIcon icon="fa-calendar" />
                 <span>Calendar</span>
               </Tabs.Tab>
             </Tabs.List>
