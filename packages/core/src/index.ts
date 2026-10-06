@@ -118,3 +118,6 @@ export type { BreadcrumbItem } from './components/breadcrumb/Breadcrumb.types.js
 export { default as Pagination } from './components/pagination/Pagination.js';
 export type { PaginationProps } from './components/pagination/Pagination.types.js';
 export type { PaginationLabels } from './components/pagination/Pagination.types.js';
+
+export { default as Slider } from './components/slider/Slider.js';
+export type { SliderProps } from './components/slider/Slider.types.js';

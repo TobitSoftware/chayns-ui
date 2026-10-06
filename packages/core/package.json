@@ -45,6 +45,7 @@
     "./styles.css": "./dist/styles.css",
     "./breadcrumb.css": "./dist/breadcrumb.css",
     "./pagination.css": "./dist/pagination.css",
+    "./slider.css": "./dist/slider.css",
     "./package.json": "./package.json"
   },
   "peerDependencies": {
