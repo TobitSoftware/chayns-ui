@@ -43,6 +43,7 @@
     "./radio-group.css": "./dist/radio-group.css",
     "./segmented-control.css": "./dist/segmented-control.css",
     "./styles.css": "./dist/styles.css",
+    "./breadcrumb.css": "./dist/breadcrumb.css",
     "./package.json": "./package.json"
   },
   "peerDependencies": {

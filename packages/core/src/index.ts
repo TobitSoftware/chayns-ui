@@ -110,3 +110,7 @@ export type {
   AccordionGroupProps,
   AccordionPartProps,
 } from './components/accordion/Accordion.types.js';
+
+export { default as Breadcrumb } from './components/breadcrumb/Breadcrumb.js';
+export type { BreadcrumbProps } from './components/breadcrumb/Breadcrumb.types.js';
+export type { BreadcrumbItem } from './components/breadcrumb/Breadcrumb.types.js';
