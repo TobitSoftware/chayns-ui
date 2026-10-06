@@ -68,3 +68,15 @@ controls work; controlled refusal leaves display unchanged; invalid precision/ra
 unsafe arithmetic fail; root cancellation/ref/native props and localized accessible
 names/status work. Storybook: Core/Stepper:Default and Decimal with interaction/a11y
 checks. Manual theme/density, screenreader and zoom/reflow checks remain release evidence.
+
+Icon weights use decorative wrapper spans: Regular is visible at rest and when
+disabled; Solid replaces it during enabled hover/active. Visibility belongs to the
+wrapper so Font Awesome's unlayered SVG display rules cannot expose both weights
+after replacing the inner icon. This follows the existing Button icon pattern and
+does not alter the public API, geometry or tokens.
+
+Regression evidence checked 2026-10-06: simulated Font Awesome SVG replacement with
+unlayered inline-block display reproduced two visible glyphs per button before the
+fix. Chromium and WebKit now show exactly one in rest, hover, active and disabled
+states. The Default story checks visible weights and the disabled upper boundary;
+full verification passes with 185 unit tests and 89 Storybook tests.

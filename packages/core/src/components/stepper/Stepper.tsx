@@ -51,8 +51,12 @@ const Stepper = forwardRef<HTMLDivElement, StepperProps>(function Stepper(
           disabled={value === min}
           type="button"
         >
-          <i aria-hidden="true" className="far fa-minus chayns-stepper__icon" />
-          <i aria-hidden="true" className="fas fa-minus chayns-stepper__icon--active" />
+          <span aria-hidden="true" className="chayns-stepper__icon">
+            <i className="far fa-minus" />
+          </span>
+          <span aria-hidden="true" className="chayns-stepper__icon--active">
+            <i className="fas fa-minus" />
+          </span>
         </button>
         <span aria-atomic="true" aria-live="polite" className="chayns-stepper__value">
           {formatValue(value)}
@@ -64,8 +68,12 @@ const Stepper = forwardRef<HTMLDivElement, StepperProps>(function Stepper(
           disabled={value === max}
           type="button"
         >
-          <i aria-hidden="true" className="far fa-plus chayns-stepper__icon" />
-          <i aria-hidden="true" className="fas fa-plus chayns-stepper__icon--active" />
+          <span aria-hidden="true" className="chayns-stepper__icon">
+            <i className="far fa-plus" />
+          </span>
+          <span aria-hidden="true" className="chayns-stepper__icon--active">
+            <i className="fas fa-plus" />
+          </span>
         </button>
       </div>
     </div>

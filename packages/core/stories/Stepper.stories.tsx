@@ -35,8 +35,18 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Anzahl erhöhen' }));
+    const increase = canvas.getByRole('button', { name: 'Anzahl erhöhen' });
+    for (const button of canvas.getAllByRole('button')) {
+      await expect(button.querySelector('.chayns-stepper__icon')).toBeVisible();
+      await expect(button.querySelector('.chayns-stepper__icon--active')).not.toBeVisible();
+    }
+    await userEvent.click(increase);
     await expect(canvas.getByText('3')).toBeVisible();
+    await userEvent.click(increase);
+    await userEvent.click(increase);
+    await expect(increase).toBeDisabled();
+    await expect(increase.querySelector('.chayns-stepper__icon')).toBeVisible();
+    await expect(increase.querySelector('.chayns-stepper__icon--active')).not.toBeVisible();
   },
 };
 export const Decimal: Story = {

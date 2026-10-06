@@ -11,3 +11,5 @@ Expose enums for finite configuration values while retaining existing literal pr
 Correct native prop/ref forwarding, popup interactions and positioning, picker accessibility and formatting work, option identities, AvatarGroup truncation, status foregrounds and action focus shadows. Validate component documentation and configuration exports, and check every built Storybook story in Chromium and WebKit before publication.
 
 Present concise linked usage guides in Storybook while retaining full implementation specifications. Demonstrate fixed underline tabs and consumer-owned optional addition/removal without introducing new configuration props.
+
+Keep exactly one Stepper icon weight visible when Font Awesome replaces icons with SVGs, including hover, active and disabled states.
