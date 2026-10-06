@@ -1,6 +1,8 @@
 import { createContext, useContext } from 'react';
 
 interface SegmentedControlContextValue {
+  entryValue: string | undefined;
+  notify: () => void;
   moveFocus: (currentValue: string, key: string) => void;
   registerSegment: (value: string, element: HTMLButtonElement) => () => void;
   selectValue: (value: string) => void;

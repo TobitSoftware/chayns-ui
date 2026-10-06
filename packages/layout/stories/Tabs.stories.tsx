@@ -60,3 +60,18 @@ export const Underline: Story = {
   ...WorkspaceTabs,
   args: { ...WorkspaceTabs.args, appearance: TabsAppearances.Underline },
 };
+
+export const AutomaticSelection: Story = {
+  ...WorkspaceTabs,
+  args: { children: null },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('tab', { name: 'Inbox' })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    );
+    await userEvent.click(canvas.getByRole('tab', { name: 'Calendar' }));
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(canvas.getByRole('tab', { name: 'Tasks' })).toHaveFocus();
+  },
+};

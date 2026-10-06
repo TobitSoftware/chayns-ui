@@ -31,6 +31,8 @@ const Segment = forwardRef<HTMLButtonElement, SegmentProps>(function Segment(
     .join(' ');
 
   const registerSegment = control.registerSegment;
+  const notify = control.notify;
+  useLayoutEffect(() => notify(), [disabled, notify]);
 
   useLayoutEffect(() => {
     if (localRef.current === null) {
@@ -73,7 +75,7 @@ const Segment = forwardRef<HTMLButtonElement, SegmentProps>(function Segment(
       onKeyDown={handleKeyDown}
       ref={setRef}
       role="radio"
-      tabIndex={isSelected ? 0 : -1}
+      tabIndex={control.entryValue === value ? 0 : -1}
       type="button"
     >
       {icon ? <ButtonIcon icon={icon} /> : null}
@@ -92,6 +94,9 @@ const SegmentedControlRoot = forwardRef<HTMLDivElement, SegmentedControlProps>(
     const segments = useRef(new Map<string, HTMLButtonElement>());
     const segmentsElement = useRef<HTMLDivElement>(null);
     const [indicator, setIndicator] = useState({ offset: 0, width: 0 });
+    const [registryVersion, setRegistryVersion] = useState(0);
+    const [selection, setSelection] = useState({ valid: true, entry: value ?? defaultValue });
+    const lastProposal = useRef<{ value: string; next: string } | undefined>(undefined);
     const selectedValue = value ?? uncontrolledValue ?? '';
     const resolvedClassName = ['chayns-segmented-control', className].filter(Boolean).join(' ');
 
@@ -106,13 +111,36 @@ const SegmentedControlRoot = forwardRef<HTMLDivElement, SegmentedControlProps>(
       [onValueChange, value],
     );
 
-    const registerSegment = useCallback((segmentValue: string, element: HTMLButtonElement) => {
-      segments.current.set(segmentValue, element);
+    const notify = useCallback(() => setRegistryVersion((current) => current + 1), []);
+    const registerSegment = useCallback(
+      (segmentValue: string, element: HTMLButtonElement) => {
+        segments.current.set(segmentValue, element);
+        notify();
 
-      return () => {
-        segments.current.delete(segmentValue);
-      };
-    }, []);
+        return () => {
+          segments.current.delete(segmentValue);
+          notify();
+        };
+      },
+      [notify],
+    );
+
+    useLayoutEffect(() => {
+      const enabled = getOrderedSegments(segments.current);
+      const valid = enabled.some(([segmentValue]) => segmentValue === selectedValue);
+      const next = valid ? selectedValue : enabled[0]?.[0];
+      setSelection((current) =>
+        current.valid === valid && current.entry === next ? current : { valid, entry: next },
+      );
+      if (valid || next === undefined) {
+        lastProposal.current = undefined;
+        return;
+      }
+      if (lastProposal.current?.value === selectedValue && lastProposal.current?.next === next)
+        return;
+      lastProposal.current = { value: selectedValue, next };
+      selectValue(next);
+    }, [children, registryVersion, selectedValue, selectValue]);
 
     const moveFocus = useCallback(
       (currentValue: string, key: string) => {
@@ -154,7 +182,8 @@ const SegmentedControlRoot = forwardRef<HTMLDivElement, SegmentedControlProps>(
       const container = segmentsElement.current;
       const selectedSegment = segments.current.get(selectedValue);
 
-      if (container === null || selectedSegment === undefined) {
+      if (container === null || selectedSegment === undefined || !selection.valid) {
+        setIndicator((current) => (current.width === 0 ? current : { offset: 0, width: 0 }));
         return undefined;
       }
 
@@ -190,11 +219,18 @@ const SegmentedControlRoot = forwardRef<HTMLDivElement, SegmentedControlProps>(
       observer.observe(observedSegment);
 
       return () => observer.disconnect();
-    }, [selectedValue]);
+    }, [selectedValue, selection.valid]);
 
     const contextValue = useMemo(
-      () => ({ moveFocus, registerSegment, selectValue, value: selectedValue }),
-      [moveFocus, registerSegment, selectValue, selectedValue],
+      () => ({
+        moveFocus,
+        registerSegment,
+        selectValue,
+        notify,
+        entryValue: selection.entry,
+        value: selection.valid ? selectedValue : '',
+      }),
+      [moveFocus, notify, registerSegment, selectValue, selectedValue, selection],
     );
 
     return (

@@ -12,7 +12,7 @@ export interface ControlledSelection {
 
 export interface UncontrolledSelection {
   /** Initial selected segment value. */
-  defaultValue: string;
+  defaultValue?: string;
   /** Controlled value is not accepted for uncontrolled use. */
   value?: never;
   /** Receives the next value after activation. */

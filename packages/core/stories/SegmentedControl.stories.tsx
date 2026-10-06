@@ -35,3 +35,7 @@ export const Default: Story = {
 export const Selected: Story = {
   args: { children: null, defaultValue: 'month', label: 'Zeitraum' },
 };
+
+export const AutomaticSelection: Story = {
+  args: { children: null, label: 'Zeitraum' },
+};

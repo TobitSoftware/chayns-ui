@@ -21,7 +21,7 @@ export const controlledSegmentedControl = (
   </SegmentedControl>
 );
 
-// @ts-expect-error selection is required
+// Omitted initial selection now uses the confirmed automatic initialization.
 export const missingSelection = <SegmentedControl label="Zeitraum">Inhalt</SegmentedControl>;
 export const missingControlledCallback = (
   // @ts-expect-error a controlled selection requires its callback

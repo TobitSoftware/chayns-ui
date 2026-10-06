@@ -1,4 +1,14 @@
-import { createContext, forwardRef, useContext, useId, useMemo, useState } from 'react';
+import {
+  createContext,
+  forwardRef,
+  useCallback,
+  useContext,
+  useId,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import type { KeyboardEvent, Ref } from 'react';
 import type {
   TabsAddProps,
@@ -12,6 +22,9 @@ interface TabsContextValue {
   baseId: string;
   select: (value: string) => void;
   tabs: Map<string, HTMLButtonElement>;
+  entryValue: string | undefined;
+  register: (value: string, node: HTMLButtonElement | null) => void;
+  notify: () => void;
   value: string | undefined;
 }
 const TabsContext = createContext<TabsContextValue | null>(null);
@@ -23,14 +36,13 @@ function useTabs(part: string) {
 
 /** Keep registry and consumer ref lifecycles stable across selection updates. */
 function createTabRef(
-  tabMap: Map<string, HTMLButtonElement>,
+  register: TabsContextValue['register'],
   value: string,
   ref: Ref<HTMLButtonElement>,
 ) {
   let cleanup: (() => void) | undefined;
   return (node: HTMLButtonElement | null) => {
-    if (node) tabMap.set(value, node);
-    else tabMap.delete(value);
+    register(value, node);
     if (typeof ref === 'function') {
       if (node === null && cleanup) {
         cleanup();
@@ -100,8 +112,10 @@ const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
       }
     }
   }
-  const tabMap = tabs.tabs;
-  const setRef = useMemo(() => createTabRef(tabMap, value, ref), [ref, tabMap, value]);
+  const register = tabs.register;
+  const notify = tabs.notify;
+  const setRef = useMemo(() => createTabRef(register, value, ref), [ref, register, value]);
+  useLayoutEffect(() => notify(), [notify, props.disabled]);
   return (
     <button
       {...props}
@@ -121,7 +135,7 @@ const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
       onKeyDown={handleKeyDown}
       ref={setRef}
       role="tab"
-      tabIndex={selected ? 0 : -1}
+      tabIndex={tabs.entryValue === value ? 0 : -1}
       type="button"
     >
       {children}
@@ -176,13 +190,62 @@ const Root = forwardRef<HTMLDivElement, TabsProps>(function Root(
   const baseId = useId();
   const [internalValue, setInternalValue] = useState(defaultValue);
   const [tabMap] = useState(() => new Map<string, HTMLButtonElement>());
+  const [registryVersion, setRegistryVersion] = useState(0);
+  const [selection, setSelection] = useState({ valid: true, entry: defaultValue ?? value });
+  const lastProposal = useRef<{ value: string | undefined; next: string } | undefined>(undefined);
   const selectedValue = value ?? internalValue;
-  const select = (next: string) => {
-    if (value === undefined) setInternalValue(next);
-    onValueChange?.(next);
-  };
+  const select = useCallback(
+    (next: string) => {
+      if (value === undefined) setInternalValue(next);
+      onValueChange?.(next);
+    },
+    [onValueChange, value],
+  );
+  const notify = useCallback(() => setRegistryVersion((current) => current + 1), []);
+  const register = useCallback(
+    (tabValue: string, node: HTMLButtonElement | null) => {
+      if (node) tabMap.set(tabValue, node);
+      else tabMap.delete(tabValue);
+      notify();
+    },
+    [notify, tabMap],
+  );
+  useLayoutEffect(() => {
+    const enabled = [...tabMap.entries()]
+      .filter(([, element]) => !element.disabled)
+      .sort(([, first], [, second]) =>
+        first.compareDocumentPosition(second) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1,
+      );
+    const valid = enabled.some(([tabValue]) => tabValue === selectedValue);
+    const next = valid ? selectedValue : enabled[0]?.[0];
+    // Reconcile committed DOM order/disabled state before paint; unchanged state is retained.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSelection((current) =>
+      current.valid === valid && current.entry === next ? current : { valid, entry: next },
+    );
+    if (valid || next === undefined) {
+      lastProposal.current = undefined;
+      return;
+    }
+    if (lastProposal.current?.value === selectedValue && lastProposal.current?.next === next)
+      return;
+    lastProposal.current = { value: selectedValue, next };
+    select(next);
+  }, [children, registryVersion, select, selectedValue, tabMap]);
+  const context = useMemo(
+    () => ({
+      baseId,
+      select,
+      tabs: tabMap,
+      register,
+      notify,
+      entryValue: selection.entry,
+      value: selection.valid ? selectedValue : undefined,
+    }),
+    [baseId, notify, register, select, selectedValue, selection, tabMap],
+  );
   return (
-    <TabsContext.Provider value={{ baseId, select, tabs: tabMap, value: selectedValue }}>
+    <TabsContext.Provider value={context}>
       <div
         {...props}
         className={['chayns-tabs', `chayns-tabs--${appearance}`, className]

@@ -1,3 +1,4 @@
+import { StrictMode } from 'react';
 import { render, screen } from '@testing-library/react';
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 import userEvent from '@testing-library/user-event';
@@ -157,4 +158,78 @@ describe('Tabs', () => {
       'Tabs.Tab must be rendered within Tabs.',
     );
   });
+});
+
+it('automatically adopts the first enabled tab and recovers from removal', () => {
+  const onValueChange = vi.fn();
+  const { rerender } = render(
+    <Tabs onValueChange={onValueChange}>
+      <Tabs.List>
+        <Tabs.Tab disabled value="disabled">
+          Disabled
+        </Tabs.Tab>
+        <Tabs.Tab value="one">One</Tabs.Tab>
+        <Tabs.Tab value="two">Two</Tabs.Tab>
+      </Tabs.List>
+    </Tabs>,
+  );
+  expect(screen.getByRole('tab', { name: 'One' })).toHaveAttribute('aria-selected', 'true');
+  expect(onValueChange).toHaveBeenCalledExactlyOnceWith('one');
+  rerender(
+    <Tabs onValueChange={onValueChange}>
+      <Tabs.List>
+        <Tabs.Tab value="two">Two</Tabs.Tab>
+      </Tabs.List>
+    </Tabs>,
+  );
+  expect(screen.getByRole('tab', { name: 'Two' })).toHaveAttribute('aria-selected', 'true');
+  expect(onValueChange).toHaveBeenLastCalledWith('two');
+});
+
+it('proposes a controlled tab once in StrictMode and waits for parent confirmation', () => {
+  const onValueChange = vi.fn();
+  const { rerender } = render(
+    <StrictMode>
+      <Tabs value="missing" onValueChange={onValueChange}>
+        <Tabs.List>
+          <Tabs.Tab value="one">One</Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
+    </StrictMode>,
+  );
+  expect(onValueChange).toHaveBeenCalledExactlyOnceWith('one');
+  expect(screen.getByRole('tab')).toHaveAttribute('aria-selected', 'false');
+  expect(screen.getByRole('tab')).toHaveAttribute('tabindex', '0');
+  rerender(
+    <StrictMode>
+      <Tabs value="one" onValueChange={onValueChange}>
+        <Tabs.List>
+          <Tabs.Tab value="one">One</Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
+    </StrictMode>,
+  );
+  expect(screen.getByRole('tab')).toHaveAttribute('aria-selected', 'true');
+  expect(onValueChange).toHaveBeenCalledTimes(1);
+});
+
+it('clears semantic selection when every tab becomes disabled', () => {
+  const { rerender } = render(
+    <Tabs defaultValue="one">
+      <Tabs.List>
+        <Tabs.Tab value="one">One</Tabs.Tab>
+      </Tabs.List>
+    </Tabs>,
+  );
+  rerender(
+    <Tabs defaultValue="one">
+      <Tabs.List>
+        <Tabs.Tab value="one" disabled>
+          One
+        </Tabs.Tab>
+      </Tabs.List>
+    </Tabs>,
+  );
+  expect(screen.getByRole('tab')).toHaveAttribute('aria-selected', 'false');
+  expect(screen.getByRole('tab')).toHaveAttribute('tabindex', '-1');
 });
