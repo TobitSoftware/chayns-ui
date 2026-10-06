@@ -13,7 +13,6 @@
   },
   "scripts": {
     "build": "corepack pnpm --recursive --if-present run build",
-    "components:check": "node tooling/verify-display-names.mjs",
     "clean": "corepack pnpm --recursive --if-present run clean",
     "consumer:check": "node tooling/verify-consumer.mjs",
     "format": "prettier --write .",
@@ -33,13 +32,15 @@
     "tokens:check": "node tooling/verify-tokens.mjs",
     "tree-shaking:check": "node tooling/verify-tree-shaking.mjs",
     "typecheck": "tsc -b --pretty false",
-    "verify": "corepack pnpm format:check && corepack pnpm docs:check && corepack pnpm components:check && corepack pnpm lint && corepack pnpm lint:css && corepack pnpm typecheck && corepack pnpm build && corepack pnpm test:unit && corepack pnpm test:types && corepack pnpm tokens:check && corepack pnpm storybook:build && corepack pnpm test:storybook && corepack pnpm package:check && corepack pnpm tree-shaking:check && corepack pnpm consumer:check",
-    "docs:check": "node tooling/verify-component-docs.mjs"
+    "verify": "corepack pnpm format:check && corepack pnpm docs:check && corepack pnpm components:check && corepack pnpm lint && corepack pnpm lint:css && corepack pnpm typecheck && corepack pnpm build && corepack pnpm test:unit && corepack pnpm test:types && corepack pnpm tokens:check && corepack pnpm storybook:build && corepack pnpm storybook:imports && corepack pnpm test:storybook && corepack pnpm package:check && corepack pnpm tree-shaking:check && corepack pnpm consumer:check",
+    "docs:check": "node tooling/verify-component-docs.mjs",
+    "components:check": "node tooling/verify-display-names.mjs",
+    "storybook:imports": "node tooling/verify-storybook-imports.mjs"
   },
   "devDependencies": {
-    "@eslint/js": "9.39.5",
     "@arethetypeswrong/cli": "0.18.5",
     "@changesets/cli": "3.0.1",
+    "@eslint/js": "9.39.5",
     "@storybook/addon-a11y": "10.4.6",
     "@storybook/addon-docs": "10.4.6",
     "@storybook/addon-vitest": "10.4.6",
@@ -52,8 +53,8 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
     "@vitejs/plugin-react": "6.1.0",
-    "@vitest/browser-playwright": "4.1.11",
     "@vitest/browser": "4.1.11",
+    "@vitest/browser-playwright": "4.1.11",
     "@vitest/coverage-v8": "4.1.11",
     "eslint": "9.39.5",
     "eslint-plugin-jsx-a11y": "6.10.2",
