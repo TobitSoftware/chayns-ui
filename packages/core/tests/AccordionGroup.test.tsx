@@ -50,3 +50,31 @@ describe('AccordionGroup', () => {
     expect(nested.closest('.chayns-accordion')).toHaveClass('chayns-accordion--wrapped');
   });
 });
+
+it('keeps nested group exclusivity inside an open ancestor group', async () => {
+  const user = userEvent.setup();
+  render(
+    <AccordionGroup defaultOpenId="outer">
+      <Accordion id="outer" title="Outer">
+        <AccordionGroup defaultOpenId="inner-one">
+          <Accordion id="inner-one" title="Inner one">
+            First
+          </Accordion>
+          <Accordion id="inner-two" title="Inner two">
+            Second
+          </Accordion>
+        </AccordionGroup>
+      </Accordion>
+    </AccordionGroup>,
+  );
+  const first = screen.getByRole('button', { name: 'Inner one' });
+  const second = screen.getByRole('button', { name: 'Inner two' });
+  expect(first.closest('.chayns-accordion')).toHaveClass(
+    'chayns-accordion--wrapped',
+    'chayns-accordion--grouped',
+  );
+  await user.click(second);
+  expect(first).toHaveAttribute('aria-expanded', 'false');
+  expect(second).toHaveAttribute('aria-expanded', 'true');
+  expect(screen.getByRole('button', { name: 'Outer' })).toHaveAttribute('aria-expanded', 'true');
+});

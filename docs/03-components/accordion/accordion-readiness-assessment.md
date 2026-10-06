@@ -71,3 +71,18 @@ No blocking items.
 - Gate Result: READY
 
 This READY result authorizes implementation only for the Accordion and AccordionGroup contracts in the referenced specification.
+
+## Nested groups — confirmed 2026-10-06
+
+The user confirmed AUDIT-003: a group inside Accordion.Content retains one shared
+12px frame and separator lines, with the existing Wrapped compact header/content
+spacing and inherited content indentation. Grouped items have no individual frame
+or radius. Nesting and group state are independent. Accordion.Content clears the
+enclosing group context; a group inside it creates its own exclusive state, while
+standalone nested disclosures remain independent. Native keyboard, focus, labels,
+inert regions, controlled/uncontrolled props and reduced-motion contracts stay unchanged.
+Bodywork standalone/grouped/wrapped states and token mapping were checked 2026-10-06;
+this combined geometry is an explicit user-approved reference extension.
+READY covers this nested combination. Acceptance: switching nested items closes
+only the prior nested item, never its enclosing item; an ungrouped nested item
+does not join an ancestor group. Storybook evidence: Core/Accordion:NestedGroup.

@@ -111,9 +111,11 @@ const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
       >
         <div className="chayns-accordion__inner">
           <div className="chayns-accordion__content">
-            <AccordionDepthContext.Provider value={depth + 1}>
-              {children}
-            </AccordionDepthContext.Provider>
+            <AccordionGroupContext.Provider value={null}>
+              <AccordionDepthContext.Provider value={depth + 1}>
+                {children}
+              </AccordionDepthContext.Provider>
+            </AccordionGroupContext.Provider>
           </div>
         </div>
       </div>
@@ -145,7 +147,7 @@ const AccordionRoot = forwardRef<HTMLDivElement, AccordionProps>(function Accord
   const headerId = `${baseId}-header`;
   const panelId = `${baseId}-panel`;
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
-  const isGrouped = group !== null && depth === 0;
+  const isGrouped = group !== null;
   const isOpen = isGrouped ? group.isOpen(baseId) : (open ?? uncontrolledOpen);
   const wrapped = depth > 0;
   const isList = appearance === 'list';
@@ -161,11 +163,6 @@ const AccordionRoot = forwardRef<HTMLDivElement, AccordionProps>(function Accord
     onOpenChange?.(nextOpen);
   }
 
-  const variantClassName = isGrouped
-    ? 'chayns-accordion--grouped'
-    : wrapped
-      ? 'chayns-accordion--wrapped'
-      : 'chayns-accordion--standalone';
   const directChildren = Children.toArray(children);
   const compoundHead = directChildren.find(
     (child) => isValidElement(child) && child.type === AccordionHead,
@@ -177,7 +174,9 @@ const AccordionRoot = forwardRef<HTMLDivElement, AccordionProps>(function Accord
     );
   const rootClassName = [
     'chayns-accordion',
-    variantClassName,
+    isGrouped ? 'chayns-accordion--grouped' : null,
+    wrapped ? 'chayns-accordion--wrapped' : null,
+    !isGrouped && !wrapped ? 'chayns-accordion--standalone' : null,
     isOpen ? 'chayns-accordion--open' : null,
     disabled ? 'chayns-accordion--disabled' : null,
     leading || hasCompoundLeading ? 'chayns-accordion--has-leading' : null,

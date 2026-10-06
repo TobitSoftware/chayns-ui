@@ -25,7 +25,8 @@
     "Core/Accordion:Grouped",
     "Core/Accordion:Wrapped",
     "Core/Accordion:Disabled",
-    "Core/Accordion:List"
+    "Core/Accordion:List",
+    "Core/Accordion:NestedGroup"
   ]
 }
 ---

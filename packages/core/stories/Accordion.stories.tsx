@@ -130,3 +130,30 @@ export const List: Story = {
     </div>
   ),
 };
+
+export const NestedGroup: Story = {
+  render: () => (
+    <Accordion defaultOpen title="Einstellungen">
+      <AccordionGroup defaultOpenId="general">
+        <Accordion id="general" title="Allgemein">
+          Allgemeine Einstellungen
+        </Accordion>
+        <Accordion id="notifications" title="Benachrichtigungen">
+          Benachrichtigungen anpassen
+        </Accordion>
+      </AccordionGroup>
+    </Accordion>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Benachrichtigungen' }));
+    await expect(canvas.getByRole('button', { name: 'Allgemein' })).toHaveAttribute(
+      'aria-expanded',
+      'false',
+    );
+    await expect(canvas.getByRole('button', { name: 'Einstellungen' })).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    );
+  },
+};

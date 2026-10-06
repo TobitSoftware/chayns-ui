@@ -10,7 +10,7 @@
     background: var(--surface);
   }
 
-  .chayns-accordion--wrapped {
+  .chayns-accordion--wrapped:not(.chayns-accordion--grouped) {
     overflow: hidden;
     border: 1px solid var(--border);
     border-radius: 10px;

@@ -516,7 +516,7 @@ Das Register ist die schnelle Entscheidungsübersicht; ausführlichere Dokumente
 |---|---|---|---|---|
 | AUDIT-001 | Tabs | Missing/invalid initial selection leaves no tab stop; focus-only entry, automatic selection and required initialization need a confirmed contract. | OPEN | Existing initialized Tabs and appearance addition remain separately specified. |
 | AUDIT-002 | SegmentedControl | Missing/invalid defaultValue/value leaves no radio tab stop; confirm entry behavior without inventing a selection. | OPEN | Valid initialized examples remain supported. |
-| AUDIT-003 | AccordionGroup | depth === 0 prevents exclusivity in a group nested inside Accordion.Content. Confirm combined grouped/wrapped frame, radius and compact geometry so independent grouping and nesting do not conflict. | DESIGN REVIEW | Nested groups are not cleared for release. |
+| AUDIT-003 | AccordionGroup | Nested groups retain exclusivity, one shared 12px frame and separators, with Wrapped compact spacing/inherited indentation. Group context ends at item content; a nested group owns independent state. | CONFIRMED | User structured answer 2026-10-06; nested combination READY documented in Accordion specification/assessment. |
 
 These gaps do not authorize a guessed implementation or a blanket accessibility
 release claim. Tooltip and Stepper retain their existing open interaction/numeric
