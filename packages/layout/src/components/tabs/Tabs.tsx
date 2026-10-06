@@ -191,7 +191,7 @@ const Root = forwardRef<HTMLDivElement, TabsProps>(function Root(
   const [internalValue, setInternalValue] = useState(defaultValue);
   const [tabMap] = useState(() => new Map<string, HTMLButtonElement>());
   const [registryVersion, setRegistryVersion] = useState(0);
-  const [selection, setSelection] = useState({ valid: true, entry: defaultValue ?? value });
+  const [selection, setSelection] = useState({ valid: true, entry: value ?? defaultValue });
   const lastProposal = useRef<{ value: string | undefined; next: string } | undefined>(undefined);
   const selectedValue = value ?? internalValue;
   const select = useCallback(
