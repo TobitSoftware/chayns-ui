@@ -145,6 +145,34 @@ describe('DateTimePicker', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
+  it('retains locale formatters and sizing examples across value changes', () => {
+    const OriginalFormatter = Intl.DateTimeFormat;
+    const formatters = vi.spyOn(Intl, 'DateTimeFormat').mockImplementation(function (...args) {
+      return new OriginalFormatter(...args);
+    });
+    try {
+      const props = {
+        label: 'Zeit',
+        placeholder: 'Auswählen',
+        locale: 'de-DE',
+        onChange: () => undefined,
+        wheelLabels,
+      };
+      const { rerender } = render(
+        <DateTimePicker {...props} value={new Date(2026, 8, 22, 10, 30)} />,
+      );
+      const constructions = formatters.mock.calls.length;
+      expect(constructions).toBeLessThan(20);
+      const sizingExample = document.querySelector('.chayns-date-time-picker__sizer > span');
+      rerender(<DateTimePicker {...props} value={new Date(2026, 8, 22, 11, 45)} />);
+      expect(formatters.mock.calls).toHaveLength(constructions);
+      expect(document.querySelector('.chayns-date-time-picker__sizer > span')).toBe(sizingExample);
+      expect(screen.getByRole('button', { name: 'Zeit' })).toHaveTextContent('11:45 Uhr');
+    } finally {
+      formatters.mockRestore();
+    }
+  });
+
   it('normalizes an out-of-range date without emitting a change', () => {
     const onChange = vi.fn();
 

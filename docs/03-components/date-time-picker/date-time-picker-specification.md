@@ -108,3 +108,15 @@ tree; options are never individual Tab stops. Each wheel owns focus and exposes 
 selected option through aria-activedescendant. Pointer interaction retains wheel
 focus, and pointer cancellation ends the gesture. Tests cover repeated copies,
 selection, Tab traversal and Escape focus restoration. Consumer refs retain cleanup.
+
+## Picker internals audit — 2026-10-06
+
+The 2026-10-06 width/conditional-label refinement is retained. Locale formatters and
+complete time sizing examples are reused when the locale, mode and minute step do
+not change; value changes do not rebuild up to 1,440 formatters and hidden sizing
+nodes. A memoized internal sizer keeps exact font-dependent longest-content sizing.
+Wheel interaction, value/formatting logic and native trigger/popup DOM ownership are
+separate internal modules. Public props, selection, widths and accessible names are
+unchanged. Regression tests cover value updates, formatter reuse, hidden labels,
+wheel keyboard traversal and close-focus restoration. Initial time sizing still renders
+all valid examples; this remains a measurable performance cost, not a claim of zero cost.
