@@ -1,4 +1,4 @@
-import specification from '../../../docs/03-components/avatar/avatar-specification.md?raw';
+import usage from '../../../docs/03-components/avatar/avatar-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { AVATAR_SIZES } from '../src/components/avatar/Avatar.types.js';
@@ -10,7 +10,7 @@ const meta = {
   tags: ['autodocs'],
   argTypes: { size: { control: 'select', options: AVATAR_SIZES } },
   parameters: {
-    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    docs: { description: { component: usage } },
     a11y: { test: 'error' },
   },
 } satisfies Meta<typeof Avatar>;

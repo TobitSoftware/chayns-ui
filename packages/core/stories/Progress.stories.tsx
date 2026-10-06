@@ -1,4 +1,4 @@
-import specification from '../../../docs/03-components/progress/progress-specification.md?raw';
+import usage from '../../../docs/03-components/progress/progress-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import Progress from '../src/components/progress/Progress.js';
@@ -9,7 +9,7 @@ const meta = {
   tags: ['autodocs'],
   args: { label: 'Upload', value: 64 },
   parameters: {
-    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    docs: { description: { component: usage } },
     a11y: { test: 'error' },
   },
 } satisfies Meta<typeof Progress>;

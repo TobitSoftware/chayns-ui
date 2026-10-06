@@ -1,4 +1,4 @@
-import specification from '../../../docs/03-components/split-button/split-button-specification.md?raw';
+import usage from '../../../docs/03-components/split-button/split-button-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, fn, userEvent, within } from 'storybook/test';
 
@@ -21,7 +21,7 @@ const meta = {
     variant: 'primary',
   },
   parameters: {
-    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    docs: { description: { component: usage } },
     a11y: { test: 'error' },
     controls: { disable: true },
   },

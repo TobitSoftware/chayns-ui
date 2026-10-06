@@ -1,4 +1,4 @@
-import specification from '../../../docs/03-components/avatar-group/avatar-group-specification.md?raw';
+import usage from '../../../docs/03-components/avatar-group/avatar-group-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import Avatar from '../src/components/avatar/Avatar.js';
@@ -9,7 +9,7 @@ const meta = {
   component: AvatarGroup,
   tags: ['autodocs'],
   parameters: {
-    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    docs: { description: { component: usage } },
     a11y: { test: 'error' },
   },
 } satisfies Meta<typeof AvatarGroup>;

@@ -19,7 +19,21 @@ Verpflichtende Felder: `name`, `package`, `category`, `status`, `useWhen`,
 `checkedOn` nennt das Datum des Specification-/Quellenreviews; es ist kein behaupteter
 Screenreader- oder visueller Test. `stories` verwendet `Core/Name:Export` beziehungsweise
 `Layout/Name:Export`. Die Markdown-Specification bleibt normativ; Frontmatter erleichtert
-Auswahl und Auffinden. Storybook lädt denselben Markdown-Inhalt direkt aus der Quelle.
+Auswahl und Auffinden. Die vollständige Specification bleibt der technische Vertrag.
+
+## Compact consumer documentation
+
+Jede Komponente erhält zusätzlich einen kurzen `<component>-usage.md`-Leitfaden
+neben ihrer Specification. Storybook lädt diesen Markdown-Inhalt direkt; technische
+Readiness-, Token-, Review- und Testdetails bleiben in der Specification.
+Die sechs Überschriften sind `Einsatz`, `Nicht geeignet`, `Alternativen`,
+`Gut kombinierbar`, `Verwendung` und `Besonderheiten`. Der Leitfaden fasst die
+bestätigten Bodywork-Auswahlregeln zusammen, zeigt die kleinste passende Verwendung
+und nennt relevante API-, Accessibility-, Lokalisierungs- und State-Besonderheiten.
+Er definiert keine neuen Regeln. Alternativen und sinnvolle Kombinationen verlinken
+vorhandene Storybook-Seiten; noch nicht implementierte Alternativen werden ausdrücklich
+als solche bezeichnet. Komponenten mit einer gemeinsamen Storybook-Seite erhalten
+ihren eigenen Leitfaden bei der passenden Composition-Story.
 
 ## 1. Specification Principles
 

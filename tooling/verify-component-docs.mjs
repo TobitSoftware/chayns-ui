@@ -49,6 +49,8 @@ function validate(value, rule, path) {
 }
 
 const documented = new Set();
+const usageGuides = [];
+const storybookPages = new Set();
 for (const entry of await readdir(directory, { withFileTypes: true })) {
   if (!entry.isDirectory() || entry.name === 'schemas') continue;
   if (!(await readdir(resolve(directory, entry.name))).includes(`${entry.name}-specification.md`))
@@ -63,6 +65,23 @@ for (const entry of await readdir(directory, { withFileTypes: true })) {
     throw new Error(`${entry.name}: ready/implemented components require Storybook evidence.`);
   if (documented.has(metadata.name)) throw new Error(`Duplicate component ${metadata.name}`);
   documented.add(metadata.name);
+  const usagePath = resolve(directory, entry.name, `${entry.name}-usage.md`);
+  const usage = await readFile(usagePath, 'utf8');
+  const headings = [...usage.matchAll(/^## (.+)$/gm)].map((match) => match[1]);
+  const requiredHeadings = [
+    'Einsatz',
+    'Nicht geeignet',
+    'Alternativen',
+    'Gut kombinierbar',
+    'Verwendung',
+    'Besonderheiten',
+  ];
+  if (JSON.stringify(headings) !== JSON.stringify(requiredHeadings))
+    throw new Error(`${entry.name}: usage guide must contain the six consumer sections.`);
+  if (!usage.includes('```tsx\n'))
+    throw new Error(`${entry.name}: usage guide requires a composition example.`);
+  usageGuides.push({ name: entry.name, source: usage });
+  let hasUsageImport = false;
   for (const story of metadata.stories) {
     const [title, name] = story.split(':');
     const [packageName, component] = title.split('/');
@@ -72,10 +91,20 @@ for (const entry of await readdir(directory, { withFileTypes: true })) {
     );
     if (!storySource.includes(`export const ${name}:`))
       throw new Error(`${entry.name}: missing story ${story}`);
+    storybookPages.add(`${title.toLowerCase().replaceAll('/', '-')}--docs`);
+    hasUsageImport ||= storySource.includes(`${entry.name}/${entry.name}-usage.md?raw`);
   }
+  if (!hasUsageImport)
+    throw new Error(`${entry.name}: Storybook must load its consumer usage guide.`);
   for (const reference of metadata.sourceReferences) {
     if (!reference.startsWith('https://'))
       await readFile(resolve(directory, entry.name, reference.split('#')[0]), 'utf8');
+  }
+}
+for (const guide of usageGuides) {
+  for (const link of guide.source.matchAll(/\]\(\?path=\/docs\/([^\s)]+)\)/g)) {
+    if (!storybookPages.has(link[1]))
+      throw new Error(`${guide.name}: unknown Storybook documentation page ${link[1]}`);
   }
 }
 for (const packageName of ['core', 'layout']) {
@@ -88,5 +117,5 @@ for (const packageName of ['core', 'layout']) {
       throw new Error(`Missing specification for exported component ${name}`);
 }
 console.log(
-  `Validated ${documented.size} component specifications and their Storybook references.`,
+  `Validated ${documented.size} component specifications, usage guides and Storybook references.`,
 );

@@ -1,4 +1,4 @@
-import specification from '../../../docs/03-components/text-field/text-field-specification.md?raw';
+import usage from '../../../docs/03-components/text-field/text-field-usage.md?raw';
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
@@ -11,7 +11,7 @@ const meta = {
   tags: ['autodocs'],
   args: { placeholder: 'E-Mail-Adresse', type: 'email' },
   parameters: {
-    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    docs: { description: { component: usage } },
     a11y: { test: 'error' },
   },
 } satisfies Meta<typeof TextField>;

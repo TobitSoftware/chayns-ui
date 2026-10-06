@@ -1,4 +1,5 @@
-import specification from '../../../docs/03-components/accordion/accordion-specification.md?raw';
+import relatedUsage from '../../../docs/03-components/accordion-group/accordion-group-usage.md?raw';
+import usage from '../../../docs/03-components/accordion/accordion-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 
@@ -13,7 +14,7 @@ const meta = {
   tags: ['autodocs'],
   args: { title: 'Accordion' },
   parameters: {
-    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    docs: { description: { component: usage } },
     a11y: { test: 'error' },
     controls: { disable: true },
   },
@@ -43,6 +44,7 @@ export const DefaultOpen: Story = {
 };
 
 export const Grouped: Story = {
+  parameters: { docs: { description: { story: relatedUsage } } },
   render: () => (
     <div className="chayns-storybook-example-accordion">
       <AccordionGroup defaultOpenId="lieferung">

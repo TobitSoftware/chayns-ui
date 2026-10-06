@@ -1,4 +1,4 @@
-import specification from '../../../docs/03-components/radio-group/radio-group-specification.md?raw';
+import usage from '../../../docs/03-components/radio-group/radio-group-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import RadioGroup from '../src/components/radio-group/RadioGroup.js';
@@ -8,7 +8,7 @@ const meta = {
   component: RadioGroup,
   tags: ['autodocs'],
   parameters: {
-    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    docs: { description: { component: usage } },
     a11y: { test: 'error' },
   },
   render: (args) => (

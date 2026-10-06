@@ -1,4 +1,4 @@
-import specification from '../../../docs/03-components/skeleton/skeleton-specification.md?raw';
+import usage from '../../../docs/03-components/skeleton/skeleton-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import Skeleton from '../src/components/skeleton/Skeleton.js';
@@ -6,7 +6,7 @@ import { SKELETON_SHAPES } from '../src/components/skeleton/Skeleton.types.js';
 
 const meta = {
   parameters: {
-    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    docs: { description: { component: usage } },
   },
   title: 'Core/Skeleton',
   component: Skeleton,

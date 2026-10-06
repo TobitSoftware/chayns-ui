@@ -1,4 +1,4 @@
-import specification from '../../../docs/03-components/icon-button/icon-button-specification.md?raw';
+import usage from '../../../docs/03-components/icon-button/icon-button-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import IconButton from '../src/components/icon-button/IconButton.js';
@@ -71,7 +71,7 @@ const meta = {
     },
   },
   parameters: {
-    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    docs: { description: { component: usage } },
     a11y: { test: 'error' },
     controls: {
       include: ['variant', 'icon', 'aria-label', 'aria-labelledby', 'type', 'disabled', 'loading'],

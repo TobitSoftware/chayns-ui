@@ -1,4 +1,5 @@
-import specification from '../../../docs/03-components/popup/popup-specification.md?raw';
+import relatedUsage from '../../../docs/03-components/popup-list/popup-list-usage.md?raw';
+import usage from '../../../docs/03-components/popup/popup-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, fn, userEvent, within } from 'storybook/test';
 
@@ -20,7 +21,7 @@ const meta = {
     trigger: <button type="button">Aktionen</button>,
   },
   parameters: {
-    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    docs: { description: { component: usage } },
     a11y: { test: 'error' },
     controls: { disable: true },
   },
@@ -30,6 +31,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const ActionList: Story = {
+  parameters: { docs: { description: { story: relatedUsage } } },
   render: () => (
     <PopupList
       items={[...defaultItems]}
