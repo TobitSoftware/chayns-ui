@@ -12,6 +12,12 @@ Reference: user screenshot and dashboard SCSS checked 2026-10-06; states and den
 mapping are recorded in the specification. Stories: WorkspaceTabs, Underline.
 No unresolved design-review item for this addition. Browser checks remain required.
 
-The appearance scope uses an explicitly initialized enabled selection. Missing/invalid
-initial selection remains an OPEN audit item and is outside this READY addition;
-no automatic selection or replacement behaviour is authorized by this addendum.
+The initial appearance addendum was bounded to initialized selection. The subsequent
+confirmed automatic-selection extension below resolves AUDIT-001 and broadens that state scope.
+
+## Automatic selection extension — 2026-10-06
+
+READY includes the confirmed automatic initial/replacement proposal contract in the
+specification. Uncontrolled defaultValue is optional; controlled ownership remains.
+Unit evidence covers missing/disabled/removal cases and StrictMode proposal de-duplication.
+Native keyboard, focus, tokens, localization and reduced-motion contracts are unchanged.

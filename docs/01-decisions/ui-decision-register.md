@@ -506,18 +506,36 @@ Das Register ist die schnelle Entscheidungsübersicht; ausführlichere Dokumente
 | AI-008 | AI | Each component specification has schema-validated Markdown frontmatter with name, package, category, status, useWhen, doNotUseWhen, alternatives, sourceReferences, checkedOn and stories. | CONFIRMED | User structured answer 2026-10-06 | Implement AI-006 via local dependency-free validation; AI-007 resolves the former duplicate AI-006 identifier for the ambiguity rule. |
 | NAV-001 | NAVIGATION | Breadcrumb uses items with label/href/icon and native nav props; only the terminal current item omits href. Pagination uses controlled page/pageCount/onPageChange, localized labels, at most seven numeric/ellipsis positions and previous/next controls. | CONFIRMED | User structured answer 2026-10-06 | Initial Pagination excludes table-specific totals/range/page-size composition. |
 | INPUT-011 | INPUT | Slider initially represents one native range value with label, native value/defaultValue/onChange and required formatValue for visible and spoken output. | CONFIRMED | User structured answer 2026-10-06 | Multi-thumb ranges require a separate gate. |
-| INPUT-012 | INPUT | Stepper initially uses controlled value/min/max/step/onValueChange plus label, decreaseLabel, increaseLabel and formatValue; no direct text input or press-and-hold repetition. | CONFIRMED | User structured answer 2026-10-06 | Integer/decimal precision decision remains OPEN until clarified. |
-| TOOLTIP-004 | TOOLTIP | Tooltip uses its Children element as trigger and opens on hover, focus or mobile click; Bodywork Tooltip & Dropdown is the visual reference. | CONFIRMED | User structured answer 2026-10-06 | Touch action composition remains OPEN until clarified. |
+| INPUT-012 | INPUT | Stepper initially uses controlled value/min/max/step/onValueChange plus label, decreaseLabel, increaseLabel and formatValue; no direct text input or press-and-hold repetition. | CONFIRMED | User structured answer 2026-10-06 | Decimal precision 0–6, default 0, confirmed in further contracts below. |
+| TOOLTIP-004 | TOOLTIP | Tooltip uses its Children element as trigger and opens on hover, focus or mobile click; Bodywork Tooltip & Dropdown is the visual reference. | CONFIRMED | User structured answer 2026-10-06 | First touch retains the action and opens the explanation; full contract confirmed below. |
 | SCOPE-001 | SCOPE | Dialog and Drawer modernization belongs initially to the global chayns dialog API; the selected library additions are Tooltip, Breadcrumb, Pagination, Slider and Stepper. Existing PopupList supplies the dropdown action-menu function. | CONFIRMED | User structured answer 2026-10-06 | No new global dialog API in this change. |
 
 ## Implementation-discovered audit gaps — 2026-10-06
 
 | ID | Area | Gap | Status | Scope |
 |---|---|---|---|---|
-| AUDIT-001 | Tabs | Missing/invalid initial selection leaves no tab stop; focus-only entry, automatic selection and required initialization need a confirmed contract. | OPEN | Existing initialized Tabs and appearance addition remain separately specified. |
-| AUDIT-002 | SegmentedControl | Missing/invalid defaultValue/value leaves no radio tab stop; confirm entry behavior without inventing a selection. | OPEN | Valid initialized examples remain supported. |
+| AUDIT-001 | Tabs | Automatically propose the first enabled DOM-order entry for missing/invalid selection, including removal/disable. Uncontrolled adopts it; controlled notifies once per invalid value/candidate pair and waits for the parent. While waiting, the first enabled entry remains focusable. No enabled entries means no selection. | CONFIRMED | User structured answers 2026-10-06; no forced initial-value API. |
+| AUDIT-002 | SegmentedControl | Same automatic proposal/adoption and focus-entry contract as AUDIT-001. Existing keyboard selection behavior remains. | CONFIRMED | User structured answers 2026-10-06. |
 | AUDIT-003 | AccordionGroup | Nested groups retain exclusivity, one shared 12px frame and separators, with Wrapped compact spacing/inherited indentation. Group context ends at item content; a nested group owns independent state. | CONFIRMED | User structured answer 2026-10-06; nested combination READY documented in Accordion specification/assessment. |
 
 These gaps do not authorize a guessed implementation or a blanket accessibility
-release claim. Tooltip and Stepper retain their existing open interaction/numeric
-contracts; their specifications record BLOCKED readiness.
+release claim. The user subsequently resolved these contracts below; Tooltip and
+Stepper now have bounded READY assessments. Manual release evidence remains separate.
+
+## Further component contracts — confirmed 2026-10-06
+
+- Tooltip preserves the first touch action and opens its explanation alongside it.
+  Non-interactive localized content, one ref-/native-prop-capable child, merged
+  description, immediate hover/focus/touch opening, persistent hoverable surface,
+  blur/outside/Escape dismissal and no focus transfer are confirmed. Escape suppresses
+  reopening until a fresh interaction; native disabled triggers are unsupported.
+- Stepper supports decimal precision 0–6, default 0. Scaled safe integers enforce
+  exact values, positive step, ordered bounds and min-based step alignment; invalid
+  configuration is rejected. Native root div props/ref address the named group;
+  controls are native buttons, boundaries disable them, localized formatValue output
+  is visible and politely announced. No text entry or hold-to-repeat.
+
+- User confirmed the Stepper Slider-label pattern and Tooltip centered upper geometry,
+  existing viewport fallback, constrained-width wrapping and native trigger prop/ref
+  mapping. precision defaults to 0. Tooltip and Stepper have bounded READY assessments.
+- Git access will be supplied by the user before transferring the prepared release MR.

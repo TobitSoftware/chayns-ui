@@ -21,7 +21,8 @@
   "checkedOn": "2026-10-06",
   "stories": [
     "Layout/Tabs:WorkspaceTabs",
-    "Layout/Tabs:Underline"
+    "Layout/Tabs:Underline",
+    "Layout/Tabs:AutomaticSelection"
   ]
 }
 ---
@@ -87,8 +88,19 @@ click/key handlers first; preventDefault cancels selection and removal. onRemove
 receives the removed string value; existing zero-argument callbacks remain assignable.
 Stable registration preserves callback-ref cleanup and reflects current DOM order.
 
-The appearance addition is ready within the existing explicitly initialized selection
-contract. Entry focus when neither value nor defaultValue matches an enabled Tab
-remains OPEN: focus-only entry, automatic selection, or required initialization need
-a confirmed product decision. Consumer-owned selection/removal is not silently replaced.
-This known gap blocks an unrestricted accessibility release claim for Tabs.
+The appearance addition and automatic selection contract below are READY. Controlled
+selection remains consumer-owned; invalid-value proposals do not override it. Manual
+accessibility and visual checks are still required for a release claim.
+
+## Automatic initial selection — confirmed 2026-10-06
+
+The first enabled DOM-order entry is proposed when the value is missing, invalid,
+removed or disabled. Uncontrolled adopts it; controlled calls onValueChange once
+per invalid value/candidate pair and waits for parent confirmation. Valid selection
+resets that guard. While waiting, only the first enabled entry is a Tab stop and no
+invalid entry is semantically selected. With no enabled entries there is no selection.
+Selection alone never moves focus; keyboard navigation keeps its documented behavior.
+Root/child props, event cancellation, density, geometry and reduced motion stay intact.
+READY extends to this confirmed state handling. Acceptance checks cover disabled
+first entries, DOM reorder, removal, controlled refusal/acceptance, no enabled entries
+and StrictMode callback de-duplication.

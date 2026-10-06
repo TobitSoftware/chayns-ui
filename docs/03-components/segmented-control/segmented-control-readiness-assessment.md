@@ -20,3 +20,10 @@
 ## Final Assessment
 
 SegmentedControl is READY for only the linked contract.
+
+## Automatic selection extension — 2026-10-06
+
+READY includes the confirmed automatic initial/replacement proposal contract in the
+specification. Uncontrolled defaultValue is optional; controlled ownership remains.
+Unit evidence covers missing/disabled/removal cases and StrictMode proposal de-duplication.
+Native keyboard, focus, tokens, localization and reduced-motion contracts are unchanged.

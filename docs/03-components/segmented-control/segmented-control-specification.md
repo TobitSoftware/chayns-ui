@@ -20,7 +20,8 @@
   "checkedOn": "2026-10-06",
   "stories": [
     "Core/SegmentedControl:Default",
-    "Core/SegmentedControl:Selected"
+    "Core/SegmentedControl:Selected",
+    "Core/SegmentedControl:AutomaticSelection"
   ]
 }
 ---
@@ -49,9 +50,9 @@ SegmentedControl is a compact, immediate single selection among two to four clos
 
 ```ts
 type ControlledSelection = { value: string; onValueChange: (value: string) => void; defaultValue?: never };
-type UncontrolledSelection = { defaultValue: string; value?: never; onValueChange?: (value: string) => void };
+type UncontrolledSelection = { defaultValue?: string; value?: never; onValueChange?: (value: string) => void };
 
-type SegmentedControlProps = Omit<React.ComponentPropsWithRef<'div'>, 'children' | 'role'> &
+type SegmentedControlProps = Omit<React.ComponentPropsWithRef<'div'>, 'children' | 'role' | 'aria-labelledby'> &
   (ControlledSelection | UncontrolledSelection) & {
     label: Exclude<React.ReactNode, boolean | null | undefined>;
     children: React.ReactNode;
@@ -77,7 +78,7 @@ The root ref targets the radiogroup div; each Segment ref targets its native but
 
 ## DOM, state and interaction contract
 
-The root renders a visible label and a `role="radiogroup"` div labelled by it. Segments render `type="button" role="radio" aria-checked`, with exactly the selected segment at `tabIndex=0`; other enabled segments are `-1`. The Context records mounted segments in DOM order, provides selection and moves focus. Controlled mode uses `value`; uncontrolled mode requires `defaultValue`. A child outside its parent throws a clear development error.
+The root renders a visible label and a `role="radiogroup"` div labelled by it. Segments render `type="button" role="radio" aria-checked`, with exactly the selected segment at `tabIndex=0`; other enabled segments are `-1`. The Context records mounted segments in DOM order, provides selection and moves focus. Controlled mode uses `value`; uncontrolled mode accepts optional `defaultValue` and otherwise adopts the first enabled DOM-order entry. A child outside its parent throws a clear development error.
 
 Arrow Left/Up selects and focuses the previous enabled segment; Arrow Right/Down the next; both wrap. Home selects/focuses the first, End the last. Space and Enter activate the focused native button. Disabled segments are skipped. Selection updates immediately and calls `onValueChange`; a controlled parent then supplies the value. Bodywork supplies `--toggle-bg`, `--k4` interior gap/padding, 12px group radius, 8px selected surface radius and `--shadow-card`. The selection surface is its own decorative element: it has the active button’s measured width and glides to it with Bodywork’s `transform 0.2s ease`; the button labels stay in an equal-column inline grid above it. There is no local size prop or external margin.
 
@@ -96,3 +97,16 @@ measurements preserve their previous state object when geometry is unchanged;
 both the selected segment and container are observed for size changes. Ref
 composition preserves native consumer callbacks and cleanup. DOM order, rather
 than registration order, determines keyboard navigation.
+
+## Automatic initial selection — confirmed 2026-10-06
+
+The first enabled DOM-order entry is proposed when the value is missing, invalid,
+removed or disabled. Uncontrolled adopts it; controlled calls onValueChange once
+per invalid value/candidate pair and waits for parent confirmation. Valid selection
+resets that guard. While waiting, only the first enabled entry is a Tab stop and no
+invalid entry is semantically selected. With no enabled entries there is no selection.
+Selection alone never moves focus; keyboard navigation keeps its documented behavior.
+Root/child props, event cancellation, density, geometry and reduced motion stay intact.
+READY extends to this confirmed state handling. Acceptance checks cover disabled
+first entries, DOM reorder, removal, controlled refusal/acceptance, no enabled entries
+and StrictMode callback de-duplication.
