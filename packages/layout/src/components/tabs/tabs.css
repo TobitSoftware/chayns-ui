@@ -101,8 +101,91 @@
     color: var(--text);
   }
 
+  .chayns-tabs__tab:disabled,
+  .chayns-tabs__add:disabled {
+    color: var(--disabled-fg);
+    cursor: not-allowed;
+  }
+
+  .chayns-tabs--underline {
+    block-size: auto;
+  }
+
+  .chayns-tabs--underline .chayns-tabs__list {
+    gap: var(--k30);
+    block-size: auto;
+    overflow-y: hidden;
+    padding-inline: var(--k5);
+    scrollbar-width: none;
+  }
+
+  .chayns-tabs--underline .chayns-tabs__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chayns-tabs--underline .chayns-tabs__tab {
+    position: relative;
+    gap: var(--k7);
+    block-size: auto;
+    padding: var(--k12) 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--text);
+    font-weight: 400;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+
+  .chayns-tabs--underline .chayns-tabs__tab > i,
+  .chayns-tabs--underline .chayns-tabs__tab .chayns-tabs__icon {
+    font-size: var(--k16);
+  }
+
+  .chayns-tabs--underline .chayns-tabs__tab:hover:not(:disabled, .chayns-tabs__tab--active) {
+    color: var(--text-2);
+  }
+
+  .chayns-tabs--underline .chayns-tabs__tab--active {
+    color: var(--accent);
+  }
+
+  .chayns-tabs--underline .chayns-tabs__tab--active::after {
+    position: absolute;
+    inset-block-end: var(--k8);
+    inset-inline: calc(-1 * var(--k3));
+    block-size: 1px;
+    background: currentcolor;
+    content: '';
+  }
+
+  .chayns-tabs--underline .chayns-tabs__tab:disabled {
+    color: var(--disabled-fg);
+    opacity: 0.7;
+  }
+
+  .chayns-tabs--underline .chayns-tabs__add {
+    color: var(--text);
+  }
+
+  .chayns-tabs--underline .chayns-tabs__panel {
+    border: 0;
+    background: transparent;
+  }
+
+  @media (width <= 900px) {
+    .chayns-tabs--underline .chayns-tabs__tab {
+      padding-inline: var(--k2);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chayns-tabs--underline .chayns-tabs__tab {
+      transition: none;
+    }
+  }
+
   @container (max-width: 20rem) {
-    .chayns-tabs__label {
+    .chayns-tabs:not(.chayns-tabs--underline) .chayns-tabs__label {
       position: absolute;
       inline-size: 1px;
       block-size: 1px;

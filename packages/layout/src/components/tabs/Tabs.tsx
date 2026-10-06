@@ -1,5 +1,5 @@
-import { createContext, forwardRef, useContext, useId, useState } from 'react';
-import type { KeyboardEvent } from 'react';
+import { createContext, forwardRef, useContext, useId, useMemo, useState } from 'react';
+import type { KeyboardEvent, Ref } from 'react';
 import type {
   TabsAddProps,
   TabsListProps,
@@ -19,6 +19,28 @@ function useTabs(part: string) {
   const context = useContext(TabsContext);
   if (context === null) throw new Error(`Tabs.${part} must be rendered within Tabs.`);
   return context;
+}
+
+/** Keep registry and consumer ref lifecycles stable across selection updates. */
+function createTabRef(
+  tabMap: Map<string, HTMLButtonElement>,
+  value: string,
+  ref: Ref<HTMLButtonElement>,
+) {
+  let cleanup: (() => void) | undefined;
+  return (node: HTMLButtonElement | null) => {
+    if (node) tabMap.set(value, node);
+    else tabMap.delete(value);
+    if (typeof ref === 'function') {
+      if (node === null && cleanup) {
+        cleanup();
+        cleanup = undefined;
+      } else {
+        const nextCleanup = ref(node);
+        if (typeof nextCleanup === 'function') cleanup = nextCleanup;
+      }
+    } else if (ref) ref.current = node;
+  };
 }
 
 const List = forwardRef<HTMLDivElement, TabsListProps>(function List(
@@ -51,36 +73,35 @@ const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
 
     if ((event.key === 'Delete' || event.key === 'Backspace') && onRemove) {
       event.preventDefault();
-      onRemove();
+      onRemove(value);
       return;
     }
-    const values = [...tabs.tabs.keys()];
+    const values = [...tabs.tabs.entries()]
+      .filter(([, element]) => !element.disabled)
+      .sort(([, first], [, second]) =>
+        first.compareDocumentPosition(second) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1,
+      )
+      .map(([tabValue]) => tabValue);
     const index = values.indexOf(value);
-    const nextIndex =
-      event.key === 'Home'
-        ? 0
-        : event.key === 'End'
-          ? values.length - 1
-          : event.key === 'ArrowRight' || event.key === 'ArrowDown'
-            ? (index + 1) % values.length
-            : event.key === 'ArrowLeft' || event.key === 'ArrowUp'
-              ? (index - 1 + values.length) % values.length
-              : -1;
+    let nextIndex = -1;
+    if (event.key === 'Home') nextIndex = 0;
+    else if (event.key === 'End') nextIndex = values.length - 1;
+    else if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      nextIndex = (index + 1) % values.length;
+    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+      nextIndex = (index - 1 + values.length) % values.length;
+    }
     if (nextIndex >= 0) {
       event.preventDefault();
       const next = values[nextIndex];
-      if (next) {
+      if (next !== undefined) {
         tabs.select(next);
         tabs.tabs.get(next)?.focus();
       }
     }
   }
-  function setRef(node: HTMLButtonElement | null) {
-    if (node) tabs.tabs.set(value, node);
-    else tabs.tabs.delete(value);
-    if (typeof ref === 'function') ref(node);
-    else if (ref) ref.current = node;
-  }
+  const tabMap = tabs.tabs;
+  const setRef = useMemo(() => createTabRef(tabMap, value, ref), [ref, tabMap, value]);
   return (
     <button
       {...props}
@@ -91,12 +112,11 @@ const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
         .join(' ')}
       id={tabId}
       onClick={(event) => {
-        if ((event.target as HTMLElement).closest('[data-tabs-remove]')) {
-          onRemove?.();
-          return;
-        }
         onClick?.(event);
-        if (!event.defaultPrevented) tabs.select(value);
+        if (event.defaultPrevented) return;
+        if (event.target instanceof Element && event.target.closest('[data-tabs-remove]')) {
+          onRemove?.(value);
+        } else tabs.select(value);
       }}
       onKeyDown={handleKeyDown}
       ref={setRef}
@@ -150,7 +170,7 @@ const Add = forwardRef<HTMLButtonElement, TabsAddProps>(function Add(
   );
 });
 const Root = forwardRef<HTMLDivElement, TabsProps>(function Root(
-  { children, className, defaultValue, onValueChange, value, ...props },
+  { appearance = 'attached', children, className, defaultValue, onValueChange, value, ...props },
   ref,
 ) {
   const baseId = useId();
@@ -163,7 +183,13 @@ const Root = forwardRef<HTMLDivElement, TabsProps>(function Root(
   };
   return (
     <TabsContext.Provider value={{ baseId, select, tabs: tabMap, value: selectedValue }}>
-      <div {...props} className={['chayns-tabs', className].filter(Boolean).join(' ')} ref={ref}>
+      <div
+        {...props}
+        className={['chayns-tabs', `chayns-tabs--${appearance}`, className]
+          .filter(Boolean)
+          .join(' ')}
+        ref={ref}
+      >
         {children}
       </div>
     </TabsContext.Provider>

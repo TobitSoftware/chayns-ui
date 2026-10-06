@@ -60,6 +60,98 @@ describe('Tabs', () => {
     expect(onKeyDown).toHaveBeenCalledTimes(1);
     expect(onRemove).toHaveBeenCalledTimes(1);
   });
+  it('skips disabled tabs in DOM order after reordering children', async () => {
+    const user = userEvent.setup();
+    const contents = (reverse: boolean) => (
+      <Tabs defaultValue="one">
+        <Tabs.List aria-label="Order">
+          {(reverse ? ['one', 'three', 'two'] : ['one', 'two', 'three']).map((value) => (
+            <Tabs.Tab key={value} value={value}>
+              {value}
+            </Tabs.Tab>
+          ))}
+          <Tabs.Tab disabled value="disabled">
+            Disabled
+          </Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
+    );
+    const { rerender } = render(contents(false));
+    rerender(contents(true));
+    screen.getByRole('tab', { name: 'one' }).focus();
+    await user.keyboard('{ArrowRight}');
+    expect(screen.getByRole('tab', { name: 'three' })).toHaveFocus();
+    await user.keyboard('{End}');
+    expect(screen.getByRole('tab', { name: 'two' })).toHaveFocus();
+  });
+
+  it('retains the appearance default and shared panel relationships', () => {
+    const { container, rerender } = render(
+      <Tabs defaultValue="one">
+        <Tabs.List>
+          <Tabs.Tab value="one">One</Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="one">Content</Tabs.Panel>
+      </Tabs>,
+    );
+    expect(container.firstChild).toHaveClass('chayns-tabs--attached');
+    rerender(
+      <Tabs appearance="underline" defaultValue="one">
+        <Tabs.List>
+          <Tabs.Tab value="one">One</Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="one">Content</Tabs.Panel>
+      </Tabs>,
+    );
+    expect(container.firstChild).toHaveClass('chayns-tabs--underline');
+    expect(screen.getByRole('tab')).toHaveAttribute(
+      'aria-controls',
+      screen.getByRole('tabpanel').id,
+    );
+  });
+
+  it('passes the removed value and allows click cancellation', async () => {
+    const user = userEvent.setup();
+    const onRemove = vi.fn();
+    render(
+      <Tabs defaultValue="one">
+        <Tabs.List>
+          <Tabs.Tab value="one" onRemove={onRemove}>
+            One
+          </Tabs.Tab>
+          <Tabs.Tab value="two" onRemove={onRemove} onClick={(event) => event.preventDefault()}>
+            Two
+          </Tabs.Tab>
+        </Tabs.List>
+      </Tabs>,
+    );
+    await user.click(screen.getByRole('tab', { name: 'One' }).querySelector('[data-tabs-remove]')!);
+    expect(onRemove).toHaveBeenLastCalledWith('one');
+    await user.click(screen.getByRole('tab', { name: 'Two' }).querySelector('[data-tabs-remove]')!);
+    expect(onRemove).toHaveBeenCalledTimes(1);
+  });
+
+  it('retains callback refs across selection updates and runs cleanup on removal', async () => {
+    const user = userEvent.setup();
+    const cleanup = vi.fn();
+    const ref = vi.fn(() => cleanup);
+    const { unmount } = render(
+      <Tabs defaultValue="one">
+        <Tabs.List>
+          <Tabs.Tab value="one" ref={ref}>
+            One
+          </Tabs.Tab>
+          <Tabs.Tab value="two">Two</Tabs.Tab>
+        </Tabs.List>
+      </Tabs>,
+    );
+    await user.click(screen.getByRole('tab', { name: 'Two' }));
+    expect(ref).toHaveBeenCalledTimes(1);
+    unmount();
+    expect(cleanup).toHaveBeenCalledTimes(1);
+    expect(ref).toHaveBeenCalledTimes(1);
+  });
+
   it('rejects public parts outside Tabs', () => {
     expect(() => render(<Tabs.Tab value="one">Eins</Tabs.Tab>)).toThrow(
       'Tabs.Tab must be rendered within Tabs.',

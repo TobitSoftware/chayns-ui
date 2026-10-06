@@ -7,7 +7,9 @@ const meta = {
   title: 'Layout/Tabs',
   component: Tabs,
   tags: ['autodocs'],
-  parameters: { a11y: { test: 'error' } },
+  parameters: {
+    a11y: { test: 'error' },
+  },
 } satisfies Meta<typeof Tabs>;
 
 export default meta;
@@ -16,7 +18,9 @@ type Story = StoryObj<typeof meta>;
 export const WorkspaceTabs: Story = {
   args: { children: null, defaultValue: 'inbox' },
   render: (args) => (
-    <div className="chayns-storybook-example-tabs">
+    <div
+      className={`chayns-storybook-example-tabs${args.appearance === 'underline' ? ' chayns-storybook-example-tabs--underline' : ''}`}
+    >
       <Tabs {...args}>
         <Tabs.List aria-label="Arbeitsbereiche">
           <Tabs.Tab onRemove={() => undefined} value="inbox">
@@ -47,4 +51,9 @@ export const WorkspaceTabs: Story = {
     await userEvent.click(canvas.getByRole('tab', { name: 'Calendar' }));
     await expect(canvas.getByRole('tabpanel')).toHaveTextContent('Your calendar');
   },
+};
+
+export const Underline: Story = {
+  ...WorkspaceTabs,
+  args: { ...WorkspaceTabs.args, appearance: 'underline' },
 };

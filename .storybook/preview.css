@@ -97,3 +97,7 @@ body {
   font-size: var(--fs-meta);
   font-weight: 400;
 }
+
+.chayns-storybook-example-tabs--underline {
+  background: var(--surface);
+}
