@@ -64,8 +64,8 @@
   --z-dialog: 800;
   --z-toast: 900;
   --z-tooltip: 1000;
-  --backdrop-dialog: rgba(14, 23, 27, 0.55);
-  --backdrop-drawer: rgba(14, 23, 27, 0.45);
+  --backdrop-dialog: rgb(14 23 27 / 55%);
+  --backdrop-drawer: rgb(14 23 27 / 45%);
 }
 
 .theme-density-s {

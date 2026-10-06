@@ -13,7 +13,7 @@ export interface ProgressProps extends Omit<
   ProgressbarAriaProps | 'children' | 'role' | 'tabIndex'
 > {
   label: string;
-  rootProps?: Omit<ComponentPropsWithRef<'div'>, 'children'>;
+  rootProps?: Omit<ComponentPropsWithRef<'div'>, 'children'> & Record<`data-${string}`, unknown>;
   value: number;
   children?: never;
   role?: never;

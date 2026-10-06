@@ -3,7 +3,14 @@
   "compilerOptions": {
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.cache/tsconfig.tsbuildinfo",
-    "types": ["node", "vitest/globals"]
+    "types": ["node", "vitest/globals", "vite/client"],
+    "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts", "vite.config.ts"]
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts",
+    "vite.config.ts",
+    "stories/**/*.ts",
+    "stories/**/*.tsx"
+  ]
 }

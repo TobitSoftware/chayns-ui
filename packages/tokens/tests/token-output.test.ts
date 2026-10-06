@@ -7,9 +7,9 @@ const packageDirectory = resolve(import.meta.dirname, '..');
 
 function ruleDeclarations(css: string, selector: string): string {
   const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const match = css.match(new RegExp(`${escapedSelector}\\s*\\{([^}]*)\\}`));
+  const match = new RegExp(`${escapedSelector}\\s*\\{([^}]*)\\}`).exec(css);
 
-  if (!match) throw new Error(`Missing selector: ${selector}`);
+  if (!match?.[1]) throw new Error(`Missing selector: ${selector}`);
 
   return match[1]
     .trim()

@@ -6,8 +6,8 @@ export const validProgress = <Progress label="Upload" value={64} />;
 export const missingLabel = <Progress value={64} />;
 // @ts-expect-error Progress needs a value
 export const missingValue = <Progress label="Upload" />;
-// @ts-expect-error Progress cannot receive children
 export const invalidChildren = (
+  // @ts-expect-error Progress cannot receive children
   <Progress label="Upload" value={64}>
     Loading
   </Progress>
