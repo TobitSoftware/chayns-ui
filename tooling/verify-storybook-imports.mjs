@@ -45,25 +45,30 @@ try {
   ]) {
     const browser = await engine.launch();
     try {
-      const page = await browser.newPage();
-      const errors = [];
-      page.on('pageerror', (error) => errors.push(error.message));
-      page.on('requestfailed', (request) => {
-        if (request.url().startsWith(origin) && new URL(request.url()).pathname.endsWith('.js'))
-          errors.push(`${request.url()}: ${request.failure()?.errorText}`);
-      });
-      page.on('response', (response) => {
-        if (response.url().startsWith(origin) && response.status() >= 400)
-          errors.push(`${response.status()} ${response.url()}`);
-      });
       for (const story of stories) {
-        errors.length = 0;
-        await page.goto(`${origin}/iframe.html?id=${encodeURIComponent(story.id)}&viewMode=story`);
-        await page.locator('body.sb-show-main #storybook-root > *').first().waitFor();
-        await page.locator('body:not(.sb-preparing-story)').waitFor();
-        if (await page.locator('.sb-errordisplay').isVisible())
-          errors.push(await page.locator('.sb-errordisplay').innerText());
-        if (errors.length) throw new Error(`${name}: ${story.id}\n${errors.join('\n')}`);
+        const page = await browser.newPage();
+        try {
+          const errors = [];
+          page.on('pageerror', (error) => errors.push(error.message));
+          page.on('requestfailed', (request) => {
+            if (request.url().startsWith(origin) && new URL(request.url()).pathname.endsWith('.js'))
+              errors.push(`${request.url()}: ${request.failure()?.errorText}`);
+          });
+          page.on('response', (response) => {
+            if (response.url().startsWith(origin) && response.status() >= 400)
+              errors.push(`${response.status()} ${response.url()}`);
+          });
+          await page.goto(
+            `${origin}/iframe.html?id=${encodeURIComponent(story.id)}&viewMode=story`,
+          );
+          await page.locator('body.sb-show-main #storybook-root > *').first().waitFor();
+          await page.locator('body:not(.sb-preparing-story)').waitFor();
+          if (await page.locator('.sb-errordisplay').isVisible())
+            errors.push(await page.locator('.sb-errordisplay').innerText());
+          if (errors.length) throw new Error(`${name}: ${story.id}\n${errors.join('\n')}`);
+        } finally {
+          await page.close();
+        }
       }
       console.log(
         `${name} ${browser.version()}: rendered all ${stories.length} static stories without module errors.`,
