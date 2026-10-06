@@ -10,6 +10,13 @@
     font-size: var(--fs-caption);
     font-weight: 500;
     line-height: 1.2;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.15s ease,
+      filter 0.2s ease;
   }
 
   .chayns-badge--md {
@@ -42,5 +49,23 @@
   .chayns-badge--danger {
     background: var(--danger-bg);
     color: var(--on-danger);
+  }
+
+  @media (hover: hover) {
+    .chayns-badge:hover {
+      transform: translateY(-2px);
+      filter: saturate(1.18);
+      box-shadow: 0 5px 12px -5px rgb(16 40 46 / 30%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chayns-badge {
+      transition: none;
+    }
+
+    .chayns-badge:hover {
+      transform: none;
+    }
   }
 }

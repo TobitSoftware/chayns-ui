@@ -22,4 +22,4 @@ Aktionen oder Hinweise ohne Bezugsobjekt. Verifizierung nur für tatsächlich ve
 
 ## Besonderheiten
 
-Der Text muss den Status erklären; Farbe allein genügt nicht. size ist eine bestätigte lokale Variante, keine globale Nutzerdichte. Das Badge löst keine Aktion aus.
+Der Text muss den Status erklären; Farbe allein genügt nicht. size ist eine bestätigte lokale Variante, keine globale Nutzerdichte. Das Badge löst keine Aktion aus. Hover hebt es wie im Bodywork um 2px an; Reduced Motion unterdrückt die Bewegung. Eigene Icon-Inhalte müssen Regular/Solid selbst abbilden, Emojis bleiben unverändert.

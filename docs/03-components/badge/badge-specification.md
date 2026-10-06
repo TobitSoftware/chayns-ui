@@ -40,7 +40,7 @@ Alternatives: Banner, Progress.
 - Component Category: Core
 - Specification Status: READY FOR IMPLEMENTATION
 - Design Reference: Bodywork Design System `#status` → “Badges & Chips”, checked 2026-09-21
-- Relevant Decisions: BADGE-001, DESIGN-011
+- Relevant Decisions: BADGE-001, BADGE-003, DESIGN-011
 
 ## Purpose and boundary
 
@@ -68,3 +68,23 @@ Status text uses the existing `--on-success`, `--on-warning` and `--on-danger`
 foreground roles. Light-mode roles resolve to existing darker palette tokens,
 correcting Bodywork’s insufficient small-text contrast while retaining its backgrounds.
 Automated Storybook contrast checks cover the status examples.
+
+## Bodywork hover contract — 2026-10-06
+
+BADGE-003 confirms the user-requested `.tr.badge-anim` feedback, checked in live
+Bodywork `#status`, `#motion` and `tobit-ds.css` on 2026-10-06. Both existing sizes
+lift `-2px` on hover-capable devices, use `saturate(1.18)` and the evidenced shadow
+`0 5px 12px -5px rgba(16,40,46,.3)`. `.tr` gives transform `150ms ease` and
+background/color/border/shadow/filter `200ms ease`. These exact Bodywork shadow
+values and transitions are documented component evidence; no tokens are invented.
+Reduced Motion disables lift and transitions, retaining immediate shadow/filter
+feedback. There is no press effect or action semantics.
+
+Badge owns no icon prop or glyph renderer. Consumer-provided children retain their
+content and accessible meaning; any composed paired icon follows the confirmed
+Regular-to-Solid hover rule in its consumer renderer. Emoji and single-weight
+icons cannot switch weights. The library does not mutate consumer DOM or introduce
+an undocumented icon API. Interactive Chip, Tag and Filter contracts remain outside
+this status component. Storybook evidence: `Core/Badge:Status`, `Count`, `Chip`.
+Acceptance states: rest, hover, pointer down without press scaling, leave and
+Reduced Motion in Chromium and WebKit. No unresolved design review blocks this scope.
