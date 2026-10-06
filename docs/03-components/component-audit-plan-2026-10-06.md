@@ -18,6 +18,11 @@
 
 ## Evidence and current progress
 
+Final source review, completed repairs and verification results are recorded in
+[the audit results](component-audit-results-2026-10-06.md). The full verification
+passed after integrating the colleague's picker refinement. Relevant unresolved
+contracts remain explicitly open; this is not a blanket release approval.
+
 The starting implementation exports 24 Core components and two Layout components,
 including compounds. All were inspected; helper components and Storybook environment
 components are included in the displayName scope. Existing APIs/specifications take

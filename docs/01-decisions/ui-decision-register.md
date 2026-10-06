@@ -509,3 +509,15 @@ Das Register ist die schnelle Entscheidungsübersicht; ausführlichere Dokumente
 | INPUT-012 | INPUT | Stepper initially uses controlled value/min/max/step/onValueChange plus label, decreaseLabel, increaseLabel and formatValue; no direct text input or press-and-hold repetition. | CONFIRMED | User structured answer 2026-10-06 | Integer/decimal precision decision remains OPEN until clarified. |
 | TOOLTIP-004 | TOOLTIP | Tooltip uses its Children element as trigger and opens on hover, focus or mobile click; Bodywork Tooltip & Dropdown is the visual reference. | CONFIRMED | User structured answer 2026-10-06 | Touch action composition remains OPEN until clarified. |
 | SCOPE-001 | SCOPE | Dialog and Drawer modernization belongs initially to the global chayns dialog API; the selected library additions are Tooltip, Breadcrumb, Pagination, Slider and Stepper. Existing PopupList supplies the dropdown action-menu function. | CONFIRMED | User structured answer 2026-10-06 | No new global dialog API in this change. |
+
+## Implementation-discovered audit gaps — 2026-10-06
+
+| ID | Area | Gap | Status | Scope |
+|---|---|---|---|---|
+| AUDIT-001 | Tabs | Missing/invalid initial selection leaves no tab stop; focus-only entry, automatic selection and required initialization need a confirmed contract. | OPEN | Existing initialized Tabs and appearance addition remain separately specified. |
+| AUDIT-002 | SegmentedControl | Missing/invalid defaultValue/value leaves no radio tab stop; confirm entry behavior without inventing a selection. | OPEN | Valid initialized examples remain supported. |
+| AUDIT-003 | AccordionGroup | depth === 0 prevents exclusivity in a group nested inside Accordion.Content. Confirm combined grouped/wrapped frame, radius and compact geometry so independent grouping and nesting do not conflict. | DESIGN REVIEW | Nested groups are not cleared for release. |
+
+These gaps do not authorize a guessed implementation or a blanket accessibility
+release claim. Tooltip and Stepper retain their existing open interaction/numeric
+contracts; their specifications record BLOCKED readiness.
