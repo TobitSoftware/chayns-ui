@@ -32,4 +32,6 @@ const ButtonIcon = ({ icon }: ButtonIconProps) => {
   );
 };
 
+Object.assign(ButtonIcon, { displayName: 'ButtonIcon' });
+
 export default ButtonIcon;

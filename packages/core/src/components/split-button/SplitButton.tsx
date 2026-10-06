@@ -47,4 +47,6 @@ const SplitButton = forwardRef<HTMLDivElement, SplitButtonProps>(function SplitB
   );
 });
 
+SplitButton.displayName = 'SplitButton';
+
 export default SplitButton;

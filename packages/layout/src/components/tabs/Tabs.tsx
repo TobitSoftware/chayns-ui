@@ -169,4 +169,10 @@ const Root = forwardRef<HTMLDivElement, TabsProps>(function Root(
     </TabsContext.Provider>
   );
 });
+List.displayName = 'Tabs.List';
+Tab.displayName = 'Tabs.Tab';
+Panel.displayName = 'Tabs.Panel';
+Add.displayName = 'Tabs.Add';
+Root.displayName = 'Tabs';
+
 export const Tabs = Object.assign(Root, { Add, List, Panel, Tab });

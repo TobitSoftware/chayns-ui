@@ -11,4 +11,6 @@ const AppLayoutIcon = ({ icon }: { icon: AppLayoutIconName }) => (
   </span>
 );
 
+Object.assign(AppLayoutIcon, { displayName: 'AppLayoutIcon' });
+
 export default AppLayoutIcon;

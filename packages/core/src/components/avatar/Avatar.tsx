@@ -40,13 +40,7 @@ const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
     <span
       {...spanProps}
       aria-label={alt ?? name}
-      className={[
-        'chayns-avatar',
-        `chayns-avatar--${size}`,
-        className,
-      ]
-        .filter(Boolean)
-        .join(' ')}
+      className={['chayns-avatar', `chayns-avatar--${size}`, className].filter(Boolean).join(' ')}
       role="img"
       ref={ref}
       style={initialsColorStyle}
@@ -71,5 +65,7 @@ const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
     </span>
   );
 });
+
+Avatar.displayName = 'Avatar';
 
 export default Avatar;

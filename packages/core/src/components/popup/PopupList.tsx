@@ -49,4 +49,6 @@ const PopupList = ({ className, items, trigger }: PopupListProps) => {
   );
 };
 
+Object.assign(PopupList, { displayName: 'PopupList' });
+
 export default PopupList;

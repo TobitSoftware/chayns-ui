@@ -23,4 +23,6 @@ const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(function Spinner(
   return <div {...divProps} aria-hidden="true" className={resolvedClassName} ref={ref} />;
 });
 
+Spinner.displayName = 'Spinner';
+
 export default Spinner;

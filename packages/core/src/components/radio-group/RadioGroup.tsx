@@ -83,4 +83,7 @@ const RadioGroupRoot = forwardRef<HTMLFieldSetElement, RadioGroupProps>(function
 
 const RadioGroup = Object.assign(RadioGroupRoot, { Radio });
 
+Radio.displayName = 'RadioGroup.Radio';
+RadioGroupRoot.displayName = 'RadioGroup';
+
 export default RadioGroup;

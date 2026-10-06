@@ -205,6 +205,14 @@ const Root = forwardRef<HTMLDivElement, AppLayoutProps>(function Root(
     </LayoutContext.Provider>
   );
 });
+Header.displayName = 'AppLayout.Header';
+Logo.displayName = 'AppLayout.Logo';
+Navigation.displayName = 'AppLayout.Navigation';
+Object.assign(NavigationItem, { displayName: 'AppLayout.Navigation.Item' });
+Content.displayName = 'AppLayout.Content';
+CollapseToggle.displayName = 'AppLayout.CollapseToggle';
+Root.displayName = 'AppLayout';
+
 export const AppLayout = Object.assign(Root, {
   CollapseToggle,
   Content,

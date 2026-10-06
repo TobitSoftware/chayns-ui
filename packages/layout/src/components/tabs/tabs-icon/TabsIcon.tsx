@@ -6,4 +6,6 @@ const TabsIcon = ({ icon }: { icon: TabsIconName }) => (
   </span>
 );
 
+Object.assign(TabsIcon, { displayName: 'TabsIcon' });
+
 export default TabsIcon;

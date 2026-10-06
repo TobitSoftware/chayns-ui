@@ -63,6 +63,9 @@ function AccentColorTool() {
   );
 }
 
+Object.assign(AccentColorInput, { displayName: 'AccentColorInput' });
+Object.assign(AccentColorTool, { displayName: 'AccentColorTool' });
+
 addons.register(ADDON_ID, () => {
   addons.add(TOOL_ID, {
     title: 'Accent color',

@@ -40,4 +40,6 @@ const AccordionGroup = forwardRef<HTMLDivElement, AccordionGroupProps>(function 
   );
 });
 
+AccordionGroup.displayName = 'AccordionGroup';
+
 export default AccordionGroup;

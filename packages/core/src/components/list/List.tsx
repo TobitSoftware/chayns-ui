@@ -52,12 +52,18 @@ function Action(props: ListItemActionProps) {
 function createPart(name: 'Leading' | 'Body' | 'Title' | 'Description' | 'Trailing') {
   const className = `chayns-list-item__${name.toLowerCase()}`;
 
-  return function ListItemPart({ children, className: consumerClassName }: ListItemPartProps) {
+  const ListItemPart = function ListItemPart({
+    children,
+    className: consumerClassName,
+  }: ListItemPartProps) {
     useListItemContext(name);
     const resolvedClassName = [className, consumerClassName].filter(Boolean).join(' ');
 
     return <span className={resolvedClassName}>{children}</span>;
   };
+
+  Object.assign(ListItemPart, { displayName: `List.Item.${name}` });
+  return ListItemPart;
 }
 
 function Status({ label }: ListItemStatusProps) {
@@ -97,5 +103,10 @@ const List = Object.assign(ListRoot, {
     Trailing: createPart('Trailing'),
   }),
 });
+
+Item.displayName = 'List.Item';
+Object.assign(Action, { displayName: 'List.Item.Action' });
+Object.assign(Status, { displayName: 'List.Item.Status' });
+ListRoot.displayName = 'List';
 
 export default List;

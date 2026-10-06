@@ -148,4 +148,8 @@ const Root = ({
     </PopupContext.Provider>
   );
 };
+Trigger.displayName = 'Popup.Trigger';
+Content.displayName = 'Popup.Content';
+Object.assign(Root, { displayName: 'Popup' });
+
 export default Object.assign(Root, { Trigger, Content });

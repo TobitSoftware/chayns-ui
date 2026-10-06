@@ -34,4 +34,6 @@ const AvatarGroup = forwardRef<HTMLSpanElement, AvatarGroupProps>(function Avata
   );
 });
 
+AvatarGroup.displayName = 'AvatarGroup';
+
 export default AvatarGroup;

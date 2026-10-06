@@ -36,4 +36,7 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(function Card(
 
 const Card = Object.assign(CardRoot, { Header: CardHeader });
 
+CardHeader.displayName = 'Card.Header';
+CardRoot.displayName = 'Card';
+
 export default Card;

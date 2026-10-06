@@ -215,4 +215,7 @@ const SegmentedControlRoot = forwardRef<HTMLDivElement, SegmentedControlProps>(
 
 const SegmentedControl = Object.assign(SegmentedControlRoot, { Segment });
 
+Segment.displayName = 'SegmentedControl.Segment';
+SegmentedControlRoot.displayName = 'SegmentedControl';
+
 export default SegmentedControl;

@@ -213,4 +213,12 @@ const Accordion = Object.assign(AccordionRoot, {
   }),
 });
 
+Object.assign(Part, { displayName: 'Accordion.Part' });
+Object.assign(HeadLeading, { displayName: 'Accordion.Head.Leading' });
+Object.assign(HeadTrailing, { displayName: 'Accordion.Head.Trailing' });
+Object.assign(HeadContent, { displayName: 'Accordion.Head.Content' });
+AccordionHead.displayName = 'Accordion.Head';
+AccordionContent.displayName = 'Accordion.Content';
+AccordionRoot.displayName = 'Accordion';
+
 export default Accordion;

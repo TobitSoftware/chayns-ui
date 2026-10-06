@@ -82,6 +82,8 @@ function PreviewEnvironment({
   return <div className={previewClassName}>{children}</div>;
 }
 
+Object.assign(PreviewEnvironment, { displayName: 'PreviewEnvironment' });
+
 const preview: Preview = {
   globalTypes: {
     accentColor: {

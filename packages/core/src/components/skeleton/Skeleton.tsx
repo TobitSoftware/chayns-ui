@@ -26,4 +26,6 @@ const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(function Skeleton(
   return <div {...divProps} aria-hidden="true" className={resolvedClassName} ref={ref} />;
 });
 
+Skeleton.displayName = 'Skeleton';
+
 export default Skeleton;

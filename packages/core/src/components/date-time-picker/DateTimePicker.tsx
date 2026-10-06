@@ -474,4 +474,7 @@ const DateTimePicker = forwardRef<HTMLButtonElement, DateTimePickerProps>(functi
   );
 });
 
+Wheel.displayName = 'DateTimePicker.Wheel';
+DateTimePicker.displayName = 'DateTimePicker';
+
 export default DateTimePicker;

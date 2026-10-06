@@ -47,4 +47,6 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function TextFiel
   );
 });
 
+TextField.displayName = 'TextField';
+
 export default TextField;

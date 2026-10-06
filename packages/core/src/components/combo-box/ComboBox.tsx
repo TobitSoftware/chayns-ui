@@ -439,4 +439,7 @@ const ComboBoxRoot = forwardRef<HTMLButtonElement, ComboBoxProps>(
 
 const ComboBox = Object.assign(ComboBoxRoot, { Option });
 
+Option.displayName = 'ComboBox.Option';
+ComboBoxRoot.displayName = 'ComboBox';
+
 export default ComboBox;
