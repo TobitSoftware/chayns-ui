@@ -48,7 +48,7 @@
     text-decoration: underline;
   }
 
-  @media (max-width: 640px) {
+  @media (width <= 640px) {
     .chayns-breadcrumb__list,
     .chayns-breadcrumb__item {
       gap: var(--k6);
