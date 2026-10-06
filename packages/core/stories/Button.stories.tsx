@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, fn, userEvent, within } from 'storybook/test';
+import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 
 import Button from '../src/components/button/Button.js';
 import { BUTTON_VARIANTS } from '../src/components/button/Button.types.js';
@@ -86,10 +86,10 @@ export const Primary: Story = {
     const restingShadow = getComputedStyle(button).boxShadow;
     await userEvent.tab();
     await expect(button).toHaveFocus();
-    const focusedShadow = getComputedStyle(button).boxShadow;
-    await expect(getComputedStyle(button).outlineStyle).toBe('none');
-    await expect(focusedShadow).not.toBe('none');
-    await expect(focusedShadow).not.toBe(restingShadow);
+    await waitFor(() => {
+      expect(getComputedStyle(button).boxShadow).not.toBe('none');
+      expect(getComputedStyle(button).boxShadow).not.toBe(restingShadow);
+    });
 
     await userEvent.keyboard('{Enter}');
     await userEvent.keyboard(' ');

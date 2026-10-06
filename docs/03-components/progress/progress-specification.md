@@ -119,3 +119,9 @@ transition.
 ## Open Decisions
 
 No blocking open decisions remain.
+
+## Foundation audit — 2026-10-06
+
+Labels and percentage text use `--text-3` rather than `--muted`. The original
+light-mode muted value produced a 4.0:1 contrast on white, below WCAG 2.2 AA.
+The existing foreground token preserves secondary emphasis with sufficient contrast.

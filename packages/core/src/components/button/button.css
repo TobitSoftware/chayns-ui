@@ -61,7 +61,7 @@
 
   :where(.chayns-button--danger, .chayns-icon-button--danger) {
     background: var(--danger-bg);
-    color: var(--danger);
+    color: var(--on-danger);
   }
 
   :where(.chayns-button, .chayns-icon-button):active:not(:disabled) {

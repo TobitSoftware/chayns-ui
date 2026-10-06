@@ -26,3 +26,10 @@ Bodywork defines the status badge as `.badge`: inline-flex, centered content, `-
 ## Verification
 
 Runtime, type and SSR tests cover native props/ref, tone and size values, decorative semantics and named status semantics. Storybook covers status, count and chip-like static content. Bodywork review states are default, status tones, count, chip and reduced motion.
+
+## Foundation audit — 2026-10-06
+
+Status text uses the existing `--on-success`, `--on-warning` and `--on-danger`
+foreground roles. Light-mode roles resolve to existing darker palette tokens,
+correcting Bodywork’s insufficient small-text contrast while retaining its backgrounds.
+Automated Storybook contrast checks cover the status examples.

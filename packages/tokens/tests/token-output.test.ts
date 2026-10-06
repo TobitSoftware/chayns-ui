@@ -66,7 +66,7 @@ describe('generated token CSS', () => {
     expect(color).toContain('--accent-active: var(--theme-accent-light-active);');
     expect(color).toContain('--on-accent-rgb: 255, 255, 255;');
     expect(color).toContain('--focus-ring-rgb: var(--accent-rgb);');
-    expect(color).toContain('--shadow-btn: 0 4px 12px -4px rgb(var(--accent-rgb) / 45%);');
+    expect(color).toContain('--shadow-btn: 0 4px 12px -4px rgb(var(--accent-rgb), 0.45);');
     expect(color).toContain('.theme-dark');
     expect(color).toContain('--accent: var(--theme-accent-dark);');
     expect(color).toContain('--accent-hover: var(--theme-accent-dark-hover);');

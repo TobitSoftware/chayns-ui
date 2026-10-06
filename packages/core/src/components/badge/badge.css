@@ -31,16 +31,16 @@
   .chayns-badge--success {
     /* stylelint-disable-next-line custom-property-pattern */
     background: var(--success-bg);
-    color: var(--success);
+    color: var(--on-success);
   }
 
   .chayns-badge--warning {
     background: var(--warning-bg);
-    color: var(--warning);
+    color: var(--on-warning);
   }
 
   .chayns-badge--danger {
     background: var(--danger-bg);
-    color: var(--danger);
+    color: var(--on-danger);
   }
 }

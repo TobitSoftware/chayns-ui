@@ -76,7 +76,7 @@ export const Palette: Story = {
             {tokens.map((token) => (
               <div key={token} className="chayns-storybook-color-palette__tile">
                 <span
-                  aria-label={token}
+                  aria-hidden="true"
                   className="chayns-storybook-color-palette__swatch"
                   style={{ backgroundColor: `var(${token})` }}
                 />

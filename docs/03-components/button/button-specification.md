@@ -243,3 +243,12 @@ No component-relevant open decisions. OPEN-008–011 and OPEN-016–022 are not 
 ## Specification Change Rules — Required
 
 Any new variant, state, icon contract, local size, polymorphism, DOM wrapper, context, motion, text ownership, loading behavior, token mapping or semantic behavior requires a documented specification/decision update, a new readiness assessment and matching public/type/behavior/a11y/visual tests before implementation.
+
+## Foundation audit — 2026-10-06
+
+Danger text uses `--on-danger` on `--danger-bg`, including hover/active backgrounds.
+The light-mode foreground resolves to the existing darker danger token to meet
+WCAG 2.2 AA. This accessibility correction takes precedence over Bodywork’s original
+low-contrast foreground. Comma-separated RGB input tokens use compatible comma alpha
+notation in button shadows; mixing comma channels with slash alpha invalidated the
+whole shadow, including the primary focus ring. Storybook checks keyboard focus.
