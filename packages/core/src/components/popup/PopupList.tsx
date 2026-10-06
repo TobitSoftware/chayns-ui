@@ -1,4 +1,4 @@
-import { useRef, type KeyboardEvent } from 'react';
+import { useCallback, useRef, type KeyboardEvent } from 'react';
 
 import ButtonIcon from '../button/button-icon/ButtonIcon.js';
 import Popup from './Popup.js';
@@ -6,6 +6,10 @@ import type { PopupListProps } from './Popup.types.js';
 
 const PopupList = ({ className, items, trigger }: PopupListProps) => {
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const handleMenuRef = useCallback((element: HTMLDivElement | null) => {
+    element?.querySelector<HTMLButtonElement>('[role="menuitem"]')?.focus();
+  }, []);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const index = itemRefs.current.indexOf(document.activeElement as HTMLButtonElement);
@@ -27,7 +31,7 @@ const PopupList = ({ className, items, trigger }: PopupListProps) => {
     <Popup>
       <Popup.Trigger asChild>{trigger}</Popup.Trigger>
       <Popup.Content className={className}>
-        <div onKeyDown={handleKeyDown} role="menu" tabIndex={-1}>
+        <div onKeyDown={handleKeyDown} ref={handleMenuRef} role="menu" tabIndex={-1}>
           {items.map((item, index) => (
             <button
               className="chayns-popup-list__item"
@@ -37,6 +41,7 @@ const PopupList = ({ className, items, trigger }: PopupListProps) => {
                 itemRefs.current[index] = element;
               }}
               role="menuitem"
+              tabIndex={-1}
               type="button"
             >
               <ButtonIcon icon={item.icon} />
@@ -49,6 +54,6 @@ const PopupList = ({ className, items, trigger }: PopupListProps) => {
   );
 };
 
-Object.assign(PopupList, { displayName: 'PopupList' });
+PopupList.displayName = 'PopupList';
 
 export default PopupList;

@@ -23,3 +23,13 @@ PopupList is the menu-specific composition: it owns `role="menu"`, focuses its f
 | PopupList item | `<button role="menuitem">` | documented icon/text/action contract |
 
 Tests cover forwarding, handler cancellation, controlled state, dismissal/focus rules, placement and invalid compound placement. The menu keyboard matrix is tested separately from generic Popup.
+
+## Foundation audit — 2026-10-06
+
+Generic Popup content does not acquire menu semantics or focus menu items.
+PopupList owns its menu and initial item focus; menuitems use roving keyboard
+navigation and stay outside the ordinary Tab sequence. The composed trigger runs
+its child click handler first, then the wrapper handler, then toggles; preventDefault
+stops subsequent steps. Child and public refs retain their lifecycle. Surfaces
+reposition on scroll, resize and geometry changes and clamp to the viewport.
+Menu-action dismissal only applies to the owning surface and honors cancellation.

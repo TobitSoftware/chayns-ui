@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
+import Popup from '../src/components/popup/Popup.js';
 import PopupList from '../src/components/popup/PopupList.js';
 
 describe('PopupList', () => {
@@ -50,5 +51,53 @@ describe('PopupList', () => {
 
     expect(screen.queryByRole('menu')).not.toBeInTheDocument();
     expect(trigger).toHaveFocus();
+  });
+});
+
+describe('Popup composition', () => {
+  it('preserves the child action and its cancellation', async () => {
+    const user = userEvent.setup();
+    const childAction = vi.fn((event: React.MouseEvent<HTMLButtonElement>) =>
+      event.preventDefault(),
+    );
+    const outerAction = vi.fn();
+    render(
+      <Popup>
+        <Popup.Trigger asChild onClick={outerAction}>
+          <button onClick={childAction} type="button">
+            Open
+          </button>
+        </Popup.Trigger>
+        <Popup.Content>Content</Popup.Content>
+      </Popup>,
+    );
+    await user.click(screen.getByRole('button', { name: 'Open' }));
+    expect(childAction).toHaveBeenCalledOnce();
+    expect(outerAction).not.toHaveBeenCalled();
+    expect(screen.queryByText('Content')).not.toBeInTheDocument();
+  });
+
+  it('preserves child and public callback refs without reattaching on open changes', async () => {
+    const user = userEvent.setup();
+    const childRef = vi.fn();
+    const publicRef = vi.fn();
+    const { unmount } = render(
+      <Popup>
+        <Popup.Trigger asChild ref={publicRef}>
+          <button ref={childRef} type="button">
+            Open
+          </button>
+        </Popup.Trigger>
+        <Popup.Content>Content</Popup.Content>
+      </Popup>,
+    );
+    const trigger = screen.getByRole('button', { name: 'Open' });
+    expect(childRef).toHaveBeenCalledWith(trigger);
+    await user.click(trigger);
+    expect(childRef).toHaveBeenCalledTimes(1);
+    expect(publicRef).toHaveBeenCalledTimes(1);
+    unmount();
+    expect(childRef).toHaveBeenLastCalledWith(null);
+    expect(publicRef).toHaveBeenLastCalledWith(null);
   });
 });

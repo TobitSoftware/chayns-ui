@@ -1,6 +1,8 @@
 @layer chayns.components {
   .chayns-popup {
     position: fixed;
+    box-sizing: border-box;
+    overflow: auto;
     z-index: var(--z-popover);
     min-inline-size: 14rem;
     padding: var(--sp-2);
