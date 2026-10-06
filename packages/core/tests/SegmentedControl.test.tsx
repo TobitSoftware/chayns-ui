@@ -85,6 +85,22 @@ describe('SegmentedControl', () => {
     expect(screen.getByRole('radio', { name: 'Monat' })).toHaveAttribute('aria-checked', 'true');
   });
 
+  it('keeps public segment refs attached while the selection changes', async () => {
+    const user = userEvent.setup();
+    const ref = vi.fn();
+    render(
+      <SegmentedControl defaultValue="week" label="Range">
+        <SegmentedControl.Segment value="week" ref={ref}>
+          Week
+        </SegmentedControl.Segment>
+        <SegmentedControl.Segment value="month">Month</SegmentedControl.Segment>
+      </SegmentedControl>,
+    );
+    await user.click(screen.getByRole('radio', { name: 'Month' }));
+    expect(ref).toHaveBeenCalledTimes(1);
+    expect(ref).toHaveBeenCalledWith(screen.getByRole('radio', { name: 'Week' }));
+  });
+
   it('rejects Segment outside its documented parent', () => {
     expect(() =>
       render(<SegmentedControl.Segment value="week">Woche</SegmentedControl.Segment>),

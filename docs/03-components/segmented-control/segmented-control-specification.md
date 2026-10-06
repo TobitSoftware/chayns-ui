@@ -54,3 +54,11 @@ The documented radiogroup/radio semantics express the custom button-based contro
 ## AI usage contract
 
 Use Segment only below SegmentedControl. Put group-native attributes on the root and button-native attributes on Segment. Use Tabs when a selection changes panels, and RadioGroup for form choices. Do not create public indicator/label subcomponents or bypass Context.
+
+## Foundation audit — 2026-10-06
+
+Segment registration remains stable across selection/context updates. Indicator
+measurements preserve their previous state object when geometry is unchanged;
+both the selected segment and container are observed for size changes. Ref
+composition preserves native consumer callbacks and cleanup. DOM order, rather
+than registration order, determines keyboard navigation.

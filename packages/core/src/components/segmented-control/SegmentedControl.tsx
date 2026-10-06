@@ -1,6 +1,7 @@
-import { forwardRef, useId, useLayoutEffect, useRef, useState } from 'react';
+import { forwardRef, useCallback, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 
+import { composeNativeRefs } from '../../utils/native-ref.js';
 import ButtonIcon from '../button/button-icon/ButtonIcon.js';
 import { SegmentedControlContext, useSegmentedControlContext } from './SegmentedControlContext.js';
 import type { SegmentedControlProps, SegmentProps } from './SegmentedControl.types.js';
@@ -29,23 +30,17 @@ const Segment = forwardRef<HTMLButtonElement, SegmentProps>(function Segment(
     .filter(Boolean)
     .join(' ');
 
+  const registerSegment = control.registerSegment;
+
   useLayoutEffect(() => {
     if (localRef.current === null) {
       return undefined;
     }
 
-    return control.registerSegment(value, localRef.current);
-  }, [control, value]);
+    return registerSegment(value, localRef.current);
+  }, [registerSegment, value]);
 
-  function setRef(element: HTMLButtonElement | null) {
-    localRef.current = element;
-
-    if (typeof ref === 'function') {
-      ref(element);
-    } else if (ref !== null) {
-      ref.current = element;
-    }
-  }
+  const setRef = useMemo(() => composeNativeRefs(localRef, ref), [ref]);
 
   function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
     onKeyDown?.(event);
@@ -100,54 +95,60 @@ const SegmentedControlRoot = forwardRef<HTMLDivElement, SegmentedControlProps>(
     const selectedValue = value ?? uncontrolledValue ?? '';
     const resolvedClassName = ['chayns-segmented-control', className].filter(Boolean).join(' ');
 
-    function selectValue(nextValue: string) {
-      if (value === undefined) {
-        setUncontrolledValue(nextValue);
-      }
+    const selectValue = useCallback(
+      (nextValue: string) => {
+        if (value === undefined) {
+          setUncontrolledValue(nextValue);
+        }
 
-      onValueChange?.(nextValue);
-    }
+        onValueChange?.(nextValue);
+      },
+      [onValueChange, value],
+    );
 
-    function registerSegment(segmentValue: string, element: HTMLButtonElement) {
+    const registerSegment = useCallback((segmentValue: string, element: HTMLButtonElement) => {
       segments.current.set(segmentValue, element);
 
       return () => {
         segments.current.delete(segmentValue);
       };
-    }
+    }, []);
 
-    function moveFocus(currentValue: string, key: string) {
-      const enabledSegments = getOrderedSegments(segments.current);
-      const currentIndex = enabledSegments.findIndex(
-        ([segmentValue]) => segmentValue === currentValue,
-      );
+    const moveFocus = useCallback(
+      (currentValue: string, key: string) => {
+        const enabledSegments = getOrderedSegments(segments.current);
+        const currentIndex = enabledSegments.findIndex(
+          ([segmentValue]) => segmentValue === currentValue,
+        );
 
-      if (currentIndex === -1 || enabledSegments.length === 0) {
-        return;
-      }
+        if (currentIndex === -1 || enabledSegments.length === 0) {
+          return;
+        }
 
-      let targetIndex = currentIndex;
+        let targetIndex = currentIndex;
 
-      if (key === 'Home') {
-        targetIndex = 0;
-      } else if (key === 'End') {
-        targetIndex = enabledSegments.length - 1;
-      } else if (key === 'ArrowLeft' || key === 'ArrowUp') {
-        targetIndex = (currentIndex - 1 + enabledSegments.length) % enabledSegments.length;
-      } else if (key === 'ArrowRight' || key === 'ArrowDown') {
-        targetIndex = (currentIndex + 1) % enabledSegments.length;
-      }
+        if (key === 'Home') {
+          targetIndex = 0;
+        } else if (key === 'End') {
+          targetIndex = enabledSegments.length - 1;
+        } else if (key === 'ArrowLeft' || key === 'ArrowUp') {
+          targetIndex = (currentIndex - 1 + enabledSegments.length) % enabledSegments.length;
+        } else if (key === 'ArrowRight' || key === 'ArrowDown') {
+          targetIndex = (currentIndex + 1) % enabledSegments.length;
+        }
 
-      const nextSegment = enabledSegments[targetIndex];
+        const nextSegment = enabledSegments[targetIndex];
 
-      if (nextSegment === undefined) {
-        return;
-      }
+        if (nextSegment === undefined) {
+          return;
+        }
 
-      const [nextValue, nextElement] = nextSegment;
-      selectValue(nextValue);
-      nextElement.focus();
-    }
+        const [nextValue, nextElement] = nextSegment;
+        selectValue(nextValue);
+        nextElement.focus();
+      },
+      [selectValue],
+    );
 
     useLayoutEffect(() => {
       const container = segmentsElement.current;
@@ -165,12 +166,17 @@ const SegmentedControlRoot = forwardRef<HTMLDivElement, SegmentedControlProps>(
           window.getComputedStyle(observedContainer).paddingInlineStart,
         );
 
-        setIndicator({
+        const nextIndicator = {
           offset:
             observedSegment.offsetLeft -
             (Number.isNaN(paddingInlineStart) ? 0 : paddingInlineStart),
           width: observedSegment.offsetWidth,
-        });
+        };
+        setIndicator((current) =>
+          current.offset === nextIndicator.offset && current.width === nextIndicator.width
+            ? current
+            : nextIndicator,
+        );
       }
 
       updateIndicator();
@@ -181,14 +187,18 @@ const SegmentedControlRoot = forwardRef<HTMLDivElement, SegmentedControlProps>(
 
       const observer = new ResizeObserver(updateIndicator);
       observer.observe(observedContainer);
+      observer.observe(observedSegment);
 
       return () => observer.disconnect();
     }, [selectedValue]);
 
+    const contextValue = useMemo(
+      () => ({ moveFocus, registerSegment, selectValue, value: selectedValue }),
+      [moveFocus, registerSegment, selectValue, selectedValue],
+    );
+
     return (
-      <SegmentedControlContext.Provider
-        value={{ moveFocus, registerSegment, selectValue, value: selectedValue }}
-      >
+      <SegmentedControlContext.Provider value={contextValue}>
         <div
           {...rootProps}
           aria-labelledby={labelId}
