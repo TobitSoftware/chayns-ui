@@ -99,3 +99,12 @@ The associated visible `label` is the trigger's accessible name. `wheelLabels` n
 ## Validation and Evidence
 
 Unit tests cover opening/closing, Escape restoration, immediate wheel changes, consumer click cancellation and out-of-range normalization. Storybook supplies controlled time and date stories. Package CSS is exported as `@chayns-ui/core/date-time-picker.css` and through `@chayns-ui/core/styles.css`.
+
+## Foundation audit — 2026-10-06
+
+The separately approved Wheel POC remains the reference for this component.
+Only the central copy of each repeated wheel option participates in the accessibility
+tree; options are never individual Tab stops. Each wheel owns focus and exposes its
+selected option through aria-activedescendant. Pointer interaction retains wheel
+focus, and pointer cancellation ends the gesture. Tests cover repeated copies,
+selection, Tab traversal and Escape focus restoration. Consumer refs retain cleanup.

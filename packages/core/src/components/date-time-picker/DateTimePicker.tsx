@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useId, useMemo, useRef, useState } from 'react';
 import type { KeyboardEvent, PointerEvent as ReactPointerEvent } from 'react';
 
+import { composeNativeRefs } from '../../utils/native-ref.js';
 import { DATE_TIME_PICKER_MINUTE_STEPS, type DateTimePickerProps } from './DateTimePicker.types.js';
 
 const WHEEL_LOOP_CYCLES = 11;
@@ -38,6 +39,7 @@ function normalizeMinute(value: Date, minuteStep: number) {
 }
 
 function Wheel({ ariaLabel, onEscape, onSelect, options, selected }: WheelProps) {
+  const wheelId = useId();
   const wheelRef = useRef<HTMLDivElement>(null);
   const selectedRef = useRef<HTMLButtonElement>(null);
   const dragRef = useRef<{ pointerId: number; scrollTop: number; startY: number } | undefined>(
@@ -118,6 +120,7 @@ function Wheel({ ariaLabel, onEscape, onSelect, options, selected }: WheelProps)
 
   function handlePointerDown(event: ReactPointerEvent<HTMLDivElement>) {
     if (event.button !== 0) return;
+    event.preventDefault();
     if (typeof event.currentTarget.setPointerCapture === 'function') {
       event.currentTarget.setPointerCapture(event.pointerId);
     }
@@ -150,11 +153,13 @@ function Wheel({ ariaLabel, onEscape, onSelect, options, selected }: WheelProps)
 
   return (
     <div
+      aria-activedescendant={`${wheelId}-${selected}`}
       aria-label={ariaLabel}
       className="chayns-date-time-picker__wheel"
       onKeyDown={handleKeyDown}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
+      onPointerCancel={handlePointerUp}
       onPointerUp={handlePointerUp}
       onScroll={handleScroll}
       ref={wheelRef}
@@ -164,7 +169,9 @@ function Wheel({ ariaLabel, onEscape, onSelect, options, selected }: WheelProps)
       {Array.from({ length: WHEEL_LOOP_CYCLES }, (_, cycle) =>
         options.map((option, optionIndex) => (
           <button
+            aria-hidden={cycle !== WHEEL_CENTER_CYCLE || undefined}
             aria-selected={option.value === selected}
+            id={cycle === WHEEL_CENTER_CYCLE ? `${wheelId}-${option.value}` : undefined}
             className="chayns-date-time-picker__wheel-option"
             data-wheel-index={cycle * options.length + optionIndex}
             key={`${cycle}-${option.value}`}
@@ -181,6 +188,7 @@ function Wheel({ ariaLabel, onEscape, onSelect, options, selected }: WheelProps)
               cycle === WHEEL_CENTER_CYCLE && option.value === selected ? selectedRef : undefined
             }
             role="option"
+            tabIndex={-1}
             type="button"
           >
             {option.label}
@@ -229,6 +237,7 @@ const DateTimePicker = forwardRef<HTMLButtonElement, DateTimePickerProps>(functi
   const popupId = `${triggerId}-popup`;
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const setTriggerElement = useMemo(() => composeNativeRefs(triggerRef, ref), [ref]);
   const [open, setOpen] = useState(false);
   const displayValue =
     value === null
@@ -400,11 +409,7 @@ const DateTimePicker = forwardRef<HTMLButtonElement, DateTimePickerProps>(functi
             close();
           }
         }}
-        ref={(element) => {
-          triggerRef.current = element;
-          if (typeof ref === 'function') ref(element);
-          else if (ref !== null) ref.current = element;
-        }}
+        ref={setTriggerElement}
         type="button"
       >
         {formattedValue}

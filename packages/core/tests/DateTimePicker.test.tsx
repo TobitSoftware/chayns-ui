@@ -38,6 +38,33 @@ describe('DateTimePicker', () => {
     expect(trigger).toHaveFocus();
   });
 
+  it('keeps repeated wheel copies out of the keyboard and accessibility sequence', async () => {
+    const user = userEvent.setup();
+    render(
+      <DateTimePicker
+        label="Zeit"
+        locale="de-DE"
+        onChange={() => undefined}
+        value={new Date(2026, 8, 22, 10, 30)}
+        wheelLabels={wheelLabels}
+      />,
+    );
+    await user.click(screen.getByRole('button', { name: 'Zeit' }));
+    const wheel = screen.getByRole('listbox', { name: 'Stunde' });
+    expect(wheel.querySelectorAll('[role="option"]')).toHaveLength(24 * 11);
+    expect(
+      screen.getAllByRole('option', { name: '10' }).filter((option) => wheel.contains(option)),
+    ).toHaveLength(1);
+    expect(document.getElementById(wheel.getAttribute('aria-activedescendant')!)).toHaveAttribute(
+      'aria-selected',
+      'true',
+    );
+    expect(wheel.querySelectorAll('[role="option"][tabindex="0"]')).toHaveLength(0);
+    wheel.focus();
+    await user.tab();
+    expect(screen.getByRole('listbox', { name: 'Minute' })).toHaveFocus();
+  });
+
   it('emits a local Date when a wheel option changes', async () => {
     const onChange = vi.fn<(value: Date) => void>();
     const user = userEvent.setup();
@@ -54,7 +81,7 @@ describe('DateTimePicker', () => {
     );
 
     await user.click(screen.getByRole('button', { name: 'Uhrzeit' }));
-    await user.click(screen.getAllByRole('option', { name: '11' }).at(5)!);
+    await user.click(screen.getAllByRole('option', { name: '11' })[0]!);
 
     expect(onChange).toHaveBeenLastCalledWith(expect.any(Date));
     expect(onChange.mock.calls.at(-1)?.[0].getHours()).toBe(11);
