@@ -3,7 +3,7 @@
   "name": "Stepper",
   "package": "@chayns-ui/core",
   "category": "Core",
-  "status": "ready",
+  "status": "implemented",
   "useWhen": [
     "Adjust exact numeric quantities in small increments."
   ],

@@ -132,3 +132,7 @@ export type { PaginationLabels } from './components/pagination/Pagination.types.
 
 export { default as Slider } from './components/slider/Slider.js';
 export type { SliderProps } from './components/slider/Slider.types.js';
+
+export { default as Stepper } from './components/stepper/Stepper.js';
+export { STEPPER_PRECISIONS, StepperPrecisions } from './components/stepper/Stepper.types.js';
+export type { StepperPrecision, StepperProps } from './components/stepper/Stepper.types.js';

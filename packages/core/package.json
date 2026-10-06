@@ -46,7 +46,8 @@
     "./breadcrumb.css": "./dist/breadcrumb.css",
     "./pagination.css": "./dist/pagination.css",
     "./slider.css": "./dist/slider.css",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./stepper.css": "./dist/stepper.css"
   },
   "peerDependencies": {
     "react": ">=18 <20"
