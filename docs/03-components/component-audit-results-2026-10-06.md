@@ -101,6 +101,18 @@ also received a formatting-only correction to restore the format gate.
 
 ## Completed additions and remaining release evidence
 
+The subsequent [icon-rule review](icon-rule-review-2026-10-06.md) records the owned
+action glyphs whose Regular/Solid switching was missing or inconsistent, and their
+repairs using existing internal renderers. The Stepper no longer duplicates renderer
+markup. Informational glyphs remain Regular, SVG replacement stays compatible, and
+single-component CSS imports resolve shared rules. Chromium/WebKit checks cover
+native hover/active/disabled states, PopupList portal content and the standalone
+Stepper stylesheet. Card's confirmed Button-like 1px hover lift and Reduced Motion
+suppression also passed. Full verification remains at 185 unit and 89 Storybook
+tests, with all 89 static stories loading in both engines. Static checks now isolate
+pages after reproducing a cancelled prior-document request being attributed to the
+next WebKit story. No consumer API changed in this follow-up.
+
 All five selected additions are implemented within confirmed component-specific
 READY contracts. The user resolved touch, decimal precision/default, automatic
 selection and nested-group decisions through structured questions on 2026-10-06.

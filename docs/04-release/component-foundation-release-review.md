@@ -32,6 +32,15 @@ The guides render their six consumer sections on all 29 shared documentation pag
 cross-component navigation was checked in the rendered Storybook. Underline Tabs
 now demonstrates both fixed entries and working optional add/remove composition.
 
+The icon-rule follow-up reuses the existing renderer for Stepper and consistently
+switches owned action glyphs to Solid on enabled hover/active, while informational
+glyphs stay Regular. SVG replacement and native control states were checked in
+Chromium and WebKit, including PopupList portal content. Individual component CSS
+imports retain their shared icon dependencies. Card now combines its hover shadow
+with the confirmed 1px lift; Reduced Motion suppresses the decorative movement.
+The static import verifier isolates pages to avoid attributing cancelled requests
+from a previous story to the next one. Full verification remains green.
+
 Before merging the version PR, complete the manual screenreader, visual/theme/
 density, zoom/reflow and pointer release checks. The automated checks do not
 substitute for that evidence. Safari currently works according to the user; no

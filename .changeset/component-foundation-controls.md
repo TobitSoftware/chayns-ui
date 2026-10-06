@@ -13,3 +13,5 @@ Correct native prop/ref forwarding, popup interactions and positioning, picker a
 Present concise linked usage guides in Storybook while retaining full implementation specifications. Demonstrate fixed underline tabs and consumer-owned optional addition/removal without introducing new configuration props.
 
 Keep exactly one Stepper icon weight visible when Font Awesome replaces icons with SVGs, including hover, active and disabled states.
+
+Apply the shared Regular/Solid icon rules consistently to owned controls, retain Regular informational glyphs and support individually imported component stylesheets. Add the confirmed 1px Card hover lift with a short transform transition and disable the decorative lift under reduced motion.
