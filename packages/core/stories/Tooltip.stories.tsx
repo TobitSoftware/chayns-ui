@@ -1,6 +1,6 @@
 import specification from '../../../docs/03-components/tooltip/tooltip-specification.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import Tooltip from '../src/components/tooltip/Tooltip.js';
 import Button from '../src/components/button/Button.js';
 
@@ -21,7 +21,7 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const trigger = within(canvasElement).getByRole('button', { name: 'Information' });
     await userEvent.hover(trigger);
-    await expect(within(document.body).getByRole('tooltip')).toBeVisible();
+    await waitFor(() => expect(within(document.body).getByRole('tooltip')).toBeVisible());
     await userEvent.click(trigger);
     await userEvent.keyboard('{Escape}');
     await expect(within(document.body).queryByRole('tooltip')).toBeNull();
