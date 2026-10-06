@@ -100,7 +100,7 @@ None. Button and IconButton have no S/M/L prop. Global S/M/L density controls th
 
 - default: variant presentation and native availability.
 - hover: pointer-only visual feedback; never the only access to meaning.
-- active: native press state plus immediate evidenced scale feedback; Primary also uses `--accent-active`.
+- active: native press state plus evidenced scale feedback that overrides hover; Primary also uses `--accent-active`.
 - focus-visible: softened-accent focus ring drawn as a `box-shadow` using `--focus-ring-size` and `rgba(var(--focus-ring-rgb), var(--focus-ring-alpha-strong))`. This matches the DesignSystem reference (accent ring with reduced opacity so the ring stands off the button surface). Primary composes the ring with its resting `--shadow-btn` elevation. Forced-colors mode falls back to a solid `ButtonText` outline.
 - disabled: native `disabled`, no focus or activation. Primary and Danger use disabled background/foreground; Outline uses surface, disabled foreground and disabled border; Ghost stays transparent with disabled foreground. Hover/active styling does not apply.
 
@@ -160,7 +160,7 @@ Shared: `--fs-body`, `--sp-2`, `--btn-py`, `--focus-ring-size`, `--focus-ring-rg
 
 ## Density Contract — Conditional
 
-All internal spacing, text size and control geometry resolve through global `--sf` at S/M/L. Radius, border width, color, focus, shadows and immediate active transform are density-independent. M is supplied by the token baseline default.
+All internal spacing, text size and control geometry resolve through global `--sf` at S/M/L. Radius, border width, color, focus, shadows and active transform are density-independent. M is supplied by the token baseline default.
 
 ## Color and Theme Contract — Conditional
 
@@ -184,7 +184,28 @@ No programmatic focus or restoration. The native button receives focus. `:focus-
 
 ## Motion Contract — Required
 
-No CSS transition, animation, delay or easing. Active transform is immediate direct property evidence. There is no functional dependency on Motion and no component-specific Reduced Motion branch.
+User-confirmed Bodywork motion correction, checked 2026-10-06 (BUTTON-017).
+Button follows `#motion` / `.btn-anim`: enabled hover lifts `-1px` and applies
+`brightness(1.06)`; press resets vertical translation and uses `scale(.97)`.
+Transitions are `transform 140ms ease`, `box-shadow 180ms ease`, and `filter 180ms ease`.
+Existing variant colors and native disabled/loading behavior are retained.
+
+IconButton follows its separate `.icon-btn` / `.tr` evidence: hover lifts `-2px`
+with `0 7px 16px -6px rgba(var(--accent-rgb),.55)` shadow, press resets translation
+and uses `scale(.9)`. Existing `.tr` transitions remain: transform 150ms ease,
+background/color/border/shadow/filter 200ms ease. These literal shadow values and
+non-transform transitions are checked Bodywork property evidence, not new tokens.
+Press rules take precedence over simultaneous hover for both components. Focus-visible
+rings retain priority over hover shadows so pointer hover cannot hide keyboard focus.
+
+Reduced Motion disables transitions, hover lift and press scaling while retaining
+immediate color/icon/shadow feedback. Loading keeps its existing Reduced Motion
+spinner treatment. Glyphs switch Regular/Solid at rest/hover or press; disabled
+controls stay Regular and do not brighten or move. Storybook evidence:
+`Core/Button:Primary`, `Outline`, `Ghost`, `Danger`, `Disabled`; `Core/IconButton:Attachment`,
+`Highlighted`, `Disabled`, `AllVariants`. Verify real pointer hover/press/release,
+keyboard activation, disabled and Reduced Motion in Chromium and WebKit.
+No unresolved design review applies to this scoped correction.
 
 ## Internationalization and Content Contract — Conditional
 

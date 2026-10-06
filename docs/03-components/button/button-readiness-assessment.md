@@ -39,7 +39,7 @@
 | 20 | Accessibility | PASS | Name, role, state, target, zoom/reflow, contrast and manual matrix specified. |
 | 21 | Keyboard | PASS | Native Tab/Shift+Tab/Space/Enter and disabled behavior specified. |
 | 22 | Focus | PASS | `:focus-visible` softened-accent `box-shadow` ring (`--focus-ring-alpha-strong`) with forced-colors outline fallback and no programmatic focus. |
-| 23 | Motion | PASS | No timed motion; immediate allowed active transform only. |
+| 23 | Motion | PASS | BUTTON-017: exact checked Bodywork Button/IconButton hover/press transitions, disabled guards and Reduced Motion. |
 | 24 | Internationalization and Content | PASS | Consumer-resolved localizable content; no locale inference or fragments. |
 | 25 | Responsive and Layout Behavior | PASS | Wrapping, constrained width and square IconButton are explicit. |
 | 26 | Container Interaction | PASS | Container owns placement, external spacing and action scope. |
@@ -72,3 +72,13 @@ No blocking items.
 - Gate Result: READY
 
 This READY result authorizes implementation only for the Button and IconButton contracts in the referenced specification. It does not authorize other components or unresolved global foundations.
+
+## Bodywork motion correction — 2026-10-06
+
+READY extends to BUTTON-017 following the explicit user instruction to use
+Bodywork `#motion`, `.btn-anim`, `.icon-btn` and `.tr` (live HTML/CSS checked
+2026-10-06). Exact transforms, timing, easing, filter/shadow and token mapping
+are recorded in the normative Motion Contract. Rest, hover, overlapping press,
+release, disabled and Reduced Motion are checked through the existing Button and
+IconButton stories, with native keyboard activation retained. No props, variants,
+dependencies or tokens are added, and no open design review blocks this correction.

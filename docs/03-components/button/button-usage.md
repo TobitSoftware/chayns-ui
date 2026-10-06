@@ -24,4 +24,4 @@ Navigation, Auswahlzustände oder reine Icon-Aktionen. Pro abgeschlossenem Aktio
 
 ## Besonderheiten
 
-variant ist erforderlich. loading deaktiviert den Button und erhält die Beschriftung. Für Formulare type="submit" setzen; Standard ist button. Icons über icon angeben.
+variant ist erforderlich. loading deaktiviert den Button und erhält die Beschriftung. Für Formulare type="submit" setzen; Standard ist button. Icons über icon angeben; sie wechseln bei Hover oder Druck zu Solid. Hover hebt den Button um 1px an, Druck setzt ihn zurück und skaliert auf 97%. Reduced Motion unterdrückt die Bewegung.
