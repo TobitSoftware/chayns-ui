@@ -1,3 +1,4 @@
+import specification from '../../../docs/03-components/popup/popup-specification.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, fn, userEvent, within } from 'storybook/test';
 
@@ -19,6 +20,7 @@ const meta = {
     trigger: <button type="button">Aktionen</button>,
   },
   parameters: {
+    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
     a11y: { test: 'error' },
     controls: { disable: true },
   },

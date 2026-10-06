@@ -1,3 +1,4 @@
+import specification from '../../../docs/03-components/text-area/text-area-specification.md?raw';
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
@@ -9,7 +10,10 @@ const meta = {
   component: TextArea,
   tags: ['autodocs'],
   args: { placeholder: 'Nachricht', rows: 4 },
-  parameters: { a11y: { test: 'error' } },
+  parameters: {
+    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    a11y: { test: 'error' },
+  },
 } satisfies Meta<typeof TextArea>;
 
 export default meta;

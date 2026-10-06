@@ -1,4 +1,39 @@
+---
+{
+  "name": "Banner",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Communicate persistent information about a region."
+  ],
+  "doNotUseWhen": [
+    "Do not use for field errors or short action feedback."
+  ],
+  "alternatives": [
+    "TextField",
+    "Toast"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/Banner:Success",
+    "Core/Banner:Neutral",
+    "Core/Banner:Warning"
+  ]
+}
+---
 # Banner — Component Specification
+
+## Selection guide
+
+Use when: Communicate persistent information about a region.
+
+Do not use when: Do not use for field errors or short action feedback.
+
+Alternatives: TextField, Toast.
 
 ## Metadata
 

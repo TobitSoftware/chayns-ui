@@ -1,4 +1,42 @@
+---
+{
+  "name": "TextField",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Enter free single-line text with a floating label and optional help/error/counter."
+  ],
+  "doNotUseWhen": [
+    "Do not use for known finite choices, multiline text or date selection."
+  ],
+  "alternatives": [
+    "ComboBox",
+    "TextArea",
+    "DateTimePicker"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/TextField:Default",
+    "Core/TextField:HelpAndCounter",
+    "Core/TextField:Error",
+    "Core/TextField:Disabled",
+    "Core/TextField:Password"
+  ]
+}
+---
 # TextField — Component Specification
+
+## Selection guide
+
+Use when: Enter free single-line text with a floating label and optional help/error/counter.
+
+Do not use when: Do not use for known finite choices, multiline text or date selection.
+
+Alternatives: ComboBox, TextArea, DateTimePicker.
 
 ## Metadata
 

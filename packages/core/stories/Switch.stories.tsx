@@ -1,3 +1,4 @@
+import specification from '../../../docs/03-components/switch/switch-specification.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import Switch from '../src/components/switch/Switch.js';
@@ -10,7 +11,10 @@ const meta = {
     children: 'E-Mail-Benachrichtigungen',
     description: 'Sofortige Hinweise über neue Nachrichten.',
   },
-  parameters: { a11y: { test: 'error' } },
+  parameters: {
+    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    a11y: { test: 'error' },
+  },
 } satisfies Meta<typeof Switch>;
 
 export default meta;

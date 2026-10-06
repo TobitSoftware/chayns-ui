@@ -1,4 +1,37 @@
+---
+{
+  "name": "Card",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Group related content on a distinct surface."
+  ],
+  "doNotUseWhen": [
+    "Do not use the card itself as an action or add intrinsic business logic."
+  ],
+  "alternatives": [
+    "List",
+    "Accordion"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/Card:Default"
+  ]
+}
+---
 # Card — Component Specification
+
+## Selection guide
+
+Use when: Group related content on a distinct surface.
+
+Do not use when: Do not use the card itself as an action or add intrinsic business logic.
+
+Alternatives: List, Accordion.
 
 ## Metadata — Required
 

@@ -1,4 +1,40 @@
+---
+{
+  "name": "SplitButton",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Pair a principal action with related variants, such as send, send later and save draft."
+  ],
+  "doNotUseWhen": [
+    "Do not use when alternatives are equivalent without a principal action; choose separate outline Buttons. A primary SplitButton counts toward the one-primary-per-scope limit."
+  ],
+  "alternatives": [
+    "Button",
+    "PopupList"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/SplitButton:Primary",
+    "Core/SplitButton:AllVariants",
+    "Core/SplitButton:Disabled",
+    "Core/SplitButton:LongLocalizedLabel"
+  ]
+}
+---
 # SplitButton — Component Specification
+
+## Selection guide
+
+Use when: Pair a principal action with related variants, such as send, send later and save draft.
+
+Do not use when: Do not use when alternatives are equivalent without a principal action; choose separate outline Buttons. A primary SplitButton counts toward the one-primary-per-scope limit.
+
+Alternatives: Button, PopupList.
 
 - Component Category: Core
 - Specification Status: READY FOR IMPLEMENTATION

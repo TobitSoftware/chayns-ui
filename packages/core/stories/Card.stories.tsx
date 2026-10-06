@@ -1,3 +1,4 @@
+import specification from '../../../docs/03-components/card/card-specification.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import Card from '../src/components/card/Card.js';
@@ -7,7 +8,10 @@ const meta = {
   component: Card,
   tags: ['autodocs'],
   argTypes: { children: { control: false, table: { category: 'Content' } } },
-  parameters: { a11y: { test: 'error' } },
+  parameters: {
+    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    a11y: { test: 'error' },
+  },
 } satisfies Meta<typeof Card>;
 
 export default meta;

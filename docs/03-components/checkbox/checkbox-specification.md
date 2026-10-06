@@ -1,4 +1,39 @@
+---
+{
+  "name": "Checkbox",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Select several independent choices from a small visible option set; two or three choices stay discoverable without a dropdown."
+  ],
+  "doNotUseWhen": [
+    "Do not use for one-of-two-to-five exclusive choices, an immediately applied binary setting, or a long multiple-choice set better served by ComboBox."
+  ],
+  "alternatives": [
+    "RadioGroup",
+    "Switch"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/Checkbox:Default",
+    "Core/Checkbox:Checked",
+    "Core/Checkbox:Disabled"
+  ]
+}
+---
 # Checkbox — Component Specification
+
+## Selection guide
+
+Use when: Select several independent choices from a small visible option set; two or three choices stay discoverable without a dropdown.
+
+Do not use when: Do not use for one-of-two-to-five exclusive choices, an immediately applied binary setting, or a long multiple-choice set better served by ComboBox.
+
+Alternatives: RadioGroup, Switch.
 
 ## Metadata
 

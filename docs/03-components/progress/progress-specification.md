@@ -1,4 +1,38 @@
+---
+{
+  "name": "Progress",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Show a known determinate completion percentage with a visible label."
+  ],
+  "doNotUseWhen": [
+    "Do not use for unknown duration or placeholder content."
+  ],
+  "alternatives": [
+    "Spinner",
+    "Skeleton"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/Progress:Default",
+    "Core/Progress:Complete"
+  ]
+}
+---
 # Progress - Component Specification
+
+## Selection guide
+
+Use when: Show a known determinate completion percentage with a visible label.
+
+Do not use when: Do not use for unknown duration or placeholder content.
+
+Alternatives: Spinner, Skeleton.
 
 ## Metadata
 

@@ -1,4 +1,40 @@
+---
+{
+  "name": "TextArea",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Enter free multiline text with a floating label and optional help/error/counter."
+  ],
+  "doNotUseWhen": [
+    "Do not use for one-line values or finite choices."
+  ],
+  "alternatives": [
+    "TextField",
+    "ComboBox"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/TextArea:Default",
+    "Core/TextArea:HelpAndCounter",
+    "Core/TextArea:Error",
+    "Core/TextArea:Disabled"
+  ]
+}
+---
 # TextArea — Component Specification
+
+## Selection guide
+
+Use when: Enter free multiline text with a floating label and optional help/error/counter.
+
+Do not use when: Do not use for one-line values or finite choices.
+
+Alternatives: TextField, ComboBox.
 
 ## Metadata
 

@@ -1,4 +1,38 @@
+---
+{
+  "name": "Skeleton",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Reserve a known layout while its real content loads."
+  ],
+  "doNotUseWhen": [
+    "Do not use for an unknown layout or a known completion percentage; choose Spinner or Progress respectively."
+  ],
+  "alternatives": [
+    "Spinner",
+    "Progress"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/Skeleton:Default",
+    "Core/Skeleton:Circular"
+  ]
+}
+---
 # Skeleton - Component Specification
+
+## Selection guide
+
+Use when: Reserve a known layout while its real content loads.
+
+Do not use when: Do not use for an unknown layout or a known completion percentage; choose Spinner or Progress respectively.
+
+Alternatives: Spinner, Progress.
 
 ## Metadata
 

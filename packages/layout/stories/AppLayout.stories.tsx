@@ -1,3 +1,4 @@
+import specification from '../../../docs/03-components/app-layout/app-layout-specification.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 
@@ -10,7 +11,10 @@ const meta = {
   title: 'Layout/AppLayout',
   component: AppLayout,
   tags: ['autodocs'],
-  parameters: { a11y: { test: 'error' } },
+  parameters: {
+    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    a11y: { test: 'error' },
+  },
 } satisfies Meta<typeof AppLayout>;
 
 export default meta;

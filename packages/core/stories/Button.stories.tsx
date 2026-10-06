@@ -1,3 +1,4 @@
+import specification from '../../../docs/03-components/button/button-specification.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 
@@ -66,6 +67,7 @@ const meta = {
     },
   },
   parameters: {
+    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
     a11y: { test: 'error' },
     controls: { include: ['variant', 'icon', 'children', 'type', 'disabled', 'loading'] },
   },

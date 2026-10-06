@@ -1,9 +1,13 @@
+import specification from '../../../docs/03-components/badge/badge-specification.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import Badge from '../src/components/badge/Badge.js';
 import { BADGE_SIZES, BADGE_TONES } from '../src/components/badge/Badge.types.js';
 
 const meta = {
+  parameters: {
+    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+  },
   title: 'Core/Badge',
   component: Badge,
   tags: ['autodocs'],

@@ -1,4 +1,38 @@
+---
+{
+  "name": "AppLayout",
+  "package": "@chayns-ui/layout",
+  "category": "Layout",
+  "status": "implemented",
+  "useWhen": [
+    "Build the confirmed reusable application shell with header, navigation and content."
+  ],
+  "doNotUseWhen": [
+    "Do not use for routing, persistence or arbitrary two-column layout."
+  ],
+  "alternatives": [
+    "Card",
+    "Tabs"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Layout/AppLayout:MailWorkspace",
+    "Layout/AppLayout:Collapsed"
+  ]
+}
+---
 # AppLayout — Component Specification
+
+## Selection guide
+
+Use when: Build the confirmed reusable application shell with header, navigation and content.
+
+Do not use when: Do not use for routing, persistence or arbitrary two-column layout.
+
+Alternatives: Card, Tabs.
 
 - Component Category: Layout
 - Specification Status: READY FOR IMPLEMENTATION

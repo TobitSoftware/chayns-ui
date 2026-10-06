@@ -1,3 +1,4 @@
+import specification from '../../../docs/03-components/segmented-control/segmented-control-specification.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import SegmentedControl from '../src/components/segmented-control/SegmentedControl.js';
@@ -6,7 +7,10 @@ const meta = {
   title: 'Core/SegmentedControl',
   component: SegmentedControl,
   tags: ['autodocs'],
-  parameters: { a11y: { test: 'error' } },
+  parameters: {
+    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    a11y: { test: 'error' },
+  },
   render: (args) => (
     <SegmentedControl {...args}>
       <SegmentedControl.Segment icon="fa-calendar-week" value="week">

@@ -6,7 +6,20 @@ Eine Component Specification ist der verbindliche Vertrag einer einzelnen wieder
 
 Sie MUSS ausreichend eindeutig sein, damit ein Entwickler oder KI-Agent die Komponente später implementieren kann, ohne implementierungsrelevante Produkt-, Design-, API- oder Interaktionsentscheidungen selbst zu treffen. Sie ist keine nachträgliche Beschreibung bereits geschriebenen Codes. Sie wird vor der ersten Implementierung beziehungsweise vor einer wesentlichen konzeptionellen Neugestaltung erstellt und freigegeben.
 
-Dieses Dokument definiert den verbindlichen **inhaltlichen** Vertrag in Markdown. Es entscheidet weder ein maschinenlesbares Serialisierungsformat noch dessen Technologie. Ein späteres maschinenlesbares Format MUSS denselben Informationsgehalt reproduzierbar abbilden können.
+Dieses Dokument definiert den verbindlichen Vertrag in Markdown. AI-006 und die
+bestätigte Entscheidung vom 06.10.2026 ergänzen JSON-kompatible YAML-Frontmatter
+zwischen `---`-Zeilen. Das JSON Schema liegt unter
+[component-specification.schema.json](schemas/component-specification.schema.json);
+`pnpm docs:check` validiert alle veröffentlichten Komponenten, ihre Metadaten und
+Story-Verweise ohne zusätzliche Validator-Dependency.
+
+Verpflichtende Felder: `name`, `package`, `category`, `status`, `useWhen`,
+`doNotUseWhen`, `alternatives`, `sourceReferences`, `checkedOn`, `stories`.
+`implemented` beschreibt vorhandenen Code, keine abgeschlossene Release-Prüfung.
+`checkedOn` nennt das Datum des Specification-/Quellenreviews; es ist kein behaupteter
+Screenreader- oder visueller Test. `stories` verwendet `Core/Name:Export` beziehungsweise
+`Layout/Name:Export`. Die Markdown-Specification bleibt normativ; Frontmatter erleichtert
+Auswahl und Auffinden. Storybook lädt denselben Markdown-Inhalt direkt aus der Quelle.
 
 ## 1. Specification Principles
 

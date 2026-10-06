@@ -1,4 +1,38 @@
+---
+{
+  "name": "RadioGroup",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Select exactly one of two to five visible options."
+  ],
+  "doNotUseWhen": [
+    "Do not use for multiple selection or a long option set; use ComboBox beyond five choices and Switch for a binary immediate setting."
+  ],
+  "alternatives": [
+    "Tabs",
+    "ComboBox"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/RadioGroup:Default",
+    "Core/RadioGroup:Disabled"
+  ]
+}
+---
 # RadioGroup — Component Specification
+
+## Selection guide
+
+Use when: Select exactly one of two to five visible options.
+
+Do not use when: Do not use for multiple selection or a long option set; use ComboBox beyond five choices and Switch for a binary immediate setting.
+
+Alternatives: Tabs, ComboBox.
 
 ## Metadata
 

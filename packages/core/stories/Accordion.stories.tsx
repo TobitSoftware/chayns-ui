@@ -1,3 +1,4 @@
+import specification from '../../../docs/03-components/accordion/accordion-specification.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 
@@ -12,6 +13,7 @@ const meta = {
   tags: ['autodocs'],
   args: { title: 'Accordion' },
   parameters: {
+    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
     a11y: { test: 'error' },
     controls: { disable: true },
   },

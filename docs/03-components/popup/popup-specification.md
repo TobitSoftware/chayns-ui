@@ -1,4 +1,40 @@
+---
+{
+  "name": "Popup",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Show a non-modal contextual surface at a trigger."
+  ],
+  "doNotUseWhen": [
+    "Do not use as a modal decision or automatically assign menu semantics."
+  ],
+  "alternatives": [
+    "PopupList",
+    "Tooltip"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/Popup:ActionList",
+    "Core/Popup:KeyboardNavigation",
+    "Core/Popup:BaseComposition",
+    "Core/Popup:LongLocalizedItems"
+  ]
+}
+---
 # Popup — Component Specification
+
+## Selection guide
+
+Use when: Show a non-modal contextual surface at a trigger.
+
+Do not use when: Do not use as a modal decision or automatically assign menu semantics.
+
+Alternatives: PopupList, Tooltip.
 
 ## Metadata
 

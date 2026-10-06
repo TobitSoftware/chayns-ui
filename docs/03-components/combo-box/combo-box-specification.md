@@ -1,4 +1,39 @@
+---
+{
+  "name": "ComboBox",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Select known options compactly; multiple selection with four or more options avoids an overly long checkbox list."
+  ],
+  "doNotUseWhen": [
+    "Do not hide two or three independent choices when visible Checkbox controls suffice; do not use for free text or identity selection that requires avatar/channel business context."
+  ],
+  "alternatives": [
+    "RadioGroup",
+    "Checkbox",
+    "TextField"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/ComboBox:SingleSelect",
+    "Core/ComboBox:MultiSelect"
+  ]
+}
+---
 # ComboBox — Component Specification
+
+## Selection guide
+
+Use when: Select known options compactly; multiple selection with four or more options avoids an overly long checkbox list.
+
+Do not use when: Do not hide two or three independent choices when visible Checkbox controls suffice; do not use for free text or identity selection that requires avatar/channel business context.
+
+Alternatives: RadioGroup, Checkbox, TextField.
 
 ## Metadata
 

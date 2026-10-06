@@ -1,4 +1,45 @@
+---
+{
+  "name": "Button",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Choose one visible action; primary is the most important action in a closed action scope, outline an equivalent alternative, ghost a secondary action, and danger a destructive action."
+  ],
+  "doNotUseWhen": [
+    "Do not use for route navigation or icon-only actions, label an action only OK, or place multiple primary actions in one closed scope."
+  ],
+  "alternatives": [
+    "IconButton",
+    "native anchor"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/Button:Primary",
+    "Core/Button:Outline",
+    "Core/Button:Ghost",
+    "Core/Button:Danger",
+    "Core/Button:Disabled",
+    "Core/Button:Loading",
+    "Core/Button:AllVariants",
+    "Core/Button:LongLocalizedContent",
+    "Core/Button:FormBehavior"
+  ]
+}
+---
 # Button and IconButton — Component Specification
+
+## Selection guide
+
+Use when: Choose one visible action; primary is the most important action in a closed action scope, outline an equivalent alternative, ghost a secondary action, and danger a destructive action.
+
+Do not use when: Do not use for route navigation or icon-only actions, label an action only OK, or place multiple primary actions in one closed scope.
+
+Alternatives: IconButton, native anchor.
 
 ## Metadata — Required
 

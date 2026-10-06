@@ -1,3 +1,4 @@
+import specification from '../../../docs/03-components/date-time-picker/date-time-picker-specification.md?raw';
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
@@ -16,7 +17,10 @@ const meta = {
   title: 'Core/DateTimePicker',
   component: DateTimePicker,
   tags: ['autodocs'],
-  parameters: { a11y: { test: 'error' } },
+  parameters: {
+    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    a11y: { test: 'error' },
+  },
 } satisfies Meta<typeof DateTimePicker>;
 
 export default meta;

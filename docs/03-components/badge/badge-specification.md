@@ -1,4 +1,39 @@
+---
+{
+  "name": "Badge",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Show a status or count directly at another element; the badge describes state instead of initiating an action."
+  ],
+  "doNotUseWhen": [
+    "Do not use badges as buttons or place them without an associated element; a verification badge is only for actually verified identities."
+  ],
+  "alternatives": [
+    "Banner",
+    "Progress"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/Badge:Status",
+    "Core/Badge:Count",
+    "Core/Badge:Chip"
+  ]
+}
+---
 # Badge — Component Specification
+
+## Selection guide
+
+Use when: Show a status or count directly at another element; the badge describes state instead of initiating an action.
+
+Do not use when: Do not use badges as buttons or place them without an associated element; a verification badge is only for actually verified identities.
+
+Alternatives: Banner, Progress.
 
 ## Metadata
 

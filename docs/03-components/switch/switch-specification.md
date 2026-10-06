@@ -1,4 +1,38 @@
+---
+{
+  "name": "Switch",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Toggle a binary setting with immediate effect."
+  ],
+  "doNotUseWhen": [
+    "Do not use for choices applied only after saving a form."
+  ],
+  "alternatives": [
+    "Checkbox"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/Switch:Default",
+    "Core/Switch:Enabled",
+    "Core/Switch:Disabled"
+  ]
+}
+---
 # Switch — Component Specification
+
+## Selection guide
+
+Use when: Toggle a binary setting with immediate effect.
+
+Do not use when: Do not use for choices applied only after saving a form.
+
+Alternatives: Checkbox.
 
 ## Metadata
 

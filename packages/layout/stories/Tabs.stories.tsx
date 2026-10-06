@@ -1,3 +1,4 @@
+import specification from '../../../docs/03-components/tabs/tabs-specification.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 
@@ -9,6 +10,7 @@ const meta = {
   tags: ['autodocs'],
   parameters: {
     a11y: { test: 'error' },
+    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
   },
 } satisfies Meta<typeof Tabs>;
 

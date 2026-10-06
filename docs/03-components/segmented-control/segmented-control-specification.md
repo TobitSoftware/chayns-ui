@@ -1,4 +1,38 @@
+---
+{
+  "name": "SegmentedControl",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Switch immediately between two to four equivalent representations of the same content, such as list, cards and calendar, or closely related settings."
+  ],
+  "doNotUseWhen": [
+    "Do not use for multiple-selection filters or five or more options; use a suitable selection control. Separate peer tab panels use Tabs, and form choices use RadioGroup."
+  ],
+  "alternatives": [
+    "Tabs",
+    "RadioGroup"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/SegmentedControl:Default",
+    "Core/SegmentedControl:Selected"
+  ]
+}
+---
 # SegmentedControl — Component Specification
+
+## Selection guide
+
+Use when: Switch immediately between two to four equivalent representations of the same content, such as list, cards and calendar, or closely related settings.
+
+Do not use when: Do not use for multiple-selection filters or five or more options; use a suitable selection control. Separate peer tab panels use Tabs, and form choices use RadioGroup.
+
+Alternatives: Tabs, RadioGroup.
 
 ## Metadata
 

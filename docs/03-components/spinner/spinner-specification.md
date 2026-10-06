@@ -1,4 +1,37 @@
+---
+{
+  "name": "Spinner",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Show decorative indeterminate activity within an already named busy region."
+  ],
+  "doNotUseWhen": [
+    "Do not rely on the spinner alone for accessible status or use for known percentages."
+  ],
+  "alternatives": [
+    "Progress",
+    "Button"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/Spinner:Default"
+  ]
+}
+---
 # Spinner - Component Specification
+
+## Selection guide
+
+Use when: Show decorative indeterminate activity within an already named busy region.
+
+Do not use when: Do not rely on the spinner alone for accessible status or use for known percentages.
+
+Alternatives: Progress, Button.
 
 ## Metadata
 

@@ -1,3 +1,4 @@
+import specification from '../../../docs/03-components/checkbox/checkbox-specification.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import Checkbox from '../src/components/checkbox/Checkbox.js';
@@ -10,7 +11,10 @@ const meta = {
     children: 'Ich akzeptiere die Bedingungen.',
     description: 'Erforderlich für die Nutzung.',
   },
-  parameters: { a11y: { test: 'error' } },
+  parameters: {
+    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    a11y: { test: 'error' },
+  },
 } satisfies Meta<typeof Checkbox>;
 
 export default meta;

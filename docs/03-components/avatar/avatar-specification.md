@@ -1,4 +1,39 @@
+---
+{
+  "name": "Avatar",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Represent one identity using an image or initials fallback."
+  ],
+  "doNotUseWhen": [
+    "Do not use as a generic status indicator or fetch identity data in Core."
+  ],
+  "alternatives": [
+    "Badge"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/Avatar:Initials",
+    "Core/Avatar:Small",
+    "Core/Avatar:WithImage",
+    "Core/Avatar:WithBadge"
+  ]
+}
+---
 # Avatar - Component Specification
+
+## Selection guide
+
+Use when: Represent one identity using an image or initials fallback.
+
+Do not use when: Do not use as a generic status indicator or fetch identity data in Core.
+
+Alternatives: Badge.
 
 ## Metadata
 

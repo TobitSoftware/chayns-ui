@@ -1,4 +1,39 @@
+---
+{
+  "name": "DateTimePicker",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Select a controlled local date or time using the confirmed wheel control."
+  ],
+  "doNotUseWhen": [
+    "Do not use for free text, combined date/time, timezone selection or calendar navigation."
+  ],
+  "alternatives": [
+    "TextField",
+    "ComboBox"
+  ],
+  "sourceReferences": [
+    "date-time-picker-specification.md#metadata",
+    "../../01-decisions/ui-decision-register.md"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/DateTimePicker:Time",
+    "Core/DateTimePicker:DateMode"
+  ]
+}
+---
 # DateTimePicker — Component Specification
+
+## Selection guide
+
+Use when: Select a controlled local date or time using the confirmed wheel control.
+
+Do not use when: Do not use for free text, combined date/time, timezone selection or calendar navigation.
+
+Alternatives: TextField, ComboBox.
 
 ## Metadata
 

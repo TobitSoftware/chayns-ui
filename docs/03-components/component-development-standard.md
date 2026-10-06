@@ -15,7 +15,7 @@ Bei einem Konflikt gelten die dokumentierte Source-of-Truth-Priorität und insbe
 
 Für eine bereits in Bodywork dargestellte Komponente ist Bodywork die verbindliche Referenz für Geometrie, Tokens, sichtbare Zustände, Responsivität und Übergänge. Die Implementierung MUSS diese Zustände gezielt prüfen und exakt umsetzen; ein ähnlicher Standard-Control-Look genügt nicht. Native HTML bestimmt ausschließlich Verhalten, das Bodywork nicht gestaltet oder ausdrücklich anders vorgibt. Eine Abweichung verlangt eine bestätigte und dokumentierte chayns-UI-Decision.
 
-Der aktuelle Repository-Stand enthält keine Produktionskomponenten, Komponenten-Tests, `package.json` oder Toolchain-Konfiguration. Deshalb werden keine beobachteten Implementierungsmuster als bereits etablierte Projektkonvention dargestellt. Dieser Standard ist technologie- und testframework-agnostisch, bis die bestehenden Open Decisions dafür geklärt sind.
+Das Repository enthält inzwischen Core- und Layout-Komponenten, Specifications, Tests und die in ADR 0001–0003 bestätigte Toolchain. READY bleibt komponentenbezogen. Die bestätigten Consumer-Verträge einschließlich React 18 werden bei technischen Modernisierungen bewahrt.
 
 ## 2. Normative Language
 
@@ -45,7 +45,7 @@ Die Projektkategorien und ihre erlaubten Abhängigkeiten folgen der [Architectur
 * **Primitive** ist keine bestätigte Component Category. Eine generische sichtbare Basis gehört, wenn sie die Core-Kriterien erfüllt, zu Core UI.
 * **Composite** beschreibt eine Form der Composition, nicht eine eigene Ownership-Grenze. Eine zusammengesetzte Komponente bleibt Core, Layout oder Business entsprechend ihrer Verantwortung und Abhängigkeiten.
 
-Die Architecture nennt nur mögliche spätere Beispiele. Es gibt im aktuellen Repository keine implementierten Referenzkomponenten, aus denen weitere Kategorien oder Beispiele abgeleitet werden dürfen.
+Implementierte Referenzen und deren Verträge stehen unter `packages/core`, `packages/layout` und `docs/03-components`; sie begründen keine zusätzlichen Architektur-Kategorien.
 
 ## 4. Public Component API
 
@@ -284,8 +284,8 @@ Folgende Muster sind mit den bestehenden Projektregeln unvereinbar:
 
 Die Milestone-1-ADRs schließen Testing-Stack und Component-Dateistruktur für den freigegebenen Scope. Weiterhin offen bleiben:
 
-* **OPEN DECISION: OPEN-011 / AI-005 – maschinenlesbares Component-Specification-Format.** Bis zur Entscheidung gelten die in diesem Dokument beschriebenen Inhaltsanforderungen.
-* **OPEN DECISION: OPEN-010 – technischer Context-Mechanismus.** Component Specifications dürfen fachlichen Context beschreiben, aber keinen technischen Mechanismus voraussetzen.
+* **CONFIRMED: AI-006 – maschinenlesbare JSON-kompatible YAML-Frontmatter.** Das Schema und der lokale Validator prüfen die Auswahlregeln und Storybook-Referenzen.
+* **CONFIRMED: CORE-017 – React Context für bestätigte semantische Parent-/Child-Beziehungen.** Context-Werte und Grenzen werden pro Komponente spezifiziert.
 
 Für Milestone 1 liegen Component-Implementierung, Typen, CSS, Tests und Stories gemeinsam im domain-orientierten Component-Ordner. Implementierungen verwenden intern Default Exports; öffentliche Root- und Component-Subpath-Barrels stellen Named Exports und öffentliche Types bereit. Diese Konvention wird erst nach weiterer Erfahrung auf andere Paketarten erweitert.
 
@@ -311,3 +311,15 @@ Für jede neue oder wesentlich geänderte Component wird die kleinste eindeutige
 Der Canonical Case darf keine interne DOM-Anatomy, CSS-Klassen oder unnötige Part-Reihenfolge verlangen. Advanced Composition ist zulässig, muss aber denselben nativen Semantic-, State- und Accessibility-Vertrag einhalten. Rein visuelle Unterteilungen bleiben intern. `Content`, `Body` und `Action` werden nur als öffentliche Parts verwendet, wenn ihre Verantwortung in der Specification nachgewiesen ist.
 
 Endliche öffentliche Varianten werden als exportierter String-Union-Type und als passendes `as const`-Array oder -Objekt veröffentlicht. TypeScript-Enums werden nicht als Standard eingeführt. Native HTML-Werte bleiben bei den Plattformtypen. Für offene Namensverträge, etwa `fa-${string}`-Icons, wird kein künstlich unvollständiger Runtime-Wertebestand erzeugt.
+
+## Modern JavaScript and diagnostic names (2026-10-06)
+
+All public components, public compound parts and internal React components have
+explicit displayName values; compound names include the owning parent. Source uses
+standardized modern ECMAScript and strict TypeScript. Existing code that is valid in
+ECMAScript 2026 does not need syntactic churn. ESLint parses latest standardized syntax;
+the pinned TypeScript exposes no fixed ES2026 target, so the current ES2024 type/source
+baseline and explicit browser output targets stay compatible with the consumer contract.
+ESNext proposals and unsupported runtime APIs are not introduced as a substitute.
+React 18/19 share forwardRef; React 19 cleanup callbacks must survive composed refs.
+New APIs require verified support across the documented consumer baseline.

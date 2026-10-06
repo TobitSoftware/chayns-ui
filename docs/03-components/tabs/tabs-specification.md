@@ -1,4 +1,39 @@
+---
+{
+  "name": "Tabs",
+  "package": "@chayns-ui/layout",
+  "category": "Layout",
+  "status": "implemented",
+  "useWhen": [
+    "Switch among up to five peer views on one page. Attached joins an active tab to its panel surface; underline switches views on a shared surface."
+  ],
+  "doNotUseWhen": [
+    "Do not use for ordered workflow steps, routes, independent actions or simultaneous panels. More than five views generally belong in application navigation."
+  ],
+  "alternatives": [
+    "native anchor",
+    "SegmentedControl",
+    "Accordion"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Layout/Tabs:WorkspaceTabs",
+    "Layout/Tabs:Underline"
+  ]
+}
+---
 # Tabs — Component Specification
+
+## Selection guide
+
+Use when: Switch among up to five peer views on one page. Attached joins an active tab to its panel surface; underline switches views on a shared surface.
+
+Do not use when: Do not use for ordered workflow steps, routes, independent actions or simultaneous panels. More than five views generally belong in application navigation.
+
+Alternatives: native anchor, SegmentedControl, Accordion.
 
 - Component Category: Layout
 - Specification Status: READY FOR IMPLEMENTATION

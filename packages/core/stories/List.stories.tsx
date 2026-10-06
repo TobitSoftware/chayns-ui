@@ -1,3 +1,4 @@
+import specification from '../../../docs/03-components/list/list-specification.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import Avatar from '../src/components/avatar/Avatar.js';
@@ -7,7 +8,10 @@ const meta = {
   title: 'Core/List',
   component: List,
   tags: ['autodocs'],
-  parameters: { a11y: { test: 'error' } },
+  parameters: {
+    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    a11y: { test: 'error' },
+  },
 } satisfies Meta<typeof List>;
 export default meta;
 type Story = StoryObj<typeof meta>;

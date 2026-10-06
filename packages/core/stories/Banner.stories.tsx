@@ -1,9 +1,13 @@
+import specification from '../../../docs/03-components/banner/banner-specification.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import Banner from '../src/components/banner/Banner.js';
 import { BANNER_TONES } from '../src/components/banner/Banner.types.js';
 
 const meta = {
+  parameters: {
+    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+  },
   title: 'Core/Banner',
   component: Banner,
   tags: ['autodocs'],

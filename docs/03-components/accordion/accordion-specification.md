@@ -1,4 +1,42 @@
+---
+{
+  "name": "Accordion",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Use independent disclosures for sections that may open separately; use the list appearance for a two-line message-like entry that expands rather than navigates."
+  ],
+  "doNotUseWhen": [
+    "Do not group logically exclusive entries without AccordionGroup, hide information everyone must see, nest equivalent content unnecessarily, or build a sequential workflow with disclosures."
+  ],
+  "alternatives": [
+    "Tabs",
+    "Card"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/Accordion:Standalone",
+    "Core/Accordion:DefaultOpen",
+    "Core/Accordion:Grouped",
+    "Core/Accordion:Wrapped",
+    "Core/Accordion:Disabled",
+    "Core/Accordion:List"
+  ]
+}
+---
 # Accordion and AccordionGroup — Component Specification
+
+## Selection guide
+
+Use when: Use independent disclosures for sections that may open separately; use the list appearance for a two-line message-like entry that expands rather than navigates.
+
+Do not use when: Do not group logically exclusive entries without AccordionGroup, hide information everyone must see, nest equivalent content unnecessarily, or build a sequential workflow with disclosures.
+
+Alternatives: Tabs, Card.
 
 ## Metadata — Required
 

@@ -1,4 +1,37 @@
+---
+{
+  "name": "List",
+  "package": "@chayns-ui/core",
+  "category": "Core",
+  "status": "implemented",
+  "useWhen": [
+    "Show many comparable entries in a vertical sequence, with an optional avatar and one-line preview; navigation and separate trailing actions retain native semantics."
+  ],
+  "doNotUseWhen": [
+    "Do not use for tabular multi-property records, disclosure or standalone content that belongs on a Card surface."
+  ],
+  "alternatives": [
+    "Accordion",
+    "native table"
+  ],
+  "sourceReferences": [
+    "https://tappqa.tobit.com/Bodywork/DesignSystem/"
+  ],
+  "checkedOn": "2026-10-06",
+  "stories": [
+    "Core/List:Default"
+  ]
+}
+---
 # List — Component Specification
+
+## Selection guide
+
+Use when: Show many comparable entries in a vertical sequence, with an optional avatar and one-line preview; navigation and separate trailing actions retain native semantics.
+
+Do not use when: Do not use for tabular multi-property records, disclosure or standalone content that belongs on a Card surface.
+
+Alternatives: Accordion, native table.
 
 ## Metadata
 

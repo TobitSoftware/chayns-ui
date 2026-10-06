@@ -1,3 +1,4 @@
+import specification from '../../../docs/03-components/radio-group/radio-group-specification.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import RadioGroup from '../src/components/radio-group/RadioGroup.js';
@@ -6,7 +7,10 @@ const meta = {
   title: 'Core/RadioGroup',
   component: RadioGroup,
   tags: ['autodocs'],
-  parameters: { a11y: { test: 'error' } },
+  parameters: {
+    docs: { description: { component: specification.slice(specification.indexOf('\n---\n') + 5) } },
+    a11y: { test: 'error' },
+  },
   render: (args) => (
     <RadioGroup {...args}>
       <RadioGroup.Radio value="all">Alle Personen</RadioGroup.Radio>
