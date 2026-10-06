@@ -5,7 +5,8 @@ interface ButtonIconProps {
 }
 
 const ButtonIcon = ({ icon }: ButtonIconProps) => {
-  const isPlainIcon = icon.startsWith('fab ') || icon.startsWith('fa-brands ') || icon.startsWith('ts-');
+  const isPlainIcon =
+    icon.startsWith('fab ') || icon.startsWith('fa-brands ') || icon.startsWith('ts-');
 
   return (
     <span aria-hidden="true" className="chayns-button-icon">
