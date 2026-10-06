@@ -66,6 +66,22 @@ describe('DateTimePicker', () => {
     expect(screen.getByRole('listbox', { name: 'Minute' })).toHaveFocus();
   });
 
+  it('hides the visual label when it has a value while preserving its accessible name', () => {
+    render(
+      <DateTimePicker
+        label="Uhrzeit"
+        locale="de-DE"
+        onChange={() => undefined}
+        placeholder="Uhrzeit auswählen"
+        value={new Date(2026, 8, 22, 10, 30)}
+        wheelLabels={wheelLabels}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Uhrzeit' })).toHaveTextContent('10:30 Uhr');
+    expect(document.querySelector('.chayns-date-time-picker__label')).not.toBeInTheDocument();
+  });
+
   it('emits a local Date when a wheel option changes', async () => {
     const onChange = vi.fn<(value: Date) => void>();
     const user = userEvent.setup();

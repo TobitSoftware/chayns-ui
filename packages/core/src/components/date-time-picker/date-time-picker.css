@@ -1,6 +1,6 @@
 @layer chayns.components {
   .chayns-date-time-picker {
-    display: inline-block;
+    display: inline-grid;
     max-inline-size: 100%;
     position: relative;
   }
@@ -11,6 +11,8 @@
 
   .chayns-date-time-picker__trigger {
     box-sizing: border-box;
+    grid-area: 1 / 1;
+    inline-size: 100%;
     max-inline-size: 100%;
     min-block-size: calc(1.2em + 2 * var(--input-py) + 3px);
     padding: var(--input-py) var(--input-px);
@@ -23,6 +25,21 @@
     line-height: 1.2;
     outline: none;
     text-align: start;
+  }
+
+  .chayns-date-time-picker__sizer {
+    display: grid;
+    grid-area: 1 / 1;
+    visibility: hidden;
+    white-space: nowrap;
+  }
+
+  .chayns-date-time-picker__sizer > span {
+    grid-area: 1 / 1;
+    padding: var(--input-py) var(--input-px);
+    border: 1.5px solid transparent;
+    font: inherit;
+    line-height: 1.2;
   }
 
   .chayns-date-time-picker__trigger:focus-visible {
@@ -53,10 +70,13 @@
   }
 
   .chayns-date-time-picker__popup {
+    box-sizing: border-box;
     position: absolute;
     inset-block-start: calc(100% + var(--k4));
-    inset-inline: 0;
+    inset-inline-start: 0;
     z-index: var(--z-popover);
+    inline-size: max-content;
+    min-inline-size: 100%;
     overflow: hidden;
     padding: var(--k8);
     border: 1px solid var(--border);
@@ -117,5 +137,16 @@
     scroll-snap-align: center;
     transform-origin: center;
     transform-style: preserve-3d;
+  }
+
+  .chayns-date-time-picker--date .chayns-date-time-picker__wheel {
+    flex: 0 0 auto;
+    min-inline-size: max-content;
+  }
+
+  .chayns-date-time-picker--date .chayns-date-time-picker__wheel-option {
+    inline-size: max-content;
+    min-inline-size: 100%;
+    padding-inline: var(--k8);
   }
 }

@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { forwardRef, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { KeyboardEvent, PointerEvent as ReactPointerEvent } from 'react';
 
 import { composeNativeRefs } from '../../utils/native-ref.js';
@@ -47,11 +47,15 @@ function Wheel({ ariaLabel, onEscape, onSelect, options, selected }: WheelProps)
   );
   const ignoreClickRef = useRef(false);
 
-  useEffect(() => {
-    if (typeof selectedRef.current?.scrollIntoView === 'function') {
-      selectedRef.current.scrollIntoView({ block: 'center' });
-    }
-  }, []);
+  useLayoutEffect(() => {
+    const wheel = wheelRef.current;
+    const itemHeight = selectedRef.current?.offsetHeight;
+    const selectedIndex = options.findIndex((option) => option.value === selected);
+    if (!wheel || !itemHeight || selectedIndex < 0) return;
+
+    wheel.scrollTop = (WHEEL_CENTER_CYCLE * options.length + selectedIndex) * itemHeight;
+    applyPerspective();
+  }, [options, selected]);
 
   function applyPerspective() {
     const wheel = wheelRef.current;
@@ -319,6 +323,19 @@ const DateTimePicker = forwardRef<HTMLButtonElement, DateTimePickerProps>(functi
             month: 'long',
             year: 'numeric',
           }).format(displayValue);
+  const sizingValues =
+    mode === 'time'
+      ? Array.from({ length: 24 * (60 / minuteStep) }, (_, index) => {
+          const candidate = new Date(2026, 0, 1);
+          candidate.setHours(Math.floor(index / (60 / minuteStep)));
+          candidate.setMinutes((index % (60 / minuteStep)) * minuteStep);
+          return `${new Intl.DateTimeFormat(locale, {
+            hour: 'numeric',
+            minute: '2-digit',
+          }).format(candidate)}${locale.toLowerCase().startsWith('de') ? ' Uhr' : ''}`;
+        })
+      : [formattedValue];
+  const sizerPlaceholder = displayValue === null ? placeholder : null;
   const hours = Array.from({ length: isTwelveHour ? 12 : 24 }, (_, index) =>
     isTwelveHour ? index + 1 : index,
   ).map((hour) => ({ label: String(hour).padStart(2, '0'), value: hour }));
@@ -390,11 +407,18 @@ const DateTimePicker = forwardRef<HTMLButtonElement, DateTimePickerProps>(functi
 
   return (
     <div className={resolvedClassName} ref={rootRef}>
+      <span aria-hidden="true" className="chayns-date-time-picker__sizer">
+        {sizerPlaceholder === null ? null : <span>{sizerPlaceholder}</span>}
+        {sizingValues.map((sizingValue) => (
+          <span key={sizingValue}>{sizingValue}</span>
+        ))}
+      </span>
       <button
         {...buttonProps}
         aria-controls={open ? popupId : undefined}
         aria-expanded={open}
         aria-haspopup="dialog"
+        aria-label={label}
         className={['chayns-date-time-picker__trigger', className].filter(Boolean).join(' ')}
         disabled={disabled}
         id={triggerId}
@@ -414,9 +438,11 @@ const DateTimePicker = forwardRef<HTMLButtonElement, DateTimePickerProps>(functi
       >
         {formattedValue}
       </button>
-      <label className="chayns-date-time-picker__label" htmlFor={triggerId}>
-        {label}
-      </label>
+      {displayValue === null ? (
+        <label className="chayns-date-time-picker__label" htmlFor={triggerId}>
+          {label}
+        </label>
+      ) : null}
       {open && !disabled ? (
         <div
           aria-label={label}

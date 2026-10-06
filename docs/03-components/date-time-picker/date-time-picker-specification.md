@@ -67,7 +67,7 @@ The consumer owns `value`. Selecting a wheel value immediately calls `onChange` 
 
 - Root: positioning-only `div`.
 - Trigger: one labelled native `button`.
-- Label: associated visible floating `label`.
+- Label: associated visible floating `label` when no value is selected; a set value replaces it visually.
 - Popup: non-portalled `role="dialog"` below the trigger.
 - Wheels: one focusable `role="listbox"` per selected unit with button-backed `role="option"` entries.
 - Selection: one decorative central overlay per popup using 10% accent opacity.
@@ -90,11 +90,11 @@ Each wheel supports pointer dragging, mouse-wheel scrolling, click selection, Ar
 
 ## Visual Contract
 
-The popup follows the confirmed POC: surface background, border, popover shadow, a central `rgb(var(--accent-rgb), 0.1)` selection band and a five-row viewport. Each wheel has a 3D perspective and uses only `transform` and `opacity` for its wheel presentation. Trigger geometry follows the existing floating-label control treatment. The picker uses its intrinsic content width and never expands to 100% width by default; the time mode has a 100px minimum inline size. The container owns external placement and optional sizing.
+The popup follows the confirmed POC: surface background, border, popover shadow, a central `rgb(var(--accent-rgb), 0.1)` selection band and a five-row viewport. Each wheel has a 3D perspective and uses only `transform` and `opacity` for its wheel presentation. The trigger uses its intrinsic content width and reserves the width of its longest valid time display. A placeholder contributes only while no value is selected, preventing value-dependent width shifts without retaining empty-state width once a value is present. The popup is at least trigger-wide but may use its intrinsic width when its wheels require more space. Each wheel reserves its own longest option so localized month labels are never clipped. The time mode has a 100px minimum inline size. The container owns external placement and optional sizing.
 
 ## Accessibility
 
-The associated visible `label` is the trigger's accessible name. `wheelLabels` name every wheel. The popup is exposed as a dialog, the wheels as listboxes and current wheel entries with `aria-selected`. Native `disabled` disables the trigger and prevents opening. Focus-visible styling uses the established focus-ring tokens. No positive `tabindex`, focus trap or programmatic focus other than close restoration is used.
+`label` is the trigger's accessible name. When a value is present, the visual label and placeholder are omitted while this accessible name remains available. `wheelLabels` name every wheel. The popup is exposed as a dialog, the wheels as listboxes and current wheel entries with `aria-selected`. Native `disabled` disables the trigger and prevents opening. Focus-visible styling uses the established focus-ring tokens. No positive `tabindex`, focus trap or programmatic focus other than close restoration is used.
 
 ## Validation and Evidence
 
