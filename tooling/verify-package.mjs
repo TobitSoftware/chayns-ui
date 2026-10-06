@@ -21,6 +21,8 @@ const packages = [
       'package/dist/breadcrumb.css',
       'package/dist/pagination.css',
       'package/dist/slider.css',
+      'package/dist/stepper.css',
+      'package/dist/tooltip.css',
       'package/dist/styles.css',
     ],
   },

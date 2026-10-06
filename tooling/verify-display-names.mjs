@@ -1,3 +1,4 @@
+import './verify-configuration-enums.mjs';
 import { readFile, readdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import ts from 'typescript';

@@ -323,3 +323,6 @@ baseline and explicit browser output targets stay compatible with the consumer c
 ESNext proposals and unsupported runtime APIs are not introduced as a substitute.
 React 18/19 share forwardRef; React 19 cleanup callbacks must survive composed refs.
 New APIs require verified support across the documented consumer baseline.
+
+`pnpm components:check` enforces explicit displayNames and checks that all exported
+finite configuration lists have a matching public enum with identical values.
