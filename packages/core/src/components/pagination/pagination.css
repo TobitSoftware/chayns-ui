@@ -1,0 +1,52 @@
+@layer chayns.components {
+  .chayns-pagination {
+    display: flex;
+    align-items: center;
+    gap: var(--k6);
+    min-inline-size: 0;
+    overflow-x: auto;
+  }
+
+  .chayns-pagination__page,
+  .chayns-pagination__arrow {
+    flex: none;
+    min-inline-size: var(--k34);
+    block-size: var(--k34);
+    padding-inline: var(--k6);
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: var(--fs-body);
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .chayns-pagination__arrow {
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    font-size: var(--fs-caption);
+  }
+
+  .chayns-pagination__page[aria-current='page'] {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .chayns-pagination__arrow:disabled {
+    color: var(--disabled-text);
+    cursor: not-allowed;
+  }
+
+  .chayns-pagination__page:focus-visible,
+  .chayns-pagination__arrow:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 var(--focus-ring-size)
+      rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-strong));
+  }
+
+  .chayns-pagination__ellipsis {
+    color: var(--text-2);
+  }
+}

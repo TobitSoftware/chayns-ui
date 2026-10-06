@@ -44,6 +44,7 @@
     "./segmented-control.css": "./dist/segmented-control.css",
     "./styles.css": "./dist/styles.css",
     "./breadcrumb.css": "./dist/breadcrumb.css",
+    "./pagination.css": "./dist/pagination.css",
     "./package.json": "./package.json"
   },
   "peerDependencies": {

@@ -114,3 +114,7 @@ export type {
 export { default as Breadcrumb } from './components/breadcrumb/Breadcrumb.js';
 export type { BreadcrumbProps } from './components/breadcrumb/Breadcrumb.types.js';
 export type { BreadcrumbItem } from './components/breadcrumb/Breadcrumb.types.js';
+
+export { default as Pagination } from './components/pagination/Pagination.js';
+export type { PaginationProps } from './components/pagination/Pagination.types.js';
+export type { PaginationLabels } from './components/pagination/Pagination.types.js';
