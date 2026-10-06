@@ -54,7 +54,10 @@ corner both use `--k12`; lower tab corners remain square.
 
 ## Appearance and selection rules (confirmed 2026-10-06)
 
-`TABS_APPEARANCES = ['attached', 'underline'] as const` defines `TabsAppearance`.
+`TabsAppearances.Attached` and `TabsAppearances.Underline` expose the configuration as
+a TypeScript enum. `TABS_APPEARANCES = ['attached', 'underline'] as const` and the
+`TabsAppearance` literal type remain compatible. Import the enum from `@chayns-ui/layout`
+and use `<Tabs appearance={TabsAppearances.Underline}>`; existing literal props remain valid.
 Root accepts `appearance`, default `attached`, with no change to existing props.
 Use attached for a top strip whose active tab joins its panel surface. Use underline
 for peer content views on a shared surface. Neither appearance is route navigation,

@@ -1,5 +1,11 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 
+/** Named configuration values; existing literal props and value lists remain supported. */
+export enum TabsAppearances {
+  Attached = 'attached',
+  Underline = 'underline',
+}
+
 export const TABS_APPEARANCES = ['attached', 'underline'] as const;
 export type TabsAppearance = (typeof TABS_APPEARANCES)[number];
 

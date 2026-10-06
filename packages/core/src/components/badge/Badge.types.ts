@@ -1,5 +1,20 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 
+/** Named configuration values; existing literal props and value lists remain supported. */
+export enum BadgeSizes {
+  Small = 'sm',
+  Medium = 'md',
+}
+
+/** Named configuration values; existing literal props and value lists remain supported. */
+export enum BadgeTones {
+  Neutral = 'neutral',
+  Accent = 'accent',
+  Success = 'success',
+  Warning = 'warning',
+  Danger = 'danger',
+}
+
 export const BADGE_TONES = ['neutral', 'accent', 'success', 'warning', 'danger'] as const;
 export type BadgeTone = (typeof BADGE_TONES)[number];
 

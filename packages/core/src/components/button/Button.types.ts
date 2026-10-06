@@ -1,5 +1,13 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 
+/** Named configuration values; existing literal props and value lists remain supported. */
+export enum ButtonVariants {
+  Primary = 'primary',
+  Outline = 'outline',
+  Ghost = 'ghost',
+  Danger = 'danger',
+}
+
 /**
  * @description Supported visual emphasis levels for {@link ButtonProps} and
  * `IconButtonProps`. Milestone 1 supports exactly these four values; there is

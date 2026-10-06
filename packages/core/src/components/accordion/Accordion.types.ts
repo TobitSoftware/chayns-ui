@@ -1,5 +1,11 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 
+/** Named configuration values; existing literal props and value lists remain supported. */
+export enum AccordionAppearances {
+  Default = 'default',
+  List = 'list',
+}
+
 export const ACCORDION_APPEARANCES = ['default', 'list'] as const;
 export type AccordionAppearance = (typeof ACCORDION_APPEARANCES)[number];
 

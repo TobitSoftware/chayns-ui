@@ -6,18 +6,23 @@ export type {
   ButtonProps,
   ButtonVariant,
 } from './components/button/Button.types.js';
-export { BUTTON_VARIANTS } from './components/button/Button.types.js';
+export { BUTTON_VARIANTS, ButtonVariants } from './components/button/Button.types.js';
 export type {
   IconButtonBaseProps,
   IconButtonProps,
 } from './components/icon-button/IconButton.types.js';
 
 export { default as Badge } from './components/badge/Badge.js';
-export { BADGE_SIZES, BADGE_TONES } from './components/badge/Badge.types.js';
+export {
+  BADGE_SIZES,
+  BADGE_TONES,
+  BadgeSizes,
+  BadgeTones,
+} from './components/badge/Badge.types.js';
 export type { BadgeProps, BadgeSize, BadgeTone } from './components/badge/Badge.types.js';
 
 export { default as Skeleton } from './components/skeleton/Skeleton.js';
-export { SKELETON_SHAPES } from './components/skeleton/Skeleton.types.js';
+export { SKELETON_SHAPES, SkeletonShapes } from './components/skeleton/Skeleton.types.js';
 export type { SkeletonProps, SkeletonShape } from './components/skeleton/Skeleton.types.js';
 
 export { default as Spinner } from './components/spinner/Spinner.js';
@@ -27,7 +32,7 @@ export { default as Progress } from './components/progress/Progress.js';
 export type { ProgressProps } from './components/progress/Progress.types.js';
 
 export { default as Banner } from './components/banner/Banner.js';
-export { BANNER_TONES } from './components/banner/Banner.types.js';
+export { BANNER_TONES, BannerTones } from './components/banner/Banner.types.js';
 export type {
   BannerProps,
   BannerTone,
@@ -50,6 +55,8 @@ export { default as DateTimePicker } from './components/date-time-picker/DateTim
 export {
   DATE_TIME_PICKER_MODES,
   DATE_TIME_PICKER_MINUTE_STEPS,
+  DateTimePickerModes,
+  DateTimePickerMinuteSteps,
   type DateTimePickerMinuteStep,
   type DateTimePickerMode,
   type DateTimePickerProps,
@@ -86,7 +93,7 @@ export type { CardHeaderProps, CardProps } from './components/card/Card.types.js
 
 export { default as Avatar } from './components/avatar/Avatar.js';
 export { default as AvatarGroup } from './components/avatar-group/AvatarGroup.js';
-export { AVATAR_SIZES } from './components/avatar/Avatar.types.js';
+export { AVATAR_SIZES, AvatarSizes } from './components/avatar/Avatar.types.js';
 export type { AvatarProps, AvatarSize } from './components/avatar/Avatar.types.js';
 export type { AvatarGroupProps } from './components/avatar-group/AvatarGroup.types.js';
 
@@ -101,7 +108,10 @@ export type {
 
 export { default as Accordion } from './components/accordion/Accordion.js';
 export { default as AccordionGroup } from './components/accordion-group/AccordionGroup.js';
-export { ACCORDION_APPEARANCES } from './components/accordion/Accordion.types.js';
+export {
+  ACCORDION_APPEARANCES,
+  AccordionAppearances,
+} from './components/accordion/Accordion.types.js';
 export type {
   AccordionAppearance,
   AccordionContentProps,

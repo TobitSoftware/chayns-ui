@@ -1,5 +1,19 @@
 import type { ComponentPropsWithRef } from 'react';
 
+/** Named configuration values; existing literal props and value lists remain supported. */
+export enum DateTimePickerMinuteSteps {
+  One = 1,
+  Five = 5,
+  Fifteen = 15,
+  Thirty = 30,
+}
+
+/** Named configuration values; existing literal props and value lists remain supported. */
+export enum DateTimePickerModes {
+  Date = 'date',
+  Time = 'time',
+}
+
 export const DATE_TIME_PICKER_MODES = ['date', 'time'] as const;
 export const DATE_TIME_PICKER_MINUTE_STEPS = [1, 5, 15, 30] as const;
 

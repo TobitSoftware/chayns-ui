@@ -8,7 +8,7 @@ export type {
   AppLayoutNavigationProps,
   AppLayoutProps,
 } from './components/app-layout/AppLayout.types.js';
-export { TABS_APPEARANCES } from './components/tabs/Tabs.types.js';
+export { TABS_APPEARANCES, TabsAppearances } from './components/tabs/Tabs.types.js';
 export { Tabs } from './components/tabs/Tabs.js';
 export type {
   TabsAppearance,

@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 
 import { Tabs } from '../src/components/tabs/Tabs.js';
+import { TabsAppearances } from '../src/components/tabs/Tabs.types.js';
 
 const meta = {
   title: 'Layout/Tabs',
@@ -57,5 +58,5 @@ export const WorkspaceTabs: Story = {
 
 export const Underline: Story = {
   ...WorkspaceTabs,
-  args: { ...WorkspaceTabs.args, appearance: 'underline' },
+  args: { ...WorkspaceTabs.args, appearance: TabsAppearances.Underline },
 };

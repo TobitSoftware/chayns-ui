@@ -1,5 +1,12 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 
+/** Named configuration values; existing literal props and value lists remain supported. */
+export enum AvatarSizes {
+  Default = 'default',
+  Small = 'small',
+  Large = 'large',
+}
+
 export const AVATAR_SIZES = ['default', 'small', 'large'] as const;
 export type AvatarSize = (typeof AVATAR_SIZES)[number];
 

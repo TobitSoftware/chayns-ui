@@ -1,5 +1,13 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 
+/** Named configuration values; existing literal props and value lists remain supported. */
+export enum BannerTones {
+  Neutral = 'neutral',
+  Success = 'success',
+  Warning = 'warning',
+  Danger = 'danger',
+}
+
 import type { ButtonIcon } from '../button/Button.types.js';
 
 export const BANNER_TONES = ['neutral', 'success', 'warning', 'danger'] as const;
