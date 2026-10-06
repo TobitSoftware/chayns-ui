@@ -81,7 +81,8 @@ Milestone 1 supports interactive FontAwesome-Classic icons with an available Reg
 
 ## Semantic Contract — Conditional
 
-Both roots are native buttons. `aria-disabled` never replaces native `disabled`. Button obtains its accessible name from required visible content unless the consumer uses a compatible native naming prop. IconButton requires exactly one of non-empty `aria-label` or `aria-labelledby` at the TypeScript contract level. Internal icon wrappers are decorative and cannot add duplicate accessible names.
+Both roots are native buttons. `aria-disabled` never replaces native `disabled`. Button obtains its accessible name from required visible content unless the consumer uses a compatible native naming prop. IconButton requires exactly one of non-empty `aria-label` or `aria-labelledby` at the TypeScript contract level. Internal icon wrappers are decorative, cannot add duplicate accessible names and
+do not intercept pointer hits; native controls own activation even after SVG replacement.
 
 ## Variants — Required
 

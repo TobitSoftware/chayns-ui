@@ -107,8 +107,10 @@ repairs using existing internal renderers. The Stepper no longer duplicates rend
 markup. Informational glyphs remain Regular, SVG replacement stays compatible, and
 single-component CSS imports resolve shared rules. Chromium/WebKit checks cover
 native hover/active/disabled states, PopupList portal content and the standalone
-Stepper stylesheet. Card's confirmed Button-like 1px hover lift and Reduced Motion
-suppression also passed. Full verification remains at 185 unit and 89 Storybook
+Stepper stylesheet. The subsequent explicit Bodywork correction supersedes the Button comparison:
+Card uses a 4px lift with its own exact timing, Solid header glyph and accent icon
+surface; Button/IconButton/SplitButton press behavior and Badge lift also match
+the checked reference. Reduced Motion suppresses their decorative transforms. Full verification remains at 185 unit and 89 Storybook
 tests, with all 89 static stories loading in both engines. Static checks now isolate
 pages after reproducing a cancelled prior-document request being attributed to the
 next WebKit story. No consumer API changed in this follow-up.

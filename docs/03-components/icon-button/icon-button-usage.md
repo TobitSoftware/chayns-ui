@@ -27,4 +27,4 @@ Unklare Icons oder Aktionen, die einen sichtbaren Text benötigen. Nicht für Na
 
 ## Besonderheiten
 
-Ein lokalisierter zugänglicher Name über aria-label oder aria-labelledby ist Pflicht. variant ist erforderlich; loading und native Button-Props funktionieren wie bei Button.
+Ein lokalisierter zugänglicher Name über aria-label oder aria-labelledby ist Pflicht. variant ist erforderlich; loading und native Button-Props funktionieren wie bei Button. Hover hebt um 2px an und zeigt Solid; Druck setzt zurück und skaliert auf 90%. Reduced Motion unterdrückt die Bewegung.

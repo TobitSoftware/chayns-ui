@@ -37,7 +37,15 @@ switches owned action glyphs to Solid on enabled hover/active, while information
 glyphs stay Regular. SVG replacement and native control states were checked in
 Chromium and WebKit, including PopupList portal content. Individual component CSS
 imports retain their shared icon dependencies. Card now combines its hover shadow
-with the confirmed 1px lift; Reduced Motion suppresses the decorative movement.
+with the verified 4px lift (220ms entry curve), Solid header icon and accent icon
+surface (220ms color / 280ms scale); no Card press effect exists. Button uses the
+140ms lift/press and 97% scale; IconButton uses its separate Bodywork transforms.
+Both SplitButton halves now share Button styles. Badge uses the checked 2px lift,
+saturation and shadow. Reduced Motion suppresses decorative transforms/transitions.
+Real pointer checks in Chromium and WebKit cover computed timing/easing, states,
+SVG replacement and keyboard-focus priority; Banner information remains static.
+Decorative SVG wrappers pass pointer hits to native controls, fixing WebKit press
+feedback when a pointer lands directly on the SplitButton chevron.
 The static import verifier isolates pages to avoid attributing cancelled requests
 from a previous story to the next one. Full verification remains green.
 

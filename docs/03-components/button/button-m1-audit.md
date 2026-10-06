@@ -7,6 +7,9 @@
 - Environment: full local `pnpm verify` on the exact pinned Node 24.19.0; implementation checks additionally ran on Node 22.15.0 with the expected engine warning
 - Status: IMPLEMENTED; npm publication remains separately authorized
 
+This is historical Milestone-1 evidence. Its no-motion findings are superseded by
+BUTTON-017 and the current [Button Motion Contract](button-specification.md#motion-contract--required).
+
 ## Traceability
 
 | Contract | Evidence | Result |
