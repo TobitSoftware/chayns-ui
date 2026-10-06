@@ -25,4 +25,4 @@ Die gesamte Fläche als Aktion verwenden oder Business-Logik im Container unterb
 
 ## Besonderheiten
 
-Card übernimmt die inneren Standardabstände. Bei Hover hebt sie sich wie Button um 1px mit Schatten an; bei Reduced Motion bleibt nur der Schatten. Header ist optional. Aktionen und Navigation bleiben native Controls bzw. Links innerhalb des Inhalts.
+Card übernimmt die inneren Standardabstände. Bei Hover hebt sie sich um 4px in 220ms mit Schatten an, ohne Druck-Effekt. Das Header-Icon wird Solid; seine Fläche wächst leicht und wechselt zur Akzentfarbe. Reduced Motion unterdrückt die Bewegung. Header ist optional. Aktionen und Navigation bleiben native Controls bzw. Links innerhalb des Inhalts.

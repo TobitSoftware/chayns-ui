@@ -8,7 +8,9 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
-    transition: transform 0.15s ease;
+    transition:
+      transform 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
+      box-shadow 0.22s ease;
   }
 
   .chayns-card__header {
@@ -29,6 +31,11 @@
     place-items: center;
     border-radius: 8px;
     background: var(--surface-alt);
+    color: var(--accent);
+    transition:
+      transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1),
+      background 0.22s ease,
+      color 0.22s ease;
   }
 
   .chayns-card__header-content {
@@ -38,16 +45,34 @@
   @media (hover: hover) {
     .chayns-card:hover {
       box-shadow: var(--shadow-hover);
-      transform: translateY(-1px);
+      transform: translateY(-4px);
+    }
+
+    .chayns-card:hover .chayns-card__header-icon {
+      transform: scale(1.08);
+      background: var(--accent);
+      color: var(--on-accent);
+    }
+
+    .chayns-card:hover
+      .chayns-card__header-icon
+      .chayns-button-icon__weight:not(.chayns-button-icon__weight--active) {
+      display: none;
+    }
+
+    .chayns-card:hover .chayns-card__header-icon .chayns-button-icon__weight--active {
+      display: inline-flex;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .chayns-card {
+    .chayns-card,
+    .chayns-card__header-icon {
       transition: none;
     }
 
-    .chayns-card:hover {
+    .chayns-card:hover,
+    .chayns-card:hover .chayns-card__header-icon {
       transform: none;
     }
   }

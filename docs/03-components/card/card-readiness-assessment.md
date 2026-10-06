@@ -39,7 +39,7 @@
 | 20 | Accessibility | PASS | Non-interactive surface; no name/role/focus obligations; no focus trap. |
 | 21 | Keyboard | N/A | Not interactive. |
 | 22 | Focus | N/A | Not focusable. |
-| 23 | Motion | PASS | No motion. |
+| 23 | Motion | PASS | CARD-006: checked Bodywork lift/icon transitions, no press effect and Reduced Motion suppression. |
 | 24 | Internationalization and Content | PASS | Renders content verbatim; no locale/direction assumptions. |
 | 25 | Responsive and Layout | PASS | Block surface; container owns placement and spacing. |
 | 26 | Container Interaction | PASS | Container owns external spacing and placement. |
@@ -73,8 +73,13 @@ No blocking items.
 
 This READY result authorizes implementation only for the Card contract in the referenced specification.
 
-## Hover lift correction — 2026-10-06
+## Bodywork hover correction — 2026-10-06
 
-READY includes the user-requested lift matching Button: -1px, transform 0.15s ease,
-existing shadow-hover and no lift/transition under Reduced Motion. Bodywork .tr was
-rechecked on 2026-10-06; no new token, action semantics or variant is introduced.
+READY extends to CARD-006 after the explicit user correction and fresh inspection
+of Bodywork `#motion`, `.lift` and `.card-icon` in the live HTML / `tobit-ds.css`.
+The specification records exact lift, timing, easing, icon scaling and color tokens;
+Reduced Motion suppresses decorative transforms and transitions. Checked states:
+rest, whole-Card hover, pointer down without press effect, leave and Reduced Motion.
+Storybook evidence: `Core/Card:Default`. Native semantics and CARD-004 geometry
+remain confirmed; no API, token or variant is added. No open design review blocks
+this scope. CARD-005's Button comparison is superseded.

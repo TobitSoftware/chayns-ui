@@ -150,12 +150,26 @@ Not applicable; Card is not focusable and manages no focus.
 
 ## Motion Contract — Required
 
-Confirmed user correction 2026-10-06: on hover-capable devices Card combines
-`--shadow-hover` with `translateY(-1px)`, matching the existing Button hover lift.
-Only transform transitions (`0.15s ease`, from the checked Button/Bodywork .tr
-reference); the shadow changes immediately. Reduced motion disables the decorative
-lift and transition while retaining the hover shadow. Card remains non-interactive;
-its informational header icon stays Regular. No geometry, API or semantic change.
+Confirmed user correction 2026-10-06 (CARD-006), superseding CARD-005:
+Bodywork `#motion`, `.lift` and `.card-icon` were checked against the live HTML
+and `tobit-ds.css` on 2026-10-06. Hover-capable devices apply `translateY(-4px)`
+and `--shadow-hover`; transform uses `220ms cubic-bezier(.22,.61,.36,1)` and
+box-shadow uses `220ms ease`. Card has no press effect.
+
+The existing Header icon area uses `--surface-alt` / `--accent` at rest. Hovering
+anywhere on Card switches its paired glyph from Regular to Solid, scales that
+area to `1.08` (`280ms cubic-bezier(.22,.61,.36,1)`) and changes its background
+to `--accent` and foreground to `--on-accent` (both `220ms ease`). Single-weight
+icons retain their available style. Only the owned header glyph changes; nested
+actions retain their own enabled/disabled state and consumers own arbitrary content.
+
+These exact Bodywork shadow/background/color transitions are documented exceptions
+to the general transform/opacity rule. Reduced Motion disables all these transitions,
+the Card lift and icon scaling; shadow, color and Solid feedback remain immediate.
+The confirmed CARD-004 geometry, native semantics, props and refs stay intact.
+Storybook evidence: `Core/Card:Default`; verify real pointer hover, pointer down
+(no press transform), pointer leave, SVG replacement and Reduced Motion in Chromium
+and WebKit. No unresolved DESIGN REVIEW items apply to this correction.
 
 ## Internationalization and Content Contract — Conditional
 
