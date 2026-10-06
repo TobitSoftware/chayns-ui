@@ -13,6 +13,7 @@
   },
   "scripts": {
     "build": "corepack pnpm --recursive --if-present run build",
+    "components:check": "node tooling/verify-display-names.mjs",
     "clean": "corepack pnpm --recursive --if-present run clean",
     "consumer:check": "node tooling/verify-consumer.mjs",
     "format": "prettier --write .",
@@ -32,7 +33,7 @@
     "tokens:check": "node tooling/verify-tokens.mjs",
     "tree-shaking:check": "node tooling/verify-tree-shaking.mjs",
     "typecheck": "tsc -b --pretty false",
-    "verify": "corepack pnpm format:check && corepack pnpm lint && corepack pnpm lint:css && corepack pnpm typecheck && corepack pnpm build && corepack pnpm test:unit && corepack pnpm test:types && corepack pnpm tokens:check && corepack pnpm storybook:build && corepack pnpm test:storybook && corepack pnpm package:check && corepack pnpm tree-shaking:check && corepack pnpm consumer:check"
+    "verify": "corepack pnpm format:check && corepack pnpm components:check && corepack pnpm lint && corepack pnpm lint:css && corepack pnpm typecheck && corepack pnpm build && corepack pnpm test:unit && corepack pnpm test:types && corepack pnpm tokens:check && corepack pnpm storybook:build && corepack pnpm test:storybook && corepack pnpm package:check && corepack pnpm tree-shaking:check && corepack pnpm consumer:check"
   },
   "devDependencies": {
     "@eslint/js": "9.39.5",

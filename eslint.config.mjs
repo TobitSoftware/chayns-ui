@@ -9,6 +9,7 @@ import tseslint from 'typescript-eslint';
 export default tseslint.config(
   { ignores: ['**/dist/**', '**/coverage/**', 'storybook-static/**'] },
   eslint.configs.recommended,
+  { languageOptions: { ecmaVersion: 'latest', sourceType: 'module' } },
   ...tseslint.configs.recommendedTypeChecked.map((config) => ({
     ...config,
     files: ['**/*.{ts,tsx}'],

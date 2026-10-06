@@ -86,7 +86,8 @@ export type { CardHeaderProps, CardProps } from './components/card/Card.types.js
 
 export { default as Avatar } from './components/avatar/Avatar.js';
 export { default as AvatarGroup } from './components/avatar-group/AvatarGroup.js';
-export type { AvatarProps } from './components/avatar/Avatar.types.js';
+export { AVATAR_SIZES } from './components/avatar/Avatar.types.js';
+export type { AvatarProps, AvatarSize } from './components/avatar/Avatar.types.js';
 export type { AvatarGroupProps } from './components/avatar-group/AvatarGroup.types.js';
 
 export { default as List } from './components/list/List.js';

@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
+import { AVATAR_SIZES } from '../src/components/avatar/Avatar.types.js';
 import Avatar from '../src/components/avatar/Avatar.js';
 
 const meta = {
   title: 'Core/Avatar',
   component: Avatar,
   tags: ['autodocs'],
+  argTypes: { size: { control: 'select', options: AVATAR_SIZES } },
   parameters: {
     a11y: { test: 'error' },
   },

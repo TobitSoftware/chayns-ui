@@ -1,5 +1,8 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 
+export const AVATAR_SIZES = ['default', 'small', 'large'] as const;
+export type AvatarSize = (typeof AVATAR_SIZES)[number];
+
 /**
  * @description Props for a single circular identity avatar: an image with a
  * deterministic initials-and-tone fallback. `size` is a designer-approved
@@ -21,7 +24,7 @@ export interface AvatarProps extends Omit<
    * @description Avatar geometry variant.
    * @default 'default'
    */
-  size?: 'default' | 'small' | 'large';
+  size?: AvatarSize;
 
   /**
    * @description Optional image source. Initials are shown instead when
