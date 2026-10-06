@@ -8,9 +8,10 @@ const AvatarGroup = forwardRef<HTMLSpanElement, AvatarGroupProps>(function Avata
   ref,
 ) {
   const avatars = Children.toArray(children).filter((child) => isValidElement<AvatarProps>(child));
-  const limited = typeof max === 'number' && max > 0;
-  const visibleCount = limited ? Math.max(max - 1, 0) : avatars.length;
-  const overflowCount = limited && avatars.length > max ? avatars.length - visibleCount : 0;
+  const limited = typeof max === 'number' && Number.isFinite(max) && max >= 1;
+  const hasOverflow = limited && avatars.length > max;
+  const visibleCount = hasOverflow ? Math.max(Math.floor(max) - 1, 0) : avatars.length;
+  const overflowCount = hasOverflow ? avatars.length - visibleCount : 0;
 
   return (
     <span

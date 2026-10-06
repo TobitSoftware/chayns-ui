@@ -20,6 +20,17 @@ describe('AvatarGroup', () => {
     expect(screen.getByText('+3')).toHaveClass('chayns-avatar-group__overflow');
   });
 
+  it('keeps every avatar when the total equals the maximum', () => {
+    render(
+      <AvatarGroup max={2}>
+        <Avatar name="Eva" />
+        <Avatar name="Thomas" />
+      </AvatarGroup>,
+    );
+    expect(screen.getAllByRole('img')).toHaveLength(2);
+    expect(screen.queryByText('+1')).not.toBeInTheDocument();
+  });
+
   it('applies the group size to every visible avatar and the overflow tile', () => {
     render(
       <AvatarGroup max={2} size="small">
