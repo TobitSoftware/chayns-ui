@@ -1,6 +1,8 @@
 import { readFile, readdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
+import { verifyUsageExamples } from './verify-usage-examples.mjs';
+
 const root = resolve(import.meta.dirname, '..');
 const directory = resolve(root, 'docs/03-components');
 const schema = JSON.parse(
@@ -51,6 +53,8 @@ function validate(value, rule, path) {
 const documented = new Set();
 const usageGuides = [];
 const storybookPages = new Set();
+const storybookStories = new Set();
+const combinations = [];
 for (const entry of await readdir(directory, { withFileTypes: true })) {
   if (!entry.isDirectory() || entry.name === 'schemas') continue;
   if (!(await readdir(resolve(directory, entry.name))).includes(`${entry.name}-specification.md`))
@@ -65,6 +69,7 @@ for (const entry of await readdir(directory, { withFileTypes: true })) {
     throw new Error(`${entry.name}: ready/implemented components require Storybook evidence.`);
   if (documented.has(metadata.name)) throw new Error(`Duplicate component ${metadata.name}`);
   documented.add(metadata.name);
+  combinations.push({ name: metadata.name, values: metadata.combinations });
   const usagePath = resolve(directory, entry.name, `${entry.name}-usage.md`);
   const usage = await readFile(usagePath, 'utf8');
   const headings = [...usage.matchAll(/^## (.+)$/gm)].map((match) => match[1]);
@@ -78,6 +83,10 @@ for (const entry of await readdir(directory, { withFileTypes: true })) {
   ];
   if (JSON.stringify(headings) !== JSON.stringify(requiredHeadings))
     throw new Error(`${entry.name}: usage guide must contain the six consumer sections.`);
+  for (const section of usage.split(/^## .+$/m).slice(1)) {
+    if (!section.replace(/```[\s\S]*?```/g, '').trim())
+      throw new Error(`${entry.name}: each consumer section needs an explanation.`);
+  }
   if (!usage.includes('```tsx\n'))
     throw new Error(`${entry.name}: usage guide requires a composition example.`);
   usageGuides.push({ name: entry.name, source: usage });
@@ -91,7 +100,10 @@ for (const entry of await readdir(directory, { withFileTypes: true })) {
     );
     if (!storySource.includes(`export const ${name}:`))
       throw new Error(`${entry.name}: missing story ${story}`);
-    storybookPages.add(`${title.toLowerCase().replaceAll('/', '-')}--docs`);
+    const pageId = title.toLowerCase().replaceAll('/', '-');
+    storybookPages.add(`${pageId}--docs`);
+    const storyId = name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+    storybookStories.add(`${pageId}--${storyId}`);
     hasUsageImport ||= storySource.includes(`${entry.name}/${entry.name}-usage.md?raw`);
   }
   if (!hasUsageImport)
@@ -101,12 +113,20 @@ for (const entry of await readdir(directory, { withFileTypes: true })) {
       await readFile(resolve(directory, entry.name, reference.split('#')[0]), 'utf8');
   }
 }
-for (const guide of usageGuides) {
-  for (const link of guide.source.matchAll(/\]\(\?path=\/docs\/([^\s)]+)\)/g)) {
-    if (!storybookPages.has(link[1]))
-      throw new Error(`${guide.name}: unknown Storybook documentation page ${link[1]}`);
+for (const component of combinations) {
+  for (const name of component.values) {
+    if (!documented.has(name))
+      throw new Error(`${component.name}: unknown combination component ${name}`);
   }
 }
+for (const guide of usageGuides) {
+  for (const link of guide.source.matchAll(/\]\(\?path=\/(docs|story)\/([^\s)]+)\)/g)) {
+    const targets = link[1] === 'docs' ? storybookPages : storybookStories;
+    if (!targets.has(link[2]))
+      throw new Error(`${guide.name}: unknown Storybook ${link[1]} target ${link[2]}`);
+  }
+}
+const exampleCount = await verifyUsageExamples(root, usageGuides);
 for (const packageName of ['core', 'layout']) {
   const exports = await readFile(resolve(root, 'packages', packageName, 'src/index.ts'), 'utf8');
   const names = [...exports.matchAll(/export \{ (?:default as )?([A-Z][a-zA-Z]+) \} from/g)].map(
@@ -117,5 +137,5 @@ for (const packageName of ['core', 'layout']) {
       throw new Error(`Missing specification for exported component ${name}`);
 }
 console.log(
-  `Validated ${documented.size} component specifications, usage guides and Storybook references.`,
+  `Validated ${documented.size} component specifications, usage guides, ${exampleCount} typed examples and Storybook references.`,
 );
