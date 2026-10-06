@@ -78,7 +78,10 @@ compatibility with the user's particular Safari version or profile. The static
 import check logs engine versions so this evidence can be compared explicitly.
 Live story modules returned successful responses during inspection. This does not
 identify the user's actual failing Safari/runtime/network condition. Exact browser
-version and failed request/console details remain needed if the error persists.
+version and failed request/console details would be needed if the error returns.
+On 2026-10-06 the user subsequently confirmed that Safari now also works normally.
+The investigation is therefore dormant pending recurrence; no root cause or verified
+fix is claimed, and no further browser details are currently requested.
 No live deployment or push is part of these local changes.
 
 ## Blocked next components
