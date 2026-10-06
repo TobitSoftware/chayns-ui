@@ -71,7 +71,11 @@ exports/ESM types, tree-shaking and consumer typecheck/build/SSR also passed.
 CI and Pages build verification now check the static artifact before upload.
 These automated results do not close the manual release checks listed above.
 
-The reported live import error was not reproduced in current Chromium or WebKit.
+The user confirmed that the live import error occurs in Safari while the same view
+opens in Chrome. The reported live import error was not reproduced in current
+Chromium or the installed Playwright WebKit 26.5. That test engine does not establish
+compatibility with the user's particular Safari version or profile. The static
+import check logs engine versions so this evidence can be compared explicitly.
 Live story modules returned successful responses during inspection. This does not
 identify the user's actual failing Safari/runtime/network condition. Exact browser
 version and failed request/console details remain needed if the error persists.

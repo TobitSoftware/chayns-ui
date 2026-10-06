@@ -65,7 +65,9 @@ try {
           errors.push(await page.locator('.sb-errordisplay').innerText());
         if (errors.length) throw new Error(`${name}: ${story.id}\n${errors.join('\n')}`);
       }
-      console.log(`${name}: rendered all ${stories.length} static stories without module errors.`);
+      console.log(
+        `${name} ${browser.version()}: rendered all ${stories.length} static stories without module errors.`,
+      );
     } finally {
       await browser.close();
     }
