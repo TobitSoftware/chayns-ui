@@ -11,12 +11,12 @@ export type ListItemActionProps =
       type?: never;
     });
 
-export interface ListItemPartProps {
+export interface ListItemPartProps extends ComponentPropsWithRef<'span'> {
   children: ReactNode;
   className?: string;
 }
 
-export interface ListItemStatusProps {
+export interface ListItemStatusProps extends Omit<ComponentPropsWithRef<'span'>, 'children'> {
   /** Localized description of the otherwise colour-only status dot. */
   label: Exclude<ReactNode, boolean | null | undefined>;
 }

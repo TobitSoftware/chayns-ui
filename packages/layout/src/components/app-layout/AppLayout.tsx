@@ -1,5 +1,5 @@
 import { createContext, forwardRef, useContext, useId, useState } from 'react';
-import type { ComponentPropsWithRef } from 'react';
+import type { ComponentPropsWithRef, Ref } from 'react';
 import type {
   AppLayoutCollapseToggleProps,
   AppLayoutContentProps,
@@ -69,15 +69,13 @@ const Navigation = forwardRef<HTMLElement, AppLayoutNavigationProps>(function Na
     </NavigationContext.Provider>
   );
 });
-function NavigationItem({
-  children,
-  className,
-  href,
-  icon,
-  isActive = false,
-  label,
-  ...props
-}: AppLayoutNavigationItemProps) {
+const NavigationItem = forwardRef<
+  HTMLAnchorElement | HTMLButtonElement,
+  AppLayoutNavigationItemProps
+>(function NavigationItem(
+  { children, className, href, icon, isActive = false, label, ...props },
+  ref,
+) {
   if (!useContext(NavigationContext))
     throw new Error('AppLayout.Navigation.Item must be rendered within AppLayout.Navigation.');
   const { collapsed } = useLayout('Navigation.Item');
@@ -86,6 +84,7 @@ function NavigationItem({
   const hasChildren = children !== undefined;
   const content = (
     <span
+      id={`${childrenId}-label`}
       className={`chayns-app-layout__label${collapsed ? ' chayns-app-layout__label--hidden' : ''}`}
     >
       {label}
@@ -95,20 +94,21 @@ function NavigationItem({
   return (
     <li className={`chayns-app-layout__item${isActive ? ' chayns-app-layout__item--active' : ''}`}>
       <div className="chayns-app-layout__row">
-        {href ? (
+        {href !== undefined ? (
           <a
             {...(props as ComponentPropsWithRef<'a'>)}
             aria-current={isActive ? 'page' : undefined}
             className={actionClass}
             href={href}
+            ref={ref as Ref<HTMLAnchorElement>}
           >
             {icon ? <AppLayoutIcon icon={icon} /> : null}
             {content}
           </a>
         ) : (
           <button
-            {...props}
-            aria-current={isActive ? 'page' : undefined}
+            {...(props as ComponentPropsWithRef<'button'>)}
+            ref={ref as Ref<HTMLButtonElement>}
             className={actionClass}
             type="button"
           >
@@ -118,7 +118,7 @@ function NavigationItem({
         )}
         {hasChildren && !collapsed ? (
           <button
-            aria-label={typeof label === 'string' ? label : undefined}
+            aria-labelledby={`${childrenId}-label`}
             aria-controls={childrenId}
             aria-expanded={expanded}
             className="chayns-app-layout__disclosure"
@@ -141,7 +141,7 @@ function NavigationItem({
       ) : null}
     </li>
   );
-}
+});
 const Content = forwardRef<HTMLElement, AppLayoutContentProps>(function Content(
   { children, className, ...props },
   ref,

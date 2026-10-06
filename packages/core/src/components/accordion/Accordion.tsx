@@ -23,30 +23,45 @@ import type {
   AccordionProps,
 } from './Accordion.types.js';
 
-function Part({ children, className, name }: AccordionPartProps & { name: string }) {
-  useAccordionItemContext(name);
-  return (
-    <span
-      className={[`chayns-accordion__${name.toLowerCase()}`, className].filter(Boolean).join(' ')}
-    >
-      {children}
-    </span>
-  );
+function createHeadPart(name: 'Leading' | 'Trailing') {
+  const HeadPart = forwardRef<HTMLSpanElement, AccordionPartProps>(function HeadPart(
+    { children, className, ...spanProps },
+    ref,
+  ) {
+    useAccordionItemContext(`Head.${name}`);
+    return (
+      <span
+        {...spanProps}
+        className={[`chayns-accordion__${name.toLowerCase()}`, className].filter(Boolean).join(' ')}
+        ref={ref}
+      >
+        {children}
+      </span>
+    );
+  });
+  HeadPart.displayName = `Accordion.Head.${name}`;
+  return HeadPart;
 }
 
-const HeadLeading = (props: AccordionPartProps) => <Part {...props} name="leading" />;
-const HeadTrailing = (props: AccordionPartProps) => <Part {...props} name="trailing" />;
+const HeadLeading = createHeadPart('Leading');
+const HeadTrailing = createHeadPart('Trailing');
 
-function HeadContent({ className, subtitle, title }: AccordionHeadContentProps) {
+const HeadContent = forwardRef<HTMLSpanElement, AccordionHeadContentProps>(function HeadContent(
+  { className, subtitle, title, ...spanProps },
+  ref,
+) {
   useAccordionItemContext('Head.Content');
-
   return (
-    <span className={['chayns-accordion__head-content', className].filter(Boolean).join(' ')}>
+    <span
+      {...spanProps}
+      className={['chayns-accordion__head-content', className].filter(Boolean).join(' ')}
+      ref={ref}
+    >
       <span className="chayns-accordion__title">{title}</span>
       {subtitle ? <span className="chayns-accordion__subtitle">{subtitle}</span> : null}
     </span>
   );
-}
+});
 
 const AccordionHead = forwardRef<HTMLButtonElement, AccordionHeadProps>(function AccordionHead(
   { children, className, onClick, ...buttonProps },
@@ -213,7 +228,6 @@ const Accordion = Object.assign(AccordionRoot, {
   }),
 });
 
-Object.assign(Part, { displayName: 'Accordion.Part' });
 Object.assign(HeadLeading, { displayName: 'Accordion.Head.Leading' });
 Object.assign(HeadTrailing, { displayName: 'Accordion.Head.Trailing' });
 Object.assign(HeadContent, { displayName: 'Accordion.Head.Content' });

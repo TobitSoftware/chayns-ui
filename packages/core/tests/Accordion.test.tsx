@@ -8,6 +8,20 @@ import Accordion from '../src/components/accordion/Accordion.js';
 import AccordionGroup from '../src/components/accordion-group/AccordionGroup.js';
 
 describe('Accordion', () => {
+  it('forwards compatible native span props and refs on public header parts', () => {
+    const ref = createRef<HTMLSpanElement>();
+    render(
+      <Accordion>
+        <Accordion.Head>
+          <Accordion.Head.Content title="Section" ref={ref} data-part="content" />
+        </Accordion.Head>
+        <Accordion.Content>Body</Accordion.Content>
+      </Accordion>,
+    );
+    expect(ref.current).toHaveAttribute('data-part', 'content');
+    expect(ref.current).toHaveTextContent('Section');
+  });
+
   it('forwards native root props and ref to the Accordion root', () => {
     const rootRef = createRef<HTMLDivElement>();
 

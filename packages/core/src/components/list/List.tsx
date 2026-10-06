@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, type Ref } from 'react';
 
 import { ListContext, ListItemContext, useListContext, useListItemContext } from './ListContext.js';
 import type {
@@ -25,57 +25,80 @@ const Item = forwardRef<HTMLLIElement, ListItemProps>(function Item(
   );
 });
 
-function Action(props: ListItemActionProps) {
-  useListItemContext('Action');
+const Action = forwardRef<HTMLAnchorElement | HTMLButtonElement, ListItemActionProps>(
+  function Action(props, ref) {
+    useListItemContext('Action');
 
-  if (props.href !== undefined) {
-    const { children, className, href, ...anchorProps } = props;
+    if (props.href !== undefined) {
+      const { children, className, href, ...anchorProps } = props;
+      const resolvedClassName = ['chayns-list-item__action', className].filter(Boolean).join(' ');
+
+      return (
+        <a
+          {...anchorProps}
+          className={resolvedClassName}
+          href={href}
+          ref={ref as Ref<HTMLAnchorElement>}
+        >
+          {children}
+        </a>
+      );
+    }
+
+    const { children, className, ...buttonProps } = props;
     const resolvedClassName = ['chayns-list-item__action', className].filter(Boolean).join(' ');
 
     return (
-      <a {...anchorProps} className={resolvedClassName} href={href}>
+      <button
+        {...buttonProps}
+        className={resolvedClassName}
+        ref={ref as Ref<HTMLButtonElement>}
+        type="button"
+      >
         {children}
-      </a>
+      </button>
     );
-  }
-
-  const { children, className, ...buttonProps } = props;
-  const resolvedClassName = ['chayns-list-item__action', className].filter(Boolean).join(' ');
-
-  return (
-    <button {...buttonProps} className={resolvedClassName} type="button">
-      {children}
-    </button>
-  );
-}
+  },
+);
 
 function createPart(name: 'Leading' | 'Body' | 'Title' | 'Description' | 'Trailing') {
   const className = `chayns-list-item__${name.toLowerCase()}`;
 
-  const ListItemPart = function ListItemPart({
-    children,
-    className: consumerClassName,
-  }: ListItemPartProps) {
+  const ListItemPart = forwardRef<HTMLSpanElement, ListItemPartProps>(function ListItemPart(
+    { children, className: consumerClassName, ...spanProps },
+    ref,
+  ) {
     useListItemContext(name);
     const resolvedClassName = [className, consumerClassName].filter(Boolean).join(' ');
 
-    return <span className={resolvedClassName}>{children}</span>;
-  };
+    return (
+      <span {...spanProps} className={resolvedClassName} ref={ref}>
+        {children}
+      </span>
+    );
+  });
 
-  Object.assign(ListItemPart, { displayName: `List.Item.${name}` });
+  ListItemPart.displayName = `List.Item.${name}`;
   return ListItemPart;
 }
 
-function Status({ label }: ListItemStatusProps) {
+const Status = forwardRef<HTMLSpanElement, ListItemStatusProps>(function Status(
+  { label, className, ...spanProps },
+  ref,
+) {
   useListItemContext('Status');
 
   return (
-    <span className="chayns-list-item__status">
+    <span
+      {...spanProps}
+      className={['chayns-list-item__status', className].filter(Boolean).join(' ')}
+      ref={ref}
+    >
       <span aria-hidden="true" className="chayns-list-item__status-dot" />
       <span className="chayns-visually-hidden">{label}</span>
     </span>
   );
-}
+});
 
 const ListRoot = forwardRef<HTMLUListElement, ListProps>(function List(
   { children, className, ...listProps },

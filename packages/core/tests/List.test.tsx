@@ -25,6 +25,25 @@ describe('List', () => {
     expect(screen.getByRole('listitem')).toHaveAttribute('data-row', 'one');
   });
 
+  it('forwards refs and native props on action and content parts', () => {
+    const actionRef = createRef<HTMLAnchorElement>();
+    const titleRef = createRef<HTMLSpanElement>();
+    render(
+      <List>
+        <List.Item>
+          <List.Item.Action href="/target" ref={actionRef}>
+            <List.Item.Title ref={titleRef} data-part="title">
+              Target
+            </List.Item.Title>
+          </List.Item.Action>
+        </List.Item>
+      </List>,
+    );
+    expect(screen.getByRole('link', { name: 'Target' })).toBe(actionRef.current);
+    expect(screen.getByText('Target')).toBe(titleRef.current);
+    expect(titleRef.current).toHaveAttribute('data-part', 'title');
+  });
+
   it('renders native button and anchor actions without nested trailing controls', async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();

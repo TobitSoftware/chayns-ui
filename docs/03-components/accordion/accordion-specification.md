@@ -234,3 +234,10 @@ See `accordion-readiness-assessment.md`. Gate result: READY.
 ## Specification Change Rules — Required
 
 Any new presentation, group mode, wrapped prop, header action or animated property requires a new decision and a specification update before implementation.
+
+## Foundation audit — 2026-10-06
+
+Public Head.Leading, Head.Content and Head.Trailing forward compatible span props
+and native span refs. Head.Content owns its semantic title/children fields; these
+collide with the native title attribute and are explicitly excluded. The leaf slots
+retain their documented Parent and do not introduce new component anatomy.

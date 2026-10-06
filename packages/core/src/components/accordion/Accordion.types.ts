@@ -112,13 +112,16 @@ export interface AccordionHeadProps extends Omit<ComponentPropsWithRef<'button'>
   children?: ReactNode;
 }
 
-export interface AccordionHeadContentProps {
+export interface AccordionHeadContentProps extends Omit<
+  ComponentPropsWithRef<'span'>,
+  'title' | 'children'
+> {
   title: ReactNode;
   subtitle?: ReactNode;
   className?: string;
 }
 
-export interface AccordionPartProps {
+export interface AccordionPartProps extends ComponentPropsWithRef<'span'> {
   children?: ReactNode;
   className?: string;
 }

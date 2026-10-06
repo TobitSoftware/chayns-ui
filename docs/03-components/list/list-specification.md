@@ -18,8 +18,8 @@ List presents a vertical collection of related rows. `List.Item` is only valid b
 | `List` | `<ul>` / `HTMLUListElement` | all compatible ul props, including `id`, `className`, `data-*`, `aria-*` |
 | `List.Item` | `<li>` / `HTMLLIElement` | all compatible li props; row structural owner |
 | `List.Item.Action` | `<a>` when `href`, otherwise `<button type="button">` / matching native ref | compatible anchor/button props; sole row interaction owner |
-| `Leading`, `Body`, `Title`, `Description`, `Trailing` | semantic `<div>` or text element / no public ref | documented placement and consumer children |
-| `Status` | decorative dot plus visually hidden label / no public ref | required semantic `label`; neutral, non-chat-specific status indicator |
+| `Leading`, `Body`, `Title`, `Description`, `Trailing` | `<span>` / native span ref | compatible span props, documented placement and consumer children |
+| `Status` | `<span>` with decorative dot plus visually hidden label / native span ref | required semantic `label`; neutral, non-chat-specific status indicator |
 
 `Action` fixes `type="button"` for buttons. Anchor `href` selects anchor rendering; an action has no generic root-props bag. `List.Item` owns the `li`, so `Action` and `Trailing` remain siblings. Native Action events are forwarded unchanged. Every non-root part rejects use outside its documented parent with a clear development error.
 

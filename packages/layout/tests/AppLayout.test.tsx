@@ -1,3 +1,4 @@
+import { createRef } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
@@ -41,6 +42,33 @@ describe('AppLayout', () => {
     await user.click(screen.getByRole('button', { name: 'Einklappen' }));
     expect(onCollapsedChange).toHaveBeenCalledWith(true);
   });
+  it('forwards anchor props and refs and names rich-label disclosures', () => {
+    const ref = createRef<HTMLAnchorElement>();
+    render(
+      <AppLayout>
+        <AppLayout.Navigation>
+          <AppLayout.Navigation.Item
+            href="/calendar"
+            label="Calendar"
+            ref={ref}
+            target="_blank"
+            rel="noreferrer"
+          />
+          <AppLayout.Navigation.Item label={<span>Reports</span>}>
+            <AppLayout.Navigation.Item label="Monthly" />
+          </AppLayout.Navigation.Item>
+        </AppLayout.Navigation>
+      </AppLayout>,
+    );
+    expect(screen.getByRole('link', { name: 'Calendar' })).toBe(ref.current);
+    expect(ref.current).toHaveAttribute('target', '_blank');
+    expect(ref.current).toHaveAttribute('rel', 'noreferrer');
+    expect(screen.getByRole('button', { name: 'Reports', expanded: false })).toHaveAttribute(
+      'aria-expanded',
+      'false',
+    );
+  });
+
   it('rejects Navigation.Item outside Navigation', () => {
     expect(() => render(<AppLayout.Navigation.Item label="X" />)).toThrow(
       'AppLayout.Navigation.Item must be rendered within AppLayout.Navigation.',
