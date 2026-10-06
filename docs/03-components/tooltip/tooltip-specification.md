@@ -38,7 +38,9 @@ Alternatives: help text, PopupList, Banner.
 
 content is already localized, non-interactive ReactNode. children is exactly one
 ref-/native-prop-capable trigger element, excluding Fragment and native disabled
-controls. General native HTML props and public ref address that trigger; native
+controls. The trigger must already be keyboard focusable (a native control/link or
+explicit native tabIndex); Tooltip never adds focusability or new trigger semantics.
+General native HTML props and public ref address that trigger; native
 button/link-specific props remain on children. Existing events run first, then
 outer consumer handlers, then internal behavior unless preventDefault cancels it.
 Existing child/public aria-describedby IDs are retained and merged with a stable

@@ -20,8 +20,8 @@
 
 Final source review, completed repairs and verification results are recorded in
 [the audit results](component-audit-results-2026-10-06.md). The full verification
-passed after integrating the colleague's picker refinement. Relevant unresolved
-contracts remain explicitly open; this is not a blanket release approval.
+passed after integrating the colleague's picker refinement. The structured follow-up questions resolved the remaining implementation contracts;
+this is not a blanket manual accessibility release approval.
 
 The starting implementation exports 24 Core components and two Layout components,
 including compounds. All were inspected; helper components and Storybook environment
@@ -42,13 +42,16 @@ indicator updates, ComboBox reduced-motion close cleanup and option-ID collision
 Popup role/focus/positioning, and Wheel keyboard/accessible duplication. Each fix needs
 its own appropriate regression evidence before its implementation commit.
 
-## Open clarification
+## Follow-up decisions resolved 2026-10-06
 
-- Tooltip: first touch only explains, or explanation opens alongside the original action?
-- Stepper: safe integers first, or defined decimal precision/step alignment?
-- Tabs: when no initial value exists, focus-only first-tab entry, automatic initial selection,
-  or a required initial-value API? Do not silently choose a replacement after removal.
-- Any implementation-discovered ambiguity stays open until its source contract resolves it.
+- Tooltip keeps the first touch action and supplies hover/focus/touch descriptions
+  on the existing trigger, with merged native props/refs and defined dismissal.
+- Stepper uses precision 0–6, default 0, safe scaled arithmetic and native buttons.
+- Tabs/SegmentedControl propose the first enabled DOM-order entry automatically;
+  controlled consumers confirm it and uncontrolled components adopt it.
+- Nested Accordion groups retain their own exclusivity and compact shared frame.
+- Public finite configuration values expose enums alongside compatible literal types.
+- All selected additions are implemented; manual release evidence remains separate.
 
 ## Commit and verification sequence
 

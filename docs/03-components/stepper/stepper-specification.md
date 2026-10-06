@@ -43,7 +43,8 @@ the root named group; children, role and accessible-name attributes are owned.
 Root onClick runs before delegated button activation and preventDefault cancels
 onValueChange. Two native type=button controls expose localized accessible names;
 buttons are disabled at their corresponding boundary. The visible formatted value
-is in an atomic aria-live=polite status region. Focus stays on the activated control.
+is in an atomic aria-live=polite status region. The component never moves focus programmatically; native disabled-button behavior
+applies at boundaries.
 No text editing, spinbutton role, form field submission, hold-to-repeat, locale inference
 or keyboard shortcuts beyond native button activation are included.
 
