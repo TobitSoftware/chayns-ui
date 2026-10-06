@@ -25,6 +25,7 @@ export interface TabsTabProps extends Omit<
 > {
   value: string;
   children: ReactNode;
+  /** Omit for a fixed tab. Receives removal requests; the consumer owns the tab/panel entries. */
   onRemove?: (value: string) => void;
 }
 export interface TabsPanelProps extends Omit<
@@ -34,4 +35,5 @@ export interface TabsPanelProps extends Omit<
   value: string;
   children: ReactNode;
 }
+/** Optional add action: compose with onClick and a localized name, or omit to keep the list fixed. */
 export type TabsAddProps = ComponentPropsWithRef<'button'>;

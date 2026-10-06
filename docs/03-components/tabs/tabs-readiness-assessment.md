@@ -21,3 +21,11 @@ READY includes the confirmed automatic initial/replacement proposal contract in 
 specification. Uncontrolled defaultValue is optional; controlled ownership remains.
 Unit evidence covers missing/disabled/removal cases and StrictMode proposal de-duplication.
 Native keyboard, focus, tokens, localization and reduced-motion contracts are unchanged.
+
+## Optional action examples — 2026-10-06
+
+READY remains the existing optional onRemove / composed Tabs.Add contract. The user
+confirmed retaining explicit Add composition after considering a List callback.
+No production API change is needed. Reference geometry, native semantics, localized
+Add name, keyboard removal, selection ownership and reduced motion are unchanged.
+Story evidence: Underline (fixed), UnderlineEditable (dynamic with a fixed first tab).

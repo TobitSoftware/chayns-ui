@@ -29,4 +29,4 @@ Native Links für Routen; [SegmentedControl](?path=/docs/core-segmentedcontrol--
 
 ## Besonderheiten
 
-Tab und Panel sind durch stabile String-Werte verbunden; nur das aktive Panel wird gerendert. value/onValueChange ist kontrolliert. Fehlt eine gültige Auswahl, wird die erste aktivierte Option gewählt bzw. kontrolliert einmal vorgeschlagen. Pfeiltasten und Home/End aktivieren Tabs. onRemove und Tabs.Add bleiben optionale Aktionen der Anwendung.
+Tab und Panel sind durch stabile String-Werte verbunden; nur das aktive Panel wird gerendert. value/onValueChange ist kontrolliert. Fehlt eine gültige Auswahl, wird die erste aktivierte Option gewählt bzw. kontrolliert einmal vorgeschlagen. Pfeiltasten und Home/End aktivieren Tabs. Ohne `onRemove` am jeweiligen Tab fehlen Entfernen-Symbol und Delete/Backspace-Aktion. Ohne `Tabs.Add` gibt es keine Hinzufügen-Aktion. Für dynamische Tabs verwaltet die Anwendung die Einträge, übergibt `onRemove(value)` nur an entfernbare Tabs und komponiert `<Tabs.Add onClick={addTab} aria-label="Tab hinzufügen">…</Tabs.Add>`. Die Beispiele Underline und UnderlineEditable zeigen beide Fälle.

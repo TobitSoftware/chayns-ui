@@ -22,6 +22,7 @@
   "stories": [
     "Layout/Tabs:WorkspaceTabs",
     "Layout/Tabs:Underline",
+    "Layout/Tabs:UnderlineEditable",
     "Layout/Tabs:AutomaticSelection"
   ]
 }
@@ -104,3 +105,19 @@ Root/child props, event cancellation, density, geometry and reduced motion stay 
 READY extends to this confirmed state handling. Acceptance checks cover disabled
 first entries, DOM reorder, removal, controlled refusal/acceptance, no enabled entries
 and StrictMode callback de-duplication.
+
+## Optional tab actions — confirmed 2026-10-06
+
+Both appearances support fixed and editable collections through the existing compound
+API. Omit `onRemove` on an individual `Tabs.Tab` to omit its close affordance and
+Delete/Backspace removal; passing the callback enables removal for that item only.
+Omit `Tabs.Add` entirely when adding is unavailable. When allowed, compose `Tabs.Add`
+with a localized `aria-label` and native `onClick`; the application owns its entries.
+The user chose to retain this explicit Add composition instead of introducing List
+`onAdd`, additional visibility booleans or an automatically rendered button.
+No new public API, geometry, token or focus behavior is introduced. Controlled and
+uncontrolled selection remain available; callbacks do not mutate consumer entries.
+
+Storybook `Underline` shows a fixed collection. `UnderlineEditable` shows optional
+per-item removal (Inbox stays fixed), working addition/removal and replacement
+selection after removal. Existing consumer event cancellation remains in force.
