@@ -12,6 +12,7 @@ import {
 import { createPortal } from 'react-dom';
 import type { CSSProperties, KeyboardEvent, MouseEvent, ReactElement, ReactNode } from 'react';
 
+import { composeNativeRefs } from '../../utils/native-ref.js';
 import ButtonIcon from '../button/button-icon/ButtonIcon.js';
 import { ComboBoxContext, getOptionLabel, useComboBoxContext } from './ComboBoxContext.js';
 import type { ComboBoxOptionProps, ComboBoxProps } from './ComboBox.types.js';
@@ -190,13 +191,34 @@ const ComboBoxRoot = forwardRef<HTMLButtonElement, ComboBoxProps>(
     }, [open, popupClosing, popupMounted]);
 
     useEffect(() => {
+      if (open || !popupClosing || !popupMounted) return undefined;
+
+      const popup = popupRef.current;
+      if (popup === null) return undefined;
+      const style = window.getComputedStyle(popup);
+      const durations = style.transitionDuration
+        .split(',')
+        .map((duration) => Number.parseFloat(duration) * 1000 || 0);
+      const delays = style.transitionDelay
+        .split(',')
+        .map((delay) => Number.parseFloat(delay) * 1000 || 0);
+      const duration = Math.max(
+        ...durations.map((time, index) => time + (delays[index % delays.length] ?? 0)),
+      );
+      const timeout = window.setTimeout(() => {
+        setPopupMounted(false);
+        setPopupClosing(false);
+      }, duration);
+
+      return () => window.clearTimeout(timeout);
+    }, [open, popupClosing, popupMounted]);
+
+    useEffect(() => {
       if (!open || activeValue === undefined) {
         return;
       }
 
-      document
-        .getElementById(`${listboxId}-${activeValue.replace(/[^a-zA-Z0-9_-]/g, '-')}`)
-        ?.focus();
+      document.getElementById(`${listboxId}-${encodeURIComponent(activeValue)}`)?.focus();
     }, [activeValue, listboxId, open, popupMounted]);
 
     useEffect(() => {
@@ -240,15 +262,7 @@ const ComboBoxRoot = forwardRef<HTMLButtonElement, ComboBoxProps>(
       };
     }, [open]);
 
-    function setTriggerElement(element: HTMLButtonElement | null) {
-      triggerRef.current = element;
-
-      if (typeof ref === 'function') {
-        ref(element);
-      } else if (ref !== null) {
-        ref.current = element;
-      }
-    }
+    const setTriggerElement = useMemo(() => composeNativeRefs(triggerRef, ref), [ref]);
 
     function emitValue(nextValue: string) {
       if (!isControlled) {
@@ -375,7 +389,7 @@ const ComboBoxRoot = forwardRef<HTMLButtonElement, ComboBoxProps>(
           isSelected: (optionValue) =>
             multiple ? selectedValues.includes(optionValue) : selectedValue === optionValue,
           multiple,
-          optionId: (optionValue) => `${listboxId}-${optionValue.replace(/[^a-zA-Z0-9_-]/g, '-')}`,
+          optionId: (optionValue) => `${listboxId}-${encodeURIComponent(optionValue)}`,
           select,
         }}
       >
@@ -409,6 +423,8 @@ const ComboBoxRoot = forwardRef<HTMLButtonElement, ComboBoxProps>(
             ? createPortal(
                 <div
                   aria-hidden={!open && popupClosing ? true : undefined}
+                  aria-label={ariaLabel}
+                  aria-labelledby={accessibleName}
                   aria-multiselectable={multiple || undefined}
                   className="chayns-combo-box__popup"
                   data-state={popupClosing ? 'closed' : 'open'}

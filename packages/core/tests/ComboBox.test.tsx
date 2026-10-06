@@ -27,6 +27,7 @@ describe('ComboBox', () => {
     const trigger = screen.getByRole('button', { name: 'Kategorie' });
     await user.click(trigger);
 
+    expect(screen.getByRole('listbox', { name: 'Kategorie' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Design' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Engineering' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Support' })).toBeInTheDocument();
@@ -118,6 +119,22 @@ describe('ComboBox', () => {
 
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
     expect(trigger).toHaveFocus();
+  });
+
+  it('keeps option IDs distinct for punctuation and unmounts without a transition event', async () => {
+    const user = userEvent.setup();
+    render(
+      <ComboBox placeholder="Werte">
+        <ComboBox.Option value="a b">Space</ComboBox.Option>
+        <ComboBox.Option value="a-b">Dash</ComboBox.Option>
+      </ComboBox>,
+    );
+    await user.click(screen.getByRole('button', { name: 'Werte' }));
+    expect(screen.getByRole('option', { name: 'Space' }).id).not.toBe(
+      screen.getByRole('option', { name: 'Dash' }).id,
+    );
+    await user.click(screen.getByRole('option', { name: 'Dash' }));
+    await waitFor(() => expect(document.querySelector('[role="listbox"]')).toBeNull());
   });
 
   it('requires an accessible name and renders on the server', () => {

@@ -24,3 +24,11 @@ The user-provided screenshot defines the revised non-editable trigger, selected 
 ## Verification contract
 
 The implementation covers controlled and uncontrolled values, opening with all options visible, single- and multi-option selection, Escape and outside-close behavior, cyclic keyboard navigation, disabled options, focus restoration, generated ARIA relationships, native Button props/ref, SSR, portal rendering and alignment inside an Accordion, and long localized trigger values/placeholders with ellipsis. Storybook includes the canonical compound example and interaction evidence. Reviewed states are default, focus, open, selected, multi-selected and reduced motion.
+
+## Foundation audit — 2026-10-06
+
+The listbox shares the trigger's resolved accessible name. Option IDs encode the
+complete value so punctuation cannot collapse distinct values into one DOM ID.
+Closing content unmounts after its computed transition duration, including a
+zero-duration/reduced-motion fallback when no transitionend event is dispatched.
+Composed refs preserve consumer cleanup. Regression tests exercise these cases.
