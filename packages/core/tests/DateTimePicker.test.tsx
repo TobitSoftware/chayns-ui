@@ -43,6 +43,7 @@ describe('DateTimePicker', () => {
     render(
       <DateTimePicker
         label="Zeit"
+        placeholder="Zeit auswählen"
         locale="de-DE"
         onChange={() => undefined}
         value={new Date(2026, 8, 22, 10, 30)}

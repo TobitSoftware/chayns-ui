@@ -86,9 +86,9 @@ export const Primary: Story = {
     const restingShadow = getComputedStyle(button).boxShadow;
     await userEvent.tab();
     await expect(button).toHaveFocus();
-    await waitFor(() => {
-      expect(getComputedStyle(button).boxShadow).not.toBe('none');
-      expect(getComputedStyle(button).boxShadow).not.toBe(restingShadow);
+    await waitFor(async () => {
+      await expect(getComputedStyle(button).boxShadow).not.toBe('none');
+      await expect(getComputedStyle(button).boxShadow).not.toBe(restingShadow);
     });
 
     await userEvent.keyboard('{Enter}');
