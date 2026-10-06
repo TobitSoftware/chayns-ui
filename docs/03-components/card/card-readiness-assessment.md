@@ -72,3 +72,9 @@ No blocking items.
 - Gate Result: READY
 
 This READY result authorizes implementation only for the Card contract in the referenced specification.
+
+## Hover lift correction — 2026-10-06
+
+READY includes the user-requested lift matching Button: -1px, transform 0.15s ease,
+existing shadow-hover and no lift/transition under Reduced Motion. Bodywork .tr was
+rechecked on 2026-10-06; no new token, action semantics or variant is introduced.

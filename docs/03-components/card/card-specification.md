@@ -150,7 +150,12 @@ Not applicable; Card is not focusable and manages no focus.
 
 ## Motion Contract — Required
 
-No motion. Card has no transitions or animations.
+Confirmed user correction 2026-10-06: on hover-capable devices Card combines
+`--shadow-hover` with `translateY(-1px)`, matching the existing Button hover lift.
+Only transform transitions (`0.15s ease`, from the checked Button/Bodywork .tr
+reference); the shadow changes immediately. Reduced motion disables the decorative
+lift and transition while retaining the hover shadow. Card remains non-interactive;
+its informational header icon stays Regular. No geometry, API or semantic change.
 
 ## Internationalization and Content Contract — Conditional
 
