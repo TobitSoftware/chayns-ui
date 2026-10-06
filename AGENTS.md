@@ -409,7 +409,7 @@ Diese Dokumente noch nicht eigenständig vollständig erzeugen.
 
 The canonical usage of a component MUST use the smallest unambiguous API. Prefer `children`, direct props and clearly named slots. Public Compound Parts require a confirmed semantic Parent/Child relationship and documented Parent, Context, DOM-/Ref-owner, placement, keyboard and accessibility contract. Visual anatomy alone is not sufficient.
 
-Finite public variants MUST use an exported string union plus a matching `as const` runtime array or object. TypeScript enums are not the default. Native HTML values remain platform values. Stories use `args` for simple leaf components, `render` for actual composition, and `play` only for user interaction. Story DOM is queried through `within(canvasElement)`; portal content is queried through `document.body`.
+Finite library-owned public configuration values MUST also expose an exported TypeScript enum (user decision, 2026-10-06). Existing string/numeric literal prop types and `as const` value lists remain compatible. Enum names use the plural form of the existing value type (for example TabsAppearances alongside TabsAppearance); members use PascalCase. Native HTML values remain platform values. Stories use `args` for simple leaf components, `render` for actual composition, and `play` only for user interaction. Story DOM is queried through `within(canvasElement)`; portal content is queried through `document.body`.
 
 Every component specification and readiness assessment MUST record the checked Bodywork reference, date, states, token mapping, Storybook evidence and unresolved design-review points. A relevant `DESIGN REVIEW` item blocks READY. Geometry and tokens MUST NOT be guessed from unverified screenshots.
 

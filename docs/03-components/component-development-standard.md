@@ -310,7 +310,7 @@ Für jede neue oder wesentlich geänderte Component wird die kleinste eindeutige
 
 Der Canonical Case darf keine interne DOM-Anatomy, CSS-Klassen oder unnötige Part-Reihenfolge verlangen. Advanced Composition ist zulässig, muss aber denselben nativen Semantic-, State- und Accessibility-Vertrag einhalten. Rein visuelle Unterteilungen bleiben intern. `Content`, `Body` und `Action` werden nur als öffentliche Parts verwendet, wenn ihre Verantwortung in der Specification nachgewiesen ist.
 
-Endliche öffentliche Varianten werden als exportierter String-Union-Type und als passendes `as const`-Array oder -Objekt veröffentlicht. TypeScript-Enums werden nicht als Standard eingeführt. Native HTML-Werte bleiben bei den Plattformtypen. Für offene Namensverträge, etwa `fa-${string}`-Icons, wird kein künstlich unvollständiger Runtime-Wertebestand erzeugt.
+Endliche bibliothekseigene Konfigurationswerte erhalten zusätzlich ein exportiertes TypeScript-Enum (bestätigte Benutzervorgabe vom 06.10.2026). Bestehende Literal-Prop-Typen und `as const`-Wertelisten bleiben kompatibel. Das Enum trägt den Plural des bestehenden Wertetyps, etwa `TabsAppearances` neben `TabsAppearance`; Member verwenden PascalCase. Native HTML-Werte bleiben bei den Plattformtypen. Für offene Namensverträge, etwa `fa-${string}`-Icons, wird kein künstlich unvollständiger Runtime-Wertebestand erzeugt.
 
 ## Modern JavaScript and diagnostic names (2026-10-06)
 
