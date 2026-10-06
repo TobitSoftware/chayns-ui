@@ -9,3 +9,5 @@ Add Breadcrumb, Pagination, Slider, Tooltip and decimal-capable Stepper with Bod
 Expose enums for finite configuration values while retaining existing literal props and runtime lists. Add attached/underline Tabs appearances, automatic enabled-entry selection for Tabs and SegmentedControl, and independent exclusive state for nested Accordion groups.
 
 Correct native prop/ref forwarding, popup interactions and positioning, picker accessibility and formatting work, option identities, AvatarGroup truncation, status foregrounds and action focus shadows. Validate component documentation and configuration exports, and check every built Storybook story in Chromium and WebKit before publication.
+
+Present concise linked usage guides in Storybook while retaining full implementation specifications. Demonstrate fixed underline tabs and consumer-owned optional addition/removal without introducing new configuration props.

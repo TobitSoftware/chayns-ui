@@ -87,6 +87,18 @@ The investigation is therefore dormant pending recurrence; no root cause or veri
 fix is claimed, and no further browser details are currently requested.
 No npm publication has been performed by the agent.
 
+### Consumer documentation and optional Tabs actions follow-up
+
+On 2026-10-06, Storybook switched from complete specifications to 31 concise usage
+guides covering purpose, unsuitable cases, alternatives, combinations, usage and
+special considerations. Their six sections rendered on all 29 shared documentation
+pages, and a cross-component link reached its target page. Full specifications remain
+the implementation contracts. Fixed Underline Tabs omit removal callbacks and the
+Add part; an editable example uses working consumer-owned entries and preserves a
+fixed first tab. Full verification passed with 185 unit tests and 89 Storybook tests;
+all 89 static stories loaded in Chromium and WebKit. A parallel brand-icon change
+also received a formatting-only correction to restore the format gate.
+
 ## Completed additions and remaining release evidence
 
 All five selected additions are implemented within confirmed component-specific
@@ -100,4 +112,5 @@ release evidence remain separate from the passing automated checks. Changesets
 plans Core 0.10.0, Layout 0.7.0 and Tokens 0.8.1. The established release workflow
 updates its version PR when the release changeset reaches main; publishing follows
 only after that version PR is merged. The existing GitHub version PR #3 was observed
-with an outdated 0.7.0 Core plan; it must refresh before being treated as this release.
+with an outdated 0.7.0 Core plan; a subsequent check on 2026-10-06 confirmed that its
+description now lists the planned Core 0.10.0, Layout 0.7.0 and Tokens 0.8.1 release.

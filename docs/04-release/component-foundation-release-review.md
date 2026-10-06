@@ -18,16 +18,19 @@ propose the first enabled entry, while controlled consumers confirm it.
 The release changeset follows the established two-stage workflow. When it reaches
 main, Changesets updates the version PR and changelogs. Merging that version PR
 publishes the packages; this preparation does not run npm publication.
-[Version PR #3](https://github.com/TobitSoftware/chayns-ui/pull/3) was observed with
-an outdated Core 0.7.0 plan. Review its refreshed diff against the versions above;
-its existence alone is not evidence that it includes this release.
+[Version PR #3](https://github.com/TobitSoftware/chayns-ui/pull/3) was rechecked on
+2026-10-06 after the changeset reached main. Its release description now includes
+Core 0.10.0, Layout 0.7.0 and Tokens 0.8.1, matching the plan above.
 
 ## Validation and remaining review
 
-`corepack pnpm verify` passed: 185 unit tests, 88 Storybook interaction/a11y tests,
-31 specifications, 61 explicit component names, 11 enum/list pairs, lint/types,
+`corepack pnpm verify` passed: 185 unit tests, 89 Storybook interaction/a11y tests,
+31 specifications and concise usage guides, 61 explicit component names, 11 enum/list pairs, lint/types,
 deterministic token generation, distribution checks, tree-shaking and packed
-consumer typecheck/build/SSR. All 88 static stories load in Chromium and WebKit.
+consumer typecheck/build/SSR. All 89 static stories load in Chromium and WebKit.
+The guides render their six consumer sections on all 29 shared documentation pages;
+cross-component navigation was checked in the rendered Storybook. Underline Tabs
+now demonstrates both fixed entries and working optional add/remove composition.
 
 Before merging the version PR, complete the manual screenreader, visual/theme/
 density, zoom/reflow and pointer release checks. The automated checks do not
