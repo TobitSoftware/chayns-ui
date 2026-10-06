@@ -33,7 +33,7 @@ const SplitButton = forwardRef<HTMLDivElement, SplitButtonProps>(function SplitB
           <button
             aria-labelledby={labelId}
             aria-haspopup="menu"
-            className={`chayns-split-button__trigger chayns-button--${variant}`}
+            className={`chayns-button chayns-split-button__trigger chayns-button--${variant}`}
             {...(disabled ? { disabled: true } : {})}
             type="button"
           >

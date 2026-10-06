@@ -44,7 +44,7 @@ SplitButton composes one native primary Button and the public PopupList trigger 
 
 All four Button variants are supported. Disabled disables both buttons. The primary action and alternatives use their native handlers; alternative activation closes the PopupList through its public composition and restores trigger focus. SplitButton owns no overlay state, ARIA menu attributes or private portal. The primary label provides the secondary trigger name through `aria-labelledby` while the chevron remains decorative.
 
-Bodywork joined geometry applies: the primary end radius is removed, trigger start border separates both actions, and only transform is used for active motion. Tests cover independent primary/secondary activation, disabled state, visible trigger name and PopupList integration.
+Bodywork joined geometry applies: the primary end radius is removed, trigger start border separates both actions, and both native halves reuse the confirmed Button hover/press motion (BUTTON-017). Tests cover independent primary/secondary activation, disabled state, visible trigger name and PopupList integration.
 
 ## Global icon rule follow-up — 2026-10-06
 
@@ -54,3 +54,16 @@ renderers use wrappers to remain stable under Font Awesome SVG replacement. Publ
 props, token geometry, native events and focus ownership remain unchanged. The
 [icon rule review](../icon-rule-review-2026-10-06.md) records owner-specific findings
 and consumer-content boundaries.
+
+## Bodywork motion correction — 2026-10-06
+
+The live Bodywork Split-Button example renders both halves with the Button classes
+(checked 2026-10-06). The secondary native trigger therefore reuses the existing
+Button class and renderer rather than duplicating divergent state styling. Both
+halves follow BUTTON-017: hover lift -1px, brightness 1.06, press resets translation
+and scales .97, transform 140ms ease and shadow/filter 180ms ease. Reduced Motion
+disables transforms/transitions and keyboard focus retains its ring on hover.
+The established joined geometry and native PopupList relationship stay unchanged.
+Storybook evidence: `Core/SplitButton:Primary`, `AllVariants`, `Disabled`. Checked
+states: rest, hover, press, disabled, keyboard focus and Reduced Motion. No new API,
+variant, token or unresolved design review is introduced.

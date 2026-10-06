@@ -26,26 +26,9 @@
     cursor: pointer;
   }
 
-  .chayns-split-button__trigger.chayns-button--primary {
-    background: var(--accent);
-    color: var(--on-accent);
-  }
-
   .chayns-split-button__trigger.chayns-button--outline {
     border-block: 1.5px solid var(--accent);
     border-inline-end: 1.5px solid var(--accent);
-    background: var(--surface);
-    color: var(--accent);
-  }
-
-  .chayns-split-button__trigger.chayns-button--ghost {
-    background: transparent;
-    color: var(--text-2);
-  }
-
-  .chayns-split-button__trigger.chayns-button--danger {
-    background: var(--danger-bg);
-    color: var(--danger);
   }
 
   .chayns-split-button__trigger:disabled {
@@ -59,56 +42,6 @@
   .chayns-split-button__trigger.chayns-button--outline:disabled {
     border-block-color: var(--disabled-border);
     background: var(--surface);
-  }
-
-  .chayns-split-button__trigger:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 var(--focus-ring-size)
-      rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-strong));
-  }
-
-  .chayns-split-button__trigger:active:not(:disabled) {
-    transform: scale(0.96);
-  }
-
-  .chayns-split-button__trigger.chayns-button--primary:active:not(:disabled) {
-    background: var(--accent-active);
-  }
-
-  .chayns-split-button__trigger.chayns-button--outline:active:not(:disabled) {
-    background: var(--accent);
-    color: var(--on-accent);
-  }
-
-  .chayns-split-button__trigger.chayns-button--ghost:active:not(:disabled) {
-    background: var(--surface-alt);
-    color: var(--accent);
-  }
-
-  .chayns-split-button__trigger.chayns-button--danger:active:not(:disabled) {
-    background: var(--danger-bg-hover);
-  }
-
-  @media (hover: hover) {
-    .chayns-split-button__trigger.chayns-button--primary:hover:not(:disabled) {
-      background: var(--accent-hover);
-      box-shadow: var(--shadow-btn-hover);
-    }
-
-    .chayns-split-button__trigger.chayns-button--outline:hover:not(:disabled) {
-      background: var(--accent);
-      color: var(--on-accent);
-      box-shadow: var(--shadow-btn-hover);
-    }
-
-    .chayns-split-button__trigger.chayns-button--ghost:hover:not(:disabled) {
-      background: var(--surface-alt);
-      color: var(--accent);
-    }
-
-    .chayns-split-button__trigger.chayns-button--danger:hover:not(:disabled) {
-      background: var(--danger-bg-hover);
-    }
   }
 
   .chayns-split-button__chevron .chayns-button-icon {
