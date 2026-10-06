@@ -267,7 +267,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    :where(.chayns-button, .chayns-icon-button) {
+    :is(.chayns-button, .chayns-icon-button) {
       transition: none;
     }
 
