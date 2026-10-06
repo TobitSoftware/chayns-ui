@@ -33,7 +33,12 @@ export function useOverlayPosition(
       const left =
         placement === 'top' ? anchor.left + (anchor.width - size.width) / 2 : anchor.left;
       surface.style.top = `${Math.max(0, Math.min(top, window.innerHeight - size.height))}px`;
-      surface.style.left = `${Math.max(0, Math.min(left, window.innerWidth - size.width))}px`;
+      const resolvedLeft = Math.max(0, Math.min(left, window.innerWidth - size.width));
+      surface.style.left = `${resolvedLeft}px`;
+      surface.style.setProperty(
+        '--chayns-overlay-anchor-x',
+        `${anchor.left + anchor.width / 2 - resolvedLeft}px`,
+      );
       surface.dataset.placement = top === above ? 'top' : 'bottom';
     }
 

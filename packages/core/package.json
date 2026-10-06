@@ -47,7 +47,8 @@
     "./pagination.css": "./dist/pagination.css",
     "./slider.css": "./dist/slider.css",
     "./package.json": "./package.json",
-    "./stepper.css": "./dist/stepper.css"
+    "./stepper.css": "./dist/stepper.css",
+    "./tooltip.css": "./dist/tooltip.css"
   },
   "peerDependencies": {
     "react": ">=18 <20"

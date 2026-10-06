@@ -3,7 +3,7 @@
   "name": "Tooltip",
   "package": "@chayns-ui/core",
   "category": "Core",
-  "status": "ready",
+  "status": "implemented",
   "useWhen": [
     "Explain a control briefly on hover/focus without taking over its primary action."
   ],

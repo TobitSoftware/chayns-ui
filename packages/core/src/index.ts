@@ -136,3 +136,5 @@ export type { SliderProps } from './components/slider/Slider.types.js';
 export { default as Stepper } from './components/stepper/Stepper.js';
 export { STEPPER_PRECISIONS, StepperPrecisions } from './components/stepper/Stepper.types.js';
 export type { StepperPrecision, StepperProps } from './components/stepper/Stepper.types.js';
+export { default as Tooltip } from './components/tooltip/Tooltip.js';
+export type { TooltipProps, TooltipTriggerProps } from './components/tooltip/Tooltip.types.js';

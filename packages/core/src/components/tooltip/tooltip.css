@@ -1,0 +1,68 @@
+@layer chayns.components {
+  .chayns-tooltip {
+    position: fixed;
+    inline-size: max-content;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+    background: var(--text);
+    color: var(--surface);
+    font-size: var(--fs-caption);
+    font-weight: 500;
+    padding: var(--k6) var(--k10);
+    border-radius: 8px;
+    white-space: normal;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transition:
+      opacity 0.15s ease,
+      transform 0.15s ease;
+    pointer-events: none;
+    z-index: var(--z-tooltip);
+    box-shadow: 0 6px 16px -6px rgb(0 0 0 / 40%);
+  }
+
+  .chayns-tooltip::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 9px;
+  }
+
+  .chayns-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: clamp(5px, var(--chayns-overlay-anchor-x, 50%), calc(100% - 5px));
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--text);
+  }
+
+  .chayns-tooltip[data-placement='bottom']::before {
+    top: auto;
+    bottom: 100%;
+  }
+
+  .chayns-tooltip[data-placement='bottom']::after {
+    top: auto;
+    bottom: 100%;
+    border-top-color: transparent;
+    border-bottom-color: var(--text);
+  }
+
+  .chayns-tooltip--open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chayns-tooltip {
+      transition: none;
+    }
+  }
+}
