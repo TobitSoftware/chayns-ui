@@ -21,7 +21,8 @@ parent; native props target the native element represented by that public surfac
 Choose native links for navigation and buttons for actions. Core never resolves
 business data, routes, textstring IDs or locales for an application.
 
-Finite variants come from their exported union and runtime values. State, density,
+Finite configuration values expose named enums alongside their compatible literal
+union types and runtime lists. Use those exports rather than inventing values. State, density,
 accessible names and reduced-motion rules are part of the component contract.
 Unknown APIs, variants, geometry or behaviour are not resolved by example code:
 record the ambiguity and ask for clarification before implementing that step.
