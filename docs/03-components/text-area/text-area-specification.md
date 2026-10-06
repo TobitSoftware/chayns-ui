@@ -23,6 +23,11 @@
     "Core/TextArea:HelpAndCounter",
     "Core/TextArea:Error",
     "Core/TextArea:Disabled"
+  ],
+  "combinations": [
+    "Button",
+    "Checkbox",
+    "Card"
   ]
 }
 ---

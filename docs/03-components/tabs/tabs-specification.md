@@ -5,7 +5,7 @@
   "category": "Layout",
   "status": "implemented",
   "useWhen": [
-    "Switch among up to five peer views on one page. Attached joins an active tab to its panel surface; underline switches views on a shared surface."
+    "Switch among a few peer views on one page; Bodywork recommends up to five as selection guidance, not a runtime maximum. Attached joins an active tab to its panel surface; underline switches views on a shared surface."
   ],
   "doNotUseWhen": [
     "Do not use for ordered workflow steps, routes, independent actions or simultaneous panels. More than five views generally belong in application navigation."
@@ -24,6 +24,10 @@
     "Layout/Tabs:Underline",
     "Layout/Tabs:UnderlineEditable",
     "Layout/Tabs:AutomaticSelection"
+  ],
+  "combinations": [
+    "AppLayout",
+    "Card"
   ]
 }
 ---
@@ -31,7 +35,7 @@
 
 ## Selection guide
 
-Use when: Switch among up to five peer views on one page. Attached joins an active tab to its panel surface; underline switches views on a shared surface.
+Use when: Switch among a few peer views on one page; Bodywork recommends up to five as selection guidance, not a runtime maximum. Attached joins an active tab to its panel surface; underline switches views on a shared surface.
 
 Do not use when: Do not use for ordered workflow steps, routes, independent actions or simultaneous panels. More than five views generally belong in application navigation.
 

@@ -21,6 +21,10 @@
   "stories": [
     "Core/Slider:Default",
     "Core/Slider:EdgeCases"
+  ],
+  "combinations": [
+    "Card",
+    "Switch"
   ]
 }
 ---

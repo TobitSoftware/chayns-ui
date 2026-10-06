@@ -12,7 +12,8 @@
   ],
   "alternatives": [
     "Accordion",
-    "native table"
+    "native table",
+    "Card"
   ],
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/"
@@ -20,6 +21,11 @@
   "checkedOn": "2026-10-06",
   "stories": [
     "Core/List:Default"
+  ],
+  "combinations": [
+    "Avatar",
+    "Badge",
+    "IconButton"
   ]
 }
 ---
@@ -31,7 +37,7 @@ Use when: Show many comparable entries in a vertical sequence, with an optional 
 
 Do not use when: Do not use for tabular multi-property records, disclosure or standalone content that belongs on a Card surface.
 
-Alternatives: Accordion, native table.
+Alternatives: Accordion, native table, Card.
 
 ## Metadata
 

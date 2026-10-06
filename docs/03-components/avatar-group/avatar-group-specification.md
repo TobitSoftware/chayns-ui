@@ -11,8 +11,7 @@
     "Do not use instead of a readable identity list or status indicators."
   ],
   "alternatives": [
-    "List",
-    "Avatar"
+    "List"
   ],
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/",
@@ -22,6 +21,10 @@
   "stories": [
     "Core/AvatarGroup:Default",
     "Core/AvatarGroup:Small"
+  ],
+  "combinations": [
+    "Avatar",
+    "Card"
   ]
 }
 ---
@@ -33,7 +36,7 @@ Use when: Represent several identities as overlapping Avatar tiles.
 
 Do not use when: Do not use instead of a readable identity list or status indicators.
 
-Alternatives: List, Avatar.
+Alternatives: List.
 
 This component shares its confirmed API, native/ref, token, accessibility and acceptance
 contract with [avatar specification](../avatar/avatar-specification.md).

@@ -28,6 +28,12 @@
     "Core/Button:AllVariants",
     "Core/Button:LongLocalizedContent",
     "Core/Button:FormBehavior"
+  ],
+  "combinations": [
+    "Card",
+    "TextField",
+    "Tooltip",
+    "SplitButton"
   ]
 }
 ---

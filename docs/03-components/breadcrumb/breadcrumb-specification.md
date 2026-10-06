@@ -21,6 +21,11 @@
   "stories": [
     "Core/Breadcrumb:Default",
     "Core/Breadcrumb:EdgeCases"
+  ],
+  "combinations": [
+    "AppLayout",
+    "Card",
+    "List"
   ]
 }
 ---

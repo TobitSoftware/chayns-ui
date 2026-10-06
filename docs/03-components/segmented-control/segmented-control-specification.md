@@ -5,14 +5,15 @@
   "category": "Core",
   "status": "implemented",
   "useWhen": [
-    "Switch immediately between two to four equivalent representations of the same content, such as list, cards and calendar, or closely related settings."
+    "Switch immediately between a few equivalent representations of the same content, such as list, cards and calendar, or closely related settings; Bodywork recommends two to four as selection guidance, not a runtime limit."
   ],
   "doNotUseWhen": [
     "Do not use for multiple-selection filters or five or more options; use a suitable selection control. Separate peer tab panels use Tabs, and form choices use RadioGroup."
   ],
   "alternatives": [
     "Tabs",
-    "RadioGroup"
+    "RadioGroup",
+    "ComboBox"
   ],
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/"
@@ -22,6 +23,10 @@
     "Core/SegmentedControl:Default",
     "Core/SegmentedControl:Selected",
     "Core/SegmentedControl:AutomaticSelection"
+  ],
+  "combinations": [
+    "List",
+    "Card"
   ]
 }
 ---
@@ -29,11 +34,11 @@
 
 ## Selection guide
 
-Use when: Switch immediately between two to four equivalent representations of the same content, such as list, cards and calendar, or closely related settings.
+Use when: Switch immediately between a few equivalent representations of the same content, such as list, cards and calendar, or closely related settings; Bodywork recommends two to four as selection guidance, not a runtime limit.
 
 Do not use when: Do not use for multiple-selection filters or five or more options; use a suitable selection control. Separate peer tab panels use Tabs, and form choices use RadioGroup.
 
-Alternatives: Tabs, RadioGroup.
+Alternatives: Tabs, RadioGroup, ComboBox.
 
 ## Metadata
 

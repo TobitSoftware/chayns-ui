@@ -20,6 +20,12 @@
   "checkedOn": "2026-10-06",
   "stories": [
     "Core/Card:Default"
+  ],
+  "combinations": [
+    "Avatar",
+    "Badge",
+    "Button",
+    "TextField"
   ]
 }
 ---

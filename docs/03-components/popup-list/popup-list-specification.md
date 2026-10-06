@@ -12,7 +12,7 @@
   ],
   "alternatives": [
     "ComboBox",
-    "Tooltip"
+    "Popup"
   ],
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/",
@@ -24,6 +24,10 @@
     "Core/Popup:KeyboardNavigation",
     "Core/Popup:BaseComposition",
     "Core/Popup:LongLocalizedItems"
+  ],
+  "combinations": [
+    "SplitButton",
+    "List"
   ]
 }
 ---
@@ -35,7 +39,7 @@ Use when: Bundle several secondary icon/text actions behind an existing trigger;
 
 Do not use when: Do not use for data selection (ComboBox), important information hidden in a tooltip, or a modal decision.
 
-Alternatives: ComboBox, Tooltip.
+Alternatives: ComboBox, Popup.
 
 This component shares its confirmed API, native/ref, token, accessibility and acceptance
 contract with [popup specification](../popup/popup-specification.md).

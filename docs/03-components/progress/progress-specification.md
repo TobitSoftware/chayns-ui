@@ -21,6 +21,10 @@
   "stories": [
     "Core/Progress:Default",
     "Core/Progress:Complete"
+  ],
+  "combinations": [
+    "Card",
+    "Banner"
   ]
 }
 ---

@@ -22,6 +22,11 @@
     "Core/Badge:Status",
     "Core/Badge:Count",
     "Core/Badge:Chip"
+  ],
+  "combinations": [
+    "Avatar",
+    "List",
+    "Card"
   ]
 }
 ---

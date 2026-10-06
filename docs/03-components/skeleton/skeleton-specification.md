@@ -21,6 +21,11 @@
   "stories": [
     "Core/Skeleton:Default",
     "Core/Skeleton:Circular"
+  ],
+  "combinations": [
+    "Card",
+    "List",
+    "Avatar"
   ]
 }
 ---

@@ -1,22 +1,26 @@
 ## Einsatz
 
-Eine Hauptaktion mit verwandten Varianten verbinden, etwa Senden, später Senden und Entwurf speichern.
+Eine Hauptaktion direkt ausführbar machen und verwandte Varianten im zusätzlichen Menü anbieten, etwa Senden, später Senden und Entwurf speichern. Die Hauptaktion bleibt ohne Öffnen des Menüs erreichbar.
 
 ## Nicht geeignet
 
-Gleichwertige Alternativen ohne klare Hauptaktion bündeln.
+Gleichwertige unabhängige Aktionen nicht willkürlich in eine Haupt- und Nebenaktion aufteilen. Ein reines Kontextmenü benötigt keinen zusätzlichen Hauptbutton.
 
 ## Alternativen
 
-Separate Outline-Buttons für gleichwertige Aktionen; [PopupList](?path=/docs/core-popup--docs) für reine Nebenaktionen.
+Separate [Buttons](?path=/docs/core-button--docs) mit Outline-Variante zeigen gleichwertige Aktionen. [PopupList](?path=/story/core-popup--action-list) reicht für ein reines sekundäres Aktionsmenü.
 
 ## Gut kombinierbar
 
-[Card](?path=/docs/core-card--docs) und Formularbereiche.
+[Button](?path=/docs/core-button--docs) und [PopupList](?path=/story/core-popup--action-list) bilden intern die beiden Controls; im Verbrauchscode werden sie nicht zusätzlich darum komponiert. [Card](?path=/docs/core-card--docs) kann den gemeinsamen Aktionsbereich bereitstellen.
 
 ## Verwendung
 
+Die sichtbare Hauptaktion über `children` und `onClick` angeben. `items` enthält die Varianten mit Icon, lokalisiertem Text und Handler. `send` und `schedule` im Beispiel gehören zur Anwendung.
+
 ```tsx
+import { ButtonVariants, SplitButton } from '@chayns-ui/core';
+
 <SplitButton
   variant={ButtonVariants.Primary}
   onClick={send}
@@ -28,4 +32,4 @@ Separate Outline-Buttons für gleichwertige Aktionen; [PopupList](?path=/docs/co
 
 ## Besonderheiten
 
-Die Hauptaktion und das Menü sind getrennte Controls. Ein Primary-SplitButton zählt als Primary-Aktion des Bereichs. onClick gehört zur Hauptaktion; items beschreibt Menüaktionen, native Root-Props adressieren den Container.
+Ein Primary-SplitButton zählt als die Primary-Aktion des Bereichs. Hauptaktion und Menüauslöser sind separate native Buttons mit gemeinsamem Disabled-Zustand. Beide übernehmen das Button-Hover-/Druckverhalten. Native Root-Props und Ref gehören zum umgebenden Container; PopupList übernimmt Menübedienung und Fokus-Rückkehr.

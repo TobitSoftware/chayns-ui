@@ -237,6 +237,19 @@ Eine neue oder wesentlich geänderte Component MUST vor der Implementierung eine
 
 **OPEN DECISION: Das maschinenlesbare Component-Specification-Format ist als OPEN-011 und AI-005 nicht entschieden.** Dieser Standard definiert den erforderlichen Inhalt, nicht Dateiformat, Ablageort oder Automatisierung der Specification.
 
+### Storybook usage guides
+
+Der [Specification Format](component-specification-format.md#consumer-documentation-in-storybook)
+legt die sechs Consumer-Abschnitte fest. Sie erklären Auswahl, Alternativen,
+Composition und richtigen Einstieg anhand bestätigter Verträge. Reine Kürze ist
+kein Qualitätskriterium: Gründe, State-Verantwortung und notwendige Hinweise
+müssen verständlich bleiben. Eltern-/Kind-Beziehungen und Ergänzungen MUST als
+Kombination beschrieben werden, nicht als austauschbare Alternativen.
+Maschinenlesbare Auswahl- und Kombinationsmetadaten MUST dieselben Beziehungen
+abbilden. Beispiele MUST öffentliche Imports und vorhandene Konfigurations-Enums
+verwenden und gegen die tatsächlichen Props geprüft werden. Native Lösungen oder
+noch nicht verfügbare Komponenten werden ausdrücklich als solche bezeichnet.
+
 ## 17. Component Implementation Readiness Gate
 
 Das [Component Implementation Readiness Gate](../../AGENTS.md#component-implementation-readiness-gate) ist verbindlich und wird hier nicht neu definiert:

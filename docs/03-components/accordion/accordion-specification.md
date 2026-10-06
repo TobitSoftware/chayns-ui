@@ -12,7 +12,8 @@
   ],
   "alternatives": [
     "Tabs",
-    "Card"
+    "Card",
+    "List"
   ],
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/"
@@ -26,6 +27,12 @@
     "Core/Accordion:Disabled",
     "Core/Accordion:List",
     "Core/Accordion:NestedGroup"
+  ],
+  "combinations": [
+    "AccordionGroup",
+    "TextField",
+    "List",
+    "Button"
   ]
 }
 ---
@@ -37,7 +44,7 @@ Use when: Use independent disclosures for sections that may open separately; use
 
 Do not use when: Do not group logically exclusive entries without AccordionGroup, hide information everyone must see, nest equivalent content unnecessarily, or build a sequential workflow with disclosures.
 
-Alternatives: Tabs, Card.
+Alternatives: Tabs, Card, List.
 
 ## Metadata — Required
 

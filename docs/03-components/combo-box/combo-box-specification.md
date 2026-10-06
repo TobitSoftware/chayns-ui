@@ -22,6 +22,11 @@
   "stories": [
     "Core/ComboBox:SingleSelect",
     "Core/ComboBox:MultiSelect"
+  ],
+  "combinations": [
+    "TextField",
+    "Button",
+    "Card"
   ]
 }
 ---

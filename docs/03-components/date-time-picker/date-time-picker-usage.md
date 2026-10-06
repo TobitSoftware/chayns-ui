@@ -1,22 +1,26 @@
 ## Einsatz
 
-Ein lokales Datum oder eine Uhrzeit im bestätigten Wheel-Control auswählen.
+Ein lokales Datum oder eine lokale Uhrzeit über das freigegebene Wheel-Control auswählen. Das Control stellt die Auswahl dar; die Anwendung liefert den aktuellen Wert und übernimmt die Änderung.
 
 ## Nicht geeignet
 
-Freie Texte, kombinierte Datum/Uhrzeit-Eingabe, Zeitzonenauswahl oder Kalendernavigation.
+Keine freie Texteingabe, Zeitzonenauswahl, kombinierte Datum/Uhrzeit-Auswahl oder Kalendernavigation erwarten. Die aktuelle Library-Komponente ist ausdrücklich der Wheel-Picker und kein Monatskalender.
 
 ## Alternativen
 
-[TextField](?path=/docs/core-textfield--docs) für freien Text; [ComboBox](?path=/docs/core-combobox--docs) für andere endliche Werte. Beide ersetzen keine Datumsauswahl.
+Für Kalendernavigation gibt es derzeit keinen gleichwertigen Library-Ersatz. Die Kalenderdarstellung aus Bodywork ist nicht implementiert.
 
 ## Gut kombinierbar
 
-[Button](?path=/docs/core-button--docs) und weitere Formular-Controls.
+[TextField](?path=/docs/core-textfield--docs) kann andere Formularangaben erfassen, [Button](?path=/docs/core-button--docs) die gesamte Eingabe bestätigen. Fachliche Terminregeln verbleiben im Formular bzw. in der Anwendung.
 
 ## Verwendung
 
+`value` als `Date` oder `null` kontrolliert übergeben; `onChange` liefert ein `Date`. `mode` wählt Datum oder Zeit. `date`, `setDate`, `locale` und die lokalisierten `wheelLabels` stammen im Beispiel aus der Anwendung.
+
 ```tsx
+import { DateTimePicker, DateTimePickerModes } from '@chayns-ui/core';
+
 <DateTimePicker
   mode={DateTimePickerModes.Date}
   value={date}
@@ -30,4 +34,4 @@ Freie Texte, kombinierte Datum/Uhrzeit-Eingabe, Zeitzonenauswahl oder Kalenderna
 
 ## Besonderheiten
 
-Kontrolliert: value ist Date oder null. locale und lokalisierte Wheel-Beschriftungen sind explizit erforderlich; keine Zeitzone wird abgeleitet. minDate/maxDate und minuteStep begrenzen die Auswahl. Referenz ist die freigegebene Wheel-POC, nicht Bodyworks Kalender.
+`label`, `placeholder`, `locale` und alle Wheel-Beschriftungen sind explizit zu liefern. `minDate`/`maxDate` begrenzen Daten; `minuteStep` verwendet die bestätigten Schrittwerte. Die Komponente leitet keine Zeitzone ab. Ihre visuelle Referenz ist die freigegebene Wheel-POC; dies ist eine dokumentierte Abweichung von Bodyworks Kalender.

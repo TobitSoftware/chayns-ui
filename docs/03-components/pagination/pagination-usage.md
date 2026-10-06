@@ -1,22 +1,26 @@
 ## Einsatz
 
-Seiten einer langen, seitenweise geladenen Sammlung wechseln.
+Seiten einer langen, seitenweise geladenen Sammlung wechseln, etwa Suchergebnisse oder Dokumentlisten. Die sichtbaren Seitenzahlen ermöglichen gezielte Sprünge statt nur fortlaufenden Nachladens.
 
 ## Nicht geeignet
 
-Feeds, Hierarchien oder geordnete Workflow-Schritte.
+Pagination beschreibt weder eine Hierarchie noch eine Schrittfolge. Für fortlaufende Feeds ohne sinnvolle Seitenziele ist ein explizites Nachladen meist passender.
 
 ## Alternativen
 
-[Button](?path=/docs/core-button--docs) zum expliziten Nachladen in Feeds; [Breadcrumb](?path=/docs/core-breadcrumb--docs) für Hierarchien.
+Ein [Button](?path=/docs/core-button--docs) „Mehr laden“ ergänzt einen Feed ohne Seitenwechsel. Ein hierarchischer Rückweg gehört in Breadcrumb, nicht in eine Pagination.
 
 ## Gut kombinierbar
 
-[List](?path=/docs/core-list--docs) und [Card](?path=/docs/core-card--docs) für Ergebnisse.
+[List](?path=/docs/core-list--docs) oder [Card](?path=/docs/core-card--docs) zeigt die Ergebnisse der gewählten Seite. Die Anwendung verbindet Seitenwechsel mit Datenbeschaffung und ihren Ladezuständen.
 
 ## Verwendung
 
+`page` wird ab 1 gezählt; `pageCount` beschreibt die verfügbare Seitenzahl. `setPage` im Beispiel bestätigt den Änderungswunsch und kann die passenden Daten laden.
+
 ```tsx
+import { Pagination } from '@chayns-ui/core';
+
 <Pagination
   aria-label="Ergebnisseiten"
   page={page}
@@ -28,4 +32,4 @@ Feeds, Hierarchien oder geordnete Workflow-Schritte.
 
 ## Besonderheiten
 
-Kontrolliert und ab Seite 1 gezählt. Die Anwendung lädt Daten und bestätigt die nächste Seite. labels liefert alle zugänglichen Button-Namen. Gesamtanzahl, Seitengröße und Tabellenbereiche gehören nicht zum aktuellen Vertrag.
+Pagination ist kontrolliert und lädt selbst keine Daten. `aria-label` benennt die Seitennavigation; `labels` liefert lokalisierte Namen für Zurück, Weiter und einzelne Seiten. Grenzen deaktivieren die entsprechenden Pfeile. Gesamtanzahl, Seitengrößenauswahl und Tabellenbereiche sind nicht Teil des aktuellen Vertrags.

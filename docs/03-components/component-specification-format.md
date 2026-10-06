@@ -14,26 +14,60 @@ zwischen `---`-Zeilen. Das JSON Schema liegt unter
 Story-Verweise ohne zusätzliche Validator-Dependency.
 
 Verpflichtende Felder: `name`, `package`, `category`, `status`, `useWhen`,
-`doNotUseWhen`, `alternatives`, `sourceReferences`, `checkedOn`, `stories`.
+`doNotUseWhen`, `alternatives`, `combinations`, `sourceReferences`, `checkedOn`, `stories`.
 `implemented` beschreibt vorhandenen Code, keine abgeschlossene Release-Prüfung.
 `checkedOn` nennt das Datum des Specification-/Quellenreviews; es ist kein behaupteter
 Screenreader- oder visueller Test. `stories` verwendet `Core/Name:Export` beziehungsweise
 `Layout/Name:Export`. Die Markdown-Specification bleibt normativ; Frontmatter erleichtert
 Auswahl und Auffinden. Die vollständige Specification bleibt der technische Vertrag.
 
-## Compact consumer documentation
+## Consumer documentation in Storybook
 
-Jede Komponente erhält zusätzlich einen kurzen `<component>-usage.md`-Leitfaden
-neben ihrer Specification. Storybook lädt diesen Markdown-Inhalt direkt; technische
-Readiness-, Token-, Review- und Testdetails bleiben in der Specification.
-Die sechs Überschriften sind `Einsatz`, `Nicht geeignet`, `Alternativen`,
-`Gut kombinierbar`, `Verwendung` und `Besonderheiten`. Der Leitfaden fasst die
-bestätigten Bodywork-Auswahlregeln zusammen, zeigt die kleinste passende Verwendung
-und nennt relevante API-, Accessibility-, Lokalisierungs- und State-Besonderheiten.
-Er definiert keine neuen Regeln. Alternativen und sinnvolle Kombinationen verlinken
-vorhandene Storybook-Seiten; noch nicht implementierte Alternativen werden ausdrücklich
-als solche bezeichnet. Komponenten mit einer gemeinsamen Storybook-Seite erhalten
-ihren eigenen Leitfaden bei der passenden Composition-Story.
+Jede Komponente erhält einen `<component>-usage.md`-Leitfaden neben ihrer
+Specification. Storybook lädt ihn direkt. Er erklärt die Auswahl und korrekte
+Verwendung; die Specification bleibt der vollständige technische Vertrag.
+Die sechs Überschriften bleiben `Einsatz`, `Nicht geeignet`, `Alternativen`,
+`Gut kombinierbar`, `Verwendung` und `Besonderheiten`.
+
+- **Einsatz:** Zweck und typischer Anwendungsfall samt Grund nennen, nicht nur
+  die sichtbare Form oder eine abstrakte Ein-Satz-Definition.
+- **Nicht geeignet:** Relevante Fehlanwendungen und ihre Grenze erklären.
+  Keine pauschalen Verbote aus Empfehlungen ableiten.
+- **Alternativen:** Nur echte andere Lösungen für den jeweiligen Bedarf nennen
+  und erklären, wann sie besser passen. Parents, Children und bloße Ergänzungen
+  sind keine Alternativen. Gibt es keinen gleichwertigen Ersatz, das sagen statt
+  eine fachfremde Komponente einzutragen. Native Lösungen dürfen genannt werden;
+  noch nicht implementierte Komponenten müssen als nicht verfügbar erkennbar sein.
+- **Gut kombinierbar:** Ergänzungen und erforderliche Composition-Beziehungen
+  mit ihrem Nutzen beschreiben. Interne Verwendung von Komponenten ausdrücklich
+  von einer im Verbrauchscode erlaubten Verschachtelung unterscheiden.
+- **Verwendung:** Die kleinste sinnvolle API zeigen, öffentliche Imports und
+  exportierte Konfigurations-Enums verwenden. Benötigte Anwendungswerte/Handler
+  im Text erklären. Alle TSX-Beispiele müssen gegen die aktuellen öffentlichen
+  Typen prüfbar sein; keine erfundenen Props oder stillschweigend fehlenden
+  zugänglichen Beschriftungen.
+- **Besonderheiten:** Nur für richtige Verwendung wichtige Defaults,
+  State-Verantwortung, Keyboard-/Accessibility-/Lokalisierungsanforderungen und
+  Einschränkungen nennen. Wichtige Hinweise nicht aus Platzgründen auslassen;
+  Tokenkataloge, Auditprotokolle und vollständige Prop-Tabellen nicht wiederholen.
+
+Der Umfang richtet sich nach der Verantwortung der Komponente: kurze erklärende
+Absätze, bei Bedarf wenige konkrete Punkte, keine starre Satz- oder Wortgrenze.
+Die Dokumentation soll eine Auswahl und den ersten richtigen Einsatz ermöglichen,
+ohne die vollständige Specification lesen zu müssen. Die automatische Prop-Tabelle
+und Stories ergänzen den Leitfaden; sie ersetzen seine Auswahlgründe nicht.
+
+Auswahlgründe werden gegen die Bodywork-Beschreibungen und bestätigte Repository-
+Entscheidungen geprüft. Eine dokumentierte Abweichung wie der Wheel-Picker muss
+klar sichtbar bleiben. `useWhen`, `doNotUseWhen`, `alternatives` und `combinations`
+im Frontmatter müssen mit dem Leitfaden übereinstimmen. `combinations` enthält
+Namen vorhandener dokumentierter Komponenten; es ist keine neue öffentliche UI-API.
+
+Links führen zu vorhandenen Storybook-Docs oder zu einer konkreten Composition-Story.
+AccordionGroup und PopupList teilen die Docs-Seite ihres verwandten Controls;
+ihr eigener Leitfaden steht an der Grouped- bzw. ActionList-Story. Links auf diese
+Stories zeigen die jeweilige Kombination unmittelbar. `pnpm docs:check` prüft
+Metadaten, nicht leere Abschnitte, Ziele und die öffentlichen TSX-Beispiele.
 
 ## 1. Specification Principles
 

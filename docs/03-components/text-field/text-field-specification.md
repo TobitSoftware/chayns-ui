@@ -25,6 +25,11 @@
     "Core/TextField:Error",
     "Core/TextField:Disabled",
     "Core/TextField:Password"
+  ],
+  "combinations": [
+    "Checkbox",
+    "RadioGroup",
+    "Button"
   ]
 }
 ---

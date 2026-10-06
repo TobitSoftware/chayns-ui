@@ -27,6 +27,11 @@
     "Core/Accordion:Disabled",
     "Core/Accordion:List",
     "Core/Accordion:NestedGroup"
+  ],
+  "combinations": [
+    "Accordion",
+    "TextField",
+    "Button"
   ]
 }
 ---

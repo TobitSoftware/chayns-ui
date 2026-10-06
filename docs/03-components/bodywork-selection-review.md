@@ -8,7 +8,7 @@ reason; it does not create variants shown only in Bodywork.
 
 | Area | Bodywork reason | Library reconciliation |
 | --- | --- | --- |
-| Button / IconButton | Choose action emphasis; one primary per closed scope; verb label; square icon actions use IconButton. | Aligned. Navigation remains native links and icon actions require a localized accessible name. |
+| Button / IconButton | Choose action emphasis; one primary per closed scope; verb label; compact icon actions use IconButton. | Aligned. Navigation remains native links and icon actions require a localized accessible name. |
 | SplitButton | A principal action has related variants; equivalent alternatives are separate outline buttons. | Aligned. Primary SplitButton counts as the scope's primary action. |
 | SegmentedControl / Tabs | Two to four equivalent representations (list/cards/calendar) use SegmentedControl; up to five peer views on one page use Tabs; ordered steps use the setup assistant. | Confirmed semantic distinction: settings/representations use radiogroup, paired panels use Tabs. Counts are selection guidance, not a new runtime maximum. Attached panel geometry is the confirmed Layout contract; underline is the user-confirmed 2026-10-06 reference, not Bodywork's pill sample. |
 | Card / List | Many comparable entries use List; standalone content uses Card, including clickable card patterns in Bodywork. | CARD-003 keeps Core Card presentational; native interactive children supply interaction. CARD-004 supersedes the old no-padding/elevated description. The earlier AI draft was stale and is replaced. |
@@ -27,3 +27,20 @@ reason; it does not create variants shown only in Bodywork.
 The reviewed explanations are paraphrased, not copied. Internal technical contracts
 such as refs and event cancellation are repository clarifications. New variations
 in the external document remain outside the component's gate until approved.
+
+## Storybook documentation reconciliation — 2026-10-06
+
+The live Bodywork usage descriptions were rechecked (151 usage rows) against
+all 31 component specifications and public APIs. The consumer guides retain
+six sections but explain purposes, selection reasons, composition and ownership
+rather than reducing each topic to a slogan. AccordionGroup is a grouping companion
+for Accordion; Avatar is the child of AvatarGroup. AppLayout is not replaced by
+Card or Tabs, and neither TextField nor ComboBox replaces the wheel date picker.
+These boundaries are now explicit in human guides and combination metadata.
+
+The Spinner guide follows the confirmed SPIN-005 contract: rotation stops under
+Reduced Motion; the named loading region keeps its status meaning. Numeric option
+counts remain Bodywork selection guidance rather than new runtime limits.
+Imports, enums, controlled values and application handlers are shown or explained;
+TSX examples and links to shared Docs/Composition stories are checked automatically.
+No component API, visual variant or READY scope changes in this documentation review.

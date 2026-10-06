@@ -11,8 +11,9 @@
     "Do not use for multiple selection or a long option set; use ComboBox beyond five choices and Switch for a binary immediate setting."
   ],
   "alternatives": [
-    "Tabs",
-    "ComboBox"
+    "ComboBox",
+    "Checkbox",
+    "Switch"
   ],
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/"
@@ -21,6 +22,10 @@
   "stories": [
     "Core/RadioGroup:Default",
     "Core/RadioGroup:Disabled"
+  ],
+  "combinations": [
+    "TextField",
+    "Button"
   ]
 }
 ---
@@ -32,7 +37,7 @@ Use when: Select exactly one of two to five visible options.
 
 Do not use when: Do not use for multiple selection or a long option set; use ComboBox beyond five choices and Switch for a binary immediate setting.
 
-Alternatives: Tabs, ComboBox.
+Alternatives: ComboBox, Checkbox, Switch.
 
 ## Metadata
 

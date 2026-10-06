@@ -12,7 +12,8 @@
   ],
   "alternatives": [
     "TextField",
-    "Toast"
+    "TextArea",
+    "Toast (not implemented)"
   ],
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/"
@@ -22,6 +23,11 @@
     "Core/Banner:Success",
     "Core/Banner:Neutral",
     "Core/Banner:Warning"
+  ],
+  "combinations": [
+    "Card",
+    "AppLayout",
+    "Button"
   ]
 }
 ---
@@ -33,7 +39,7 @@ Use when: Communicate persistent information about a region.
 
 Do not use when: Do not use for field errors or short action feedback.
 
-Alternatives: TextField, Toast.
+Alternatives: TextField, TextArea, Toast (not implemented).
 
 ## Metadata
 

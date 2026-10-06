@@ -11,8 +11,7 @@
     "Do not use for feeds, hierarchies or sequential workflow steps."
   ],
   "alternatives": [
-    "load-more button",
-    "Breadcrumb"
+    "load-more Button"
   ],
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/"
@@ -21,6 +20,10 @@
   "stories": [
     "Core/Pagination:Default",
     "Core/Pagination:EdgeCases"
+  ],
+  "combinations": [
+    "List",
+    "Card"
   ]
 }
 ---
@@ -32,7 +35,7 @@ Use when: Switch pages of a long page-loaded collection.
 
 Do not use when: Do not use for feeds, hierarchies or sequential workflow steps.
 
-Alternatives: load-more button, Breadcrumb.
+Alternatives: load-more Button.
 
 - Category: Core
 - Status: READY FOR IMPLEMENTATION

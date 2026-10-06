@@ -1,22 +1,26 @@
 ## Einsatz
 
-Wenige unabhängige Optionen sichtbar auswählen; zwei bis drei Optionen bleiben ohne Dropdown gut auffindbar.
+Unabhängige Optionen auswählen, von denen mehrere gleichzeitig gelten können. Zwei oder drei sichtbare Optionen bleiben besonders gut auffindbar. Auch eine einzelne Entscheidung, die erst mit einem Formular bestätigt wird, passt zu Checkbox.
 
 ## Nicht geeignet
 
-Exklusive Auswahl, sofort wirkende binäre Einstellungen oder lange Mehrfachauswahl.
+Keine exklusive Auswahl oder sofort wirksame Einstellung als Checkbox-Liste darstellen. Sehr lange Mehrfachauswahlen benötigen meist eine kompaktere Auswahlfläche.
 
 ## Alternativen
 
-[RadioGroup](?path=/docs/core-radiogroup--docs) für exklusive Auswahl; [Switch](?path=/docs/core-switch--docs) für sofortige Einstellungen; [ComboBox](?path=/docs/core-combobox--docs) für längere Mehrfachauswahl.
+[RadioGroup](?path=/docs/core-radiogroup--docs) wählt genau eine Option, [Switch](?path=/docs/core-switch--docs) schaltet eine sofort wirksame Einstellung. [ComboBox](?path=/docs/core-combobox--docs) mit `multiple` eignet sich für längere Optionsmengen.
 
 ## Gut kombinierbar
 
-[TextField](?path=/docs/core-textfield--docs), [TextArea](?path=/docs/core-textarea--docs) und [Button](?path=/docs/core-button--docs) in Formularen.
+[TextField](?path=/docs/core-textfield--docs), [TextArea](?path=/docs/core-textarea--docs) und [Button](?path=/docs/core-button--docs) bilden ein Formular. Unabhängige Checkboxes brauchen keine RadioGroup.
 
 ## Verwendung
 
+Die Bedeutung über sichtbare `children` beschriften. `description` erklärt zusätzliche Folgen. Für Formularübermittlung einen passenden `name` und bei Bedarf `value` angeben.
+
 ```tsx
+import { Checkbox } from '@chayns-ui/core';
+
 <Checkbox name="newsletter" description="Einmal im Monat">
   Newsletter abonnieren
 </Checkbox>;
@@ -24,4 +28,4 @@ Exklusive Auswahl, sofort wirkende binäre Einstellungen oder lange Mehrfachausw
 
 ## Besonderheiten
 
-children ist die sichtbare Beschriftung. Native checked/defaultChecked, onChange, required und disabled verwenden. description ergänzt die zugängliche Erklärung; Formularauswertung bleibt Anwendungssache.
+Native `checked`/`defaultChecked`, `onChange`, `required` und `disabled` bleiben erhalten; kontrolliert wird der Wert über `event.target.checked` übernommen. Leertaste schaltet die fokussierte Checkbox. Die Komponente validiert keine fachlichen Voraussetzungen und speichert die Entscheidung nicht selbst.

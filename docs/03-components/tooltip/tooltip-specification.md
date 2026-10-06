@@ -11,9 +11,10 @@
     "Do not hide essential instructions in a tooltip or put interactive menu actions into it."
   ],
   "alternatives": [
-    "help text",
-    "PopupList",
-    "Banner"
+    "visible help text",
+    "Banner",
+    "Popup",
+    "PopupList"
   ],
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/"
@@ -21,6 +22,10 @@
   "checkedOn": "2026-10-06",
   "stories": [
     "Core/Tooltip:Default"
+  ],
+  "combinations": [
+    "Button",
+    "IconButton"
   ]
 }
 ---
@@ -32,7 +37,7 @@ Use when: Explain a control briefly on hover/focus without taking over its prima
 
 Do not use when: Do not hide essential instructions in a tooltip or put interactive menu actions into it.
 
-Alternatives: help text, PopupList, Banner.
+Alternatives: visible help text, Banner, Popup, PopupList.
 
 ## Public contract — confirmed 2026-10-06
 

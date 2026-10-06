@@ -11,7 +11,7 @@
     "Do not use as a generic status indicator or fetch identity data in Core."
   ],
   "alternatives": [
-    "Badge"
+    "visible identity text"
   ],
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/"
@@ -22,6 +22,10 @@
     "Core/Avatar:Small",
     "Core/Avatar:WithImage",
     "Core/Avatar:WithBadge"
+  ],
+  "combinations": [
+    "List",
+    "AvatarGroup"
   ]
 }
 ---
@@ -33,7 +37,7 @@ Use when: Represent one identity using an image or initials fallback.
 
 Do not use when: Do not use as a generic status indicator or fetch identity data in Core.
 
-Alternatives: Badge.
+Alternatives: visible identity text.
 
 ## Metadata
 

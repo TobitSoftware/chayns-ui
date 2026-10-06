@@ -11,8 +11,7 @@
     "Do not use for routing, persistence or arbitrary two-column layout."
   ],
   "alternatives": [
-    "Card",
-    "Tabs"
+    "native page structure"
   ],
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/"
@@ -21,6 +20,12 @@
   "stories": [
     "Layout/AppLayout:MailWorkspace",
     "Layout/AppLayout:Collapsed"
+  ],
+  "combinations": [
+    "Breadcrumb",
+    "Tabs",
+    "Card",
+    "List"
   ]
 }
 ---
@@ -32,7 +37,7 @@ Use when: Build the confirmed reusable application shell with header, navigation
 
 Do not use when: Do not use for routing, persistence or arbitrary two-column layout.
 
-Alternatives: Card, Tabs.
+Alternatives: native page structure.
 
 - Component Category: Layout
 - Specification Status: READY FOR IMPLEMENTATION

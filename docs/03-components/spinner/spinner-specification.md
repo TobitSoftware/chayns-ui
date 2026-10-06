@@ -12,7 +12,8 @@
   ],
   "alternatives": [
     "Progress",
-    "Button"
+    "Skeleton",
+    "Button loading state"
   ],
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/"
@@ -20,6 +21,10 @@
   "checkedOn": "2026-10-06",
   "stories": [
     "Core/Spinner:Default"
+  ],
+  "combinations": [
+    "Card",
+    "List"
   ]
 }
 ---
@@ -31,7 +36,7 @@ Use when: Show decorative indeterminate activity within an already named busy re
 
 Do not use when: Do not rely on the spinner alone for accessible status or use for known percentages.
 
-Alternatives: Progress, Button.
+Alternatives: Progress, Skeleton, Button loading state.
 
 ## Metadata
 

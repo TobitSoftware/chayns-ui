@@ -21,6 +21,11 @@
   "stories": [
     "Core/Stepper:Default",
     "Core/Stepper:Decimal"
+  ],
+  "combinations": [
+    "Card",
+    "List",
+    "Button"
   ]
 }
 ---

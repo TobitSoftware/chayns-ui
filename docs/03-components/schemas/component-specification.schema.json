@@ -11,6 +11,7 @@
     "useWhen",
     "doNotUseWhen",
     "alternatives",
+    "combinations",
     "sourceReferences",
     "checkedOn",
     "stories"
@@ -82,6 +83,13 @@
     "stories": {
       "type": "array",
       "minItems": 0,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "combinations": {
+      "type": "array",
       "items": {
         "type": "string",
         "minLength": 1

@@ -11,8 +11,7 @@
     "Do not use for free text, combined date/time, timezone selection or calendar navigation."
   ],
   "alternatives": [
-    "TextField",
-    "ComboBox"
+    "calendar picker (not implemented)"
   ],
   "sourceReferences": [
     "date-time-picker-specification.md#metadata",
@@ -22,6 +21,10 @@
   "stories": [
     "Core/DateTimePicker:Time",
     "Core/DateTimePicker:DateMode"
+  ],
+  "combinations": [
+    "TextField",
+    "Button"
   ]
 }
 ---
@@ -33,7 +36,7 @@ Use when: Select a controlled local date or time using the confirmed wheel contr
 
 Do not use when: Do not use for free text, combined date/time, timezone selection or calendar navigation.
 
-Alternatives: TextField, ComboBox.
+Alternatives: calendar picker (not implemented).
 
 ## Metadata
 

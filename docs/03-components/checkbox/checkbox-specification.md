@@ -12,7 +12,8 @@
   ],
   "alternatives": [
     "RadioGroup",
-    "Switch"
+    "Switch",
+    "ComboBox"
   ],
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/"
@@ -22,6 +23,11 @@
     "Core/Checkbox:Default",
     "Core/Checkbox:Checked",
     "Core/Checkbox:Disabled"
+  ],
+  "combinations": [
+    "TextField",
+    "TextArea",
+    "Button"
   ]
 }
 ---
@@ -33,7 +39,7 @@ Use when: Select several independent choices from a small visible option set; tw
 
 Do not use when: Do not use for one-of-two-to-five exclusive choices, an immediately applied binary setting, or a long multiple-choice set better served by ComboBox.
 
-Alternatives: RadioGroup, Switch.
+Alternatives: RadioGroup, Switch, ComboBox.
 
 ## Metadata
 

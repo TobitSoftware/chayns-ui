@@ -23,6 +23,11 @@
     "Core/SplitButton:AllVariants",
     "Core/SplitButton:Disabled",
     "Core/SplitButton:LongLocalizedLabel"
+  ],
+  "combinations": [
+    "Button",
+    "PopupList",
+    "Card"
   ]
 }
 ---

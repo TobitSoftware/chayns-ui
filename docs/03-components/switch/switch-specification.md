@@ -11,7 +11,8 @@
     "Do not use for choices applied only after saving a form."
   ],
   "alternatives": [
-    "Checkbox"
+    "Checkbox",
+    "RadioGroup"
   ],
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/"
@@ -21,6 +22,10 @@
     "Core/Switch:Default",
     "Core/Switch:Enabled",
     "Core/Switch:Disabled"
+  ],
+  "combinations": [
+    "Card",
+    "List"
   ]
 }
 ---
@@ -32,7 +37,7 @@ Use when: Toggle a binary setting with immediate effect.
 
 Do not use when: Do not use for choices applied only after saving a form.
 
-Alternatives: Checkbox.
+Alternatives: Checkbox, RadioGroup.
 
 ## Metadata
 

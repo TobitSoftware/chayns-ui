@@ -5,7 +5,7 @@
   "category": "Core",
   "status": "implemented",
   "useWhen": [
-    "Choose a square icon-only action when its meaning is established and a localized accessible name is supplied."
+    "Choose a compact icon-only action when its meaning is established and a localized accessible name is supplied."
   ],
   "doNotUseWhen": [
     "Do not squeeze an ordinary Primary button into an icon control or omit an accessible name; use Button when a visible label helps."
@@ -24,6 +24,11 @@
     "Core/IconButton:Disabled",
     "Core/IconButton:Loading",
     "Core/IconButton:AllVariants"
+  ],
+  "combinations": [
+    "List",
+    "Card",
+    "Tooltip"
   ]
 }
 ---
@@ -31,7 +36,7 @@
 
 ## Selection guide
 
-Use when: Choose a square icon-only action when its meaning is established and a localized accessible name is supplied.
+Use when: Choose a compact icon-only action when its meaning is established and a localized accessible name is supplied.
 
 Do not use when: Do not squeeze an ordinary Primary button into an icon control or omit an accessible name; use Button when a visible label helps.
 

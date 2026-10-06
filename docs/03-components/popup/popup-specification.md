@@ -11,8 +11,8 @@
     "Do not use as a modal decision or automatically assign menu semantics."
   ],
   "alternatives": [
-    "PopupList",
-    "Tooltip"
+    "Tooltip",
+    "modal dialog (not implemented)"
   ],
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/"
@@ -23,6 +23,11 @@
     "Core/Popup:KeyboardNavigation",
     "Core/Popup:BaseComposition",
     "Core/Popup:LongLocalizedItems"
+  ],
+  "combinations": [
+    "PopupList",
+    "Button",
+    "Card"
   ]
 }
 ---
@@ -34,7 +39,7 @@ Use when: Show a non-modal contextual surface at a trigger.
 
 Do not use when: Do not use as a modal decision or automatically assign menu semantics.
 
-Alternatives: PopupList, Tooltip.
+Alternatives: Tooltip, modal dialog (not implemented).
 
 ## Metadata
 
