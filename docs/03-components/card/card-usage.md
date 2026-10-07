@@ -30,3 +30,12 @@ import { Card } from '@chayns-ui/core';
 ## Besonderheiten
 
 Hover hebt die Card um 4px in 220ms an, ohne Druckeffekt. Das Header-Icon wird Solid; seine Fläche wächst leicht und wechselt zur Akzentfarbe. Reduced Motion unterdrückt dekorative Bewegung. Der Hover-Effekt verleiht der Card keine eigene Button- oder Linksemantik.
+
+Wenn eine Card visuell inline bleiben muss, unterdrückt `disableHover` ausschließlich diese dekorative Behandlung. Die Card bleibt dabei weiterhin eine nicht-interaktive Oberfläche.
+
+```tsx
+<Card disableHover>
+  <Card.Header>Projekt</Card.Header>
+  <p>Projektbeschreibung</p>
+</Card>
+```

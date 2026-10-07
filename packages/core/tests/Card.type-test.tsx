@@ -14,3 +14,4 @@ export const referencedCard = (
   </Card>
 );
 export const emptyCard = <Card />;
+export const hoverDisabledCard = <Card disableHover>Content</Card>;

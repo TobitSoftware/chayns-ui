@@ -9,6 +9,11 @@ import type { ButtonIcon } from '../button/Button.types.js';
  */
 export interface CardProps extends ComponentPropsWithRef<'div'> {
   /**
+   * @description Suppresses the decorative Card hover treatment, keeping the
+   * surface visually flat while preserving its non-interactive semantics.
+   */
+  disableHover?: boolean;
+  /**
    * @description Content rendered inside the card surface. Card owns the
    * standard Design System inner spacing around this content.
    */

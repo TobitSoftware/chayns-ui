@@ -25,3 +25,13 @@ export const Default: Story = {
     </Card>
   ),
 };
+
+export const HoverDisabled: Story = {
+  args: { disableHover: true },
+  render: (args) => (
+    <Card {...args}>
+      <Card.Header icon="fa-chart-line">Q3-Budget freigegeben</Card.Header>
+      <p>Die Oberfläche bleibt beim Überfahren flach.</p>
+    </Card>
+  ),
+};

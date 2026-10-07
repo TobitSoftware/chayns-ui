@@ -48,6 +48,14 @@ describe('Card', () => {
     expect(card).toHaveAttribute('data-purpose', 'example');
   });
 
+  it('suppresses the decorative hover treatment without forwarding its prop', () => {
+    const { container } = render(<Card disableHover>Inhalt</Card>);
+    const card = container.firstElementChild;
+
+    expect(card).toHaveClass('chayns-card', 'chayns-card--hover-disabled');
+    expect(card).not.toHaveAttribute('disablehover');
+  });
+
   it('renders safely on the server', () => {
     const markup = renderToString(<Card>Server surface</Card>);
 

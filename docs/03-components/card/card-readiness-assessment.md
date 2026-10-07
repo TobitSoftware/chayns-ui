@@ -6,7 +6,7 @@
 - Component Category: Core
 - Component Specification: `card-specification.md`
 - Specification Status: READY FOR IMPLEMENTATION
-- Relevant Decision IDs: CORE-001–007, CARD-003–004, CARD-006, A11Y-001–007, DENSITY-001–005, DIST-012–013
+- Relevant Decision IDs: CORE-001–007, CARD-003–004, CARD-006–007, A11Y-001–007, DENSITY-001–005, DIST-012–013
 - Foundation Dependencies: token transfer for `--surface`, `--surface-alt`, `--border`, `--shadow-hover`, `--accent`, `--on-accent`
 - Related Components: List, Accordion
 - Review Context: Design System `.card` surface transferred 1:1 from `tobit-ds.css`; user authorized Milestone-1 implementation of Card/List/Accordion
@@ -26,7 +26,7 @@
 | 07 | Semantic Contract | PASS | Non-semantic `div`; no imposed role or name. |
 | 08 | Public API Contract | PASS | `CardProps` with intrinsic padding, optional `Card.Header`, and forwarded native div/header props. |
 | 09 | DOM Contract | PASS | Exactly one native root; class merge order defined. |
-| 10 | Variants | PASS | No public variant; hover elevation follows Bodywork automatically. |
+| 10 | Variants | PASS | `disableHover` is a documented visual opt-out for inline surfaces; it suppresses the complete decorative hover treatment without changing Card semantics. |
 | 11 | Local Size Variants vs Density | PASS | No local S/M/L; geometry density-independent per DS. |
 | 12 | State Model | N/A | Card has no interactive states. |
 | 13 | State Combinations | N/A | No states to combine. |
@@ -47,8 +47,8 @@
 | 28 | Error / Invalid | N/A | Card owns no validation/error state. |
 | 29 | Dependencies | PASS | React peer only; explicit token/Core CSS; no runtime deps. |
 | 30 | Escape Hatches and Overrides | PASS | Native props/className allowed; no interactivity repurposing. |
-| 31 | Test Contract | PASS | Render, header/icon, forwarding and SSR cases enumerated and implemented. |
-| 32 | Visual Verification Contract | PASS | Flat, hover and optional header/icon area across light and dark defined. |
+| 31 | Test Contract | PASS | Render, header/icon, native forwarding, consumed `disableHover` and SSR cases enumerated and implemented. |
+| 32 | Visual Verification Contract | PASS | Flat, hover, hover-disabled and optional header/icon area across light and dark defined. |
 | 33 | AI Usage Contract | PASS | Selection, context and forbidden assumptions are explicit. |
 | 34 | Open Decisions | PASS | No blocking OPENs; future slots explicitly out of scope. |
 | 35 | Repository Preconditions | PASS | Workspace, tokens, Core build, tests and Storybook are green. |

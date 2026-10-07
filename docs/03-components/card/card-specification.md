@@ -46,10 +46,10 @@ Alternatives: List, Accordion.
 - Specification Status: READY FOR IMPLEMENTATION
 - Owner / Responsible Area: chayns UI Core
 - Design Reference: chayns Design System `.card` surface (canonical `tobit-ds.css`, `.card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; }`), inspected 2026-08-21
-- Relevant Decision IDs: CORE-001–007, CARD-001–003, A11Y-001–007, DENSITY-001–005, DIST-012–013
+- Relevant Decision IDs: CORE-001–007, CARD-001–004, CARD-006–007, A11Y-001–007, DENSITY-001–005, DIST-012–013
 - Foundation Dependencies: token catalogue transfer (`--surface`, `--surface-alt`, `--border`, `--shadow-hover`, `--accent`, `--on-accent`), density matrix, generated `@chayns-ui/tokens` subset
 - Related Components: List, Accordion (both compose on top of the card surface)
-- Last Reviewed: 2026-08-21
+- Last Reviewed: 2026-10-07
 
 ## Purpose — Required
 
@@ -81,7 +81,7 @@ Root is a non-semantic `<div>`. Card adds no ARIA role; consumers may pass `role
 
 ## Variants — Required
 
-Card has no public color, emphasis or elevation prop. On hover-capable devices the surface receives the Design System hover shadow automatically.
+Card has no public color, emphasis or elevation prop. On hover-capable devices the surface receives the Design System hover shadow automatically unless `disableHover` is set.
 
 ## Local Size Variants — Conditional
 
@@ -99,6 +99,7 @@ Not applicable; Card has no states.
 
 ```ts
 interface CardProps extends React.ComponentPropsWithRef<'div'> {
+  disableHover?: boolean;
   children?: React.ReactNode;
 }
 
@@ -108,7 +109,7 @@ interface CardHeaderProps extends React.ComponentPropsWithRef<'header'> {
 }
 ```
 
-All native `div` props, `data-*`, `aria-*`, handlers, `className` and `ref` are forwarded to the root. `Card.Header` forwards compatible native header props and its ref. No `as`, `asChild`, `padding`, `elevated`, `variant` or interactive escape prop exists.
+All native `div` props, `data-*`, `aria-*`, handlers, `className` and `ref` are forwarded to the root. `disableHover` is consumed by Card and suppresses only its decorative hover treatment; it is not forwarded to the DOM. `Card.Header` forwards compatible native header props and its ref. No `as`, `asChild`, `padding`, `elevated`, `variant` or interactive escape prop exists.
 
 ## Native Props and DOM Contract — Conditional
 
@@ -160,7 +161,9 @@ Confirmed user correction 2026-10-06 (CARD-006), superseding CARD-005:
 Bodywork `#motion`, `.lift` and `.card-icon` were checked against the live HTML
 and `tobit-ds.css` on 2026-10-06. Hover-capable devices apply `translateY(-4px)`
 and `--shadow-hover`; transform uses `220ms cubic-bezier(.22,.61,.36,1)` and
-box-shadow uses `220ms ease`. Card has no press effect.
+box-shadow uses `220ms ease`. Card has no press effect. `disableHover` suppresses
+the Card lift, shadow and Header-icon hover feedback when an inline visual surface
+is required; it does not add disabled or interactive semantics.
 
 The existing Header icon area uses `--surface-alt` / `--accent` at rest. Hovering
 anywhere on Card switches its paired glyph from Regular to Solid, scales that
@@ -226,13 +229,14 @@ Consumers may extend via native props and `className`. They must not repurpose C
 ## Test Contract — Required
 
 - Renders a `div.chayns-card` with forwarded `children`.
+- `disableHover` adds the hover-suppression class without forwarding a custom DOM attribute.
 - Renders `Card.Header` with native header props, ref and optional icon.
 - Forwards native props and merges `className`.
 - Server-renders without error.
 
 ## Visual Verification Contract — Conditional
 
-Flat and hover surfaces across light and dark reference modes, including the optional header icon area.
+Flat, hover and `disableHover` surfaces across light and dark reference modes, including the optional header icon area.
 
 ## AI Usage Contract — Required
 
@@ -249,7 +253,7 @@ None beyond resolved theme tokens.
 No external padding prop, no interactivity, no additional variants.
 
 ### Related decisions
-CARD-001–003.
+CARD-001–004, CARD-006–007.
 
 ## Open Decisions — Required
 

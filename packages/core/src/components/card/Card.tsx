@@ -22,10 +22,16 @@ const CardHeader = forwardRef<HTMLElement, CardHeaderProps>(function CardHeader(
 });
 
 const CardRoot = forwardRef<HTMLDivElement, CardProps>(function Card(
-  { children, className, ...cardProps },
+  { children, className, disableHover = false, ...cardProps },
   ref,
 ) {
-  const resolvedClassName = ['chayns-card', className].filter(Boolean).join(' ');
+  const resolvedClassName = [
+    'chayns-card',
+    disableHover && 'chayns-card--hover-disabled',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <div {...cardProps} className={resolvedClassName} ref={ref}>
