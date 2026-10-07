@@ -1,77 +1,12 @@
+import List from './TabsList.js';
+import Panel from './TabsPanel.js';
+import { TabsContext, useTabs } from './TabsContext.js';
+import useElementRef from './hooks/useElementRef.js';
 import TabsIcon from './tabs-icon/TabsIcon.js';
-import {
-  createContext,
-  forwardRef,
-  useCallback,
-  useContext,
-  useId,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import type { KeyboardEvent, Ref } from 'react';
-import type {
-  TabsAddProps,
-  TabsListProps,
-  TabsPanelProps,
-  TabsProps,
-  TabsTabProps,
-} from './Tabs.types.js';
+import { forwardRef, useCallback, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import type { KeyboardEvent } from 'react';
+import type { TabsAddProps, TabsProps, TabsTabProps } from './Tabs.types.js';
 
-interface TabsContextValue {
-  baseId: string;
-  select: (value: string) => void;
-  tabs: Map<string, HTMLButtonElement>;
-  entryValue: string | undefined;
-  register: (value: string, node: HTMLButtonElement | null) => void;
-  notify: () => void;
-  value: string | undefined;
-}
-const TabsContext = createContext<TabsContextValue | null>(null);
-function useTabs(part: string) {
-  const context = useContext(TabsContext);
-  if (context === null) throw new Error(`Tabs.${part} must be rendered within Tabs.`);
-  return context;
-}
-
-/** Keep registry and consumer ref lifecycles stable across selection updates. */
-function createTabRef(
-  register: TabsContextValue['register'],
-  value: string,
-  ref: Ref<HTMLButtonElement>,
-) {
-  let cleanup: (() => void) | undefined;
-  return (node: HTMLButtonElement | null) => {
-    register(value, node);
-    if (typeof ref === 'function') {
-      if (node === null && cleanup) {
-        cleanup();
-        cleanup = undefined;
-      } else {
-        const nextCleanup = ref(node);
-        if (typeof nextCleanup === 'function') cleanup = nextCleanup;
-      }
-    } else if (ref) ref.current = node;
-  };
-}
-
-const List = forwardRef<HTMLDivElement, TabsListProps>(function List(
-  { children, className, ...props },
-  ref,
-) {
-  useTabs('List');
-  return (
-    <div
-      {...props}
-      className={['chayns-tabs__list', className].filter(Boolean).join(' ')}
-      ref={ref}
-      role="tablist"
-    >
-      {children}
-    </div>
-  );
-});
 const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
   { children, className, onKeyDown, onRemove, onClick, value, ...props },
   ref,
@@ -115,7 +50,14 @@ const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
   }
   const register = tabs.register;
   const notify = tabs.notify;
-  const setRef = useMemo(() => createTabRef(register, value, ref), [ref, register, value]);
+  const [, setElement] = useElementRef(ref);
+  const setRef = useCallback(
+    (node: HTMLButtonElement | null) => {
+      register(value, node);
+      setElement(node);
+    },
+    [register, setElement, value],
+  );
   useLayoutEffect(() => notify(), [notify, props.disabled]);
   return (
     <button
@@ -146,26 +88,6 @@ const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
         </span>
       ) : null}
     </button>
-  );
-});
-const Panel = forwardRef<HTMLDivElement, TabsPanelProps>(function Panel(
-  { children, className, value, ...props },
-  ref,
-) {
-  const tabs = useTabs('Panel');
-  if (tabs.value !== value) return null;
-  return (
-    <div
-      {...props}
-      aria-labelledby={`${tabs.baseId}-tab-${value}`}
-      className={['chayns-tabs__panel', className].filter(Boolean).join(' ')}
-      id={`${tabs.baseId}-panel-${value}`}
-      ref={ref}
-      role="tabpanel"
-      tabIndex={0}
-    >
-      {children}
-    </div>
   );
 });
 const Add = forwardRef<HTMLButtonElement, TabsAddProps>(function Add(
@@ -220,7 +142,6 @@ const Root = forwardRef<HTMLDivElement, TabsProps>(function Root(
     const valid = enabled.some(([tabValue]) => tabValue === selectedValue);
     const next = valid ? selectedValue : enabled[0]?.[0];
     // Reconcile committed DOM order/disabled state before paint; unchanged state is retained.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelection((current) =>
       current.valid === valid && current.entry === next ? current : { valid, entry: next },
     );
@@ -233,9 +154,25 @@ const Root = forwardRef<HTMLDivElement, TabsProps>(function Root(
     lastProposal.current = { value: selectedValue, next };
     select(next);
   }, [children, registryVersion, select, selectedValue, tabMap]);
+  const panelValue = selection.valid ? selectedValue : undefined;
+  const [views, setViews] = useState<{ current: string | undefined; exiting: string | undefined }>({
+    current: panelValue,
+    exiting: undefined,
+  });
+  if (views.current !== panelValue) {
+    setViews({ current: panelValue, exiting: views.current });
+  }
+  const finishExit = useCallback((exiting: string) => {
+    setViews((current) =>
+      current.exiting === exiting ? { current: current.current, exiting: undefined } : current,
+    );
+  }, []);
   const context = useMemo(
     () => ({
       baseId,
+      appearance,
+      exitingValue: views.exiting,
+      finishExit,
       select,
       tabs: tabMap,
       register,
@@ -243,7 +180,18 @@ const Root = forwardRef<HTMLDivElement, TabsProps>(function Root(
       entryValue: selection.entry,
       value: selection.valid ? selectedValue : undefined,
     }),
-    [baseId, notify, register, select, selectedValue, selection, tabMap],
+    [
+      appearance,
+      baseId,
+      finishExit,
+      notify,
+      register,
+      select,
+      selectedValue,
+      selection,
+      tabMap,
+      views.exiting,
+    ],
   );
   return (
     <TabsContext.Provider value={context}>
@@ -259,9 +207,7 @@ const Root = forwardRef<HTMLDivElement, TabsProps>(function Root(
     </TabsContext.Provider>
   );
 });
-List.displayName = 'Tabs.List';
 Tab.displayName = 'Tabs.Tab';
-Panel.displayName = 'Tabs.Panel';
 Add.displayName = 'Tabs.Add';
 Root.displayName = 'Tabs';
 
