@@ -157,6 +157,7 @@ const preview: Preview = {
   parameters: {
     a11y: { test: 'error' },
     controls: { expanded: true, sort: 'requiredFirst' },
+    docs: { source: { type: 'dynamic', excludeDecorators: true } },
     layout: 'fullscreen',
     options: { storySort: { order: ['Core'] } },
   },

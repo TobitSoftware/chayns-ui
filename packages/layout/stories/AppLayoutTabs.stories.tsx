@@ -1,5 +1,4 @@
 import waitForTabPanels from './utils/waitForTabPanels.js';
-import TabsIcon from '../src/components/tabs/tabs-icon/TabsIcon.js';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 
@@ -16,41 +15,44 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Workspace: Story = {
+  decorators: [
+    (Story) => (
+      <div className="chayns-storybook-example-layout">
+        <Story />
+      </div>
+    ),
+  ],
   render: () => (
-    <div className="chayns-storybook-example-layout">
-      <AppLayout>
-        <AppLayout.Header>
-          <AppLayout.Logo
-            alt="Tobit.one"
-            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='132' height='32'%3E%3Crect width='132' height='32' rx='8' fill='%230f6d7e'/%3E%3C/svg%3E"
-          />
-        </AppLayout.Header>
-        <AppLayout.Navigation aria-label="Application navigation">
-          <AppLayout.Navigation.Item icon="fa-inbox" isActive label="Inbox" />
-          <AppLayout.Navigation.Item icon="fa-calendar" label="Calendar" />
-        </AppLayout.Navigation>
-        <AppLayout.CollapseToggle
-          collapseLabel="Collapse navigation"
-          expandLabel="Expand navigation"
+    <AppLayout>
+      <AppLayout.Header>
+        <AppLayout.Logo
+          alt="Tobit.one"
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='132' height='32'%3E%3Crect width='132' height='32' rx='8' fill='%230f6d7e'/%3E%3C/svg%3E"
         />
-        <AppLayout.Content>
-          <Tabs defaultValue="inbox">
-            <Tabs.List aria-label="Workspace tabs">
-              <Tabs.Tab onRemove={() => undefined} value="inbox">
-                <TabsIcon icon="fa-inbox" />
-                <span>Inbox</span>
-              </Tabs.Tab>
-              <Tabs.Tab onRemove={() => undefined} value="calendar">
-                <TabsIcon icon="fa-calendar" />
-                <span>Calendar</span>
-              </Tabs.Tab>
-            </Tabs.List>
-            <Tabs.Panel value="inbox">Meetings and conversations</Tabs.Panel>
-            <Tabs.Panel value="calendar">Your calendar</Tabs.Panel>
-          </Tabs>
-        </AppLayout.Content>
-      </AppLayout>
-    </div>
+      </AppLayout.Header>
+      <AppLayout.Navigation aria-label="Application navigation">
+        <AppLayout.Navigation.Item icon="fa-inbox" isActive label="Inbox" />
+        <AppLayout.Navigation.Item icon="fa-calendar" label="Calendar" />
+      </AppLayout.Navigation>
+      <AppLayout.CollapseToggle
+        collapseLabel="Collapse navigation"
+        expandLabel="Expand navigation"
+      />
+      <AppLayout.Content>
+        <Tabs defaultValue="inbox">
+          <Tabs.List aria-label="Workspace tabs">
+            <Tabs.Tab value="inbox">
+              <span>Inbox</span>
+            </Tabs.Tab>
+            <Tabs.Tab value="calendar">
+              <span>Calendar</span>
+            </Tabs.Tab>
+          </Tabs.List>
+          <Tabs.Panel value="inbox">Meetings and conversations</Tabs.Panel>
+          <Tabs.Panel value="calendar">Your calendar</Tabs.Panel>
+        </Tabs>
+      </AppLayout.Content>
+    </AppLayout>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

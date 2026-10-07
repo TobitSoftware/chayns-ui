@@ -1,5 +1,6 @@
 import usage from '../../../docs/03-components/text-area/text-area-usage.md?raw';
-import { useState } from 'react';
+import TextAreaWithCounter from './examples/TextAreaWithCounter.js';
+import counterSource from './examples/TextAreaWithCounter.tsx?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 
@@ -19,25 +20,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-function TextAreaWithCounter() {
-  const [value, setValue] = useState('');
-
-  return (
-    <TextArea
-      counter={`${value.length} / 500`}
-      helpText="Maximal 500 Zeichen."
-      maxLength={500}
-      onChange={(event) => setValue(event.target.value)}
-      placeholder="Nachricht"
-      rows={4}
-      value={value}
-    />
-  );
-}
-
 export const Default: Story = {};
 export const HelpAndCounter: Story = {
-  render: () => <TextAreaWithCounter />,
+  parameters: { docs: { source: { type: 'code', code: counterSource } } },
+  render: TextAreaWithCounter,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const field = canvas.getByRole('textbox', { name: 'Nachricht' });

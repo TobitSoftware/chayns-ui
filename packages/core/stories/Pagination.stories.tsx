@@ -1,5 +1,6 @@
 import usage from '../../../docs/03-components/pagination/pagination-usage.md?raw';
-import { useState } from 'react';
+import ControlledPagination from './examples/ControlledPagination.js';
+import controlledSource from './examples/ControlledPagination.tsx?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Pagination from '../src/components/pagination/Pagination.js';
 
@@ -23,10 +24,8 @@ export const Default: Story = {
     labels: { previous: 'Zurück', next: 'Weiter', pageLabel: (page: number) => `Seite ${page}` },
     onPageChange: () => undefined,
   },
-  render: (args) => {
-    const [page, setPage] = useState(args.page);
-    return <Pagination {...args} onPageChange={setPage} page={page} />;
-  },
+  parameters: { docs: { source: { type: 'code', code: controlledSource } } },
+  render: ControlledPagination,
 };
 export const EdgeCases: Story = {
   args: {

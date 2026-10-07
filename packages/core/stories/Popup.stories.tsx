@@ -73,7 +73,7 @@ export const BaseComposition: Story = {
         Benutzerdefinierter Inhalt
       </Popup.Trigger>
       <Popup.Content>
-        <div className="chayns-storybook-example-popup-content">Komponierter Popup-Inhalt</div>
+        <div style={{ padding: 'var(--sp-4)' }}>Komponierter Popup-Inhalt</div>
       </Popup.Content>
     </Popup>
   ),

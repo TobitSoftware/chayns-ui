@@ -1,6 +1,9 @@
+import DecimalStepper from './examples/DecimalStepper.js';
+import decimalSource from './examples/DecimalStepper.tsx?raw';
 import usage from '../../../docs/03-components/stepper/stepper-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import ControlledStepper from './examples/ControlledStepper.js';
+import controlledSource from './examples/ControlledStepper.tsx?raw';
 import { expect, userEvent, within } from 'storybook/test';
 import Stepper from '../src/components/stepper/Stepper.js';
 import { StepperPrecisions } from '../src/components/stepper/Stepper.types.js';
@@ -29,10 +32,8 @@ export const Default: Story = {
     onValueChange: () => undefined,
     formatValue: (value) => String(value),
   },
-  render: function ControlledStepper(args) {
-    const [value, setValue] = useState(args.value);
-    return <Stepper {...args} value={value} onValueChange={setValue} />;
-  },
+  parameters: { docs: { source: { type: 'code', code: controlledSource } } },
+  render: ControlledStepper,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const increase = canvas.getByRole('button', { name: 'Anzahl erhöhen' });
@@ -59,6 +60,8 @@ export const Default: Story = {
 };
 export const Decimal: Story = {
   ...Default,
+  parameters: { docs: { source: { type: 'code', code: decimalSource } } },
+  render: DecimalStepper,
   args: {
     ...Default.args,
     label: 'Gewicht',

@@ -1,5 +1,6 @@
 import usage from '../../../docs/03-components/text-field/text-field-usage.md?raw';
-import { useState } from 'react';
+import TextFieldWithCounter from './examples/TextFieldWithCounter.js';
+import counterSource from './examples/TextFieldWithCounter.tsx?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 
@@ -19,25 +20,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-function TextFieldWithCounter() {
-  const [value, setValue] = useState('');
-
-  return (
-    <TextField
-      counter={`${value.length} / 120`}
-      helpText="Wir verwenden die Adresse nur für wichtige Hinweise."
-      maxLength={120}
-      onChange={(event) => setValue(event.target.value)}
-      placeholder="E-Mail-Adresse"
-      type="email"
-      value={value}
-    />
-  );
-}
-
 export const Default: Story = {};
 export const HelpAndCounter: Story = {
-  render: () => <TextFieldWithCounter />,
+  parameters: { docs: { source: { type: 'code', code: counterSource } } },
+  render: TextFieldWithCounter,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const field = canvas.getByRole('textbox', { name: 'E-Mail-Adresse' });

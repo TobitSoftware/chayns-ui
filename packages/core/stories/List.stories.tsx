@@ -16,33 +16,38 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {
+  decorators: [
+    (Story) => (
+      <div className="chayns-storybook-example-constrained">
+        <Story />
+      </div>
+    ),
+  ],
   render: () => (
-    <div className="chayns-storybook-example-constrained">
-      <List>
-        <List.Item>
-          <List.Item.Action onClick={fn()}>
-            <List.Item.Leading>
-              <Avatar name="Eva Sommer" />
-            </List.Item.Leading>
-            <List.Item.Body>
-              <List.Item.Title>Eva Sommer</List.Item.Title>
-              <List.Item.Description>Das Q3-Budget ist freigegeben.</List.Item.Description>
-            </List.Item.Body>
-          </List.Item.Action>
-          <List.Item.Trailing>
-            <time dateTime="08:40">08:40</time>
-            <List.Item.Status label="Neu" />
-          </List.Item.Trailing>
-        </List.Item>
-        <List.Item>
-          <List.Item.Action href="#dokumente">
-            <List.Item.Body>
-              <List.Item.Title>Dokumente</List.Item.Title>
-              <List.Item.Description>Zur Übersicht navigieren</List.Item.Description>
-            </List.Item.Body>
-          </List.Item.Action>
-        </List.Item>
-      </List>
-    </div>
+    <List>
+      <List.Item>
+        <List.Item.Action onClick={fn()}>
+          <List.Item.Leading>
+            <Avatar name="Eva Sommer" />
+          </List.Item.Leading>
+          <List.Item.Body>
+            <List.Item.Title>Eva Sommer</List.Item.Title>
+            <List.Item.Description>Das Q3-Budget ist freigegeben.</List.Item.Description>
+          </List.Item.Body>
+        </List.Item.Action>
+        <List.Item.Trailing>
+          <time dateTime="08:40">08:40</time>
+          <List.Item.Status label="Neu" />
+        </List.Item.Trailing>
+      </List.Item>
+      <List.Item>
+        <List.Item.Action href="#dokumente">
+          <List.Item.Body>
+            <List.Item.Title>Dokumente</List.Item.Title>
+            <List.Item.Description>Zur Übersicht navigieren</List.Item.Description>
+          </List.Item.Body>
+        </List.Item.Action>
+      </List.Item>
+    </List>
   ),
 };

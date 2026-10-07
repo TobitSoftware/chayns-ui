@@ -97,12 +97,19 @@ export const Loading: Story = {
 
 export const AllVariants: Story = {
   parameters: { controls: { disable: true } },
+  decorators: [
+    (Story) => (
+      <div className="chayns-storybook-example-row">
+        <Story />
+      </div>
+    ),
+  ],
   render: () => (
-    <div className="chayns-storybook-example-row">
+    <>
       <IconButton aria-label="Erstellen" icon="fa-plus" variant="primary" />
       <IconButton aria-label="Antworten" icon="fa-reply-all" variant="outline" />
       <IconButton aria-label="Optionen" icon="fa-ellipsis" variant="ghost" />
       <IconButton aria-label="Löschen" icon="fa-trash" variant="danger" />
-    </div>
+    </>
   ),
 };

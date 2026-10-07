@@ -24,49 +24,64 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Standalone: Story = {
+  decorators: [
+    (Story) => (
+      <div className="chayns-storybook-example-accordion">
+        <Story />
+      </div>
+    ),
+  ],
   render: () => (
-    <div className="chayns-storybook-example-accordion">
-      <Accordion title="Was ist chayns UI?">
-        <Accordion.Content>
-          chayns UI ist die modulare Komponentenbibliothek für konsistente chayns-Oberflächen.
-        </Accordion.Content>
-      </Accordion>
-    </div>
+    <Accordion title="Was ist chayns UI?">
+      <Accordion.Content>
+        chayns UI ist die modulare Komponentenbibliothek für konsistente chayns-Oberflächen.
+      </Accordion.Content>
+    </Accordion>
   ),
 };
 
 export const DefaultOpen: Story = {
+  decorators: [
+    (Story) => (
+      <div className="chayns-storybook-example-accordion">
+        <Story />
+      </div>
+    ),
+  ],
   render: () => (
-    <div className="chayns-storybook-example-accordion">
-      <Accordion defaultOpen title="Was ist chayns UI?">
-        <Accordion.Content>
-          chayns UI ist die modulare Komponentenbibliothek für konsistente chayns-Oberflächen.
-        </Accordion.Content>
-      </Accordion>
-    </div>
+    <Accordion defaultOpen title="Was ist chayns UI?">
+      <Accordion.Content>
+        chayns UI ist die modulare Komponentenbibliothek für konsistente chayns-Oberflächen.
+      </Accordion.Content>
+    </Accordion>
   ),
 };
 
 export const Grouped: Story = {
   parameters: { docs: { description: { story: relatedUsage } } },
+  decorators: [
+    (Story) => (
+      <div className="chayns-storybook-example-accordion">
+        <Story />
+      </div>
+    ),
+  ],
   render: () => (
-    <div className="chayns-storybook-example-accordion">
-      <AccordionGroup defaultOpenId="lieferung">
-        <Accordion id="lieferung" title="Lieferung">
-          <Accordion.Content>
-            Standardlieferungen sind innerhalb von zwei bis drei Werktagen bei dir.
-          </Accordion.Content>
-        </Accordion>
-        <Accordion id="ruecksendung" title="Rücksendung">
-          <Accordion.Content>
-            Rücksendungen sind innerhalb von 30 Tagen kostenlos möglich.
-          </Accordion.Content>
-        </Accordion>
-        <Accordion id="zahlung" title="Zahlung">
-          <Accordion.Content>Wir akzeptieren die gängigen Zahlungsmethoden.</Accordion.Content>
-        </Accordion>
-      </AccordionGroup>
-    </div>
+    <AccordionGroup defaultOpenId="lieferung">
+      <Accordion id="lieferung" title="Lieferung">
+        <Accordion.Content>
+          Standardlieferungen sind innerhalb von zwei bis drei Werktagen bei dir.
+        </Accordion.Content>
+      </Accordion>
+      <Accordion id="ruecksendung" title="Rücksendung">
+        <Accordion.Content>
+          Rücksendungen sind innerhalb von 30 Tagen kostenlos möglich.
+        </Accordion.Content>
+      </Accordion>
+      <Accordion id="zahlung" title="Zahlung">
+        <Accordion.Content>Wir akzeptieren die gängigen Zahlungsmethoden.</Accordion.Content>
+      </Accordion>
+    </AccordionGroup>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -81,17 +96,22 @@ export const Grouped: Story = {
 };
 
 export const Wrapped: Story = {
+  decorators: [
+    (Story) => (
+      <div className="chayns-storybook-example-accordion">
+        <Story />
+      </div>
+    ),
+  ],
   render: () => (
-    <div className="chayns-storybook-example-accordion">
-      <Accordion defaultOpen title="Erweiterte Einstellungen">
-        <Accordion.Content>Passe hier grundlegende Optionen an.</Accordion.Content>
-        <div className="chayns-storybook-example-accordion-nested">
-          <Accordion title="Benachrichtigungen">
-            <Accordion.Content>Lege fest, worüber du informiert werden möchtest.</Accordion.Content>
-          </Accordion>
-        </div>
-      </Accordion>
-    </div>
+    <Accordion defaultOpen title="Erweiterte Einstellungen">
+      <Accordion.Content>Passe hier grundlegende Optionen an.</Accordion.Content>
+      <div style={{ marginBlockStart: 'var(--k10)' }}>
+        <Accordion title="Benachrichtigungen">
+          <Accordion.Content>Lege fest, worüber du informiert werden möchtest.</Accordion.Content>
+        </Accordion>
+      </div>
+    </Accordion>
   ),
   play: async ({ canvasElement }) => {
     const nested = within(canvasElement)
@@ -102,42 +122,52 @@ export const Wrapped: Story = {
 };
 
 export const Disabled: Story = {
+  decorators: [
+    (Story) => (
+      <div className="chayns-storybook-example-accordion">
+        <Story />
+      </div>
+    ),
+  ],
   render: () => (
-    <div className="chayns-storybook-example-accordion">
-      <Accordion disabled title="Nicht verfügbar">
-        <Accordion.Content>Dieser Bereich ist derzeit nicht verfügbar.</Accordion.Content>
-      </Accordion>
-    </div>
+    <Accordion disabled title="Nicht verfügbar">
+      <Accordion.Content>Dieser Bereich ist derzeit nicht verfügbar.</Accordion.Content>
+    </Accordion>
   ),
 };
 
 export const List: Story = {
+  decorators: [
+    (Story) => (
+      <div className="chayns-storybook-example-constrained">
+        <Story />
+      </div>
+    ),
+  ],
   render: () => (
-    <div className="chayns-storybook-example-constrained">
-      <AccordionGroup defaultOpenId="budget">
-        <Accordion appearance="list" id="budget">
-          <Accordion.Head>
-            <Accordion.Head.Leading>
-              <Avatar name="Eva Sommer" size="small" />
-            </Accordion.Head.Leading>
-            <Accordion.Head.Content subtitle="Freigabe durch Eva Sommer" title="Q3-Budget" />
-          </Accordion.Head>
-          <Accordion.Content>Das Budget wurde geprüft und kann verwendet werden.</Accordion.Content>
-        </Accordion>
-        <Accordion appearance="list" id="planung">
-          <Accordion.Head>
-            <Accordion.Head.Leading>
-              <i aria-hidden="true" className="far fa-calendar" />
-            </Accordion.Head.Leading>
-            <Accordion.Head.Content
-              subtitle="Die nächste Planungsrunde startet am Montag"
-              title="Planung"
-            />
-          </Accordion.Head>
-          <Accordion.Content>Die nächste Planungsrunde startet am Montag.</Accordion.Content>
-        </Accordion>
-      </AccordionGroup>
-    </div>
+    <AccordionGroup defaultOpenId="budget">
+      <Accordion appearance="list" id="budget">
+        <Accordion.Head>
+          <Accordion.Head.Leading>
+            <Avatar name="Eva Sommer" size="small" />
+          </Accordion.Head.Leading>
+          <Accordion.Head.Content subtitle="Freigabe durch Eva Sommer" title="Q3-Budget" />
+        </Accordion.Head>
+        <Accordion.Content>Das Budget wurde geprüft und kann verwendet werden.</Accordion.Content>
+      </Accordion>
+      <Accordion appearance="list" id="planung">
+        <Accordion.Head>
+          <Accordion.Head.Leading>
+            <i aria-hidden="true" className="far fa-calendar" />
+          </Accordion.Head.Leading>
+          <Accordion.Head.Content
+            subtitle="Die nächste Planungsrunde startet am Montag"
+            title="Planung"
+          />
+        </Accordion.Head>
+        <Accordion.Content>Die nächste Planungsrunde startet am Montag.</Accordion.Content>
+      </Accordion>
+    </AccordionGroup>
   ),
 };
 

@@ -1,5 +1,8 @@
 import usage from '../../../docs/03-components/date-time-picker/date-time-picker-usage.md?raw';
-import { useState } from 'react';
+import ControlledTimePicker from './examples/ControlledTimePicker.js';
+import timeSource from './examples/ControlledTimePicker.tsx?raw';
+import ControlledDatePicker from './examples/ControlledDatePicker.js';
+import dateSource from './examples/ControlledDatePicker.tsx?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import DateTimePicker from '../src/components/date-time-picker/DateTimePicker.js';
@@ -35,10 +38,8 @@ export const Time: Story = {
     value: new Date(2026, 8, 22, 10, 30),
     wheelLabels,
   },
-  render: (args) => {
-    const [value, setValue] = useState(args.value);
-    return <DateTimePicker {...args} onChange={setValue} value={value} />;
-  },
+  parameters: { docs: { source: { type: 'code', code: timeSource } } },
+  render: ControlledTimePicker,
 };
 
 export const DateMode: Story = {
@@ -51,8 +52,6 @@ export const DateMode: Story = {
     value: new Date(2026, 8, 22),
     wheelLabels,
   },
-  render: (args) => {
-    const [value, setValue] = useState(args.value);
-    return <DateTimePicker {...args} onChange={setValue} value={value} />;
-  },
+  parameters: { docs: { source: { type: 'code', code: dateSource } } },
+  render: ControlledDatePicker,
 };

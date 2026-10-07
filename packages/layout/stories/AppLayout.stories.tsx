@@ -22,34 +22,39 @@ type Story = StoryObj<typeof meta>;
 
 export const MailWorkspace: Story = {
   args: { children: null },
+  decorators: [
+    (Story) => (
+      <div className="chayns-storybook-example-layout">
+        <Story />
+      </div>
+    ),
+  ],
   render: (args) => (
-    <div className="chayns-storybook-example-layout">
-      <AppLayout {...args}>
-        <AppLayout.Header>
-          <AppLayout.Logo src={logo} />
-          <div>Arbeitsbereich</div>
-        </AppLayout.Header>
-        <AppLayout.Navigation aria-label="Application navigation">
-          <AppLayout.Navigation.Item icon="fa-inbox" label="Inbox">
-            <AppLayout.Navigation.Item icon="fa-folder" label="Read" />
-            <AppLayout.Navigation.Item icon="fa-star" label="Favorites" />
-          </AppLayout.Navigation.Item>
-          <AppLayout.Navigation.Item icon="fa-paper-plane" label="Outbox" />
-          <AppLayout.Navigation.Item icon="fa-calendar" isActive label="Calendar" />
-          <AppLayout.Navigation.Item icon="fa-address-book" label="Contacts" />
-        </AppLayout.Navigation>
-        <AppLayout.CollapseToggle
-          collapseLabel="Collapse navigation"
-          expandLabel="Expand navigation"
-        />
-        <AppLayout.Content>
-          <div className="chayns-storybook-example-layout-content">
-            <h1>Meetings am Donnerstag</h1>
-            <p>Der Inhalt liegt rechts neben der Navigation und unterhalb des Bodywork-Headers.</p>
-          </div>
-        </AppLayout.Content>
-      </AppLayout>
-    </div>
+    <AppLayout {...args}>
+      <AppLayout.Header>
+        <AppLayout.Logo src={logo} />
+        <div>Arbeitsbereich</div>
+      </AppLayout.Header>
+      <AppLayout.Navigation aria-label="Application navigation">
+        <AppLayout.Navigation.Item icon="fa-inbox" label="Inbox">
+          <AppLayout.Navigation.Item icon="fa-folder" label="Read" />
+          <AppLayout.Navigation.Item icon="fa-star" label="Favorites" />
+        </AppLayout.Navigation.Item>
+        <AppLayout.Navigation.Item icon="fa-paper-plane" label="Outbox" />
+        <AppLayout.Navigation.Item icon="fa-calendar" isActive label="Calendar" />
+        <AppLayout.Navigation.Item icon="fa-address-book" label="Contacts" />
+      </AppLayout.Navigation>
+      <AppLayout.CollapseToggle
+        collapseLabel="Collapse navigation"
+        expandLabel="Expand navigation"
+      />
+      <AppLayout.Content>
+        <div style={{ blockSize: '100%', padding: 'var(--sp-6)' }}>
+          <h1 style={{ marginBlockStart: 0 }}>Meetings am Donnerstag</h1>
+          <p>Der Inhalt liegt rechts neben der Navigation und unterhalb des Bodywork-Headers.</p>
+        </div>
+      </AppLayout.Content>
+    </AppLayout>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -62,22 +67,27 @@ export const MailWorkspace: Story = {
 
 export const Collapsed: Story = {
   args: { children: null, defaultCollapsed: true },
+  decorators: [
+    (Story) => (
+      <div className="chayns-storybook-example-layout">
+        <Story />
+      </div>
+    ),
+  ],
   render: (args) => (
-    <div className="chayns-storybook-example-layout">
-      <AppLayout {...args}>
-        <AppLayout.Header>
-          <AppLayout.Logo src={logo} />
-        </AppLayout.Header>
-        <AppLayout.Navigation aria-label="Application navigation">
-          <AppLayout.Navigation.Item icon="fa-calendar" isActive label="Calendar" />
-        </AppLayout.Navigation>
-        <AppLayout.CollapseToggle
-          collapseLabel="Collapse navigation"
-          expandLabel="Expand navigation"
-        />
-        <AppLayout.Content>Workspace</AppLayout.Content>
-      </AppLayout>
-    </div>
+    <AppLayout {...args}>
+      <AppLayout.Header>
+        <AppLayout.Logo src={logo} />
+      </AppLayout.Header>
+      <AppLayout.Navigation aria-label="Application navigation">
+        <AppLayout.Navigation.Item icon="fa-calendar" isActive label="Calendar" />
+      </AppLayout.Navigation>
+      <AppLayout.CollapseToggle
+        collapseLabel="Collapse navigation"
+        expandLabel="Expand navigation"
+      />
+      <AppLayout.Content>Workspace</AppLayout.Content>
+    </AppLayout>
   ),
   play: async ({ canvasElement }) => {
     await expect(

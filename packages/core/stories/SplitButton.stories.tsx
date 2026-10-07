@@ -54,8 +54,15 @@ export const Primary: Story = {
 };
 
 export const AllVariants: Story = {
+  decorators: [
+    (Story) => (
+      <div className="chayns-storybook-example-row">
+        <Story />
+      </div>
+    ),
+  ],
   render: () => (
-    <div className="chayns-storybook-example-row">
+    <>
       <SplitButton items={createItems()} variant="primary">
         Senden
       </SplitButton>
@@ -68,7 +75,7 @@ export const AllVariants: Story = {
       <SplitButton items={createItems()} variant="danger">
         Löschen
       </SplitButton>
-    </div>
+    </>
   ),
 };
 
@@ -81,11 +88,16 @@ export const Disabled: Story = {
 };
 
 export const LongLocalizedLabel: Story = {
+  decorators: [
+    (Story) => (
+      <div className="chayns-storybook-example-constrained">
+        <Story />
+      </div>
+    ),
+  ],
   render: () => (
-    <div className="chayns-storybook-example-constrained">
-      <SplitButton items={createItems()} variant="outline">
-        Änderungen für alle ausgewählten Empfängerinnen und Empfänger übernehmen
-      </SplitButton>
-    </div>
+    <SplitButton items={createItems()} variant="outline">
+      Änderungen für alle ausgewählten Empfängerinnen und Empfänger übernehmen
+    </SplitButton>
   ),
 };

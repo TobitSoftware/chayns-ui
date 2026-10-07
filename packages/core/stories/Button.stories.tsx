@@ -112,8 +112,15 @@ export const Loading: Story = { args: { children: 'Wird gespeichert', loading: t
 
 export const AllVariants: Story = {
   parameters: { controls: { disable: true } },
+  decorators: [
+    (Story) => (
+      <div className="chayns-storybook-example-row">
+        <Story />
+      </div>
+    ),
+  ],
   render: () => (
-    <div className="chayns-storybook-example-row">
+    <>
       <Button icon="fa-plus" variant="primary">
         Erstellen
       </Button>
@@ -126,7 +133,7 @@ export const AllVariants: Story = {
       <Button icon="fa-trash" variant="danger">
         Löschen
       </Button>
-    </div>
+    </>
   ),
 };
 
