@@ -48,7 +48,10 @@ Die sechs Überschriften bleiben `Einsatz`, `Nicht geeignet`, `Alternativen`,
   zugänglichen Beschriftungen.
 - **Besonderheiten:** Nur für richtige Verwendung wichtige Defaults,
   State-Verantwortung, Keyboard-/Accessibility-/Lokalisierungsanforderungen und
-  Einschränkungen nennen. Wichtige Hinweise nicht aus Platzgründen auslassen;
+  Einschränkungen nennen, die eine konkrete Entscheidung beim Einbau erfordern.
+  Standarddarstellung, Linienbreiten, Hover-Geometrie und Animationsabläufe gehören
+  in die Specification, nicht in diesen Abschnitt. Keine Besonderheiten erfinden.
+  Wichtige Hinweise nicht aus Platzgründen auslassen;
   Tokenkataloge, Auditprotokolle und vollständige Prop-Tabellen nicht wiederholen.
 
 Der Umfang richtet sich nach der Verantwortung der Komponente: kurze erklärende
@@ -783,3 +786,16 @@ Für jeden öffentlichen Compound Part sind Parent, zulässige Platzierung, Cont
 Jede Specification MUSS die geprüfte Bodywork-Referenz, das Referenzdatum, die geprüften Zustände, das Token-Mapping und die Storybook-Evidence benennen. Nicht direkt verifizierbare Beobachtungen werden als `DESIGN REVIEW` dokumentiert und blockieren `READY FOR IMPLEMENTATION`, wenn sie für die Umsetzung relevant sind. Werte dürfen nicht aus Screenshots geschätzt werden.
 
 Wenn mehrere regelkonforme APIs möglich sind, dokumentiert die Specification die verworfenen Alternativen und die bestätigte Entscheidung. Eine technisch plausible Auswahl ohne autorisierte Source of Truth ist unzulässig und bleibt `BLOCKED`.
+
+## Consumer code shown by stories — 2026-10-07
+
+The user-facing source view shows the exported component composition, not CSF
+`args`/`render`/`play` configuration or private demonstration wrappers. Stateless
+examples use Storybook's dynamic JSX source. Stateful examples show their complete
+React hooks, initial data and handlers from the same public-import TSX file used
+as the story render function; they do not render an opaque example component.
+Preview-only sizing belongs in decorators and is excluded from consumer source.
+Interaction `play` functions remain test evidence and are excluded from usage code.
+All component stories are checked for opaque helpers and standard visual behavior
+mislabelled as special usage requirements. These documentation corrections do not
+change consumer APIs and use a patch changeset for affected packages.

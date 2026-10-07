@@ -232,3 +232,14 @@ Storybook evidence: WorkspaceTabs and Underline; regression checks finish the
 native exit and inspect its computed opacity before the completion callback runs.
 The existing Bodywork reference, token mapping, accessibility and Reduced Motion
 contracts above remain authoritative. No unresolved design-review point exists.
+
+## Attached dark foreground correction — 2026-10-07
+
+The user confirmed that the existing dark/auto-dark `--text` active foreground
+mapping also applies to Attached. Active text, inherited icon content and any
+currentColor underline use the semantic near-white foreground in both appearances.
+Light mode retains `--accent`; geometry, surfaces, disabled state, keyboard and
+motion remain unchanged. No additional line or variant is introduced in Attached.
+The checked Bodywork reference above remains unchanged; this user correction is
+explicitly authoritative. WorkspaceTabs and Underline cover the state mapping;
+browser acceptance compares light/dark/auto in both appearances and S/M/L.

@@ -65,3 +65,11 @@ retention through unmount/reactivation and live Reduced Motion. Existing checked
 Bodywork reference and motion timing remain unchanged; no new API or token.
 WorkspaceTabs/Underline native-animation endpoint and S/M/L geometry checks are
 required. No unresolved design-review point in this bounded correction.
+
+## Attached dark foreground correction — 2026-10-07
+
+READY for the explicitly confirmed extension of the existing near-white `--text`
+active foreground to Attached in dark and auto-dark. Tokens, geometry, native
+ownership and Reduced Motion are unchanged. WorkspaceTabs/Underline provide story
+evidence; both appearances require browser contrast/state checks. No unresolved
+design-review point exists.
