@@ -125,37 +125,13 @@ export const AttachedWithIcons: Story = {
   render: (args) => (
     <Tabs {...args}>
       <Tabs.List aria-label="Arbeitsbereiche">
-        <Tabs.Tab value="inbox">
-          <span aria-hidden="true" className="chayns-tabs__icon">
-            <span className="chayns-tabs__weight">
-              <i className="far fa-inbox" />
-            </span>
-            <span className="chayns-tabs__weight chayns-tabs__weight--active">
-              <i className="fas fa-inbox" />
-            </span>
-          </span>
+        <Tabs.Tab value="inbox" icon="fa-inbox">
           <span className="chayns-tabs__label">Inbox</span>
         </Tabs.Tab>
-        <Tabs.Tab value="calendar">
-          <span aria-hidden="true" className="chayns-tabs__icon">
-            <span className="chayns-tabs__weight">
-              <i className="far fa-calendar" />
-            </span>
-            <span className="chayns-tabs__weight chayns-tabs__weight--active">
-              <i className="fas fa-calendar" />
-            </span>
-          </span>
+        <Tabs.Tab value="calendar" icon="fa-calendar">
           <span className="chayns-tabs__label">Calendar</span>
         </Tabs.Tab>
-        <Tabs.Tab value="tasks" disabled>
-          <span aria-hidden="true" className="chayns-tabs__icon">
-            <span className="chayns-tabs__weight">
-              <i className="far fa-list-check" />
-            </span>
-            <span className="chayns-tabs__weight chayns-tabs__weight--active">
-              <i className="fas fa-list-check" />
-            </span>
-          </span>
+        <Tabs.Tab value="tasks" icon="fa-list-check" disabled>
           <span className="chayns-tabs__label">Tasks</span>
         </Tabs.Tab>
       </Tabs.List>

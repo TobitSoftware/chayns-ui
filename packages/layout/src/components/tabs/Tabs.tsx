@@ -8,7 +8,7 @@ import type { KeyboardEvent } from 'react';
 import type { TabsAddProps, TabsProps, TabsTabProps } from './Tabs.types.js';
 
 const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
-  { children, className, onKeyDown, onRemove, onClick, value, ...props },
+  { children, className, icon, onKeyDown, onRemove, onClick, value, ...props },
   ref,
 ) {
   const tabs = useTabs('Tab');
@@ -81,6 +81,7 @@ const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
       tabIndex={tabs.entryValue === value ? 0 : -1}
       type="button"
     >
+      {icon ? <TabsIcon icon={icon} /> : null}
       {children}
       {onRemove ? (
         <span aria-hidden="true" className="chayns-tabs__remove" data-tabs-remove>

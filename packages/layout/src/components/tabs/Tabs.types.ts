@@ -1,4 +1,5 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
+import type { ButtonIcon } from '@chayns-ui/core';
 
 /** Named configuration values; existing literal props and value lists remain supported. */
 export enum TabsAppearances {
@@ -25,6 +26,8 @@ export interface TabsTabProps extends Omit<
 > {
   value: string;
   children: ReactNode;
+  /** Optional decorative leading glyph; uses the same Classic/Brands/custom names as Button. */
+  icon?: ButtonIcon;
   /** Omit for a fixed tab. Receives removal requests; the consumer owns the tab/panel entries. */
   onRemove?: (value: string) => void;
 }

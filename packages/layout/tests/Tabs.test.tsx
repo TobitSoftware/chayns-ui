@@ -18,6 +18,51 @@ function Example({ onValueChange = vi.fn() }: { onValueChange?: (value: string) 
   );
 }
 describe('Tabs', () => {
+  it('owns a decorative leading icon without changing the label or removal action', async () => {
+    const onRemove = vi.fn();
+    const user = userEvent.setup();
+    render(
+      <Tabs defaultValue="inbox">
+        <Tabs.List>
+          <Tabs.Tab value="inbox" icon="fa-inbox" onRemove={onRemove}>
+            <span>Inbox</span>
+          </Tabs.Tab>
+        </Tabs.List>
+      </Tabs>,
+    );
+    const tab = screen.getByRole('tab', { name: 'Inbox' });
+    expect(tab).not.toHaveAttribute('icon');
+    expect(tab.firstElementChild).toHaveAttribute('aria-hidden', 'true');
+    expect(tab.firstElementChild?.querySelector('.far.fa-inbox')).not.toBeNull();
+    expect(tab.firstElementChild?.querySelector('.fas.fa-inbox')).not.toBeNull();
+    expect(tab.lastElementChild).toHaveAttribute('data-tabs-remove');
+    await user.click(tab.lastElementChild!);
+    expect(onRemove).toHaveBeenCalledWith('inbox');
+  });
+
+  it.each(['fab fa-github', 'ts-tobit'] as const)(
+    'preserves the single available icon style for %s',
+    (icon) => {
+      render(
+        <Tabs defaultValue="one">
+          <Tabs.List>
+            <Tabs.Tab value="one" icon={icon}>
+              One
+            </Tabs.Tab>
+            <Tabs.Tab value="two">
+              <span>Two</span>
+            </Tabs.Tab>
+          </Tabs.List>
+        </Tabs>,
+      );
+      const tab = screen.getByRole('tab', { name: 'One' });
+      const glyphs = [...tab.querySelectorAll('i')];
+      expect(glyphs.map((glyph) => glyph.className)).toEqual([icon, icon]);
+      expect(
+        screen.getByRole('tab', { name: 'Two' }).querySelector('.chayns-tabs__icon'),
+      ).toBeNull();
+    },
+  );
   it('pairs tab and panel by their stable value', () => {
     render(<Example />);
     const tab = screen.getByRole('tab', { name: 'Eins' });

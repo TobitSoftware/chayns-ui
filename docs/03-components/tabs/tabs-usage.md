@@ -31,12 +31,14 @@ import { Tabs, TabsAppearances } from '@chayns-ui/layout';
 </Tabs>;
 ```
 
-Icons können zusammen mit dem Text als `children` eines Tabs eingesetzt werden.
-Die dekorativen Glyphen erhalten `aria-hidden`; der Text benennt den Tab.
+Ein führendes Icon wird über `Tabs.Tab icon` gesetzt, z. B.
+`<Tabs.Tab value="details" icon="fa-circle-info">Details</Tabs.Tab>`.
+Die Namen entsprechen Button: Classic `fa-*`, Brands `fab fa-*` oder Tobit `ts-*`.
+Das Icon ist dekorativ; der Text benennt den Tab. Die Anwendung stellt die
+benötigten Glyphen bereit. Freie Inhalte bleiben über `children` möglich.
 [AttachedWithIcons](?path=/story/layout-tabs--attached-with-icons) und
-[UnderlineWithIcons](?path=/story/layout-tabs--underline-with-icons) zeigen die
-vollständige Regular-/Solid-Komposition ohne zusätzliche Beispielkomponente.
-Die Anwendung stellt die verwendeten Font-Awesome-Stile bereit.
+[UnderlineWithIcons](?path=/story/layout-tabs--underline-with-icons) zeigen beide
+Darstellungen ohne zusätzlichen Icon-Wrapper im Verbrauchscode.
 
 ## Besonderheiten
 
