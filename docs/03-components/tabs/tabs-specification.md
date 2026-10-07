@@ -209,3 +209,26 @@ no invalid initial content is faded out during automatic selection reconciliatio
 With no enabled entry, observer callbacks do not create a self-scheduling frame loop.
 Story interaction tests await actual panel completion before final-state contrast
 checks; they do not disable accessibility auditing or introduce fixed sleeps.
+
+## Centered focus and stable exit endpoint — 2026-10-07
+
+The user confirmed the underline focus width and requested a shorter, centered
+height ending at the underline. The before pseudo-element uses symmetric
+`inset-block: var(--k6)`: its bottom coincides with the underline's bottom edge,
+and its center remains the native tab's center. Inline extension, inset ring,
+native hit target and keyboard behavior stay unchanged. No new token is required.
+
+A browser reproduction in Chromium and WebKit showed the exiting panel returning
+to its underlying opacity between animation completion and React unmount. The
+exit must retain opacity 0 until unmount, including live Reduced Motion changes.
+Reactivation continues from the currently rendered opacity, including a finished
+exit awaiting removal. Entry restores the consumer opacity normally; cleanup
+releases owned animations. No duration, curve, public API or per-frame work changes.
+
+Acceptance: real browser animation completion leaves the still-mounted exit at
+opacity 0; forward/backward and interrupted switches do not restore outgoing
+opacity. S/M/L and mobile focus remains centered and ends at the underline.
+Storybook evidence: WorkspaceTabs and Underline; regression checks finish the
+native exit and inspect its computed opacity before the completion callback runs.
+The existing Bodywork reference, token mapping, accessibility and Reduced Motion
+contracts above remain authoritative. No unresolved design-review point exists.

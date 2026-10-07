@@ -56,3 +56,12 @@ semantics, bounded mount lifetime, interruption and Reduced Motion rules, geomet
 updates and acceptance criteria. Public API and keyboard selection stay unchanged.
 The earlier animation interpretation gap is resolved by the structured answers.
 Browser and lifecycle verification are required before marking this addition complete.
+
+## Centered focus and exit endpoint correction — 2026-10-07
+
+READY for the user's shorter centered focus and stable outgoing fade. The
+specification records symmetric existing `--k6` block insets, transparent exit
+retention through unmount/reactivation and live Reduced Motion. Existing checked
+Bodywork reference and motion timing remain unchanged; no new API or token.
+WorkspaceTabs/Underline native-animation endpoint and S/M/L geometry checks are
+required. No unresolved design-review point in this bounded correction.
