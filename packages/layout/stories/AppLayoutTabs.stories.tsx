@@ -1,3 +1,4 @@
+import waitForTabPanels from './utils/waitForTabPanels.js';
 import TabsIcon from '../src/components/tabs/tabs-icon/TabsIcon.js';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
@@ -58,5 +59,6 @@ export const Workspace: Story = {
     await expect(canvas.getByRole('tabpanel')).toHaveTextContent('Your calendar');
     await userEvent.click(canvas.getByRole('button', { name: 'Collapse navigation' }));
     await expect(canvas.getByRole('button', { name: 'Expand navigation' })).toBeInTheDocument();
+    await waitForTabPanels(canvasElement);
   },
 };

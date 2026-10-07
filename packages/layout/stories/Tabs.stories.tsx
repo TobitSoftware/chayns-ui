@@ -1,3 +1,4 @@
+import waitForTabPanels from './utils/waitForTabPanels.js';
 import TabsIcon from '../src/components/tabs/tabs-icon/TabsIcon.js';
 import usage from '../../../docs/03-components/tabs/tabs-usage.md?raw';
 import { useRef, useState } from 'react';
@@ -113,6 +114,7 @@ export const WorkspaceTabs: Story = {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('tab', { name: 'Calendar' }));
     await expect(canvas.getByRole('tabpanel')).toHaveTextContent('Your calendar');
+    await waitForTabPanels(canvasElement);
   },
 };
 
@@ -129,6 +131,7 @@ export const Underline: Story = {
     await userEvent.keyboard('{Delete}{Backspace}');
     await expect(calendar).toHaveAttribute('aria-selected', 'true');
     await expect(canvas.getByRole('tabpanel')).toHaveTextContent('Your calendar');
+    await waitForTabPanels(canvasElement);
   },
 };
 
@@ -149,6 +152,7 @@ export const UnderlineEditable: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Add tab' }));
     await userEvent.click(canvas.getByRole('tab', { name: 'New view 1' }));
     await expect(canvas.getByRole('tabpanel')).toHaveTextContent('Content of new view 1');
+    await waitForTabPanels(canvasElement);
   },
 };
 
@@ -164,5 +168,6 @@ export const AutomaticSelection: Story = {
     await userEvent.click(canvas.getByRole('tab', { name: 'Calendar' }));
     await userEvent.keyboard('{ArrowRight}');
     await expect(canvas.getByRole('tab', { name: 'Tasks' })).toHaveFocus();
+    await waitForTabPanels(canvasElement);
   },
 };
