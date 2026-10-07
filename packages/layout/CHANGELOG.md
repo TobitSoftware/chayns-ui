@@ -1,5 +1,11 @@
 # @chayns-ui/layout
 
+## 0.8.2
+
+### Patch Changes
+
+- 2f6812f: Add an optional leading icon to Tabs.Tab using the existing Button glyph contract. Keep composed children and the existing hover, disabled, theme and keyboard behavior compatible.
+
 ## 0.8.1
 
 ### Patch Changes
