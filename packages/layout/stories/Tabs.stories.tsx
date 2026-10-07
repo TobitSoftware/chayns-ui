@@ -1,4 +1,5 @@
 import waitForTabPanels from './utils/waitForTabPanels.js';
+import checkTabPanelExit from './utils/checkTabPanelExit.js';
 import TabsIcon from '../src/components/tabs/tabs-icon/TabsIcon.js';
 import usage from '../../../docs/03-components/tabs/tabs-usage.md?raw';
 import { useRef, useState } from 'react';
@@ -113,6 +114,7 @@ export const WorkspaceTabs: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('tab', { name: 'Calendar' }));
+    await checkTabPanelExit(canvasElement);
     await expect(canvas.getByRole('tabpanel')).toHaveTextContent('Your calendar');
     await waitForTabPanels(canvasElement);
   },
@@ -128,6 +130,7 @@ export const Underline: Story = {
     await expect(canvas.queryByRole('button', { name: 'Add tab' })).toBeNull();
     await expect(canvasElement.querySelector('[data-tabs-remove]')).toBeNull();
     await userEvent.click(calendar);
+    await checkTabPanelExit(canvasElement);
     await userEvent.keyboard('{Delete}{Backspace}');
     await expect(calendar).toHaveAttribute('aria-selected', 'true');
     await expect(canvas.getByRole('tabpanel')).toHaveTextContent('Your calendar');

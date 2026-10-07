@@ -35,6 +35,8 @@ export default function usePanelMotion(
       {
         duration: active ? 220 : 200,
         easing: active ? 'cubic-bezier(.22,.61,.36,1)' : 'cubic-bezier(.4,0,.7,.2)',
+        // React may unmount after the animation ends; keep the exit transparent until then.
+        fill: active ? 'none' : 'forwards',
       },
     );
     interruptedOpacity.current = undefined;
@@ -48,14 +50,17 @@ export default function usePanelMotion(
 
     function stopMotion() {
       if (!preference?.matches) return;
-      animation.cancel();
-      if (!active) finishExit();
+      if (active) animation.cancel();
+      else {
+        animation.finish();
+        finishExit();
+      }
     }
     preference?.addEventListener('change', stopMotion);
     return () => {
       current = false;
       interruptedOpacity.current =
-        animation.playState === 'running' ? getComputedStyle(node).opacity : undefined;
+        animation.playState === 'idle' ? undefined : getComputedStyle(node).opacity;
       animation.cancel();
       preference?.removeEventListener('change', stopMotion);
     };

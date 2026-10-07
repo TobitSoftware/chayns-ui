@@ -52,7 +52,12 @@ beforeEach(() => {
         resolve = complete;
       });
       const cancel = vi.fn();
-      const animation = { finished, cancel, playState: 'running' } as unknown as Animation;
+      const animation = {
+        finished,
+        cancel,
+        finish: vi.fn(),
+        playState: 'running',
+      } as unknown as Animation;
       motions.push({
         node: this,
         keyframes,
@@ -169,6 +174,31 @@ describe('Tabs panel crossfade', () => {
     );
     expect(screen.queryByText('two action')).toBeNull();
     expect(screen.getByRole('tabpanel')).toHaveTextContent('three action');
+  });
+
+  it('reactivates a completed exit from its retained transparent state before removal', () => {
+    const { rerender } = render(<Example value="one" />);
+    rerender(<Example value="two" />);
+    const exit = motions[0]!;
+    Object.defineProperty(exit.animation, 'playState', { value: 'finished' });
+    const computedStyle = window.getComputedStyle.bind(window);
+    let capturedExit = false;
+    vi.spyOn(window, 'getComputedStyle').mockImplementation((node) => {
+      const style = computedStyle(node);
+      if (node === exit.node && !capturedExit) {
+        capturedExit = true;
+        return Object.assign(style, { opacity: '0' });
+      }
+      return style;
+    });
+    rerender(<Example value="one" />);
+    const entry = motions.find(
+      (motion) => motion.node === exit.node && motion.options.duration === 220,
+    )!;
+    expect(entry.keyframes).toEqual([{ opacity: '0' }, { opacity: '1' }]);
+    expect(exit.cancel).toHaveBeenCalled();
+    expect(screen.getByRole('tabpanel')).toBe(exit.node);
+    vi.restoreAllMocks();
   });
 
   it('switches immediately with Reduced Motion', () => {
