@@ -149,6 +149,13 @@ function Wheel({ ariaLabel, onEscape, onSelect, options, selected }: WheelProps)
       role="listbox"
       tabIndex={0}
     >
+      <span aria-hidden="true" className="chayns-date-time-picker__wheel-sizer">
+        {options.map((option) => (
+          <span className="chayns-date-time-picker__wheel-sizer-option" key={option.value}>
+            {option.label}
+          </span>
+        ))}
+      </span>
       {Array.from({ length: WHEEL_LOOP_CYCLES }, (_, cycle) =>
         options.map((option, optionIndex) => (
           <button

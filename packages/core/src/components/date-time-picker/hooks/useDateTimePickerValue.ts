@@ -107,7 +107,32 @@ export function useDateTimePickerValue({
       return `${timeFormatter.format(candidate)}${locale.toLowerCase().startsWith('de') ? ' Uhr' : ''}`;
     });
   }, [locale, minuteStep, mode, timeFormatter]);
-  const dateSizingValues = useMemo(() => [formattedValue], [formattedValue]);
+  const dateSizingValues = useMemo(() => {
+    if (mode !== 'date') return [];
+
+    return years.flatMap((year) => {
+      const values = Array.from({ length: 12 }, (_, month) => {
+        const first = new Date(year, month, 1);
+        const last = new Date(year, month + 1, 0);
+        if (
+          (minDate !== undefined && last < dateAtMidnight(minDate)) ||
+          (maxDate !== undefined && first > dateAtMidnight(maxDate))
+        ) {
+          return undefined;
+        }
+
+        const candidate = new Date(last);
+        if (minDate !== undefined && candidate < dateAtMidnight(minDate)) {
+          candidate.setDate(minDate.getDate());
+        }
+        if (maxDate !== undefined && candidate > dateAtMidnight(maxDate)) {
+          candidate.setDate(maxDate.getDate());
+        }
+        return dateFormatter.format(candidate);
+      });
+      return values.filter((value): value is string => value !== undefined);
+    });
+  }, [dateFormatter, maxDate, minDate, mode, years]);
   const sizingValues = mode === 'time' ? timeSizingValues : dateSizingValues;
 
   const hours = Array.from({ length: isTwelveHour ? 12 : 24 }, (_, index) =>

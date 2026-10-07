@@ -8,6 +8,7 @@ export function useOverlayPosition(
   open: boolean,
   placement: 'bottom' | 'top' = 'bottom',
   gap = 0,
+  matchTriggerWidth = false,
 ) {
   useEffect(() => {
     const surface = surfaceRef.current;
@@ -19,6 +20,7 @@ export function useOverlayPosition(
       const anchor = trigger.getBoundingClientRect();
       surface.style.maxWidth = `${window.innerWidth}px`;
       surface.style.maxHeight = `${window.innerHeight}px`;
+      if (matchTriggerWidth) surface.style.minWidth = `${anchor.width}px`;
       const size = surface.getBoundingClientRect();
       const above = anchor.top - gap - size.height;
       const below = anchor.bottom + gap;
@@ -63,5 +65,5 @@ export function useOverlayPosition(
       window.removeEventListener('resize', scheduleUpdate);
       window.removeEventListener('scroll', scheduleUpdate, true);
     };
-  }, [gap, open, placement, surfaceRef, trigger]);
+  }, [gap, matchTriggerWidth, open, placement, surfaceRef, trigger]);
 }

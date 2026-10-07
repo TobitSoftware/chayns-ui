@@ -38,6 +38,26 @@ describe('DateTimePicker', () => {
     expect(trigger).toHaveFocus();
   });
 
+  it('renders its open dialog in a document-body portal', async () => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <DateTimePicker
+        label="Uhrzeit"
+        locale="de-DE"
+        onChange={() => undefined}
+        placeholder="Uhrzeit auswählen"
+        value={new Date(2026, 8, 22, 10, 30)}
+        wheelLabels={wheelLabels}
+      />,
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Uhrzeit' }));
+
+    const dialog = screen.getByRole('dialog', { name: 'Uhrzeit' });
+    expect(document.body).toContainElement(dialog);
+    expect(container).not.toContainElement(dialog);
+  });
+
   it('keeps repeated wheel copies out of the keyboard and accessibility sequence', async () => {
     const user = userEvent.setup();
     render(
@@ -171,6 +191,26 @@ describe('DateTimePicker', () => {
     } finally {
       formatters.mockRestore();
     }
+  });
+
+  it('reserves the longest available date width when the selected month changes', () => {
+    const props = {
+      label: 'Datum',
+      locale: 'de-DE',
+      mode: 'date' as const,
+      onChange: () => undefined,
+      placeholder: 'Datum auswählen',
+      wheelLabels,
+    };
+    const { rerender } = render(<DateTimePicker {...props} value={new Date(2026, 8, 22)} />);
+    const sizer = document.querySelector('.chayns-date-time-picker__sizer');
+
+    expect(sizer).toHaveTextContent('30. September 2026');
+
+    rerender(<DateTimePicker {...props} value={new Date(2026, 6, 22)} />);
+
+    expect(document.querySelector('.chayns-date-time-picker__sizer')).toBe(sizer);
+    expect(sizer).toHaveTextContent('30. September 2026');
   });
 
   it('normalizes an out-of-range date without emitting a change', () => {

@@ -1,5 +1,7 @@
-import { forwardRef, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { forwardRef, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { composeNativeRefs } from '../../utils/native-ref.js';
+import { useOverlayPosition } from '../../hooks/useOverlayPosition.js';
 import { dateAtMidnight } from './date-time-picker-utils.js';
 import { useDateTimePickerValue } from './hooks/useDateTimePickerValue.js';
 import Wheel from './wheel/Wheel.js';
@@ -43,6 +45,7 @@ const DateTimePicker = forwardRef<HTMLButtonElement, DateTimePickerProps>(functi
   const triggerId = id ?? generatedId;
   const popupId = `${triggerId}-popup`;
   const rootRef = useRef<HTMLDivElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const setTriggerElement = useMemo(() => composeNativeRefs(triggerRef, ref), [ref]);
   const [open, setOpen] = useState(false);
@@ -77,10 +80,51 @@ const DateTimePicker = forwardRef<HTMLButtonElement, DateTimePickerProps>(functi
     setOpen(false);
     triggerRef.current?.focus();
   }
+
+  useLayoutEffect(() => {
+    const popup = popupRef.current;
+    const trigger = triggerRef.current;
+    if (!open || popup === null || trigger === null) return;
+
+    const popupStyle = window.getComputedStyle(popup);
+    const popupFrameWidth =
+      Number.parseFloat(popupStyle.borderInlineStartWidth) +
+      Number.parseFloat(popupStyle.borderInlineEndWidth) +
+      Number.parseFloat(popupStyle.paddingInlineStart) +
+      Number.parseFloat(popupStyle.paddingInlineEnd);
+    const wheels = Array.from(
+      popup.querySelectorAll<HTMLElement>('.chayns-date-time-picker__wheel'),
+    );
+    for (const wheel of wheels) {
+      const contentWidth = Math.max(
+        ...Array.from(
+          wheel.querySelectorAll<HTMLElement>('.chayns-date-time-picker__wheel-sizer-option'),
+        ).map((option) => option.getBoundingClientRect().width),
+        wheel.scrollWidth,
+      );
+      wheel.style.inlineSize = `${contentWidth}px`;
+      wheel.style.flex = `0 0 ${contentWidth}px`;
+    }
+    const wheelsWidth =
+      popup.querySelector<HTMLElement>('.chayns-date-time-picker__wheels')?.scrollWidth ?? 0;
+    const triggerWidth = trigger.getBoundingClientRect().width;
+
+    if (wheelsWidth === 0 && triggerWidth === 0) return;
+    popup.style.inlineSize = `${Math.max(triggerWidth, wheelsWidth + popupFrameWidth)}px`;
+  }, [locale, maxDate, minDate, mode, open]);
+
+  useOverlayPosition(popupRef, triggerRef.current, open, 'bottom', 4, true);
+
   useEffect(() => {
     if (!open) return undefined;
     function closeOnOutsidePress(event: PointerEvent) {
-      if (event.target instanceof Node && !rootRef.current?.contains(event.target)) close();
+      if (
+        event.target instanceof Node &&
+        !rootRef.current?.contains(event.target) &&
+        !popupRef.current?.contains(event.target)
+      ) {
+        close();
+      }
     }
     document.addEventListener('pointerdown', closeOnOutsidePress);
     return () => document.removeEventListener('pointerdown', closeOnOutsidePress);
@@ -127,58 +171,62 @@ const DateTimePicker = forwardRef<HTMLButtonElement, DateTimePickerProps>(functi
           {label}
         </label>
       ) : null}
-      {open && !disabled ? (
-        <div
-          aria-label={label}
-          className="chayns-date-time-picker__popup"
-          id={popupId}
-          role="dialog"
-        >
-          <div className="chayns-date-time-picker__selection" />
-          <div className="chayns-date-time-picker__wheels">
-            {mode === 'time' ? (
-              <>
-                <Wheel
-                  ariaLabel={wheelLabels.hour}
-                  onEscape={close}
-                  onSelect={(hour) => updateTime('hours', hour)}
-                  options={hours}
-                  selected={
-                    isTwelveHour ? activeValue.getHours() % 12 || 12 : activeValue.getHours()
-                  }
-                />
-                <Wheel
-                  ariaLabel={wheelLabels.minute}
-                  onEscape={close}
-                  onSelect={(minute) => updateTime('minutes', minute)}
-                  options={minutes}
-                  selected={activeValue.getMinutes()}
-                />
-                {isTwelveHour ? (
-                  <Wheel
-                    ariaLabel={wheelLabels.dayPeriod}
-                    onEscape={close}
-                    onSelect={updatePeriod}
-                    options={dayPeriods}
-                    selected={activeValue.getHours() >= 12 ? 1 : 0}
-                  />
-                ) : null}
-              </>
-            ) : (
-              datePartOrder.map((part) => (
-                <Wheel
-                  ariaLabel={dateLabel(part)}
-                  key={part}
-                  onEscape={close}
-                  onSelect={(nextValue) => updateDate(part, nextValue)}
-                  options={dateOptions(part)}
-                  selected={dateValue(part)}
-                />
-              ))
-            )}
-          </div>
-        </div>
-      ) : null}
+      {open && !disabled && typeof document !== 'undefined'
+        ? createPortal(
+            <div
+              aria-label={label}
+              className="chayns-date-time-picker__popup"
+              id={popupId}
+              ref={popupRef}
+              role="dialog"
+            >
+              <div className="chayns-date-time-picker__selection" />
+              <div className="chayns-date-time-picker__wheels">
+                {mode === 'time' ? (
+                  <>
+                    <Wheel
+                      ariaLabel={wheelLabels.hour}
+                      onEscape={close}
+                      onSelect={(hour) => updateTime('hours', hour)}
+                      options={hours}
+                      selected={
+                        isTwelveHour ? activeValue.getHours() % 12 || 12 : activeValue.getHours()
+                      }
+                    />
+                    <Wheel
+                      ariaLabel={wheelLabels.minute}
+                      onEscape={close}
+                      onSelect={(minute) => updateTime('minutes', minute)}
+                      options={minutes}
+                      selected={activeValue.getMinutes()}
+                    />
+                    {isTwelveHour ? (
+                      <Wheel
+                        ariaLabel={wheelLabels.dayPeriod}
+                        onEscape={close}
+                        onSelect={updatePeriod}
+                        options={dayPeriods}
+                        selected={activeValue.getHours() >= 12 ? 1 : 0}
+                      />
+                    ) : null}
+                  </>
+                ) : (
+                  datePartOrder.map((part) => (
+                    <Wheel
+                      ariaLabel={dateLabel(part)}
+                      key={part}
+                      onEscape={close}
+                      onSelect={(nextValue) => updateDate(part, nextValue)}
+                      options={dateOptions(part)}
+                      selected={dateValue(part)}
+                    />
+                  ))
+                )}
+              </div>
+            </div>,
+            document.body,
+          )
+        : null}
     </div>
   );
 });

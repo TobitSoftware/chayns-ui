@@ -45,10 +45,10 @@ Alternatives: calendar picker (not implemented).
 - Specification Status: IMPLEMENTED
 - Owner / Responsible Area: chayns UI Core
 - Design Reference: Pre-implementation DateTimePicker POC, confirmed by user on 2026-09-23; no Bodywork reference exists yet.
-- Relevant Decision IDs: CORE-001–007, CORE-009, CORE-010, CORE-012, CORE-014, CORE-016, PICKER-001–010
+- Relevant Decision IDs: CORE-001–007, CORE-009, CORE-010, CORE-012, CORE-014, CORE-016, PICKER-001–011
 - Foundation Dependencies: `@chayns-ui/tokens`, global density and theme classes
 - Related Components: ComboBox (dropdown placement only), TextField (floating-label reference)
-- Last Reviewed: 2026-09-23
+- Last Reviewed: 2026-10-07
 
 ## Purpose and Boundaries
 
@@ -106,7 +106,7 @@ The consumer owns `value`. Selecting a wheel value immediately calls `onChange` 
 - Root: positioning-only `div`.
 - Trigger: one labelled native `button`.
 - Label: associated visible floating `label` when no value is selected; a set value replaces it visually.
-- Popup: non-portalled `role="dialog"` below the trigger.
+- Popup: portalled `role="dialog"` in `document.body`, fixed-positioned below the trigger.
 - Wheels: one focusable `role="listbox"` per selected unit with button-backed `role="option"` entries.
 - Selection: one decorative central overlay per popup using 10% accent opacity.
 
@@ -128,7 +128,7 @@ Each wheel supports pointer dragging, mouse-wheel scrolling, click selection, Ar
 
 ## Visual Contract
 
-The popup follows the confirmed POC: surface background, border, popover shadow, a central `rgb(var(--accent-rgb), 0.1)` selection band and a five-row viewport. Each wheel has a 3D perspective and uses only `transform` and `opacity` for its wheel presentation. The trigger uses its intrinsic content width and reserves the width of its longest valid time display. A placeholder contributes only while no value is selected, preventing value-dependent width shifts without retaining empty-state width once a value is present. The popup is at least trigger-wide but may use its intrinsic width when its wheels require more space. Each wheel reserves its own longest option so localized month labels are never clipped. The time mode has a 100px minimum inline size. The container owns external placement and optional sizing.
+The popup follows the confirmed POC: surface background, border, popover shadow, a central `rgb(var(--accent-rgb), 0.1)` selection band and a five-row viewport. It is portalled to `document.body` and fixed-positioned from the trigger's viewport rectangle, including viewport-aware repositioning on resize and scroll. Each wheel has a 3D perspective and uses only `transform` and `opacity` for its wheel presentation. The trigger uses its intrinsic content width and reserves the width of its longest valid time display. In date mode, it reserves every valid month/year end-date instead, so choosing a shorter month never reduces the trigger width. A placeholder contributes only while no value is selected, preventing value-dependent width shifts without retaining empty-state width once a value is present. The popup is at least trigger-wide and expands to the measured sum of its Wheel widths when that is larger. Every Wheel is explicitly set to the width of its widest option, so localized month labels are never clipped. The time mode has a 100px minimum inline size. The container owns external placement and optional sizing.
 
 ## Accessibility
 
@@ -136,7 +136,7 @@ The popup follows the confirmed POC: surface background, border, popover shadow,
 
 ## Validation and Evidence
 
-Unit tests cover opening/closing, Escape restoration, immediate wheel changes, consumer click cancellation and out-of-range normalization. Storybook supplies controlled time and date stories. Package CSS is exported as `@chayns-ui/core/date-time-picker.css` and through `@chayns-ui/core/styles.css`.
+Unit tests cover opening/closing, portal ownership, Escape restoration, immediate wheel changes, stable date sizing, consumer click cancellation and out-of-range normalization. Storybook supplies controlled time and date stories. Package CSS is exported as `@chayns-ui/core/date-time-picker.css` and through `@chayns-ui/core/styles.css`.
 
 ## Foundation audit — 2026-10-06
 

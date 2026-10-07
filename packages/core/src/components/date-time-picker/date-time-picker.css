@@ -71,12 +71,9 @@
 
   .chayns-date-time-picker__popup {
     box-sizing: border-box;
-    position: absolute;
-    inset-block-start: calc(100% + var(--k4));
-    inset-inline-start: 0;
+    position: fixed;
     z-index: var(--z-popover);
     inline-size: max-content;
-    min-inline-size: 100%;
     overflow: hidden;
     padding: var(--k8);
     border: 1px solid var(--border);
@@ -116,6 +113,24 @@
     user-select: none;
   }
 
+  .chayns-date-time-picker__wheel-sizer {
+    display: block;
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline-start: -10000px;
+    inline-size: max-content;
+    pointer-events: none;
+    visibility: hidden;
+    white-space: nowrap;
+  }
+
+  .chayns-date-time-picker__wheel-sizer-option {
+    display: block;
+    font: inherit;
+    font-weight: 600;
+    padding-inline: var(--k8);
+  }
+
   .chayns-date-time-picker__wheel:focus-visible {
     outline: var(--focus-ring-size) solid rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-strong));
     outline-offset: 2px;
@@ -141,7 +156,7 @@
 
   .chayns-date-time-picker--date .chayns-date-time-picker__wheel {
     flex: 0 0 auto;
-    min-inline-size: max-content;
+    inline-size: max-content;
   }
 
   .chayns-date-time-picker--date .chayns-date-time-picker__wheel-option {
