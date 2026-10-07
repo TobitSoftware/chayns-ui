@@ -31,4 +31,4 @@ import { Skeleton, SkeletonShapes } from '@chayns-ui/core';
 
 ## Besonderheiten
 
-Skeleton ist vor Screenreadern verborgen und lädt keine Daten. Container und Anwendung entscheiden, wann echter Inhalt ersetzt wird und welche Statusbeschreibung nötig ist. Reduced Motion deaktiviert seine dekorative Animation. Die Beispielabmessungen verweisen auf bestehende Tokens statt auf eine neue lokale Größenvariante.
+Skeleton ist vor Screenreadern verborgen und lädt keine Daten. Container und Anwendung entscheiden, wann echter Inhalt ersetzt wird und welche Statusbeschreibung nötig ist. Die Anwendung legt passende Platzhalter-Abmessungen für den erwarteten Inhalt fest; Skeleton hat keine lokale S/M/L-Größenvariante.

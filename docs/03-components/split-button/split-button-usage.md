@@ -32,4 +32,4 @@ import { ButtonVariants, SplitButton } from '@chayns-ui/core';
 
 ## Besonderheiten
 
-Ein Primary-SplitButton zählt als die Primary-Aktion des Bereichs. Hauptaktion und Menüauslöser sind separate native Buttons mit gemeinsamem Disabled-Zustand. Beide übernehmen das Button-Hover-/Druckverhalten. Native Root-Props und Ref gehören zum umgebenden Container; PopupList übernimmt Menübedienung und Fokus-Rückkehr.
+Ein Primary-SplitButton zählt als die Primary-Aktion des Bereichs. Hauptaktion und Menüauslöser sind separate native Buttons mit gemeinsamem Disabled-Zustand. Native Root-Props und Ref gehören zum umgebenden Container; PopupList übernimmt Menübedienung und Fokus-Rückkehr.

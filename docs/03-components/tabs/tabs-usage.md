@@ -33,4 +33,15 @@ import { Tabs, TabsAppearances } from '@chayns-ui/layout';
 
 ## Besonderheiten
 
-Die Underline-Darstellung hat eine 2px-Linie; der Tastaturfokus umfasst auch deren seitlichen Überstand und bleibt in der Höhe zentriert bis zur Linie. Im dunklen Modus bleiben aktiver Text, Icon und Linie in der hellen Textfarbe. Beim Wechsel blendet das neue Panel in 220ms ein; das vorherige bleibt für 200ms sichtbar, ist sofort inert und für Screenreader verborgen und wird danach unmountet. Höchstens zwei Panels bleiben dabei im DOM; dauerhafter Inhaltzustand gehört nach außen. Die Unterlinie wandert zum aktiven Tab. Reduced Motion schaltet beide Animationen ab. Fehlt eine gültige Auswahl, wird die erste aktivierte Option gewählt bzw. kontrolliert vorgeschlagen. Pfeiltasten und Home/End aktivieren Tabs. `onRemove` je Tab macht ihn entfernbar; ohne Callback fehlen Symbol und Delete/Backspace-Aktion. Nur ein komponiertes `Tabs.Add` bietet Hinzufügen an. Die Anwendung verwaltet dynamische Einträge; [UnderlineEditable](?path=/story/layout-tabs--underline-editable) zeigt diese Kombination.
+Die Anwendung verwaltet dynamische Einträge. `onRemove` je Tab macht ihn entfernbar;
+ohne Callback fehlen Entfernen-Symbol und Delete/Backspace-Aktion. Hinzufügen gibt
+es nur mit einem komponierten `Tabs.Add`. [UnderlineEditable](?path=/story/layout-tabs--underline-editable)
+zeigt einen festen ersten Tab und weitere entfernbare Einträge.
+
+Fehlt eine gültige Auswahl, wird die erste aktivierte Option gewählt bzw. über
+`onValueChange` kontrolliert vorgeschlagen. Bei kontrollierter Verwendung muss die
+Anwendung diesen Vorschlag übernehmen. Die Werte der Tab-/Panel-Paare müssen
+auch beim Hinzufügen, Entfernen und Umsortieren stabil bleiben.
+
+Inaktive Panels werden entfernt. Zustand, der beim Wechsel erhalten bleiben soll,
+gehört deshalb außerhalb des jeweiligen Panels in die Anwendung.

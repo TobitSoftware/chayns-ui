@@ -28,4 +28,4 @@ import { Button, ButtonVariants } from '@chayns-ui/core';
 
 ## Besonderheiten
 
-Standard ist `type="button"`; zum Absenden eines Formulars `type="submit"` setzen. `loading` erhält die Beschriftung und deaktiviert die Aktion. Icons über `icon` wechseln bei Hover/Druck zu Solid. Hover hebt um 1px an, Druck setzt zurück und skaliert auf 97%; Reduced Motion unterdrückt Bewegung. Native Props und Ref adressieren den Button.
+Standard ist `type="button"`; zum Absenden eines Formulars `type="submit"` setzen. `loading` erhält die Beschriftung und deaktiviert die Aktion. Native Props und Ref adressieren den Button.

@@ -31,4 +31,4 @@ import { ButtonVariants, IconButton } from '@chayns-ui/core';
 
 ## Besonderheiten
 
-`loading` und native Button-Props funktionieren wie bei Button. Icons sind Regular in Ruhe und Solid bei Hover/Druck; verfügbare Einzelstile bleiben konsistent. Hover hebt um 2px an, Druck setzt zurück und skaliert auf 90%. Reduced Motion unterdrückt Bewegung. IconButton erhält keine sichtbaren `children`.
+`loading` und native Button-Props funktionieren wie bei Button. IconButton erhält keine sichtbaren `children`.

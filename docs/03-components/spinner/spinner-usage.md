@@ -29,4 +29,4 @@ import { Spinner } from '@chayns-ui/core';
 
 ## Besonderheiten
 
-Der Spinner ist vor Screenreadern verborgen und besitzt keine eigene Statusmeldung. Er hat keine lokale Größen- oder Fortschritts-API. Bei Reduced Motion stoppt die Rotation; die sichtbare Grafik und die Statusinformation des umgebenden Bereichs bleiben bestehen.
+Der Spinner ist vor Screenreadern verborgen und besitzt keine eigene Statusmeldung. Er hat keine lokale Größen- oder Fortschritts-API. Der umgebende Ladebereich benötigt eine eigene lokalisierte Statusbeschreibung.

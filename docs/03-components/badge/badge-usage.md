@@ -26,4 +26,4 @@ import { Badge, BadgeTones } from '@chayns-ui/core';
 
 ## Besonderheiten
 
-Farbe allein erklärt den Status nicht. Ohne `aria-label` ist der Inhalt Teil des umgebenden Kontexts; mit `aria-label` verwendet Badge Status-Semantik. Hover hebt die Fläche um 2px an, ohne sie zur Aktion zu machen; Reduced Motion unterdrückt Bewegung. Eigene Icon-Inhalte verantworten ihre Regular/Solid-Darstellung selbst.
+Farbe allein erklärt den Status nicht. Ohne `aria-label` ist der Inhalt Teil des umgebenden Kontexts; mit `aria-label` verwendet Badge Status-Semantik. Eigene Icon-Inhalte verantworten ihre Regular/Solid-Darstellung selbst.

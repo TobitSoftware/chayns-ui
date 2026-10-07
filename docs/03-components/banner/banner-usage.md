@@ -26,4 +26,4 @@ import { Banner, BannerTones } from '@chayns-ui/core';
 
 ## Besonderheiten
 
-`open`/`onOpenChange` steuert Sichtbarkeit kontrolliert; `defaultOpen` den Anfang. Der Schließen-Callback gehört zur Anwendung und kann fachliche Folgen behandeln. Die Banner-Fläche hat keinen Hover-Lift; ihr informatives Icon bleibt Regular. Das Schließen-Control besitzt eigenes Aktionsfeedback. Dynamische Warn-/Gefahrenhinweise verwenden die spezifizierte Alert-Semantik.
+`open`/`onOpenChange` steuert Sichtbarkeit kontrolliert; `defaultOpen` den Anfang. Der Schließen-Callback gehört zur Anwendung und kann fachliche Folgen behandeln. Dynamische Warn-/Gefahrenhinweise verwenden die spezifizierte Alert-Semantik.
