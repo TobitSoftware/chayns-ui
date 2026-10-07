@@ -98,7 +98,8 @@ const AccordionHead = forwardRef<HTMLButtonElement, AccordionHeadProps>(function
 const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
   function AccordionContent({ children, className, ...panelProps }, ref) {
     const depth = useContext(AccordionDepthContext);
-    const { headerId, isOpen, panelId } = useAccordionItemContext('Content');
+    const { hasContentPadding, headerId, isOpen, nestedContent, panelId } =
+      useAccordionItemContext('Content');
 
     return (
       <div
@@ -113,13 +114,16 @@ const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
         style={{ ...panelProps.style, gridTemplateRows: isOpen ? '1fr' : '0fr' }}
       >
         <div className="chayns-accordion__inner">
-          <div className="chayns-accordion__content">
-            <AccordionGroupContext.Provider value={null}>
-              <AccordionDepthContext.Provider value={depth + 1}>
-                {children}
-              </AccordionDepthContext.Provider>
-            </AccordionGroupContext.Provider>
-          </div>
+          <AccordionGroupContext.Provider value={null}>
+            <AccordionDepthContext.Provider value={depth + 1}>
+              {hasContentPadding ? (
+                <div className="chayns-accordion__content">{children}</div>
+              ) : (
+                children
+              )}
+              {nestedContent}
+            </AccordionDepthContext.Provider>
+          </AccordionGroupContext.Provider>
         </div>
       </div>
     );
@@ -194,12 +198,23 @@ const AccordionRoot = forwardRef<HTMLDivElement, AccordionProps>(function Accord
     (child) => isValidElement(child) && child.type === AccordionContent,
   );
   const hasCompoundContent = compoundContent !== undefined;
-  const panelChildren = children;
+  const panelChildren = directChildren.filter((child) => child !== compoundHead);
+  const nestedContent = hasCompoundContent
+    ? panelChildren.filter((child) => child !== compoundContent)
+    : null;
 
   return (
     <div {...rootProps} className={rootClassName} id={id} ref={ref}>
       <AccordionItemContext.Provider
-        value={{ disabled, headerId, isOpen, onToggle: handleToggle, panelId }}
+        value={{
+          disabled,
+          hasContentPadding: hasCompoundContent,
+          headerId,
+          isOpen,
+          nestedContent,
+          onToggle: handleToggle,
+          panelId,
+        }}
       >
         {hasCompoundHead ? (
           compoundHead

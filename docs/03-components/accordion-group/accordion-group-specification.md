@@ -18,7 +18,7 @@
     "https://tappqa.tobit.com/Bodywork/DesignSystem/",
     "../accordion/accordion-specification.md"
   ],
-  "checkedOn": "2026-10-06",
+  "checkedOn": "2026-10-07",
   "stories": [
     "Core/Accordion:Standalone",
     "Core/Accordion:DefaultOpen",
@@ -48,3 +48,12 @@ Alternatives: Accordion, Tabs.
 This component shares its confirmed API, native/ref, token, accessibility and acceptance
 contract with [accordion specification](../accordion/accordion-specification.md).
 Read that normative specification before implementation.
+
+## Content composition — 2026-10-07
+
+Ordinary child content uses one explicit Accordion.Content for its confirmed inset.
+A nested group itself is a direct child of the containing Accordion, without an
+additional Content wrapper around the group. The same exception covers nested
+Accordions/Lists. Mixed ordinary content has its own Content beside those structures.
+The [Accordion specification](../accordion/accordion-specification.md) defines the
+user-confirmed spacing correction, native panel owner and Bodywork exception.

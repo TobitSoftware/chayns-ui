@@ -16,15 +16,19 @@ Informationen, die jeder unmittelbar sehen muss, gehören nicht hinter einen Auf
 
 ## Verwendung
 
-Für einen einfachen Abschnitt reichen `title` und `children`. `defaultOpen` öffnet ihn anfangs; für extern gesteuertes Öffnen gemeinsam `open` und `onOpenChange` verwenden.
+Den Abschnitt mit `title` benennen und normale Inhalte in genau ein direktes `Accordion.Content` setzen. Dieser Part stellt die passenden Innenabstände und die Typografie bereit; das gilt auch für `AccordionAppearances.List`. `defaultOpen` öffnet ihn anfangs; für extern gesteuertes Öffnen gemeinsam `open` und `onOpenChange` verwenden.
 
 ```tsx
 import { Accordion } from '@chayns-ui/core';
 
 <Accordion title="Details" defaultOpen>
-  <p>Weitere Informationen</p>
+  <Accordion.Content>
+    <p>Weitere Informationen</p>
+  </Accordion.Content>
 </Accordion>;
 ```
+
+Ausnahme: Verschachtelte Accordions, AccordionGroups und Listen direkt einsetzen, ohne zusätzliches `Accordion.Content` darum. Bei gemischtem Inhalt stehen diese Strukturen neben dem Content-Part für Text/Controls. Umgekehrt stehen Accordions/Groups direkt unter `List.Item`, außerhalb dessen Action und Text-Parts. So kommt keine zusätzliche Inhaltseinrückung hinzu; das semantische Panel bleibt erhalten.
 
 ## Besonderheiten
 

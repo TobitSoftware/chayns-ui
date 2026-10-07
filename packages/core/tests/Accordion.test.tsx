@@ -6,8 +6,55 @@ import { describe, expect, it, vi } from 'vitest';
 
 import Accordion from '../src/components/accordion/Accordion.js';
 import AccordionGroup from '../src/components/accordion-group/AccordionGroup.js';
+import List from '../src/components/list/List.js';
 
 describe('Accordion', () => {
+  it('preserves nested siblings beside explicit content within one owning panel', () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <Accordion defaultOpen title="Outer">
+        <Accordion.Content ref={ref} data-content="ordinary">
+          Introduction
+        </Accordion.Content>
+        <Accordion defaultOpen title="Inner">
+          <Accordion.Content>Details</Accordion.Content>
+        </Accordion>
+      </Accordion>,
+    );
+    const panel = screen.getByRole('region', { name: 'Outer' });
+    expect(ref.current).toBe(panel);
+    expect(panel).toHaveAttribute('data-content', 'ordinary');
+    expect(panel).toHaveTextContent('Introduction');
+    const nested = screen
+      .getByRole('button', { name: 'Inner' })
+      .closest<HTMLElement>('.chayns-accordion');
+    expect(nested).toHaveClass('chayns-accordion--wrapped');
+    const padded = panel.querySelector('.chayns-accordion__content');
+    expect(padded).toHaveTextContent('Introduction');
+    expect(padded).not.toContainElement(nested);
+    expect(screen.getAllByRole('region')).toHaveLength(2);
+  });
+
+  it('keeps a nested list unwrapped and excludes compound header parts from the panel', () => {
+    render(
+      <Accordion appearance="list" defaultOpen>
+        <Accordion.Head>
+          <Accordion.Head.Content title="Entries" />
+        </Accordion.Head>
+        <List>
+          <List.Item>
+            <List.Item.Action>Entry</List.Item.Action>
+          </List.Item>
+        </List>
+      </Accordion>,
+    );
+    const panel = screen.getByRole('region', { name: 'Entries' });
+    expect(panel.querySelector('.chayns-accordion__content')).toBeNull();
+    expect(panel).toContainElement(screen.getByRole('list'));
+    expect(panel.querySelector('.chayns-accordion__header')).toBeNull();
+    expect(screen.getAllByRole('button', { name: 'Entries' })).toHaveLength(1);
+  });
+
   it('forwards compatible native span props and refs on public header parts', () => {
     const ref = createRef<HTMLSpanElement>();
     render(
@@ -105,7 +152,7 @@ describe('Accordion', () => {
 
     const root = screen
       .getByRole('button', { name: /Q3-Budget.*Freigabe durch Eva Sommer/ })
-      .closest('.chayns-accordion');
+      .closest<HTMLElement>('.chayns-accordion');
     expect(root).toHaveClass('chayns-accordion--list');
     expect(root?.querySelector('.chayns-accordion__subtitle')).toHaveTextContent(
       'Freigabe durch Eva Sommer',
@@ -144,7 +191,9 @@ describe('Accordion', () => {
       </Accordion>,
     );
 
-    const inner = screen.getByRole('button', { name: 'Innen' }).closest('.chayns-accordion');
+    const inner = screen
+      .getByRole('button', { name: 'Innen' })
+      .closest<HTMLElement>('.chayns-accordion');
     expect(inner).toHaveClass('chayns-accordion--wrapped');
     expect(inner).not.toHaveClass('chayns-accordion--standalone');
 

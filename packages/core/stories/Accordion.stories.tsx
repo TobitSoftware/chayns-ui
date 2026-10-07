@@ -27,7 +27,9 @@ export const Standalone: Story = {
   render: () => (
     <div className="chayns-storybook-example-accordion">
       <Accordion title="Was ist chayns UI?">
-        chayns UI ist die modulare Komponentenbibliothek für konsistente chayns-Oberflächen.
+        <Accordion.Content>
+          chayns UI ist die modulare Komponentenbibliothek für konsistente chayns-Oberflächen.
+        </Accordion.Content>
       </Accordion>
     </div>
   ),
@@ -37,7 +39,9 @@ export const DefaultOpen: Story = {
   render: () => (
     <div className="chayns-storybook-example-accordion">
       <Accordion defaultOpen title="Was ist chayns UI?">
-        chayns UI ist die modulare Komponentenbibliothek für konsistente chayns-Oberflächen.
+        <Accordion.Content>
+          chayns UI ist die modulare Komponentenbibliothek für konsistente chayns-Oberflächen.
+        </Accordion.Content>
       </Accordion>
     </div>
   ),
@@ -49,13 +53,17 @@ export const Grouped: Story = {
     <div className="chayns-storybook-example-accordion">
       <AccordionGroup defaultOpenId="lieferung">
         <Accordion id="lieferung" title="Lieferung">
-          Standardlieferungen sind innerhalb von zwei bis drei Werktagen bei dir.
+          <Accordion.Content>
+            Standardlieferungen sind innerhalb von zwei bis drei Werktagen bei dir.
+          </Accordion.Content>
         </Accordion>
         <Accordion id="ruecksendung" title="Rücksendung">
-          Rücksendungen sind innerhalb von 30 Tagen kostenlos möglich.
+          <Accordion.Content>
+            Rücksendungen sind innerhalb von 30 Tagen kostenlos möglich.
+          </Accordion.Content>
         </Accordion>
         <Accordion id="zahlung" title="Zahlung">
-          Wir akzeptieren die gängigen Zahlungsmethoden.
+          <Accordion.Content>Wir akzeptieren die gängigen Zahlungsmethoden.</Accordion.Content>
         </Accordion>
       </AccordionGroup>
     </div>
@@ -76,10 +84,10 @@ export const Wrapped: Story = {
   render: () => (
     <div className="chayns-storybook-example-accordion">
       <Accordion defaultOpen title="Erweiterte Einstellungen">
-        Passe hier grundlegende Optionen an.
+        <Accordion.Content>Passe hier grundlegende Optionen an.</Accordion.Content>
         <div className="chayns-storybook-example-accordion-nested">
           <Accordion title="Benachrichtigungen">
-            Lege fest, worüber du informiert werden möchtest.
+            <Accordion.Content>Lege fest, worüber du informiert werden möchtest.</Accordion.Content>
           </Accordion>
         </div>
       </Accordion>
@@ -97,7 +105,7 @@ export const Disabled: Story = {
   render: () => (
     <div className="chayns-storybook-example-accordion">
       <Accordion disabled title="Nicht verfügbar">
-        Dieser Bereich ist derzeit nicht verfügbar.
+        <Accordion.Content>Dieser Bereich ist derzeit nicht verfügbar.</Accordion.Content>
       </Accordion>
     </div>
   ),
@@ -138,10 +146,10 @@ export const NestedGroup: Story = {
     <Accordion defaultOpen title="Einstellungen">
       <AccordionGroup defaultOpenId="general">
         <Accordion id="general" title="Allgemein">
-          Allgemeine Einstellungen
+          <Accordion.Content>Allgemeine Einstellungen</Accordion.Content>
         </Accordion>
         <Accordion id="notifications" title="Benachrichtigungen">
-          Benachrichtigungen anpassen
+          <Accordion.Content>Benachrichtigungen anpassen</Accordion.Content>
         </Accordion>
       </AccordionGroup>
     </Accordion>

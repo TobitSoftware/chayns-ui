@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react';
+import type { ReactNode } from 'react';
 
 /**
  * Nesting depth of the current accordion subtree. Depth 0 is a top-level
@@ -25,6 +26,8 @@ export const AccordionGroupContext = createContext<AccordionGroupContextValue | 
 
 export interface AccordionItemContextValue {
   disabled: boolean;
+  hasContentPadding: boolean;
+  nestedContent: ReactNode;
   headerId: string;
   isOpen: boolean;
   panelId: string;

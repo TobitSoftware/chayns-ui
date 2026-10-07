@@ -36,7 +36,9 @@ export interface AccordionProps extends Omit<
   appearance?: AccordionAppearance;
 
   /**
-   * @description Panel content revealed when the accordion is open.
+   * @description Panel content revealed when the accordion is open. Ordinary
+   * content uses one explicit Accordion.Content for its inset. Nested Accordions,
+   * AccordionGroups and Lists are direct children without an extra content wrapper.
    */
   children?: ReactNode;
 
@@ -132,6 +134,7 @@ export interface AccordionPartProps extends ComponentPropsWithRef<'span'> {
   className?: string;
 }
 
+/** Owns panel native props/ref and the padding of ordinary content; nested structures may be siblings. */
 export interface AccordionContentProps extends Omit<ComponentPropsWithRef<'div'>, 'children'> {
   children?: ReactNode;
 }
