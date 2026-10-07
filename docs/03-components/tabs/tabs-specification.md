@@ -203,3 +203,9 @@ Tests cover rapid selection, exit completion/cancellation, reduced motion, unmou
 selection accessibility and dynamic entries; Chromium/WebKit evidence covers
 opacity-only fades, translated/scaled line, focus bounds, dark/auto colours, scrolling,
 resize and density. Stories: WorkspaceTabs, Underline and UnderlineEditable.
+
+When selection becomes invalid, obsolete panel/indicator motion ends immediately;
+no invalid initial content is faded out during automatic selection reconciliation.
+With no enabled entry, observer callbacks do not create a self-scheduling frame loop.
+Story interaction tests await actual panel completion before final-state contrast
+checks; they do not disable accessibility auditing or introduce fixed sleeps.

@@ -70,3 +70,6 @@ substitute for that evidence. Safari currently works according to the user; no
 root cause or verified fix is claimed for the earlier intermittent import issue.
 The [audit results](../03-components/component-audit-results-2026-10-06.md) record
 scope, compatibility and remaining release evidence.
+
+The merged foundation release is followed by the separately scoped
+[Tabs and content-spacing review](tabs-content-release-review.md), dated 2026-10-07.
