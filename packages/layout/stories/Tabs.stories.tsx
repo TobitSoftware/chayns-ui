@@ -118,3 +118,81 @@ export const AutomaticSelection: Story = {
     await waitForTabPanels(canvasElement);
   },
 };
+
+export const AttachedWithIcons: Story = {
+  args: { children: null, appearance: TabsAppearances.Attached, defaultValue: 'inbox' },
+  parameters: { docs: { source: { type: 'dynamic' } } },
+  render: (args) => (
+    <Tabs {...args}>
+      <Tabs.List aria-label="Arbeitsbereiche">
+        <Tabs.Tab value="inbox">
+          <span aria-hidden="true" className="chayns-tabs__icon">
+            <span className="chayns-tabs__weight">
+              <i className="far fa-inbox" />
+            </span>
+            <span className="chayns-tabs__weight chayns-tabs__weight--active">
+              <i className="fas fa-inbox" />
+            </span>
+          </span>
+          <span className="chayns-tabs__label">Inbox</span>
+        </Tabs.Tab>
+        <Tabs.Tab value="calendar">
+          <span aria-hidden="true" className="chayns-tabs__icon">
+            <span className="chayns-tabs__weight">
+              <i className="far fa-calendar" />
+            </span>
+            <span className="chayns-tabs__weight chayns-tabs__weight--active">
+              <i className="fas fa-calendar" />
+            </span>
+          </span>
+          <span className="chayns-tabs__label">Calendar</span>
+        </Tabs.Tab>
+        <Tabs.Tab value="tasks" disabled>
+          <span aria-hidden="true" className="chayns-tabs__icon">
+            <span className="chayns-tabs__weight">
+              <i className="far fa-list-check" />
+            </span>
+            <span className="chayns-tabs__weight chayns-tabs__weight--active">
+              <i className="fas fa-list-check" />
+            </span>
+          </span>
+          <span className="chayns-tabs__label">Tasks</span>
+        </Tabs.Tab>
+      </Tabs.List>
+      <Tabs.Panel value="inbox">Meetings and conversations</Tabs.Panel>
+      <Tabs.Panel value="calendar">Your calendar</Tabs.Panel>
+      <Tabs.Panel value="tasks">Tasks and notes</Tabs.Panel>
+    </Tabs>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const calendar = canvas.getByRole('tab', { name: 'Calendar' });
+    const tasks = canvas.getByRole('tab', { name: 'Tasks' });
+    const regular = calendar.querySelector(
+      '.chayns-tabs__weight:not(.chayns-tabs__weight--active)',
+    );
+    const solid = calendar.querySelector('.chayns-tabs__weight--active');
+
+    await expect(regular).toBeVisible();
+    await expect(solid).not.toBeVisible();
+    await userEvent.click(calendar);
+    await expect(calendar).toHaveAttribute('aria-selected', 'true');
+    await expect(canvas.getByRole('tabpanel')).toHaveTextContent('Your calendar');
+    await expect(regular).toBeVisible();
+    await expect(solid).not.toBeVisible();
+
+    await expect(tasks).toBeDisabled();
+    await expect(tasks.querySelector('.chayns-tabs__weight--active')).not.toBeVisible();
+    await expect(
+      tasks.querySelector('.chayns-tabs__weight:not(.chayns-tabs__weight--active)'),
+    ).toBeVisible();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(canvas.getByRole('tab', { name: 'Inbox' })).toHaveFocus();
+    await waitForTabPanels(canvasElement);
+  },
+};
+
+export const UnderlineWithIcons: Story = {
+  ...AttachedWithIcons,
+  args: { ...AttachedWithIcons.args, appearance: TabsAppearances.Underline },
+};

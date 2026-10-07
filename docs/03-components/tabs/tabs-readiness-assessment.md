@@ -73,3 +73,16 @@ active foreground to Attached in dark and auto-dark. Tokens, geometry, native
 ownership and Reduced Motion are unchanged. WorkspaceTabs/Underline provide story
 evidence; both appearances require browser contrast/state checks. No unresolved
 design-review point exists.
+
+## Icon composition story evidence — 2026-10-07
+
+READY remains the existing child-composition/icon contract. AttachedWithIcons and
+UnderlineWithIcons show existing paired native glyph markup without a private
+React helper or new API. The checked Bodywork reference, density tokens, disabled
+and hover/pressed ownership, accessible labels and Reduced Motion remain unchanged.
+Story and browser checks cover both appearances; no design-review gap is introduced.
+
+Verification: all six Tabs Storybook interaction/accessibility tests passed.
+Chromium and WebKit checks passed for actual hover/pressed/rest, disabled state,
+keyboard navigation, S/M/L theme inheritance, narrow accessible labels and the
+complete public source view. Docs validation, typechecking and story lint passed.

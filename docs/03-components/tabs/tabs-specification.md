@@ -23,7 +23,9 @@
     "Layout/Tabs:WorkspaceTabs",
     "Layout/Tabs:Underline",
     "Layout/Tabs:UnderlineEditable",
-    "Layout/Tabs:AutomaticSelection"
+    "Layout/Tabs:AutomaticSelection",
+    "Layout/Tabs:AttachedWithIcons",
+    "Layout/Tabs:UnderlineWithIcons"
   ],
   "combinations": [
     "AppLayout",
@@ -243,3 +245,19 @@ motion remain unchanged. No additional line or variant is introduced in Attached
 The checked Bodywork reference above remains unchanged; this user correction is
 explicitly authoritative. WorkspaceTabs and Underline cover the state mapping;
 browser acceptance compares light/dark/auto in both appearances and S/M/L.
+
+## Public icon composition story evidence — 2026-10-07
+
+AttachedWithIcons and UnderlineWithIcons demonstrate existing native child
+composition using the existing paired Regular/Solid glyph markup and state
+selectors. No private React icon renderer is imported; source view shows the
+complete exported Tabs composition. Decorative icon wrappers are aria-hidden;
+visible labels remain the accessible tab names, including compact layouts.
+Disabled glyphs remain Regular and keyboard navigation skips their tabs.
+
+The existing checked Bodywork/icon reference, size/token mapping and Reduced
+Motion contract remain unchanged. Story interaction evidence covers
+selection, disabled state and keyboard navigation in both appearances. Browser
+evidence checks enabled hover, held pointer state, return to rest, disabled hover
+and source visibility.
+No new icon prop, compound part, public variant, CSS rule or package API is added.
