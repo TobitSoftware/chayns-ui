@@ -86,3 +86,13 @@ Verification: all six Tabs Storybook interaction/accessibility tests passed.
 Chromium and WebKit checks passed for actual hover/pressed/rest, disabled state,
 keyboard navigation, S/M/L theme inheritance, narrow accessible labels and the
 complete public source view. Docs validation, typechecking and story lint passed.
+
+## Optional leading icon API — 2026-10-07
+
+READY for the explicitly confirmed optional Tabs.Tab icon prop, reusing Core's
+public ButtonIcon value contract and existing geometry/state selectors. The
+specification defines leading/decorative ownership, Classic/Brands/custom styles,
+consumer child compatibility, native/ref/event contracts and test acceptance.
+The existing Bodywork reference, tokens, accessible label and Reduced Motion are
+unchanged. AttachedWithIcons/UnderlineWithIcons provide evidence. No new public
+Icon component or unresolved design-review point exists.

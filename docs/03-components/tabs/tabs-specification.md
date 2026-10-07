@@ -261,3 +261,30 @@ selection, disabled state and keyboard navigation in both appearances. Browser
 evidence checks enabled hover, held pointer state, return to rest, disabled hover
 and source visibility.
 No new icon prop, compound part, public variant, CSS rule or package API is added.
+
+## Optional owned leading icon — confirmed 2026-10-07
+
+The user confirmed an additive `Tabs.Tab icon` convenience prop for the existing
+leading glyph position, matching Button/SegmentedControl. `icon?: ButtonIcon`
+reuses the public Core type: Classic `fa-*` names use paired Regular/Solid;
+`fab fa-*` Brands and `ts-*` glyphs retain their single style. It is decorative,
+aria-hidden, before children, inherits text/state colour and uses the existing
+Attached/Underline geometry. Empty/omitted icons render no leading wrapper.
+Applications keep responsibility for loading their Font Awesome/custom glyphs.
+
+The private TabsIcon renderer owns this optional glyph and the existing close
+symbol. Enabled hover/pressed uses Solid; rest, focus alone and disabled use
+Regular. Wrappers survive Font Awesome SVG replacement. Visible/localized children
+still provide the accessible label; no icon-only API, extra accessible name,
+trailing-icon slot, runtime icon library or new token is introduced.
+
+Existing arbitrary child composition, native button props/ref, remove placement,
+event cancellation, keyboard selection, controlled state and Reduced Motion remain
+unchanged. Existing child icons remain consumer-owned and are not reinterpreted.
+The earlier native composition icon stories now demonstrate this convenience API.
+AttachedWithIcons/UnderlineWithIcons and runtime/type regressions cover leading
+placement, decorative naming, absence, removal coexistence, Brands/custom prefixes,
+hover/pressed/disabled/focus, density/theme and source visibility.
+
+The checked Bodywork reference and token mapping above remain unchanged; the user
+confirmed this API mapping, not a visual deviation. No design-review gap remains.

@@ -799,3 +799,18 @@ Interaction `play` functions remain test evidence and are excluded from usage co
 All component stories are checked for opaque helpers and standard visual behavior
 mislabelled as special usage requirements. These documentation corrections do not
 change consumer APIs and use a patch changeset for affected packages.
+
+## Compound prop tables — 2026-10-07
+
+The user confirmed that each public Compound Part appears as a named prop-table
+tab on its component Docs page, including nested paths such as Tabs.Tab and
+Accordion.Head.Content. Related roots such as AccordionGroup/Popup remain visible.
+Tables derive from the actual TypeScript component types and descriptions.
+Documentation-only exported aliases reference the original public parts directly;
+they neither wrap/render an alternate component nor create package exports.
+The existing Storybook TypeScript docgen backend extracts those alias types.
+Native children, ref, className/style, accessible names and common control/events
+remain visible alongside owned props; the complete compatible native HTML API
+remains defined by the public TypeScript types and native mapping in specifications.
+Pure native parts must show meaningful native props rather than an empty table.
+Internal renderers, contexts and implementation-only parts are never registered.
