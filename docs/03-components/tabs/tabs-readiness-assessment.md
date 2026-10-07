@@ -37,3 +37,22 @@ applied to owned action/information glyphs. Existing internal wrappers and nativ
 owners determine Regular/Solid; API, token mapping, focus, events and geometry stay
 unchanged. Bodywork/global source checked 2026-10-06; states and findings are in the
 [icon rule review](../icon-rule-review-2026-10-06.md). No new design-review gap.
+
+## Underline focus and contrast correction — 2026-10-07
+
+READY for the explicitly user-confirmed 2px / `--k6` underline, enclosing keyboard
+focus and near-white semantic `--text` active foreground in dark mode. Specification
+records geometry, existing token mapping, native ownership, reduced-motion handling
+and acceptance evidence (Underline / UnderlineEditable). No unresolved design-review
+point in this bounded correction; the separately requested panel/indicator animation
+requires its own confirmed contract before implementation.
+
+## Confirmed motion extension — 2026-10-07
+
+READY for the user-selected parallel crossfade (200ms exit / 220ms entry) in both
+appearances and the 220ms moving underline. Specification records Bodywork reference
+checked 2026-10-07, token/state mapping, private DOM ownership, outgoing inert/hidden
+semantics, bounded mount lifetime, interruption and Reduced Motion rules, geometry
+updates and acceptance criteria. Public API and keyboard selection stay unchanged.
+The earlier animation interpretation gap is resolved by the structured answers.
+Browser and lifecycle verification are required before marking this addition complete.

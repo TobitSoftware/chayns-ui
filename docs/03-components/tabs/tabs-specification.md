@@ -18,7 +18,7 @@
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/"
   ],
-  "checkedOn": "2026-10-06",
+  "checkedOn": "2026-10-07",
   "stories": [
     "Layout/Tabs:WorkspaceTabs",
     "Layout/Tabs:Underline",
@@ -47,7 +47,7 @@ Alternatives: native anchor, SegmentedControl, Accordion.
 
 Tabs is a value-paired compound control: `Tabs.List` owns `tablist` div props, `Tabs.Tab value` owns native button props, `Tabs.Panel value` owns panel div props and `Tabs.Add` owns native button props. Root owns `value`, `defaultValue` and `onValueChange`; stable values create tab/panel IDs. Children outside Tabs fail in development.
 
-Tabs use ARIA tab roles, roving focus, automatic cyclic Arrow activation and Home/End. `Tab` invokes an optional `onRemove` on Delete/Backspace; `Add` is an independent native button. Consumer handlers run before selection and may cancel it. The active panel alone renders and is labelled by its Tab. Native attributes target their matching parts and component-owned role/relationship attributes are omitted.
+Tabs use ARIA tab roles, roving focus, automatic cyclic Arrow activation and Home/End. `Tab` invokes an optional `onRemove` on Delete/Backspace; `Add` is an independent native button. Consumer handlers run before selection and may cancel it. The active panel is labelled by its Tab and is the only accessible/interactive panel. During the confirmed crossfade, at most one outgoing panel remains visually mounted for 200ms. Native attributes target their matching parts and component-owned role/relationship attributes are omitted.
 
 The visual contract is a top-attached tab strip: the list itself is
 transparent and inherits its surrounding shell surface, while tabs are
@@ -70,14 +70,15 @@ for peer content views on a shared surface. Neither appearance is route navigati
 a settings value selector (SegmentedControl), or disclosure (Accordion).
 
 The user-provided screenshot and dashboard SCSS are the confirmed reference for
-underline, checked 2026-10-06. List gap is 30 density units; inline padding is `--k5`,
+underline, checked 2026-10-06. List gap is 30 density units; inline padding is `--k6`,
 tab gap `--k7`, vertical padding `--k12`, icon size `--k16`. The active underline is
-1px, at `--k8` from the bottom, extends `--k3` on each side. Invalid sample `left/right:-3`
-is confirmed as -3px. The sample icon baseline correction of 1.1px has no demonstrated
+2px, at `--k6` from the bottom, extends `--k6` on each side,
+as superseded by the user on 2026-10-07. List inline padding is correspondingly
+`--k6` so the underline and expanded keyboard focus area are not clipped. The sample icon baseline correction of 1.1px has no demonstrated
 need for native inline icon composition; no wrapper-specific offset is applied.
 Below 900px inline tab padding is `--k2`; list overflow is horizontal and labels stay
-visible. Active, idle, hover and disabled use accent, text, text-2 and disabled-fg
-instead of application hardcoded colours. Minimum targets and focus ring remain.
+visible. Active uses accent in light mode and text in dark mode; idle, hover and
+disabled use text, text-2 and disabled-fg instead of application hardcoded colours. Minimum targets and focus ring remain.
 Colour transition is the reference 0.2s ease, removed with reduced motion. Outside
 margins and white application background belong to the consumer. Panel keeps existing
 content padding and loses its attached border/surface for underline. Add/remove remain
@@ -134,3 +135,71 @@ renderers use wrappers to remain stable under Font Awesome SVG replacement. Publ
 props, token geometry, native events and focus ownership remain unchanged. The
 [icon rule review](../icon-rule-review-2026-10-06.md) records owner-specific findings
 and consumer-content boundaries.
+
+## Underline focus and dark contrast correction — 2026-10-07
+
+Confirmed user reference: the supplied pseudo-element CSS replaces the original
+2026-10-06 underline geometry. The underline uses absolute positioning,
+`inset-block-end: var(--k6)`, `inset-inline: calc(-1 * var(--k6))`,
+`block-size: 2px`, empty content and `background: currentColor`. The keyboard
+focus indicator encloses the entire tab including that inline extension, using
+a non-interactive before pseudo-element and the existing inset focus-ring tokens.
+The list reserves `--k6` at both inline edges; desktop/mobile tab padding, gaps
+and native hit/keyboard ownership otherwise remain unchanged.
+
+In explicitly dark themes and auto mode resolving to dark, the active underline
+tab uses existing `--text` instead of `--accent`. Text, icons and underline inherit
+that semantic near-white foreground, including high-contrast/color-deficiency
+modes. Explicit light mode retains `--accent`. Attached appearance is unchanged.
+This is the user-confirmed component state mapping, not a new palette or token.
+
+Acceptance: keyboard focus spans both ends of the 2px underline, including first
+and last tabs and the mobile layout; no clipping in the horizontal scroll list.
+Light/dark/auto and S/M/L retain the semantic token mapping. Disabled and optional
+remove/add actions keep their existing contracts. Storybook evidence: Underline
+and UnderlineEditable; browser checks cover actual focus and computed geometry.
+Bodywork Motion/global icon reference checked 2026-10-07; the supplied user CSS
+is authoritative for this component-specific visual correction.
+
+## Panel crossfade and moving underline — 2026-10-07
+
+Confirmed by structured user answers: both appearances crossfade; underline also
+uses a shared moving indicator. Public props, native part/ref owners and selection
+callbacks stay unchanged. Bodywork Motion was rechecked live on 2026-10-07: short
+200–240ms transitions, faster exit than entry, entry curve
+`cubic-bezier(.22,.61,.36,1)` and exit curve `cubic-bezier(.4,0,.7,.2)`.
+The user confirmed 200ms exit and 220ms entry for this component-specific contract.
+
+Selection, roving focus and selected-tab ARIA update immediately. The new panel
+mounts immediately and fades from opacity 0 to its normal consumer opacity over
+220ms; the previous one fades to 0 over 200ms. The outgoing panel immediately
+becomes inert, aria-hidden and untabbable, then unmounts on completion. At most
+one outgoing panel exists; a further selection discards an older exit and starts
+from the latest view. Interrupted transitions retain their current opacity; removed
+entries and root unmount cancel owned animations. Only opacity is animated.
+The initial valid panel appears immediately.
+
+Root owns a shared two-row grid: List in the first row and the documented sibling
+Panels sharing the second cell. During the brief crossfade this cell reserves the
+larger content height; after exit it follows the active panel. Height is not animated.
+No public wrapper, keep-mounted prop, per-frame React state or new dependency exists.
+Only active and outgoing content remain mounted; persistent application state still
+belongs outside Panels. Consumers place content wrappers inside their Panels.
+
+Underline List owns one private aria-hidden, non-interactive indicator. It uses the
+confirmed 2px height, `--k6` bottom offset and 6-unit extension on both sides.
+Position and width follow the selected native button, including horizontal scrolling,
+resize, density, changed labels and dynamic/reordered/disabled entries. Its only
+animated property is transform (translation and scale), 220ms with the entry curve.
+Geometry is measured on selection and relevant layout changes, not on animation
+frames. Initial placement and layout corrections are immediate. Tab-local after
+pseudo-elements provide the same static underline until a shared indicator is ready.
+
+Reduced Motion immediately switches/unmounts panels and places the indicator,
+including changes to the preference during a running transition. Without animation
+API support the same immediate fallback applies. The outgoing panel contributes no
+focus target or announced content. Consumer native events/ref targets are retained.
+Tests cover rapid selection, exit completion/cancellation, reduced motion, unmount,
+selection accessibility and dynamic entries; Chromium/WebKit evidence covers
+opacity-only fades, translated/scaled line, focus bounds, dark/auto colours, scrolling,
+resize and density. Stories: WorkspaceTabs, Underline and UnderlineEditable.
