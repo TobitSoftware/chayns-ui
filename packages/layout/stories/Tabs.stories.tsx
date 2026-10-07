@@ -1,3 +1,7 @@
+import { TabsList } from './docs/TabsList.js';
+import { TabsTab } from './docs/TabsTab.js';
+import { TabsPanel } from './docs/TabsPanel.js';
+import { TabsAdd } from './docs/TabsAdd.js';
 import waitForTabPanels from './utils/waitForTabPanels.js';
 import checkTabPanelExit from './utils/checkTabPanelExit.js';
 import EditableTabs from './examples/EditableTabs.js';
@@ -12,6 +16,12 @@ import { TabsAppearances } from '../src/components/tabs/Tabs.types.js';
 const meta = {
   title: 'Layout/Tabs',
   component: Tabs,
+  subcomponents: {
+    'Tabs.List': TabsList as never,
+    'Tabs.Tab': TabsTab as never,
+    'Tabs.Panel': TabsPanel as never,
+    'Tabs.Add': TabsAdd as never,
+  },
   tags: ['autodocs'],
   decorators: [
     (Story, context) => (

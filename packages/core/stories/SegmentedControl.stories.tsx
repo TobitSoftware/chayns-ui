@@ -1,3 +1,4 @@
+import { Segment } from './docs/Segment.js';
 import usage from '../../../docs/03-components/segmented-control/segmented-control-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
@@ -6,6 +7,9 @@ import SegmentedControl from '../src/components/segmented-control/SegmentedContr
 const meta = {
   title: 'Core/SegmentedControl',
   component: SegmentedControl,
+  subcomponents: {
+    'SegmentedControl.Segment': Segment as never,
+  },
   tags: ['autodocs'],
   parameters: {
     docs: { description: { component: usage } },

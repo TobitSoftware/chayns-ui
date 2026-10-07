@@ -1,3 +1,9 @@
+import { AccordionGroupRoot } from './docs/AccordionGroupRoot.js';
+import { AccordionHead } from './docs/AccordionHead.js';
+import { AccordionHeadContent } from './docs/AccordionHeadContent.js';
+import { AccordionHeadLeading } from './docs/AccordionHeadLeading.js';
+import { AccordionHeadTrailing } from './docs/AccordionHeadTrailing.js';
+import { AccordionContent } from './docs/AccordionContent.js';
 import relatedUsage from '../../../docs/03-components/accordion-group/accordion-group-usage.md?raw';
 import usage from '../../../docs/03-components/accordion/accordion-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -10,7 +16,14 @@ import Avatar from '../src/components/avatar/Avatar.js';
 const meta = {
   title: 'Core/Accordion',
   component: Accordion,
-  subcomponents: { AccordionGroup: AccordionGroup as never },
+  subcomponents: {
+    AccordionGroup: AccordionGroupRoot as never,
+    'Accordion.Head': AccordionHead as never,
+    'Accordion.Head.Content': AccordionHeadContent as never,
+    'Accordion.Head.Leading': AccordionHeadLeading as never,
+    'Accordion.Head.Trailing': AccordionHeadTrailing as never,
+    'Accordion.Content': AccordionContent as never,
+  },
   tags: ['autodocs'],
   args: { title: 'Accordion' },
   parameters: {

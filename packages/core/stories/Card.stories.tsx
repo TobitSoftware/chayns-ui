@@ -1,3 +1,4 @@
+import { CardHeader } from './docs/CardHeader.js';
 import usage from '../../../docs/03-components/card/card-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
@@ -6,6 +7,9 @@ import Card from '../src/components/card/Card.js';
 const meta = {
   title: 'Core/Card',
   component: Card,
+  subcomponents: {
+    'Card.Header': CardHeader as never,
+  },
   tags: ['autodocs'],
   argTypes: { children: { control: false, table: { category: 'Content' } } },
   parameters: {

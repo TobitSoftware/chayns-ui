@@ -1,3 +1,9 @@
+import { AppLayoutHeader } from './docs/AppLayoutHeader.js';
+import { AppLayoutLogo } from './docs/AppLayoutLogo.js';
+import { AppLayoutNavigation } from './docs/AppLayoutNavigation.js';
+import { AppLayoutNavigationItem } from './docs/AppLayoutNavigationItem.js';
+import { AppLayoutContent } from './docs/AppLayoutContent.js';
+import { AppLayoutCollapseToggle } from './docs/AppLayoutCollapseToggle.js';
 import usage from '../../../docs/03-components/app-layout/app-layout-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
@@ -10,6 +16,14 @@ const logo =
 const meta = {
   title: 'Layout/AppLayout',
   component: AppLayout,
+  subcomponents: {
+    'AppLayout.Header': AppLayoutHeader as never,
+    'AppLayout.Logo': AppLayoutLogo as never,
+    'AppLayout.Navigation': AppLayoutNavigation as never,
+    'AppLayout.Navigation.Item': AppLayoutNavigationItem as never,
+    'AppLayout.Content': AppLayoutContent as never,
+    'AppLayout.CollapseToggle': AppLayoutCollapseToggle as never,
+  },
   tags: ['autodocs'],
   parameters: {
     docs: { description: { component: usage } },

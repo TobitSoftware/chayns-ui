@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": { "skipLibCheck": true },
+  "include": [
+    "../packages/*/src/**/*.ts",
+    "../packages/*/src/**/*.tsx",
+    "../packages/*/stories/**/*.tsx"
+  ]
+}

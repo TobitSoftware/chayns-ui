@@ -35,6 +35,50 @@ await new Promise((resolveReady, reject) => {
 });
 const origin = `http://127.0.0.1:${server.address().port}`;
 
+const compoundDocs = {
+  'core-accordion': {
+    AccordionGroup: ['openId', 'defaultOpenId', 'onOpenChange'],
+    'Accordion.Head': ['disabled', 'children'],
+    'Accordion.Head.Content': ['title', 'subtitle'],
+    'Accordion.Head.Leading': ['children'],
+    'Accordion.Head.Trailing': ['children'],
+    'Accordion.Content': ['children'],
+  },
+  'core-card': { 'Card.Header': ['icon', 'children'] },
+  'core-combobox': { 'ComboBox.Option': ['value', 'disabled', 'children'] },
+  'core-list': {
+    'List.Item': ['children'],
+    'List.Item.Action': ['href', 'disabled', 'children'],
+    'List.Item.Body': ['children'],
+    'List.Item.Description': ['children'],
+    'List.Item.Leading': ['children'],
+    'List.Item.Status': ['label'],
+    'List.Item.Title': ['children'],
+    'List.Item.Trailing': ['children'],
+  },
+  'core-popup': {
+    Popup: ['open', 'onOpenChange', 'children'],
+    'Popup.Trigger': ['asChild', 'disabled', 'children'],
+    'Popup.Content': ['children'],
+  },
+  'core-radiogroup': { 'RadioGroup.Radio': ['value', 'description', 'disabled'] },
+  'core-segmentedcontrol': { 'SegmentedControl.Segment': ['value', 'icon', 'disabled'] },
+  'layout-applayout': {
+    'AppLayout.Header': ['children'],
+    'AppLayout.Logo': ['children'],
+    'AppLayout.Navigation': ['children'],
+    'AppLayout.Navigation.Item': ['label', 'icon', 'href', 'isActive'],
+    'AppLayout.Content': ['children'],
+    'AppLayout.CollapseToggle': ['collapseLabel', 'expandLabel'],
+  },
+  'layout-tabs': {
+    'Tabs.List': ['children', 'aria-label'],
+    'Tabs.Tab': ['value', 'icon', 'onRemove', 'children'],
+    'Tabs.Panel': ['value', 'children'],
+    'Tabs.Add': ['onClick', 'disabled', 'children'],
+  },
+};
+
 try {
   const index = JSON.parse(await readFile(resolve(directory, 'index.json'), 'utf8'));
   const stories = Object.values(index.entries).filter((entry) => entry.type === 'story');
@@ -73,6 +117,33 @@ try {
       console.log(
         `${name} ${browser.version()}: rendered all ${stories.length} static stories without module errors.`,
       );
+      const docsPage = await browser.newPage();
+      try {
+        for (const [id, parts] of Object.entries(compoundDocs)) {
+          await docsPage.goto(`${origin}/iframe.html?id=${id}--docs&viewMode=docs`);
+          for (const [part, props] of Object.entries(parts)) {
+            await docsPage.getByRole('tab', { name: part, exact: true }).click();
+            for (const prop of props) {
+              await docsPage
+                .getByRole('cell', { name: new RegExp(`^${prop}\\s*\\*?$`) })
+                .first()
+                .waitFor();
+            }
+            if (part === 'Tabs.Tab') {
+              for (const prop of ['ref', 'onClick']) {
+                await docsPage
+                  .getByRole('row')
+                  .filter({ has: docsPage.getByRole('cell', { name: prop, exact: true }) })
+                  .getByText(/HTMLButtonElement/)
+                  .waitFor();
+              }
+            }
+          }
+        }
+        console.log(`${name}: verified populated prop tables for all 31 public compound parts.`);
+      } finally {
+        await docsPage.close();
+      }
     } finally {
       await browser.close();
     }

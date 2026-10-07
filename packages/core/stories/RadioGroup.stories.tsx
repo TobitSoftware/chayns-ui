@@ -1,3 +1,4 @@
+import { Radio } from './docs/Radio.js';
 import usage from '../../../docs/03-components/radio-group/radio-group-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
@@ -6,6 +7,9 @@ import RadioGroup from '../src/components/radio-group/RadioGroup.js';
 const meta = {
   title: 'Core/RadioGroup',
   component: RadioGroup,
+  subcomponents: {
+    'RadioGroup.Radio': Radio as never,
+  },
   tags: ['autodocs'],
   parameters: {
     docs: { description: { component: usage } },

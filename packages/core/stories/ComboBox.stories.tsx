@@ -1,3 +1,4 @@
+import { ComboBoxOption } from './docs/ComboBoxOption.js';
 import usage from '../../../docs/03-components/combo-box/combo-box-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
@@ -7,6 +8,9 @@ import ComboBox from '../src/components/combo-box/ComboBox.js';
 const meta = {
   title: 'Core/ComboBox',
   component: ComboBox,
+  subcomponents: {
+    'ComboBox.Option': ComboBoxOption as never,
+  },
   tags: ['autodocs'],
   parameters: {
     docs: { description: { component: usage } },

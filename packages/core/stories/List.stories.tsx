@@ -1,3 +1,11 @@
+import { ListItem } from './docs/ListItem.js';
+import { ListItemAction } from './docs/ListItemAction.js';
+import { ListItemBody } from './docs/ListItemBody.js';
+import { ListItemDescription } from './docs/ListItemDescription.js';
+import { ListItemLeading } from './docs/ListItemLeading.js';
+import { ListItemStatus } from './docs/ListItemStatus.js';
+import { ListItemTitle } from './docs/ListItemTitle.js';
+import { ListItemTrailing } from './docs/ListItemTrailing.js';
 import usage from '../../../docs/03-components/list/list-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
@@ -7,6 +15,16 @@ import List from '../src/components/list/List.js';
 const meta = {
   title: 'Core/List',
   component: List,
+  subcomponents: {
+    'List.Item': ListItem as never,
+    'List.Item.Action': ListItemAction as never,
+    'List.Item.Body': ListItemBody as never,
+    'List.Item.Description': ListItemDescription as never,
+    'List.Item.Leading': ListItemLeading as never,
+    'List.Item.Status': ListItemStatus as never,
+    'List.Item.Title': ListItemTitle as never,
+    'List.Item.Trailing': ListItemTrailing as never,
+  },
   tags: ['autodocs'],
   parameters: {
     docs: { description: { component: usage } },

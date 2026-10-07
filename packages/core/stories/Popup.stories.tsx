@@ -1,3 +1,6 @@
+import { PopupRoot } from './docs/PopupRoot.js';
+import { PopupTrigger } from './docs/PopupTrigger.js';
+import { PopupContent } from './docs/PopupContent.js';
 import relatedUsage from '../../../docs/03-components/popup-list/popup-list-usage.md?raw';
 import usage from '../../../docs/03-components/popup/popup-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -15,6 +18,11 @@ const defaultItems = [
 const meta = {
   title: 'Core/Popup',
   component: PopupList,
+  subcomponents: {
+    Popup: PopupRoot as never,
+    'Popup.Trigger': PopupTrigger as never,
+    'Popup.Content': PopupContent as never,
+  },
   tags: ['autodocs'],
   args: {
     items: [...defaultItems],
