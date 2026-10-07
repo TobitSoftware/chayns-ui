@@ -160,7 +160,7 @@ const Root = forwardRef<HTMLDivElement, TabsProps>(function Root(
     exiting: undefined,
   });
   if (views.current !== panelValue) {
-    setViews({ current: panelValue, exiting: views.current });
+    setViews({ current: panelValue, exiting: selection.valid ? views.current : undefined });
   }
   const finishExit = useCallback((exiting: string) => {
     setViews((current) =>

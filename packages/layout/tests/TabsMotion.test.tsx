@@ -82,6 +82,42 @@ async function finish(motion: Motion) {
 }
 
 describe('Tabs panel crossfade', () => {
+  it('does not animate an invalid initial view or schedule observation frames indefinitely without enabled tabs', async () => {
+    const frames: FrameRequestCallback[] = [];
+    vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) => {
+      frames.push(callback);
+      return frames.length;
+    });
+    vi.stubGlobal('cancelAnimationFrame', vi.fn());
+    const { container } = render(
+      <Tabs appearance="underline" defaultValue="one">
+        <Tabs.List aria-label="Unavailable views">
+          <Tabs.Tab value="one" disabled>
+            One
+          </Tabs.Tab>
+          <Tabs.Tab value="two" disabled>
+            Two
+          </Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="one">Invalid initial content</Tabs.Panel>
+        <Tabs.Panel value="two">Other content</Tabs.Panel>
+      </Tabs>,
+    );
+    expect(container.querySelector('[role=tabpanel]')).toBeNull();
+    expect(motions).toHaveLength(0);
+    const list = screen.getByRole('tablist');
+    await act(async () => {
+      list.setAttribute('data-layout-probe', 'changed');
+      await Promise.resolve();
+    });
+    expect(frames).toHaveLength(1);
+    await act(async () => {
+      frames[0]?.(0);
+      await Promise.resolve();
+    });
+    expect(frames).toHaveLength(1);
+  });
+
   it('does not animate the initial panel during StrictMode effect replay', () => {
     const { rerender } = render(
       <StrictMode>

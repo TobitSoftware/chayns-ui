@@ -32,7 +32,8 @@ export default function useUnderlineIndicator(
     function measure(animate = false) {
       if (!list || !indicator) return;
       if (!selected || !list.contains(selected)) {
-        list.classList.remove('chayns-tabs__list--indicator-ready');
+        if (list.classList.contains('chayns-tabs__list--indicator-ready'))
+          list.classList.remove('chayns-tabs__list--indicator-ready');
         indicator.style.visibility = 'hidden';
         geometry.current = undefined;
         return;
@@ -58,7 +59,6 @@ export default function useUnderlineIndicator(
       const transform = `translateX(${x}px) scaleX(${width})`;
       indicator.style.transform = transform;
       indicator.style.visibility = 'visible';
-      list.classList.add('chayns-tabs__list--indicator-ready');
       if (
         animate &&
         geometry.current &&
