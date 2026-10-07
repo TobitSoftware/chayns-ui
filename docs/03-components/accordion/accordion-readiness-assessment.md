@@ -94,3 +94,13 @@ applied to owned action/information glyphs. Existing internal wrappers and nativ
 owners determine Regular/Solid; API, token mapping, focus, events and geometry stay
 unchanged. Bodywork/global source checked 2026-10-06; states and findings are in the
 [icon rule review](../icon-rule-review-2026-10-06.md). No new design-review gap.
+
+## Explicit content-spacing correction — 2026-10-07
+
+READY for the user-confirmed mandatory Content composition for ordinary Accordion
+and list-appearance content, with direct nesting exempted. Specification records
+Bodywork states checked 2026-10-07 and the explicit exception to its parent inset,
+existing density/token mapping, single native region/ref ownership, mixed sibling
+placement, unchanged keyboard/Reduced Motion and acceptance evidence. Static
+List.Item APIs are unchanged. Direct ordinary children now need Accordion.Content
+to retain their old padding; this visual migration is documented before release.

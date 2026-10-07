@@ -18,7 +18,7 @@
   "sourceReferences": [
     "https://tappqa.tobit.com/Bodywork/DesignSystem/"
   ],
-  "checkedOn": "2026-10-06",
+  "checkedOn": "2026-10-07",
   "stories": [
     "Core/Accordion:Standalone",
     "Core/Accordion:DefaultOpen",
@@ -200,7 +200,7 @@ Accordion fills its container's inline size. The title flexes and can shrink (`m
 
 ## Container Interaction — Conditional
 
-Standalone accordions do not own external spacing between siblings — the container owns stacking spacing. Grouped items are joined by the group's shared surface and internal separators. Wrapped accordions sit inside another accordion's content padding.
+Standalone accordions do not own external spacing between siblings — the container owns stacking spacing. Grouped items are joined by the group's shared surface and internal separators. Wrapped accordions are composed directly in the containing panel, without an extra content-padding wrapper (user correction, 2026-10-07).
 
 ## Loading and Async Contract — Required
 
@@ -311,3 +311,38 @@ renderers use wrappers to remain stable under Font Awesome SVG replacement. Publ
 props, token geometry, native events and focus ownership remain unchanged. The
 [icon rule review](../icon-rule-review-2026-10-06.md) records owner-specific findings
 and consumer-content boundaries.
+
+## Explicit content spacing — 2026-10-07
+
+Confirmed user scope: the named “ListItem” means `AccordionAppearances.List`, not
+the independent `List.Item` row. Ordinary content MUST use one explicit direct
+`Accordion.Content`; it provides the existing appearance-/density-specific content
+padding and typography. Direct children without Content retain the labelled,
+collapsible panel but receive no implicit content padding. This replaces the old
+automatic padding of arbitrary `children`; consumers add Content around ordinary
+text/controls to keep their existing appearance. No new public props or parts.
+
+Exception: nested Accordion, AccordionGroup or List is composed directly, without
+an additional Content wrapper around that structure. In mixed content, use the
+single Content for ordinary text/controls and place nested structures beside it.
+The panel includes both; siblings must never be silently dropped. Header parts
+are excluded from panel content. In the reverse composition, Accordions/Groups
+belong directly below `List.Item`, outside `List.Item.Action`/Body: interactive
+disclosure controls are not nested inside another button/link or a text span.
+
+Accordion.Content keeps its existing native panel props/ref target, region ID,
+label and collapse/focus semantics. There is still exactly one region per Accordion.
+Only the explicit Content's own children get the private padded wrapper; sibling
+structures share the same panel and depth/group reset, without extra padding.
+Automatic Wrapped recognition, independent nested groups, keyboard/disabled states
+and Reduced Motion stay unchanged. One explicit Content owns the panel's props;
+multiple sibling Content owners are outside the documented contract.
+
+Bodywork disclosure and list appearances, spacing tokens and Wrapped state were
+rechecked 2026-10-07. Bodywork's example wraps nested structures in the parent inset;
+the explicit user exception supersedes that placement for chayns UI. Existing
+`--k*`, type, radius, focus and motion tokens are retained; no geometry is invented.
+Stories: Standalone, DefaultOpen, Grouped, Wrapped, List, NestedGroup. Acceptance:
+ordinary Content has its confirmed inset; direct nested structures do not receive
+it; mixed siblings survive; a compound Head never appears in the panel; native
+Content refs/props and single-region ARIA ownership remain valid.
