@@ -195,13 +195,13 @@
     display: none;
   }
 
-  :where(.theme-dark) .chayns-tabs--underline .chayns-tabs__tab--active,
+  :where(.theme-dark) .chayns-tabs .chayns-tabs__tab--active,
   :where(.theme-dark) .chayns-tabs--underline .chayns-tabs__indicator {
     color: var(--text);
   }
 
   @media (prefers-color-scheme: dark) {
-    :where(.theme-auto) .chayns-tabs--underline .chayns-tabs__tab--active,
+    :where(.theme-auto) .chayns-tabs .chayns-tabs__tab--active,
     :where(.theme-auto) .chayns-tabs--underline .chayns-tabs__indicator {
       color: var(--text);
     }
