@@ -1,5 +1,11 @@
 # @chayns-ui/core
 
+## 0.11.2
+
+### Patch Changes
+
+- 15a4f0c: Round only the outer edge of the SplitButton menu trigger so it joins flush with the primary action.
+
 ## 0.11.1
 
 ### Patch Changes
