@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { clampDate, dateAtMidnight, normalizeMinute } from '../date-time-picker-utils.js';
 import type { DateTimePickerProps } from '../DateTimePicker.types.js';
 type DatePart = 'date' | 'fullYear' | 'month';
@@ -44,7 +44,9 @@ export function useDateTimePickerValue({
   let displayValue = value;
   if (value !== null) {
     displayValue =
-      mode === 'date' ? clampDate(value, minDate, maxDate) : normalizeMinute(value, minuteStep);
+      mode === 'time'
+        ? normalizeMinute(value, minuteStep)
+        : normalizeMinute(clampDate(value, minDate, maxDate), minuteStep);
   }
   const activeValue = displayValue ?? new Date();
   const isTwelveHour = hourFormatter.resolvedOptions().hour12 === true;
@@ -57,7 +59,7 @@ export function useDateTimePickerValue({
   }, [maxDate, minDate]);
 
   function emit(nextValue: Date) {
-    onChange(mode === 'date' ? clampDate(nextValue, minDate, maxDate) : nextValue);
+    onChange(mode === 'time' ? nextValue : clampDate(nextValue, minDate, maxDate));
   }
 
   function updateTime(part: 'hours' | 'minutes', nextValue: number) {
@@ -93,22 +95,27 @@ export function useDateTimePickerValue({
   }
 
   let formattedValue = placeholder;
+  const formatTime = useCallback(
+    (date: Date) =>
+      `${timeFormatter.format(date)}${locale.toLowerCase().startsWith('de') ? ' Uhr' : ''}`,
+    [locale, timeFormatter],
+  );
   if (displayValue !== null) {
-    if (mode === 'time')
-      formattedValue = `${timeFormatter.format(displayValue)}${locale.toLowerCase().startsWith('de') ? ' Uhr' : ''}`;
-    else formattedValue = dateFormatter.format(displayValue);
+    if (mode === 'time') formattedValue = formatTime(displayValue);
+    else if (mode === 'date') formattedValue = dateFormatter.format(displayValue);
+    else formattedValue = `${dateFormatter.format(displayValue)} ${formatTime(displayValue)}`;
   }
   const timeSizingValues = useMemo(() => {
-    if (mode !== 'time') return [];
+    if (mode === 'date') return [];
     return Array.from({ length: 24 * (60 / minuteStep) }, (_, index) => {
       const candidate = new Date(2026, 0, 1);
       candidate.setHours(Math.floor(index / (60 / minuteStep)));
       candidate.setMinutes((index % (60 / minuteStep)) * minuteStep);
-      return `${timeFormatter.format(candidate)}${locale.toLowerCase().startsWith('de') ? ' Uhr' : ''}`;
+      return formatTime(candidate);
     });
-  }, [locale, minuteStep, mode, timeFormatter]);
+  }, [formatTime, minuteStep, mode]);
   const dateSizingValues = useMemo(() => {
-    if (mode !== 'date') return [];
+    if (mode === 'time') return [];
 
     return years.flatMap((year) => {
       const values = Array.from({ length: 12 }, (_, month) => {
@@ -133,7 +140,12 @@ export function useDateTimePickerValue({
       return values.filter((value): value is string => value !== undefined);
     });
   }, [dateFormatter, maxDate, minDate, mode, years]);
-  const sizingValues = mode === 'time' ? timeSizingValues : dateSizingValues;
+  const sizingValueGroups =
+    mode === 'date'
+      ? [dateSizingValues]
+      : mode === 'time'
+        ? [timeSizingValues]
+        : [dateSizingValues.map((value) => `${value} `), timeSizingValues];
 
   const hours = Array.from({ length: isTwelveHour ? 12 : 24 }, (_, index) =>
     isTwelveHour ? index + 1 : index,
@@ -196,7 +208,7 @@ export function useDateTimePickerValue({
   }
   return {
     displayValue,
-    sizingValues,
+    sizingValueGroups,
     formattedValue,
     activeValue,
     isTwelveHour,

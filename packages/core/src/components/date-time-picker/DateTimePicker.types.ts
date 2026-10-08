@@ -11,10 +11,11 @@ export enum DateTimePickerMinuteSteps {
 /** Named configuration values; existing literal props and value lists remain supported. */
 export enum DateTimePickerModes {
   Date = 'date',
+  DateTime = 'date-time',
   Time = 'time',
 }
 
-export const DATE_TIME_PICKER_MODES = ['date', 'time'] as const;
+export const DATE_TIME_PICKER_MODES = ['date', 'date-time', 'time'] as const;
 export const DATE_TIME_PICKER_MINUTE_STEPS = [1, 5, 15, 30] as const;
 
 export type DateTimePickerMode = (typeof DATE_TIME_PICKER_MODES)[number];
@@ -42,6 +43,8 @@ export interface DateTimePickerProps extends Omit<
   | 'value'
 > {
   label: string;
+  /** Renders the wheel content without a trigger button or popup dialog. */
+  inline?: boolean;
   locale: string;
   minDate?: Date;
   maxDate?: Date;

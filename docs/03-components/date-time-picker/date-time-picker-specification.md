@@ -5,10 +5,10 @@
   "category": "Core",
   "status": "implemented",
   "useWhen": [
-    "Select a controlled local date or time using the confirmed wheel control."
+    "Select a controlled local date, time or combined date and time using the confirmed wheel control."
   ],
   "doNotUseWhen": [
-    "Do not use for free text, combined date/time, timezone selection or calendar navigation."
+    "Do not use for free text, timezone selection or calendar navigation."
   ],
   "alternatives": [
     "calendar picker (not implemented)"
@@ -20,7 +20,8 @@
   "checkedOn": "2026-10-06",
   "stories": [
     "Core/DateTimePicker:Time",
-    "Core/DateTimePicker:DateMode"
+    "Core/DateTimePicker:DateMode",
+    "Core/DateTimePicker:InlineDateTime"
   ],
   "combinations": [
     "TextField",
@@ -52,14 +53,14 @@ Alternatives: calendar picker (not implemented).
 
 ## Purpose and Boundaries
 
-DateTimePicker is a controlled Core form control for selecting either a local date or a local time from cyclic, pointer-draggable wheels. It owns presentation, temporary open state, wheel interaction, date normalization and accessibility relationships. It does not submit native form data, manage validation, translate consumer text, choose a locale or time zone, or combine date and time into a separate mode.
+DateTimePicker is a controlled Core form control for selecting a local date, time or combined date and time from cyclic, pointer-draggable wheels. It owns presentation, temporary open state, wheel interaction, date normalization and accessibility relationships. It does not submit native form data, manage validation, translate consumer text or choose a locale or time zone.
 
 Use it for a constrained date or time selection where the wheel interaction is appropriate. Do not use it for an arbitrary date-time range, a calendar grid, a text entry field, a duration, time-zone selection or native form submission.
 
 ## Public API
 
 ```ts
-type DateTimePickerMode = 'date' | 'time';
+type DateTimePickerMode = 'date' | 'date-time' | 'time';
 type DateTimePickerMinuteStep = 1 | 5 | 15 | 30;
 
 interface DateTimePickerWheelLabels {
@@ -85,6 +86,7 @@ interface DateTimePickerProps
     | 'value'
   > {
   label: string;
+  inline?: boolean;
   locale: string;
   minDate?: Date;
   maxDate?: Date;
@@ -97,16 +99,16 @@ interface DateTimePickerProps
 }
 ```
 
-`mode` defaults to `time`; `minuteStep` defaults to `1` and accepts only `1`, `5`, `15` or `30`. `label`, `placeholder` and all `wheelLabels` are consumer-resolved localizable text. Compatible native button props are forwarded to the trigger except the documented collisions. The trigger type is always `button`; it has no `name` prop or hidden form input. The forwarded ref targets the native trigger button.
+`mode` defaults to `time`; `minuteStep` defaults to `1` and accepts only `1`, `5`, `15` or `30`. `label`, `placeholder` and all `wheelLabels` are consumer-resolved localizable text. Compatible native button props are forwarded to the trigger except the documented collisions. The trigger type is always `button`; it has no `name` prop or hidden form input. The forwarded ref targets the native trigger button. `inline` defaults to `false`; when `true`, it renders only the wheel area, selection overlay and the mode's required wheel listboxes. It has no trigger, dialog, portal or forwarded native button props.
 
 The consumer owns `value`. Selecting a wheel value immediately calls `onChange` with a new local `Date` while retaining the dropdown. A `null` value displays `placeholder`; the first selection uses the current local date and time as its basis.
 
 ## Anatomy and DOM
 
-- Root: positioning-only `div`.
+- Root: positioning-only `div`, or the embedded wheel panel when `inline` is `true`.
 - Trigger: one labelled native `button`.
 - Label: associated visible floating `label` when no value is selected; a set value replaces it visually.
-- Popup: portalled `role="dialog"` in `document.body`, fixed-positioned below the trigger.
+- Popup: portalled `role="dialog"` in `document.body`, fixed-positioned below the trigger. Absent in inline mode.
 - Wheels: one focusable `role="listbox"` per selected unit with button-backed `role="option"` entries.
 - Selection: one decorative central overlay per popup using 10% accent opacity.
 
@@ -116,27 +118,27 @@ The component has no public compound parts, Context, local S/M/L prop, loading s
 
 `time` renders hour and minute wheels. The minute wheel contains values from 00 to 59 at the configured `minuteStep`. A controlled minute that is not aligned with the step is display-normalized down to the preceding valid step without calling `onChange`. The resolved locale decides whether it renders 24-hour values or adds a localized day-period wheel for a 12-hour cycle. A German trigger appends `Uhr` to the locale-formatted time.
 
-`date` renders day, localized month and year wheels in the ordering produced by `Intl.DateTimeFormat(...).formatToParts()`. It uses the local browser time zone. Years span the current year plus/minus 100 unless `minDate` and/or `maxDate` reduce the interval. Changing a month or year clamps the day to the last valid day.
+`date` renders day, localized month and year wheels in the ordering produced by `Intl.DateTimeFormat(...).formatToParts()`. `date-time` renders those date wheels before the time wheels and applies both date boundaries and minute normalization. It uses the local browser time zone. Years span the current year plus/minus 100 unless `minDate` and/or `maxDate` reduce the interval. Changing a month or year clamps the day to the last valid day.
 
-`minDate` and `maxDate` apply only to `date`. An externally provided out-of-range date is display-normalized to the nearest boundary without calling `onChange`. Supplying `minDate > maxDate` throws `DateTimePicker requires minDate to be earlier than or equal to maxDate.`
+`minDate` and `maxDate` apply to `date` and `date-time`. An externally provided out-of-range date is display-normalized to the nearest boundary without calling `onChange`. Supplying `minDate > maxDate` throws `DateTimePicker requires minDate to be earlier than or equal to maxDate.`
 
 ## Interaction, Keyboard and Focus
 
 The trigger calls consumer `onClick` first. If that handler calls `preventDefault()`, the internal toggle does not run. Trigger click toggles the popup. Escape closes the popup from either the trigger or a wheel, then restores focus to the trigger. A pointer press outside closes it and restores focus.
 
-Each wheel supports pointer dragging, mouse-wheel scrolling, click selection, Arrow Up/Down for adjacent values and Home/End for first/last values. Tab follows native order between wheels. The wheel list is repeated and resets away from its physical edges to create a visually unbounded cycle. The central option remains large and opaque; adjacent values are progressively transformed away in perspective.
+Each wheel supports pointer dragging, mouse-wheel scrolling, click selection, Arrow Up/Down for adjacent values and Home/End for first/last values. Tab follows native order between wheels. The wheel list is repeated and resets away from its physical edges to create a visually unbounded cycle. The central option remains large and opaque; adjacent values are progressively transformed away in perspective. In inline mode, Escape has no close action because there is no popup or trigger to restore.
 
 ## Visual Contract
 
-The popup follows the confirmed POC: surface background, border, popover shadow, a central `rgb(var(--accent-rgb), 0.1)` selection band and a five-row viewport. It is portalled to `document.body` and fixed-positioned from the trigger's viewport rectangle, including viewport-aware repositioning on resize and scroll. Each wheel has a 3D perspective and uses only `transform` and `opacity` for its wheel presentation. The trigger uses its intrinsic content width and reserves the width of its longest valid time display. In date mode, it reserves every valid month/year end-date instead, so choosing a shorter month never reduces the trigger width. A placeholder contributes only while no value is selected, preventing value-dependent width shifts without retaining empty-state width once a value is present. The popup is at least trigger-wide and expands to the measured sum of its Wheel widths when that is larger. Every Wheel is explicitly set to the width of its widest option, so localized month labels are never clipped. The time mode has a 100px minimum inline size. The container owns external placement and optional sizing.
+The popup follows the confirmed POC: surface background, border, popover shadow, a central `rgb(var(--accent-rgb), 0.1)` selection band and a five-row viewport. It is portalled to `document.body` and fixed-positioned from the trigger's viewport rectangle, including viewport-aware repositioning on resize and scroll. Each wheel has a 3D perspective and uses only `transform` and `opacity` for its wheel presentation. Date and combined DateTime selection bands follow the measured wheel content, which is centered when the trigger makes the popup wider. Time wheels are centered in the trigger-wide popup so its selection band does not become too narrow. The date band's inline end uses `--k5` to give its outer year value additional inner space. Combined date-time wheels have a `--k8` visual gap between date and time. The inline panel uses `--k12` padding so its selected area and wheel text retain sufficient separation from its outer border; its selection band spans the full wheel area, increasing the space from its outer selected values to the band edges. The trigger uses its intrinsic content width and reserves the width of its longest valid time display. In date mode, it reserves every valid month/year end-date instead, so choosing a shorter month never reduces the trigger width. A placeholder contributes only while no value is selected, preventing value-dependent width shifts without retaining empty-state width once a value is present. The popup is at least trigger-wide and expands to the measured sum of its Wheel widths when that is larger. Every Wheel is explicitly set to the width of its widest option, so localized month labels are never clipped. The time mode has a 100px minimum inline size. The container owns external placement and optional sizing.
 
 ## Accessibility
 
-`label` is the trigger's accessible name. When a value is present, the visual label and placeholder are omitted while this accessible name remains available. `wheelLabels` name every wheel. The popup is exposed as a dialog, the wheels as listboxes and current wheel entries with `aria-selected`. Native `disabled` disables the trigger and prevents opening. Focus-visible styling uses the established focus-ring tokens. No positive `tabindex`, focus trap or programmatic focus other than close restoration is used.
+`label` is the trigger's accessible name. When a value is present, the visual label and placeholder are omitted while this accessible name remains available. In inline mode, it labels the wheel `group`. `wheelLabels` name every wheel. The popup is exposed as a dialog, the wheels as listboxes and current wheel entries with `aria-selected`. Native `disabled` disables the trigger and prevents opening; in inline mode it disables each wheel and removes it from tab order. Focus-visible styling uses the established focus-ring tokens. No positive `tabindex`, focus trap or programmatic focus other than close restoration is used.
 
 ## Validation and Evidence
 
-Unit tests cover opening/closing, portal ownership, Escape restoration, immediate wheel changes, stable date sizing, consumer click cancellation and out-of-range normalization. Storybook supplies controlled time and date stories. Package CSS is exported as `@chayns-ui/core/date-time-picker.css` and through `@chayns-ui/core/styles.css`.
+Unit tests cover opening/closing, portal ownership, Escape restoration, immediate wheel changes, combined inline selection with minute intervals, stable date sizing, consumer click cancellation and out-of-range normalization. Storybook supplies controlled time, date and inline combined stories. Package CSS is exported as `@chayns-ui/core/date-time-picker.css` and through `@chayns-ui/core/styles.css`.
 
 ## Foundation audit — 2026-10-06
 

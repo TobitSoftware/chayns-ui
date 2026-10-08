@@ -13,6 +13,7 @@ const DateTimePicker = forwardRef<HTMLButtonElement, DateTimePickerProps>(functi
     className,
     disabled,
     id,
+    inline = false,
     label,
     locale,
     maxDate,
@@ -64,7 +65,7 @@ const DateTimePicker = forwardRef<HTMLButtonElement, DateTimePickerProps>(functi
     updateDate,
     updateTime,
     updatePeriod,
-    sizingValues,
+    sizingValueGroups,
   } = useDateTimePickerValue({
     value,
     locale,
@@ -132,96 +133,125 @@ const DateTimePicker = forwardRef<HTMLButtonElement, DateTimePickerProps>(functi
   const resolvedClassName = [
     'chayns-date-time-picker',
     `chayns-date-time-picker--${mode}`,
+    inline ? 'chayns-date-time-picker--inline' : '',
     open ? 'chayns-date-time-picker--open' : '',
     displayValue !== null ? 'chayns-date-time-picker--filled' : '',
   ]
     .filter(Boolean)
     .join(' ');
+  const wheelContent = (
+    <>
+      {mode !== 'time'
+        ? datePartOrder.map((part) => (
+            <Wheel
+              ariaLabel={dateLabel(part)}
+              disabled={disabled ?? false}
+              key={part}
+              onEscape={inline ? () => undefined : close}
+              onSelect={(nextValue) => updateDate(part, nextValue)}
+              options={dateOptions(part)}
+              selected={dateValue(part)}
+            />
+          ))
+        : null}
+      {mode === 'date-time' ? (
+        <span aria-hidden="true" className="chayns-date-time-picker__date-time-gap" />
+      ) : null}
+      {mode !== 'date' ? (
+        <>
+          <Wheel
+            ariaLabel={wheelLabels.hour}
+            disabled={disabled ?? false}
+            onEscape={inline ? () => undefined : close}
+            onSelect={(hour) => updateTime('hours', hour)}
+            options={hours}
+            selected={isTwelveHour ? activeValue.getHours() % 12 || 12 : activeValue.getHours()}
+          />
+          <Wheel
+            ariaLabel={wheelLabels.minute}
+            disabled={disabled ?? false}
+            onEscape={inline ? () => undefined : close}
+            onSelect={(minute) => updateTime('minutes', minute)}
+            options={minutes}
+            selected={activeValue.getMinutes()}
+          />
+          {isTwelveHour ? (
+            <Wheel
+              ariaLabel={wheelLabels.dayPeriod}
+              disabled={disabled ?? false}
+              onEscape={inline ? () => undefined : close}
+              onSelect={updatePeriod}
+              options={dayPeriods}
+              selected={activeValue.getHours() >= 12 ? 1 : 0}
+            />
+          ) : null}
+        </>
+      ) : null}
+    </>
+  );
 
   return (
     <div className={resolvedClassName} ref={rootRef}>
-      <PickerSizer values={sizingValues} placeholder={displayValue === null ? placeholder : null} />
-      <button
-        {...buttonProps}
-        aria-controls={open ? popupId : undefined}
-        aria-expanded={open}
-        aria-haspopup="dialog"
-        aria-label={label}
-        className={['chayns-date-time-picker__trigger', className].filter(Boolean).join(' ')}
-        disabled={disabled}
-        id={triggerId}
-        onClick={(event) => {
-          onClick?.(event);
-          if (!event.defaultPrevented) setOpen((current) => !current);
-        }}
-        onKeyDown={(event) => {
-          onKeyDown?.(event);
-          if (event.key === 'Escape' && open && !event.defaultPrevented) {
-            event.preventDefault();
-            close();
-          }
-        }}
-        ref={setTriggerElement}
-        type="button"
-      >
-        {formattedValue}
-      </button>
-      {displayValue === null ? (
-        <label className="chayns-date-time-picker__label" htmlFor={triggerId}>
-          {label}
-        </label>
-      ) : null}
-      {open && !disabled && typeof document !== 'undefined'
+      {inline ? (
+        <>
+          <div aria-label={label} className="chayns-date-time-picker__wheels" role="group">
+            <div className="chayns-date-time-picker__selection" />
+            {wheelContent}
+          </div>
+        </>
+      ) : (
+        <>
+          <PickerSizer
+            placeholder={displayValue === null ? placeholder : null}
+            valueGroups={sizingValueGroups}
+          />
+          <button
+            {...buttonProps}
+            aria-controls={open ? popupId : undefined}
+            aria-expanded={open}
+            aria-haspopup="dialog"
+            aria-label={label}
+            className={['chayns-date-time-picker__trigger', className].filter(Boolean).join(' ')}
+            disabled={disabled}
+            id={triggerId}
+            onClick={(event) => {
+              onClick?.(event);
+              if (!event.defaultPrevented) setOpen((current) => !current);
+            }}
+            onKeyDown={(event) => {
+              onKeyDown?.(event);
+              if (event.key === 'Escape' && open && !event.defaultPrevented) {
+                event.preventDefault();
+                close();
+              }
+            }}
+            ref={setTriggerElement}
+            type="button"
+          >
+            {formattedValue}
+          </button>
+          {displayValue === null ? (
+            <label className="chayns-date-time-picker__label" htmlFor={triggerId}>
+              {label}
+            </label>
+          ) : null}
+        </>
+      )}
+      {open && !disabled && !inline && typeof document !== 'undefined'
         ? createPortal(
             <div
               aria-label={label}
-              className="chayns-date-time-picker__popup"
+              className={[
+                'chayns-date-time-picker__popup',
+                `chayns-date-time-picker__popup--${mode}`,
+              ].join(' ')}
               id={popupId}
               ref={popupRef}
               role="dialog"
             >
-              <div className="chayns-date-time-picker__selection" />
               <div className="chayns-date-time-picker__wheels">
-                {mode === 'time' ? (
-                  <>
-                    <Wheel
-                      ariaLabel={wheelLabels.hour}
-                      onEscape={close}
-                      onSelect={(hour) => updateTime('hours', hour)}
-                      options={hours}
-                      selected={
-                        isTwelveHour ? activeValue.getHours() % 12 || 12 : activeValue.getHours()
-                      }
-                    />
-                    <Wheel
-                      ariaLabel={wheelLabels.minute}
-                      onEscape={close}
-                      onSelect={(minute) => updateTime('minutes', minute)}
-                      options={minutes}
-                      selected={activeValue.getMinutes()}
-                    />
-                    {isTwelveHour ? (
-                      <Wheel
-                        ariaLabel={wheelLabels.dayPeriod}
-                        onEscape={close}
-                        onSelect={updatePeriod}
-                        options={dayPeriods}
-                        selected={activeValue.getHours() >= 12 ? 1 : 0}
-                      />
-                    ) : null}
-                  </>
-                ) : (
-                  datePartOrder.map((part) => (
-                    <Wheel
-                      ariaLabel={dateLabel(part)}
-                      key={part}
-                      onEscape={close}
-                      onSelect={(nextValue) => updateDate(part, nextValue)}
-                      options={dateOptions(part)}
-                      selected={dateValue(part)}
-                    />
-                  ))
-                )}
+                <div className="chayns-date-time-picker__selection" />
+                {wheelContent}
               </div>
             </div>,
             document.body,

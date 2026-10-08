@@ -4,7 +4,7 @@ Ein lokales Datum oder eine lokale Uhrzeit über das freigegebene Wheel-Control 
 
 ## Nicht geeignet
 
-Keine freie Texteingabe, Zeitzonenauswahl, kombinierte Datum/Uhrzeit-Auswahl oder Kalendernavigation erwarten. Die aktuelle Library-Komponente ist ausdrücklich der Wheel-Picker und kein Monatskalender.
+Keine freie Texteingabe, Zeitzonenauswahl oder Kalendernavigation erwarten. Die aktuelle Library-Komponente ist ausdrücklich der Wheel-Picker und kein Monatskalender.
 
 ## Alternativen
 
@@ -16,7 +16,7 @@ Für Kalendernavigation gibt es derzeit keinen gleichwertigen Library-Ersatz. Di
 
 ## Verwendung
 
-`value` als `Date` oder `null` kontrolliert übergeben; `onChange` liefert ein `Date`. `mode` wählt Datum oder Zeit. `date`, `setDate`, `locale` und die lokalisierten `wheelLabels` stammen im Beispiel aus der Anwendung.
+`value` als `Date` oder `null` kontrolliert übergeben; `onChange` liefert ein `Date`. `mode` wählt Datum, Zeit oder die kombinierte Auswahl. `inline` rendert ausschließlich die Wheel-Inhalte ohne Trigger und Dialog. `date`, `setDate`, `locale` und die lokalisierten `wheelLabels` stammen im Beispiel aus der Anwendung.
 
 ```tsx
 import { DateTimePicker, DateTimePickerModes } from '@chayns-ui/core';
@@ -30,6 +30,22 @@ import { DateTimePicker, DateTimePickerModes } from '@chayns-ui/core';
   locale={locale}
   wheelLabels={wheelLabels}
 />;
+```
+
+Für einen eingebetteten Termin-Picker werden Datum, Uhrzeit und das Minutenintervall kombiniert:
+
+```tsx
+<DateTimePicker
+  inline
+  mode="date-time"
+  value={date}
+  onChange={setDate}
+  label="Termin"
+  placeholder="Termin wählen"
+  locale={locale}
+  minuteStep={15}
+  wheelLabels={wheelLabels}
+/>
 ```
 
 ## Besonderheiten

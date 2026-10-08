@@ -11,13 +11,14 @@ interface WheelOption {
 
 interface WheelProps {
   ariaLabel: string;
+  disabled?: boolean;
   onEscape: () => void;
   onSelect: (value: number) => void;
   options: readonly WheelOption[];
   selected: number;
 }
 
-function Wheel({ ariaLabel, onEscape, onSelect, options, selected }: WheelProps) {
+function Wheel({ ariaLabel, disabled = false, onEscape, onSelect, options, selected }: WheelProps) {
   const wheelId = useId();
   const wheelRef = useRef<HTMLDivElement>(null);
   const selectedRef = useRef<HTMLButtonElement>(null);
@@ -82,6 +83,7 @@ function Wheel({ ariaLabel, onEscape, onSelect, options, selected }: WheelProps)
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (disabled) return;
     if (event.key === 'Escape') {
       event.preventDefault();
       onEscape();
@@ -102,6 +104,7 @@ function Wheel({ ariaLabel, onEscape, onSelect, options, selected }: WheelProps)
   }
 
   function handlePointerDown(event: ReactPointerEvent<HTMLDivElement>) {
+    if (disabled) return;
     if (event.button !== 0) return;
     event.preventDefault();
     if (typeof event.currentTarget.setPointerCapture === 'function') {
@@ -137,6 +140,7 @@ function Wheel({ ariaLabel, onEscape, onSelect, options, selected }: WheelProps)
   return (
     <div
       aria-activedescendant={`${wheelId}-${selected}`}
+      aria-disabled={disabled || undefined}
       aria-label={ariaLabel}
       className="chayns-date-time-picker__wheel"
       onKeyDown={handleKeyDown}
@@ -147,7 +151,7 @@ function Wheel({ ariaLabel, onEscape, onSelect, options, selected }: WheelProps)
       onScroll={handleScroll}
       ref={wheelRef}
       role="listbox"
-      tabIndex={0}
+      tabIndex={disabled ? -1 : 0}
     >
       <span aria-hidden="true" className="chayns-date-time-picker__wheel-sizer">
         {options.map((option) => (
@@ -161,6 +165,7 @@ function Wheel({ ariaLabel, onEscape, onSelect, options, selected }: WheelProps)
           <button
             aria-hidden={cycle !== WHEEL_CENTER_CYCLE || undefined}
             aria-selected={option.value === selected}
+            disabled={disabled}
             id={cycle === WHEEL_CENTER_CYCLE ? `${wheelId}-${option.value}` : undefined}
             className="chayns-date-time-picker__wheel-option"
             data-wheel-index={cycle * options.length + optionIndex}

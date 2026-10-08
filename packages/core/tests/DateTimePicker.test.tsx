@@ -17,7 +17,7 @@ describe('DateTimePicker', () => {
   it('opens its wheel dialog and closes it with Escape', async () => {
     const user = userEvent.setup();
 
-    render(
+    const { container } = render(
       <DateTimePicker
         label="Uhrzeit"
         locale="de-DE"
@@ -145,6 +145,38 @@ describe('DateTimePicker', () => {
 
     expect(screen.getAllByRole('option', { name: '45' })).not.toHaveLength(0);
     expect(screen.queryByRole('option', { name: '46' })).not.toBeInTheDocument();
+  });
+
+  it('renders combined date and time wheels inline with the configured minute interval', async () => {
+    const onChange = vi.fn<(value: Date) => void>();
+    const user = userEvent.setup();
+
+    render(
+      <DateTimePicker
+        inline
+        label="Termin"
+        locale="de-DE"
+        minuteStep={15}
+        mode="date-time"
+        onChange={onChange}
+        placeholder="Termin auswählen"
+        value={new Date(2026, 8, 22, 10, 30)}
+        wheelLabels={wheelLabels}
+      />,
+    );
+
+    expect(screen.queryByRole('button', { name: 'Termin' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(screen.getAllByRole('listbox')).toHaveLength(5);
+    expect(screen.getByRole('group', { name: 'Termin' })).toBeInTheDocument();
+    expect(container.querySelector('.chayns-date-time-picker__date-time-gap')).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '45' })).toBeInTheDocument();
+    expect(screen.queryByRole('option', { name: '46' })).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('option', { name: '45' }));
+
+    expect(onChange).toHaveBeenLastCalledWith(expect.any(Date));
+    expect(onChange.mock.calls.at(-1)?.[0]).toEqual(new Date(2026, 8, 22, 10, 45));
   });
   it('honours preventDefault from the consumer click handler', async () => {
     const user = userEvent.setup();
