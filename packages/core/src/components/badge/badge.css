@@ -52,7 +52,7 @@
   }
 
   @media (hover: hover) {
-    .chayns-badge:hover {
+    .chayns-badge:not(.chayns-badge--hover-disabled):hover {
       transform: translateY(-2px);
       filter: saturate(1.18);
       box-shadow: 0 5px 12px -5px rgb(16 40 46 / 30%);
@@ -64,7 +64,7 @@
       transition: none;
     }
 
-    .chayns-badge:hover {
+    .chayns-badge:not(.chayns-badge--hover-disabled):hover {
       transform: none;
     }
   }

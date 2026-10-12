@@ -3,11 +3,20 @@ import { forwardRef } from 'react';
 import type { BadgeProps } from './Badge.types.js';
 
 const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
-  { 'aria-label': ariaLabel, children, className, size = 'sm', tone = 'neutral', ...spanProps },
+  {
+    'aria-label': ariaLabel,
+    children,
+    className,
+    disableHover = false,
+    size = 'sm',
+    tone = 'neutral',
+    ...spanProps
+  },
   ref,
 ) {
   const resolvedClassName = [
     'chayns-badge',
+    disableHover && 'chayns-badge--hover-disabled',
     `chayns-badge--${tone}`,
     `chayns-badge--${size}`,
     className,

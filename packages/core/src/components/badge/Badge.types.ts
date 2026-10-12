@@ -23,6 +23,11 @@ export type BadgeSize = (typeof BADGE_SIZES)[number];
 
 export interface BadgeProps extends Omit<ComponentPropsWithRef<'span'>, 'children' | 'role'> {
   children: Exclude<ReactNode, boolean | null | undefined>;
+  /**
+   * @description Suppresses the decorative Badge hover treatment while
+   * preserving its non-interactive status semantics.
+   */
+  disableHover?: boolean;
   tone?: BadgeTone;
   size?: BadgeSize;
   'aria-label'?: string;

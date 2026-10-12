@@ -27,6 +27,14 @@ describe('Badge', () => {
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 
+  it('suppresses the decorative hover treatment without forwarding its prop', () => {
+    render(<Badge disableHover>Gesendet</Badge>);
+
+    const badge = screen.getByText('Gesendet').parentElement;
+    expect(badge).toHaveClass('chayns-badge', 'chayns-badge--hover-disabled');
+    expect(badge).not.toHaveAttribute('disablehover');
+  });
+
   it('renders on the server', () => {
     expect(renderToString(<Badge tone="danger">Fehler</Badge>)).toContain('Fehler');
   });

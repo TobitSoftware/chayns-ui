@@ -53,7 +53,7 @@ Badge is a compact, non-interactive status indicator for short localized content
 
 ## Public API and native ownership
 
-`Badge` renders a native `span`, forwards compatible span props and its ref to that span, and accepts `children`, `tone` and `size`. The finite values are exported through `BADGE_TONES` and `BADGE_SIZES`. Without `aria-label`, the badge is decorative or part of the surrounding accessible name. With `aria-label`, it renders `role="status"` and uses the localized label as its accessible name.
+`Badge` renders a native `span`, forwards compatible span props and its ref to that span, and accepts `children`, `tone`, `size` and `disableHover`. The finite values are exported through `BADGE_TONES` and `BADGE_SIZES`. Without `aria-label`, the badge is decorative or part of the surrounding accessible name. With `aria-label`, it renders `role="status"` and uses the localized label as its accessible name. `disableHover` is consumed by Badge, is not forwarded to the DOM and suppresses only its decorative hover treatment.
 
 ## Visual and accessibility contract
 
@@ -83,7 +83,8 @@ lift `-2px` on hover-capable devices, use `saturate(1.18)` and the evidenced sha
 background/color/border/shadow/filter `200ms ease`. These exact Bodywork shadow
 values and transitions are documented component evidence; no tokens are invented.
 Reduced Motion disables lift and transitions, retaining immediate shadow/filter
-feedback. There is no press effect or action semantics.
+feedback. `disableHover` suppresses the complete hover treatment. There is no press
+effect or action semantics.
 
 Badge owns no icon prop or glyph renderer. Consumer-provided children retain their
 content and accessible meaning; any composed paired icon follows the confirmed

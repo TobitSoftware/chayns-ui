@@ -24,3 +24,4 @@ type Story = StoryObj<typeof meta>;
 export const Status: Story = {};
 export const Count: Story = { args: { children: '12', tone: 'accent' } };
 export const Chip: Story = { args: { children: '👍 2', tone: 'neutral', size: 'md' } };
+export const HoverDisabled: Story = { args: { disableHover: true } };

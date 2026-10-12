@@ -27,3 +27,11 @@ import { Badge, BadgeTones } from '@chayns-ui/core';
 ## Besonderheiten
 
 Farbe allein erklärt den Status nicht. Ohne `aria-label` ist der Inhalt Teil des umgebenden Kontexts; mit `aria-label` verwendet Badge Status-Semantik. Eigene Icon-Inhalte verantworten ihre Regular/Solid-Darstellung selbst.
+
+Wenn ein Badge visuell flach bleiben muss, unterdrückt `disableHover` ausschließlich
+die dekorative Hover-Behandlung. Das Badge bleibt dabei weiterhin ein
+nicht-interaktiver Statusindikator.
+
+```tsx
+<Badge disableHover>Freigegeben</Badge>
+```

@@ -5,6 +5,7 @@ export const validBadge = (
     Beta
   </Badge>
 );
+export const hoverDisabledBadge = <Badge disableHover>Beta</Badge>;
 // @ts-expect-error arbitrary tones are not part of the public value set
 export const invalidTone = <Badge tone="critical">Error</Badge>;
 // @ts-expect-error arbitrary sizes are not part of the public value set
