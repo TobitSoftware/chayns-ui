@@ -26,10 +26,16 @@ import { AppLayout } from '@chayns-ui/layout';
   <AppLayout.Navigation aria-label="Hauptnavigation">
     <AppLayout.Navigation.Item href="/projects" label="Projekte" />
   </AppLayout.Navigation>
+  <AppLayout.Footer>
+    <AppLayout.CollapseToggle
+      collapseLabel="Navigation einklappen"
+      expandLabel="Navigation ausklappen"
+    />
+  </AppLayout.Footer>
   <AppLayout.Content>Inhalt</AppLayout.Content>
 </AppLayout>;
 ```
 
 ## Besonderheiten
 
-Die Anwendung liefert Ziele und `isActive`. Ohne `href` ist ein Navigation.Item eine Aktion oder ein Disclosure für Untereinträge. `collapsed`/`onCollapsedChange` steuert die Navigation kontrolliert, `defaultCollapsed` ihren Anfangszustand. Ein CollapseToggle benötigt lokalisierte `expandLabel`-/`collapseLabel`-Texte. Routing und Persistenz bleiben in der Anwendung.
+Die Anwendung liefert Ziele und `isActive`. Ohne `href` ist ein Navigation.Item eine Aktion oder ein Disclosure für Untereinträge. `Footer` bildet die durch eine Linie getrennte untere Sidebar-Zone; seine Children gehören der Anwendung. `CollapseToggle` wird dort zusammen mit optionalen eigenen Controls platziert und richtet sich am Inline-Ende aus. `collapsed`/`onCollapsedChange` steuert die Navigation kontrolliert, `defaultCollapsed` ihren Anfangszustand. Ein CollapseToggle benötigt lokalisierte `expandLabel`-/`collapseLabel`-Texte. Routing und Persistenz bleiben in der Anwendung.

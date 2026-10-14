@@ -25,6 +25,7 @@ export type AppLayoutNavigationItemProps = NavigationItemContent &
       })
   );
 export type AppLayoutContentProps = ComponentPropsWithRef<'main'>;
+export type AppLayoutFooterProps = ComponentPropsWithRef<'footer'>;
 export interface AppLayoutCollapseToggleProps extends Omit<
   ComponentPropsWithRef<'button'>,
   'children' | 'type' | 'aria-label'

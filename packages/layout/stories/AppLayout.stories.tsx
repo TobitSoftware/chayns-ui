@@ -3,6 +3,7 @@ import { AppLayoutLogo } from './docs/AppLayoutLogo.js';
 import { AppLayoutNavigation } from './docs/AppLayoutNavigation.js';
 import { AppLayoutNavigationItem } from './docs/AppLayoutNavigationItem.js';
 import { AppLayoutContent } from './docs/AppLayoutContent.js';
+import { AppLayoutFooter } from './docs/AppLayoutFooter.js';
 import { AppLayoutCollapseToggle } from './docs/AppLayoutCollapseToggle.js';
 import usage from '../../../docs/03-components/app-layout/app-layout-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -22,6 +23,7 @@ const meta = {
     'AppLayout.Navigation': AppLayoutNavigation as never,
     'AppLayout.Navigation.Item': AppLayoutNavigationItem as never,
     'AppLayout.Content': AppLayoutContent as never,
+    'AppLayout.Footer': AppLayoutFooter as never,
     'AppLayout.CollapseToggle': AppLayoutCollapseToggle as never,
   },
   tags: ['autodocs'],
@@ -58,10 +60,18 @@ export const MailWorkspace: Story = {
         <AppLayout.Navigation.Item icon="fa-calendar" isActive label="Calendar" />
         <AppLayout.Navigation.Item icon="fa-address-book" label="Contacts" />
       </AppLayout.Navigation>
-      <AppLayout.CollapseToggle
-        collapseLabel="Collapse navigation"
-        expandLabel="Expand navigation"
-      />
+      <AppLayout.Footer>
+        <button aria-label="Settings" type="button">
+          Settings
+        </button>
+        <button aria-label="Help" type="button">
+          Help
+        </button>
+        <AppLayout.CollapseToggle
+          collapseLabel="Collapse navigation"
+          expandLabel="Expand navigation"
+        />
+      </AppLayout.Footer>
       <AppLayout.Content>
         <div style={{ blockSize: '100%', padding: 'var(--sp-6)' }}>
           <h1 style={{ marginBlockStart: 0 }}>Meetings am Donnerstag</h1>
@@ -96,10 +106,12 @@ export const Collapsed: Story = {
       <AppLayout.Navigation aria-label="Application navigation">
         <AppLayout.Navigation.Item icon="fa-calendar" isActive label="Calendar" />
       </AppLayout.Navigation>
-      <AppLayout.CollapseToggle
-        collapseLabel="Collapse navigation"
-        expandLabel="Expand navigation"
-      />
+      <AppLayout.Footer>
+        <AppLayout.CollapseToggle
+          collapseLabel="Collapse navigation"
+          expandLabel="Expand navigation"
+        />
+      </AppLayout.Footer>
       <AppLayout.Content>Workspace</AppLayout.Content>
     </AppLayout>
   ),

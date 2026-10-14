@@ -43,9 +43,11 @@ Alternatives: native page structure.
 - Specification Status: READY FOR IMPLEMENTATION
 - Relevant Decisions: CORE-010–012, LAYOUT-032, LAYOUT-034–035
 
-AppLayout uses named composition only: `Header` owns header props, `Logo` owns decorative img props, `Navigation` owns nav props, `Navigation.Item` owns its anchor-or-button props, `Content` owns main props and `CollapseToggle` owns button props. The root owns controlled/uncontrolled `collapsed`, `defaultCollapsed` and `onCollapsedChange` state.
+AppLayout uses named composition only: `Header` owns header props, `Logo` owns decorative img props, `Navigation` owns nav props, `Navigation.Item` owns its anchor-or-button props, `Content` owns main props, `Footer` owns native footer props and `CollapseToggle` owns button props. The root owns controlled/uncontrolled `collapsed`, `defaultCollapsed` and `onCollapsedChange` state.
 
 Navigation.Item has a required `label` for its own native action and optional `children` containing recursive Navigation.Item elements. Items with children expose a separately labelled disclosure button; every disclosure starts closed and independent branches may remain open together. An `href` renders a link, otherwise Item renders a button. `isActive` sets `aria-current="page"`. Logo defaults to `alt=""`; collapsed labels remain accessible. Parts outside their documented parent throw in development.
+
+`Footer` is the lower sidebar region. It renders a native `<footer>` below the scrolling Navigation, separated by the sidebar divider. Application-owned controls are composed through its `children`; a `CollapseToggle` in the Footer moves to the inline end, while other children remain at the inline start. Footer forwards compatible native footer props and ref. The Bodywork footer rail reference supplied on 2026-10-14 was checked for its divider, lower placement and right-aligned collapse control; `--sp-2`, `--ctrl-h` and `--on-accent` provide the existing token mapping. The Footer contains no library-owned text, state or keyboard behavior beyond its composed native controls.
 
 ## Foundation audit — 2026-10-06
 

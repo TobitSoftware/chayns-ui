@@ -2,6 +2,7 @@ export { AppLayout } from './components/app-layout/AppLayout.js';
 export type {
   AppLayoutCollapseToggleProps,
   AppLayoutContentProps,
+  AppLayoutFooterProps,
   AppLayoutHeaderProps,
   AppLayoutLogoProps,
   AppLayoutNavigationItemProps,

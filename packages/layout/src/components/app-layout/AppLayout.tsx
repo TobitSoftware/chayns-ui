@@ -1,8 +1,17 @@
-import { createContext, forwardRef, useContext, useId, useState } from 'react';
+import {
+  Children,
+  createContext,
+  forwardRef,
+  isValidElement,
+  useContext,
+  useId,
+  useState,
+} from 'react';
 import type { ComponentPropsWithRef, Ref } from 'react';
 import type {
   AppLayoutCollapseToggleProps,
   AppLayoutContentProps,
+  AppLayoutFooterProps,
   AppLayoutHeaderProps,
   AppLayoutLogoProps,
   AppLayoutNavigationItemProps,
@@ -157,6 +166,21 @@ const Content = forwardRef<HTMLElement, AppLayoutContentProps>(function Content(
     </main>
   );
 });
+const Footer = forwardRef<HTMLElement, AppLayoutFooterProps>(function Footer(
+  { children, className, ...props },
+  ref,
+) {
+  useLayout('Footer');
+  return (
+    <footer
+      {...props}
+      className={['chayns-app-layout__footer', className].filter(Boolean).join(' ')}
+      ref={ref}
+    >
+      {children}
+    </footer>
+  );
+});
 const CollapseToggle = forwardRef<HTMLButtonElement, AppLayoutCollapseToggleProps>(
   function CollapseToggle(
     { children, className, collapseLabel, expandLabel, onClick, ...props },
@@ -191,6 +215,14 @@ const Root = forwardRef<HTMLDivElement, AppLayoutProps>(function Root(
     if (collapsed === undefined) setInternal(next);
     onCollapsedChange?.(next);
   };
+  const childParts = Children.toArray(children);
+  const sidebarParts = childParts.filter(
+    (child) =>
+      isValidElement(child) &&
+      (child.type === Navigation || child.type === Footer || child.type === CollapseToggle),
+  );
+  const sidebarPartSet = new Set(sidebarParts);
+  let sidebarRendered = false;
   return (
     <LayoutContext.Provider value={{ collapsed: isCollapsed, toggle }}>
       <div
@@ -200,7 +232,18 @@ const Root = forwardRef<HTMLDivElement, AppLayoutProps>(function Root(
           .join(' ')}
         ref={ref}
       >
-        {children}
+        {childParts.map((child) => {
+          if (sidebarPartSet.has(child)) {
+            if (sidebarRendered) return null;
+            sidebarRendered = true;
+            return (
+              <aside className="chayns-app-layout__sidebar" key="sidebar">
+                {sidebarParts}
+              </aside>
+            );
+          }
+          return child;
+        })}
       </div>
     </LayoutContext.Provider>
   );
@@ -210,12 +253,14 @@ Logo.displayName = 'AppLayout.Logo';
 Navigation.displayName = 'AppLayout.Navigation';
 Object.assign(NavigationItem, { displayName: 'AppLayout.Navigation.Item' });
 Content.displayName = 'AppLayout.Content';
+Footer.displayName = 'AppLayout.Footer';
 CollapseToggle.displayName = 'AppLayout.CollapseToggle';
 Root.displayName = 'AppLayout';
 
 export const AppLayout = Object.assign(Root, {
   CollapseToggle,
   Content,
+  Footer,
   Header,
   Logo,
   Navigation: Object.assign(Navigation, { Item: NavigationItem }),

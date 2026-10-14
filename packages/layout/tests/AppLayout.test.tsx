@@ -20,7 +20,10 @@ function Example({
         </AppLayout.Navigation.Item>
         <AppLayout.Navigation.Item href="#calendar" isActive label="Kalender" />
       </AppLayout.Navigation>
-      <AppLayout.CollapseToggle collapseLabel="Einklappen" expandLabel="Ausklappen" />
+      <AppLayout.Footer>
+        <button type="button">Einstellungen</button>
+        <AppLayout.CollapseToggle collapseLabel="Einklappen" expandLabel="Ausklappen" />
+      </AppLayout.Footer>
       <AppLayout.Content>Inhalt</AppLayout.Content>
     </AppLayout>
   );
@@ -30,6 +33,7 @@ describe('AppLayout', () => {
     render(<Example />);
     expect(screen.getByRole('navigation', { name: 'Hauptnavigation' })).toBeInTheDocument();
     expect(screen.getByRole('main')).toHaveTextContent('Inhalt');
+    expect(document.querySelector('.chayns-app-layout__footer')).toHaveTextContent('Einstellungen');
     expect(screen.getByRole('presentation')).toHaveAttribute('alt', '');
   });
   it('keeps disclosures closed initially and supports collapse', async () => {
@@ -73,5 +77,16 @@ describe('AppLayout', () => {
     expect(() => render(<AppLayout.Navigation.Item label="X" />)).toThrow(
       'AppLayout.Navigation.Item must be rendered within AppLayout.Navigation.',
     );
+  });
+
+  it('places Footer content and CollapseToggle in the sidebar footer', async () => {
+    const user = userEvent.setup();
+    render(<Example />);
+
+    const footer = document.querySelector('.chayns-app-layout__footer');
+    expect(footer).not.toBeNull();
+    expect(footer).toContainElement(screen.getByRole('button', { name: 'Einstellungen' }));
+    await user.click(screen.getByRole('button', { name: 'Einklappen' }));
+    expect(screen.getByRole('button', { name: 'Ausklappen' })).toBeInTheDocument();
   });
 });

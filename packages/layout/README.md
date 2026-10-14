@@ -21,7 +21,7 @@ import { AppLayout } from '@chayns-ui/layout';
 ```
 
 `AppLayout` wird über `Header`, `Logo`, `Navigation`, rekursive
-`Navigation.Item`, `Content` und `CollapseToggle` komponiert. Der frühere
+`Navigation.Item`, `Content`, `Footer` und `CollapseToggle` komponiert. Der frühere
 `items[]`-Vertrag wurde vor 1.0 entfernt. Tabs verwendet `Tabs.List`,
 `Tabs.Tab value` und `Tabs.Panel value` statt `tabs[]`.
 

@@ -56,7 +56,7 @@
 
   .chayns-app-layout__navigation {
     display: flex;
-    grid-area: sidebar;
+    flex: 1 1 auto;
     flex-direction: column;
     min-block-size: 0;
     overflow: auto;
@@ -161,15 +161,12 @@
     block-size: var(--ctrl-h);
     border-radius: 50%;
     background: transparent;
-    grid-area: sidebar;
-    place-self: end;
-    margin: 0 var(--sp-2) var(--sp-2) 0;
-    z-index: 1;
+    margin-inline-start: auto;
   }
 
   .chayns-app-layout__footer {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
     margin-block-start: auto;
     padding-block-start: var(--sp-2);
     border-block-start: 1px solid color-mix(in srgb, var(--on-accent) 35%, transparent);
