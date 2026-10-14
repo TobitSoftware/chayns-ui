@@ -47,11 +47,12 @@
   .chayns-app-layout__sidebar {
     display: flex;
     grid-area: sidebar;
+    position: relative;
+    z-index: 1;
     flex-direction: column;
     min-inline-size: 0;
     min-block-size: 0;
     padding: 0 var(--sp-2) var(--sp-2);
-    background: var(--accent-hover);
   }
 
   .chayns-app-layout__navigation {
@@ -59,8 +60,8 @@
     flex: 1 1 auto;
     flex-direction: column;
     min-block-size: 0;
-    overflow: auto;
-    padding: 0 var(--sp-2) var(--sp-2);
+    overflow: hidden auto;
+    padding: 0 0 var(--sp-2);
   }
 
   .chayns-app-layout__list {
@@ -167,8 +168,10 @@
   .chayns-app-layout__footer {
     display: flex;
     align-items: center;
+    min-inline-size: 0;
     margin-block-start: auto;
     padding-block-start: var(--sp-2);
+    overflow: hidden;
     border-block-start: 1px solid color-mix(in srgb, var(--on-accent) 35%, transparent);
   }
 
@@ -268,6 +271,10 @@
   }
 
   .chayns-app-layout--collapsed .chayns-app-layout__children {
+    display: none;
+  }
+
+  .chayns-app-layout--collapsed .chayns-app-layout__footer > :not(.chayns-app-layout__collapse) {
     display: none;
   }
 

@@ -86,7 +86,15 @@ describe('AppLayout', () => {
     const footer = document.querySelector('.chayns-app-layout__footer');
     expect(footer).not.toBeNull();
     expect(footer).toContainElement(screen.getByRole('button', { name: 'Einstellungen' }));
+    expect(
+      screen.getByRole('button', { name: 'Einklappen' }).closest('.chayns-app-layout__sidebar'),
+    ).not.toBeNull();
     await user.click(screen.getByRole('button', { name: 'Einklappen' }));
     expect(screen.getByRole('button', { name: 'Ausklappen' })).toBeInTheDocument();
+    expect(
+      document.querySelector(
+        '.chayns-app-layout--collapsed .chayns-app-layout__footer > :not(.chayns-app-layout__collapse)',
+      ),
+    ).toBe(screen.getByRole('button', { name: 'Einstellungen' }));
   });
 });
