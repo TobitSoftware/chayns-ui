@@ -1,5 +1,11 @@
 # @chayns-ui/layout
 
+## 0.9.1
+
+### Patch Changes
+
+- 6a2b190: Keep the AppLayout sidebar above its content, hide other footer controls while collapsed, and prevent scrollbars while expanding so the right-aligned collapse toggle remains usable.
+
 ## 0.9.0
 
 ### Minor Changes
