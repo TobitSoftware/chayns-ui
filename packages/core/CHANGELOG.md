@@ -1,5 +1,11 @@
 # @chayns-ui/core
 
+## 0.12.1
+
+### Patch Changes
+
+- e865d58: Ensure SplitButton primary and trigger border radii remain joined when Button styles are applied.
+
 ## 0.12.0
 
 ### Minor Changes
