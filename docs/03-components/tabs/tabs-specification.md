@@ -175,11 +175,14 @@ The user confirmed 200ms exit and 220ms entry for this component-specific contra
 Selection, roving focus and selected-tab ARIA update immediately. The new panel
 mounts immediately and fades from opacity 0 to its normal consumer opacity over
 220ms; the previous one fades to 0 over 200ms. The outgoing panel immediately
-becomes inert, aria-hidden and untabbable, then unmounts on completion. At most
+becomes inert, aria-hidden and untabbable, then becomes hidden on completion. The
+content of every panel is wrapped in React `Activity`: inactive panel content uses
+hidden mode, remains mounted and retains its local React state. The native panel
+remains mounted so it retains its existing ref and exit-animation ownership. At most
 one outgoing panel exists; a further selection discards an older exit and starts
 from the latest view. Interrupted transitions retain their current opacity; removed
 entries and root unmount cancel owned animations. Only opacity is animated.
-The initial valid panel appears immediately.
+The initial valid panel appears immediately. This requires React 19 or later.
 
 Root owns a shared two-row grid: List in the first row and the documented sibling
 Panels sharing the second cell. During the brief crossfade this cell reserves the

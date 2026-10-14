@@ -108,7 +108,7 @@ describe('Tabs panel crossfade', () => {
         <Tabs.Panel value="two">Other content</Tabs.Panel>
       </Tabs>,
     );
-    expect(container.querySelector('[role=tabpanel]')).toBeNull();
+    expect(screen.queryByRole('tabpanel')).toBeNull();
     expect(motions).toHaveLength(0);
     const list = screen.getByRole('tablist');
     await act(async () => {
@@ -152,7 +152,10 @@ describe('Tabs panel crossfade', () => {
     expect(motions.map((motion) => motion.options.duration)).toEqual([200, 220]);
     expect(motions[0]?.keyframes).toEqual([{ opacity: '1' }, { opacity: '0' }]);
     await finish(motions[0]!);
-    expect(screen.queryByText('one action')).toBeNull();
+    expect(screen.getByText('one action').closest('[role=tabpanel]')).toHaveAttribute(
+      'aria-hidden',
+      'true',
+    );
     expect(screen.getByRole('tabpanel')).toHaveTextContent('two action');
   });
 
@@ -161,7 +164,10 @@ describe('Tabs panel crossfade', () => {
     rerender(<Example value="two" />);
     const oldExit = motions[0]!;
     rerender(<Example value="three" />);
-    expect(screen.queryByText('one action')).toBeNull();
+    expect(screen.getByText('one action').closest('[role=tabpanel]')).toHaveAttribute(
+      'aria-hidden',
+      'true',
+    );
     expect(screen.getByText('two action').closest('[role=tabpanel]')).toHaveAttribute('inert');
     expect(screen.getByRole('tabpanel')).toHaveTextContent('three action');
     expect(oldExit.cancel).toHaveBeenCalled();
@@ -172,7 +178,10 @@ describe('Tabs panel crossfade', () => {
         (motion) => motion.node.textContent === 'two action' && motion.options.duration === 200,
       )!,
     );
-    expect(screen.queryByText('two action')).toBeNull();
+    expect(screen.getByText('two action').closest('[role=tabpanel]')).toHaveAttribute(
+      'aria-hidden',
+      'true',
+    );
     expect(screen.getByRole('tabpanel')).toHaveTextContent('three action');
   });
 
@@ -206,7 +215,10 @@ describe('Tabs panel crossfade', () => {
     const { rerender } = render(<Example value="one" />);
     rerender(<Example value="two" />);
     expect(motions).toHaveLength(0);
-    expect(screen.queryByText('one action')).toBeNull();
+    expect(screen.getByText('one action').closest('[role=tabpanel]')).toHaveAttribute(
+      'aria-hidden',
+      'true',
+    );
     expect(screen.getByRole('tabpanel')).toHaveTextContent('two action');
   });
 
@@ -217,21 +229,26 @@ describe('Tabs panel crossfade', () => {
       preference.matches = true;
       preference.dispatchEvent(new Event('change'));
     });
-    expect(screen.queryByText('one action')).toBeNull();
+    expect(screen.getByText('one action').closest('[role=tabpanel]')).toHaveAttribute(
+      'aria-hidden',
+      'true',
+    );
     expect(screen.getByRole('tabpanel')).toHaveTextContent('two action');
     for (const motion of motions) expect(motion.cancel).toHaveBeenCalled();
   });
 
-  it('retains the native ref through exit and invokes its cleanup exactly on unmount', async () => {
+  it('retains the native ref after exit and invokes its cleanup on root unmount', async () => {
     const cleanup = vi.fn();
     const ref = vi.fn(() => cleanup);
-    const { rerender } = render(<Example value="one" ref={ref} />);
+    const { rerender, unmount } = render(<Example value="one" ref={ref} />);
     const native = screen.getByRole('tabpanel');
     expect(ref).toHaveBeenCalledWith(native);
     rerender(<Example value="two" ref={ref} />);
     expect(ref).toHaveBeenCalledTimes(1);
     expect(cleanup).not.toHaveBeenCalled();
     await finish(motions[0]!);
+    expect(cleanup).not.toHaveBeenCalled();
+    unmount();
     expect(cleanup).toHaveBeenCalledTimes(1);
   });
 

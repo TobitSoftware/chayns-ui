@@ -1,4 +1,4 @@
-import { forwardRef, useCallback } from 'react';
+import { Activity, forwardRef, useCallback } from 'react';
 
 import { useTabs } from './TabsContext.js';
 import type { TabsPanelProps } from './Tabs.types.js';
@@ -10,21 +10,27 @@ interface MountedPanelProps extends TabsPanelProps {
   animateInitial: boolean;
   baseId: string;
   complete: () => void;
+  visible: boolean;
 }
 
 // Native ref ownership exists only while a panel is mounted, including its short exit.
 const MountedPanel = forwardRef<HTMLDivElement, MountedPanelProps>(function MountedPanel(
-  { active, animateInitial, baseId, complete, children, className, value, ...props },
+  { active, animateInitial, baseId, complete, children, className, value, visible, ...props },
   ref,
 ) {
   const [element, setElement] = useElementRef(ref);
-  usePanelMotion(element, active, complete, animateInitial);
+  usePanelMotion(element, active, complete, animateInitial, visible);
   return (
     <div
       {...props}
       aria-hidden={active ? props['aria-hidden'] : true}
       aria-labelledby={`${baseId}-tab-${value}`}
-      className={['chayns-tabs__panel', !active && 'chayns-tabs__panel--exiting', className]
+      className={[
+        'chayns-tabs__panel',
+        !active && 'chayns-tabs__panel--exiting',
+        !visible && 'chayns-tabs__panel--hidden',
+        className,
+      ]
         .filter(Boolean)
         .join(' ')}
       id={`${baseId}-panel-${value}`}
@@ -33,7 +39,7 @@ const MountedPanel = forwardRef<HTMLDivElement, MountedPanelProps>(function Moun
       role="tabpanel"
       tabIndex={active ? (props.tabIndex ?? 0) : -1}
     >
-      {children}
+      <Activity mode={visible ? 'visible' : 'hidden'}>{children}</Activity>
     </div>
   );
 });
@@ -42,9 +48,9 @@ MountedPanel.displayName = 'Tabs.MountedPanel';
 const Panel = forwardRef<HTMLDivElement, TabsPanelProps>(function Panel(props, ref) {
   const tabs = useTabs('Panel');
   const active = tabs.value === props.value;
+  const visible = active || tabs.exitingValue === props.value;
   const finishExit = tabs.finishExit;
   const complete = useCallback(() => finishExit(props.value), [finishExit, props.value]);
-  if (!active && tabs.exitingValue !== props.value) return null;
   return (
     <MountedPanel
       {...props}
@@ -53,6 +59,7 @@ const Panel = forwardRef<HTMLDivElement, TabsPanelProps>(function Panel(props, r
       baseId={tabs.baseId}
       complete={complete}
       ref={ref}
+      visible={visible}
     />
   );
 });

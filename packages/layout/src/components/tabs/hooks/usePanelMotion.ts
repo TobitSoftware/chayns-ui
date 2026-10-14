@@ -7,8 +7,10 @@ export default function usePanelMotion(
   active: boolean,
   finishExit: () => void,
   animateInitial: boolean,
+  visible: boolean,
 ) {
   const firstView = useRef(!animateInitial);
+  const initiallyActive = useRef(active);
   const interruptedOpacity = useRef<string | undefined>(undefined);
 
   useLayoutEffect(() => {
@@ -17,8 +19,11 @@ export default function usePanelMotion(
       interruptedOpacity.current = undefined;
       return;
     }
-    if (firstView.current && active) return;
-    firstView.current = false;
+    if (!visible) return;
+    if (firstView.current) {
+      if (initiallyActive.current && active) return;
+      firstView.current = false;
+    }
 
     const preference = window.matchMedia?.('(prefers-reduced-motion: reduce)');
     if (preference?.matches || typeof node.animate !== 'function') {
@@ -64,5 +69,5 @@ export default function usePanelMotion(
       animation.cancel();
       preference?.removeEventListener('change', stopMotion);
     };
-  }, [active, element, finishExit]);
+  }, [active, element, finishExit, visible]);
 }

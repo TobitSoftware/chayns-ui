@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import { StrictMode, useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 import userEvent from '@testing-library/user-event';
@@ -79,6 +79,38 @@ describe('Tabs', () => {
     await user.keyboard('{ArrowLeft}');
     expect(screen.getByRole('tab', { name: 'Zwei' })).toHaveFocus();
     expect(onValueChange).toHaveBeenCalledWith('two');
+  });
+  it('preserves inactive panel state', async () => {
+    const user = userEvent.setup();
+    function StatefulInput() {
+      const [value, setValue] = useState('');
+      return (
+        <label>
+          Value
+          <input value={value} onChange={(event) => setValue(event.target.value)} />
+        </label>
+      );
+    }
+    function StatefulExample() {
+      return (
+        <Tabs defaultValue="one">
+          <Tabs.List aria-label="Views">
+            <Tabs.Tab value="one">One</Tabs.Tab>
+            <Tabs.Tab value="two">Two</Tabs.Tab>
+          </Tabs.List>
+          <Tabs.Panel value="one">
+            <StatefulInput />
+          </Tabs.Panel>
+          <Tabs.Panel value="two">Second panel</Tabs.Panel>
+        </Tabs>
+      );
+    }
+    render(<StatefulExample />);
+    const input = screen.getByRole('textbox', { name: 'Value' });
+    await user.type(input, 'Retained');
+    await user.click(screen.getByRole('tab', { name: 'Two' }));
+    await user.click(screen.getByRole('tab', { name: 'One' }));
+    expect(screen.getByRole('textbox', { name: 'Value' })).toHaveValue('Retained');
   });
   it('renders the legacy removal affordance and preserves consumer key cancellation', async () => {
     const user = userEvent.setup();

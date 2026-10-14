@@ -178,6 +178,10 @@
     pointer-events: none;
   }
 
+  .chayns-tabs__panel--hidden {
+    display: none;
+  }
+
   .chayns-tabs__indicator {
     position: absolute;
     inset-block-end: var(--k6);
