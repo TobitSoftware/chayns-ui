@@ -1,5 +1,13 @@
 # @chayns-ui/core
 
+## 0.12.0
+
+### Minor Changes
+
+- 9b28b43: Add Badge `disableHover` to suppress its decorative hover treatment while retaining non-interactive status semantics.
+
+  Make AppLayout fill its available space and use the page surface for active attached Tabs and their panels.
+
 ## 0.11.2
 
 ### Patch Changes

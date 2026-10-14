@@ -1,5 +1,16 @@
 # @chayns-ui/layout
 
+## 0.8.3
+
+### Patch Changes
+
+- 9b28b43: Add Badge `disableHover` to suppress its decorative hover treatment while retaining non-interactive status semantics.
+
+  Make AppLayout fill its available space and use the page surface for active attached Tabs and their panels.
+
+- Updated dependencies [9b28b43]
+  - @chayns-ui/core@0.12.0
+
 ## 0.8.2
 
 ### Patch Changes
