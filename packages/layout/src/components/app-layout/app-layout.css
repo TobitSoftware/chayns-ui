@@ -8,6 +8,8 @@
     min-block-size: 100%;
     background: var(--accent);
     color: var(--on-accent);
+    height: 100%;
+    width: 100%;
   }
 
   .chayns-app-layout__header {

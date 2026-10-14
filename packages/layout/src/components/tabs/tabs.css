@@ -48,7 +48,7 @@
   }
 
   .chayns-tabs__tab--active {
-    background: var(--surface);
+    background: var(--page);
     color: var(--accent);
   }
 
@@ -103,7 +103,7 @@
     border: 1px solid var(--border);
     border-block-start: 0;
     overflow: auto;
-    background: var(--surface);
+    background: var(--page);
     color: var(--text);
   }
 
