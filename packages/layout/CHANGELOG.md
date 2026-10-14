@@ -1,5 +1,11 @@
 # @chayns-ui/layout
 
+## 0.9.0
+
+### Minor Changes
+
+- 8893622: Add `AppLayout.Footer` for composing consumer controls and the sidebar collapse toggle in a divided footer area.
+
 ## 0.8.3
 
 ### Patch Changes
