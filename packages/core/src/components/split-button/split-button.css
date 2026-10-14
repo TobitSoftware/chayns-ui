@@ -8,8 +8,8 @@
   }
 
   .chayns-split-button__primary {
-    border-start-end-radius: 0;
-    border-end-end-radius: 0;
+    border-start-end-radius: 0 !important;
+    border-end-end-radius: 0 !important;
   }
 
   .chayns-split-button__trigger {
@@ -20,10 +20,10 @@
     padding: 0 var(--sp-2);
     border: 0;
     border-inline-start: 1px solid color-mix(in srgb, currentcolor 30%, transparent);
-    border-start-start-radius: 0;
-    border-end-start-radius: 0;
-    border-start-end-radius: 999px;
-    border-end-end-radius: 999px;
+    border-start-start-radius: 0 !important;
+    border-end-start-radius: 0 !important;
+    border-start-end-radius: 999px !important;
+    border-end-end-radius: 999px !important;
     font: inherit;
     cursor: pointer;
   }
