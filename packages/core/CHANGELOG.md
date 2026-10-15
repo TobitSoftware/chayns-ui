@@ -1,5 +1,13 @@
 # @chayns-ui/core
 
+## 0.13.0
+
+### Minor Changes
+
+- 2c170dd: Add the controlled SearchBox component for filtering and selecting externally supplied items.
+
+  Preserve inactive tab panel state and support middle-click removal for removable tabs.
+
 ## 0.12.1
 
 ### Patch Changes
