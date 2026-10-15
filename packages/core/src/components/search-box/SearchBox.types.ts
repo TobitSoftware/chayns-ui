@@ -21,6 +21,7 @@ export interface SearchBoxProps<T> extends Omit<
   getItemLabel: (item: T) => string;
   getRemoveItemLabel: (item: T) => string;
   inputValue: string;
+  maxItems?: number;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onInputValueChange: (value: string) => void;
   onRemove: (item: SearchBoxItem<T>) => void;

@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { ChangeEvent, ForwardedRef, KeyboardEvent, MouseEvent, ReactElement } from 'react';
 
@@ -30,6 +30,7 @@ function SearchBoxInner<T>(
     getRemoveItemLabel,
     id,
     inputValue,
+    maxItems,
     onBlur,
     onChange,
     onFocus,
@@ -50,12 +51,19 @@ function SearchBoxInner<T>(
 ) {
   ensureUniqueItems(selectedItems, 'selectedItems');
   ensureUniqueItems(suggestions, 'suggestions');
+  if (
+    maxItems !== undefined &&
+    (!Number.isInteger(maxItems) || !Number.isFinite(maxItems) || maxItems < 0)
+  ) {
+    throw new Error('SearchBox maxItems must be a non-negative integer.');
+  }
 
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const listboxId = `${inputId}-listbox`;
   const suggestionsLabelId = `${listboxId}-label`;
   const rootRef = useRef<HTMLDivElement>(null);
+  const [rootElement, setRootElement] = useState<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const popupRef = useRef<HTMLDivElement>(null);
   const closeTimeoutRef = useRef<number | undefined>(undefined);
@@ -66,24 +74,43 @@ function SearchBoxInner<T>(
     () => new Set(selectedItems.map(({ id: itemId }) => itemId)),
     [selectedItems],
   );
+  const itemLimitReached = maxItems !== undefined && selectedItems.length >= maxItems;
+  const popupOpen = open && !itemLimitReached;
+  const popupVisible = popupOpen || closing;
   const availableSuggestions = useMemo(
     () => suggestions.filter(({ id: itemId }) => !selectedIds.has(itemId)),
     [selectedIds, suggestions],
   );
   const activeSuggestion = availableSuggestions.find(({ id: itemId }) => itemId === activeId);
 
-  useOverlayPosition(popupRef, rootRef.current, open || closing, 'bottom', 4, true);
+  useOverlayPosition(popupRef, rootElement, popupVisible, 'bottom', 4, true);
 
   if (ariaLabel === undefined && ariaLabelledBy === undefined) {
     throw new Error('SearchBox requires aria-label or aria-labelledby.');
   }
+
+  const closePopup = useCallback(() => {
+    if (!open) {
+      return;
+    }
+
+    setOpen(false);
+    setActiveId(undefined);
+    setClosing(true);
+    closeTimeoutRef.current = window.setTimeout(() => setClosing(false), POPUP_TRANSITION_DURATION);
+  }, [open]);
+
+  const setRootRef = useCallback((element: HTMLDivElement | null) => {
+    rootRef.current = element;
+    setRootElement(element);
+  }, []);
 
   useEffect(() => {
     return () => window.clearTimeout(closeTimeoutRef.current);
   }, []);
 
   useEffect(() => {
-    if (!open) {
+    if (!popupOpen) {
       return undefined;
     }
 
@@ -101,19 +128,8 @@ function SearchBoxInner<T>(
     return () => document.removeEventListener('pointerdown', closeOnOutsidePress);
   });
 
-  function closePopup() {
-    if (!open) {
-      return;
-    }
-
-    setOpen(false);
-    setActiveId(undefined);
-    setClosing(true);
-    closeTimeoutRef.current = window.setTimeout(() => setClosing(false), POPUP_TRANSITION_DURATION);
-  }
-
   function openPopup() {
-    if (disabled || readOnly || suggestions.length === 0) {
+    if (disabled || readOnly || itemLimitReached || suggestions.length === 0) {
       return;
     }
 
@@ -146,7 +162,7 @@ function SearchBoxInner<T>(
   }
 
   function selectSuggestion(suggestion: SearchBoxItem<T>) {
-    if (selectedIds.has(suggestion.id) || disabled || readOnly) {
+    if (selectedIds.has(suggestion.id) || disabled || readOnly || itemLimitReached) {
       return;
     }
 
@@ -180,25 +196,25 @@ function SearchBoxInner<T>(
 
     if (event.key === 'ArrowDown') {
       event.preventDefault();
-      if (!open) {
+      if (!popupOpen) {
         openPopup();
       } else {
         moveActive(1);
       }
     } else if (event.key === 'ArrowUp') {
       event.preventDefault();
-      if (!open) {
+      if (!popupOpen) {
         openPopup();
       } else {
         moveActive(-1);
       }
-    } else if (event.key === 'Enter' && open && activeSuggestion !== undefined) {
+    } else if (event.key === 'Enter' && popupOpen && activeSuggestion !== undefined) {
       event.preventDefault();
       selectSuggestion(activeSuggestion);
-    } else if (event.key === 'Escape' && open) {
+    } else if (event.key === 'Escape' && popupOpen) {
       event.preventDefault();
       closePopup();
-    } else if (event.key === 'Tab' && open) {
+    } else if (event.key === 'Tab' && popupOpen) {
       closePopup();
     } else if (event.key === 'Backspace' && inputValue.length === 0 && selectedItems.length > 0) {
       onRemove(selectedItems.at(-1)!);
@@ -211,12 +227,12 @@ function SearchBoxInner<T>(
     <div
       className={[
         'chayns-search-box',
-        open ? 'chayns-search-box--open' : '',
+        popupOpen ? 'chayns-search-box--open' : '',
         disabled ? 'chayns-search-box--disabled' : '',
       ]
         .filter(Boolean)
         .join(' ')}
-      ref={rootRef}
+      ref={setRootRef}
     >
       <span className="chayns-search-box__placeholder">{placeholder}</span>
       {selectedItems.map((entry) => (
@@ -242,7 +258,7 @@ function SearchBoxInner<T>(
         }
         aria-autocomplete="list"
         aria-controls={listboxId}
-        aria-expanded={open}
+        aria-expanded={popupOpen}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
         className={['chayns-search-box__input', className].filter(Boolean).join(' ')}
@@ -252,12 +268,12 @@ function SearchBoxInner<T>(
         onChange={handleChange}
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
-        readOnly={readOnly}
+        readOnly={readOnly || itemLimitReached}
         ref={setInputRef}
         role="combobox"
         value={inputValue}
       />
-      {open || closing
+      {popupVisible
         ? typeof document !== 'undefined'
           ? createPortal(
               <div

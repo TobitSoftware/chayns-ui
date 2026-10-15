@@ -12,9 +12,11 @@ const entries: SearchBoxItem<{ name: string }>[] = [
 ];
 
 function ControlledSearchBox({
+  maxItems,
   onRemove = vi.fn(),
   onSelect = vi.fn(),
 }: {
+  maxItems?: number;
   onRemove?: (entry: SearchBoxItem<{ name: string }>) => void;
   onSelect?: (entry: SearchBoxItem<{ name: string }>) => void;
 }) {
@@ -26,6 +28,7 @@ function ControlledSearchBox({
       getItemLabel={(item) => item.name}
       getRemoveItemLabel={(item) => `${item.name} entfernen`}
       inputValue={inputValue}
+      {...(maxItems === undefined ? {} : { maxItems })}
       onInputValueChange={setInputValue}
       onRemove={onRemove}
       onSelect={onSelect}
@@ -88,6 +91,27 @@ describe('SearchBox', () => {
     await user.click(input);
     await user.keyboard('{Backspace}');
 
+    expect(onRemove).toHaveBeenCalledWith(entries[0]);
+  });
+
+  it('prevents selection and typing when the item limit is reached while allowing removal', async () => {
+    const onRemove = vi.fn();
+    const onSelect = vi.fn();
+    const user = userEvent.setup();
+
+    render(<ControlledSearchBox maxItems={1} onRemove={onRemove} onSelect={onSelect} />);
+
+    const input = screen.getByRole('combobox', { name: 'Empfänger suchen' });
+    expect(input).toHaveAttribute('readonly');
+
+    await user.click(input);
+    await user.type(input, 'th');
+
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    expect(input).toHaveValue('');
+    expect(onSelect).not.toHaveBeenCalled();
+
+    await user.click(screen.getByRole('button', { name: 'Eva Fischer entfernen' }));
     expect(onRemove).toHaveBeenCalledWith(entries[0]);
   });
 });

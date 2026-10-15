@@ -84,6 +84,7 @@ interface SearchBoxProps<T>
   inputValue: string;
   onInputValueChange: (value: string) => void;
   selectedItems: SearchBoxItem<T>[];
+  maxItems?: number;
   suggestions: SearchBoxItem<T>[];
   onSelect: (item: SearchBoxItem<T>) => void;
   onRemove: (item: SearchBoxItem<T>) => void;
@@ -100,13 +101,13 @@ interface SearchBoxProps<T>
 |---|---|---|---|---|---|---|
 | SearchBox | `<input>` | `<input>` | compatible native input props, including `onChange` | controlled values, selection callbacks, slots, combobox ARIA | value/defaultValue, placeholder, combobox ARIA | consumer `onFocus`, `onBlur`, and `onKeyDown` run first; `preventDefault()` suppresses SearchBox behavior. `onInputValueChange` is called after consumer `onChange` unless it prevented default. |
 
-The component is controlled only. `onSelect` and `onRemove` receive the complete `{ id, item }` entry; applications update `selectedItems`. Duplicate IDs are invalid and throw a clear runtime error. Direct native input props address the input and its ref. `disabled` disables typing, opening, selection, and removing.
+The component is controlled only. `onSelect` and `onRemove` receive the complete `{ id, item }` entry; applications update `selectedItems`. `maxItems`, when supplied, must be a non-negative integer. Once `selectedItems` reaches it, SearchBox closes the suggestion popup, prevents selection, and sets the input to native read-only so users cannot type. Existing selected items remain removable, allowing the application to fall below the limit. Duplicate IDs are invalid and throw a clear runtime error. Direct native input props address the input and its ref. `disabled` disables typing, opening, selection, and removing.
 
 ## States, variants, and size
 
 No component variants and no local size variants exist. Global density controls all geometry.
 
-Supported states are empty, populated, focused, expanded, active suggestion, selected suggestion, disabled, and read-only. A read-only input retains its native behavior and cannot open or change selection. No error, loading, or async state is owned; applications replace `suggestions` as their filter process requires. Selected suggestions take precedence over the active state: they remain visibly selected but cannot be activated.
+Supported states are empty, populated, focused, expanded, active suggestion, selected suggestion, disabled, read-only, and item limit reached. A read-only input retains its native behavior and cannot open or change selection. When the item limit is reached, the input is read-only and the popup is closed, while existing items remain removable. No error, loading, or async state is owned; applications replace `suggestions` as their filter process requires. Selected suggestions take precedence over the active state: they remain visibly selected but cannot be activated.
 
 ## Visual and motion contract
 
