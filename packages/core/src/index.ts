@@ -48,6 +48,9 @@ export type {
   ComboBoxSingleProps,
 } from './components/combo-box/ComboBox.types.js';
 
+export { default as SearchBox } from './components/search-box/SearchBox.js';
+export type { SearchBoxItem, SearchBoxProps } from './components/search-box/SearchBox.types.js';
+
 export { default as TextField } from './components/text-field/TextField.js';
 export type { TextFieldProps } from './components/text-field/TextField.types.js';
 

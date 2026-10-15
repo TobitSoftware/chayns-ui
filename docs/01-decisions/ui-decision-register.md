@@ -88,6 +88,22 @@ Das UI Decision Register ist die zentrale, kompakte Übersicht konkreter Entsche
 | BUS-003 | BUS | Fehlende sichtbare Primitive werden zuerst auf allgemeine Core-Eignung geprüft. | CONFIRMED | Architecture | |
 | BUS-004 | BUS | PersonFinder ist konzeptionell Business und wird aus generischem Core aufgebaut. | CONFIRMED | Architecture, Vision | |
 
+## SearchBox
+
+| ID | Category | Decision | Status | Source | Follow-up |
+|---|---|---|---|---|---|
+| SEARCH-001 | SEARCH | SearchBox ist ein generisches Core-Control. Es ist vollständig kontrolliert: Die Anwendung liefert `selectedItems` für die Badges im Eingabefeld sowie `suggestions` für das Dropdown. `onSelect` und `onRemove` signalisieren Änderungen; die Anwendung aktualisiert anschließend `selectedItems`. | CONFIRMED | User decision, 2026-10-15 | Öffentliche API und Event-Reihenfolge spezifizieren. |
+| SEARCH-002 | SEARCH | Der eingegebene Text ist über `inputValue` und `onInputValueChange` kontrolliert und dient ausschließlich dazu, die extern gelieferten Vorschläge zu filtern; Freitext wird nicht als Badge übernommen. | CONFIRMED | User decision, 2026-10-15 | Debouncing und asynchroner Lade-/Fehlervertrag bleiben Application-Verantwortung. |
+| SEARCH-003 | SEARCH | Der bereits lokalisierte `placeholder` steht dauerhaft vor dem ersten ausgewählten Badge. Das Dropdown öffnet bei Fokus im Eingabefeld und während der Eingabe, sofern Vorschläge vorhanden sind. | CONFIRMED | User decision, 2026-10-15 | Semantik und Leerzustandsverhalten spezifizieren. |
+| SEARCH-004 | SEARCH | Das Aktivieren eines nicht ausgewählten Vorschlags ruft `onSelect` auf und schließt das Dropdown unmittelbar danach. Bereits ausgewählte Vorschläge bleiben sichtbar, sind als ausgewählt markiert und nicht erneut aktivierbar. | CONFIRMED | User decision, 2026-10-15 | Ausgewählter State und Dropdown-Reopen spezifizieren. |
+| SEARCH-005 | SEARCH | Anwendungen liefern `suggestions` und `selectedItems` als `{ id: string; item: T }`-Einträge und rendern deren Inhalte über `renderSuggestion(item)` beziehungsweise `renderSelectedItem(item)`. `getItemLabel(item)` und `getRemoveItemLabel(item)` liefern die zugänglichen Item- und Remove-Namen. | CONFIRMED | User decision, 2026-10-15 | Generische Item-Typen und Slot-Vertrag spezifizieren. |
+| SEARCH-006 | SEARCH | Badges besitzen eine sichtbare Remove-Schaltfläche; Backspace entfernt bei leerem Eingabefeld das zuletzt ausgewählte Badge. SearchBox gibt keine zusätzliche Live-Region-Ansage für Auswahl oder Entfernung aus. | CONFIRMED | User decision, 2026-10-15 | Backspace-Fokus und Status-Semantik spezifizieren. |
+| SEARCH-007 | SEARCH | SearchBox verwendet das editierbare ARIA-Combobox-Muster: ArrowUp/ArrowDown markieren Vorschläge, Enter aktiviert den markierten Vorschlag, Escape schließt das Dropdown, Tab übernimmt keine Auswahl. `aria-label` oder `aria-labelledby` ist für das Eingabefeld erforderlich; der Placeholder ist kein Accessible Name. | CONFIRMED | User decision, 2026-10-15 | ARIA-Beziehungen und DOM-Owner spezifizieren. |
+| SEARCH-008 | SEARCH | Außenklick, Escape und Tab schließen das Dropdown und erhalten den normalen Fokusfluss. Nach Auswahl bleibt der Fokus im Eingabefeld. Eine sichtbare, bereits lokalisierte `suggestionsLabel`-Überschrift ist optional; ohne sie rendert SearchBox keine Überschrift. | CONFIRMED | User decision, 2026-10-15 | Focus- und Überschriftenbeziehung spezifizieren. |
+| SEARCH-009 | SEARCH | Ein innerhalb einer ausgewählten SearchBox-Badge gerenderter Core Avatar verwendet die kompakte Chip-Größe `--k24`; Avataren in Vorschlagszeilen bleiben davon unberührt. | CONFIRMED | User decision, 2026-10-15 | SearchBox Specification aktualisiert. |
+| SEARCH-010 | SEARCH | Ausgewählte SearchBox-Badges verwenden `--k5` Block- und Inline-Start-Padding sowie `--k8` Inline-End-Padding; ihr Slot-Inhalt ist vertikal mittig ausgerichtet. | CONFIRMED | User decision, 2026-10-15 | SearchBox Specification aktualisiert. |
+| SEARCH-011 | SEARCH | Elemente innerhalb des Slots einer ausgewählten SearchBox-Badge, insbesondere Avatar und Text, sind durch `--k4` getrennt. | CONFIRMED | User decision, 2026-10-15 | SearchBox Specification aktualisiert. |
+
 ## Layout Components
 
 | ID | Category | Decision | Status | Source | Follow-up |

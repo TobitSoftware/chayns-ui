@@ -29,6 +29,7 @@
     "./progress.css": "./dist/progress.css",
     "./banner.css": "./dist/banner.css",
     "./combo-box.css": "./dist/combo-box.css",
+    "./search-box.css": "./dist/search-box.css",
     "./card.css": "./dist/card.css",
     "./avatar.css": "./dist/avatar.css",
     "./list.css": "./dist/list.css",

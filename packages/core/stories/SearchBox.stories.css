@@ -1,0 +1,18 @@
+.search-box-story__suggestion {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.search-box-story__suggestion > strong,
+.search-box-story__suggestion > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-box-story__suggestion > span {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}

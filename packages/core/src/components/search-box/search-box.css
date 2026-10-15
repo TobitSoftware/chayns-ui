@@ -1,0 +1,174 @@
+@layer chayns.components {
+  .chayns-search-box {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--k6);
+    inline-size: 100%;
+    min-block-size: calc(1.2em + 2 * var(--input-py) + 3px);
+    padding: var(--k5) var(--input-px);
+    border: 1.5px solid var(--input-border);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: var(--fs-body);
+    line-height: 1.2;
+    transition:
+      border-color 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+
+  .chayns-search-box:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 var(--focus-ring-size)
+      rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-soft));
+  }
+
+  .chayns-search-box--disabled {
+    border-color: var(--disabled-border);
+    background: var(--disabled-bg);
+    color: var(--disabled-fg);
+    cursor: not-allowed;
+  }
+
+  .chayns-search-box__placeholder {
+    flex: none;
+    color: var(--text-3);
+  }
+
+  .chayns-search-box__item {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: var(--k6);
+    max-inline-size: 100%;
+    min-inline-size: 0;
+    padding-block: var(--k5);
+    padding-inline: var(--k5) var(--k8);
+    border-radius: 999px;
+    background: var(--surface-alt);
+    color: var(--text-2);
+    font-size: var(--fs-meta);
+    white-space: nowrap;
+  }
+
+  .chayns-search-box__item-content {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--k4);
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .chayns-search-box__item-content > .chayns-avatar {
+    inline-size: var(--k24);
+    block-size: var(--k24);
+    font-size: var(--fs-micro);
+  }
+
+  .chayns-search-box__remove {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--accent);
+    cursor: pointer;
+    font: inherit;
+  }
+
+  .chayns-search-box__remove:focus-visible {
+    outline: var(--focus-ring-size) solid rgb(var(--focus-ring-rgb), var(--focus-ring-alpha-soft));
+    outline-offset: var(--k2);
+  }
+
+  .chayns-search-box__input {
+    flex: 1 1 var(--k64);
+    min-inline-size: 0;
+    padding: var(--k5) 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    line-height: 1.2;
+  }
+
+  .chayns-search-box__input:disabled {
+    cursor: not-allowed;
+  }
+
+  .chayns-search-box__popup {
+    position: fixed;
+    z-index: var(--z-popover);
+    box-sizing: border-box;
+    max-block-size: min(var(--k120), 50vh);
+    overflow: auto;
+    padding: var(--k6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    box-shadow: var(--shadow-pop);
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 0.18s ease,
+      transform 0.18s ease;
+  }
+
+  .chayns-search-box__popup[data-state='closed'] {
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--k4)));
+  }
+
+  .chayns-search-box__suggestions-label {
+    padding: var(--k6) var(--k12);
+    color: var(--muted);
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+  }
+
+  .chayns-search-box__option {
+    display: flex;
+    align-items: center;
+    gap: var(--k12);
+    min-block-size: var(--k32);
+    padding: var(--k9) var(--k12);
+    border-radius: 8px;
+    color: var(--text);
+    cursor: pointer;
+    outline: none;
+  }
+
+  .chayns-search-box__option--active,
+  .chayns-search-box__option:hover {
+    background: var(--surface-alt);
+  }
+
+  .chayns-search-box__option--selected {
+    color: var(--accent);
+    font-weight: 600;
+    cursor: not-allowed;
+  }
+
+  .chayns-search-box__option-content {
+    display: flex;
+    flex: 1;
+    min-inline-size: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chayns-search-box,
+    .chayns-search-box__popup {
+      transition: none;
+    }
+  }
+}
