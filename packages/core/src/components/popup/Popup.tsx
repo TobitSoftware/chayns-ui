@@ -77,7 +77,7 @@ const Content = forwardRef<HTMLDivElement, PopupContentProps>(function Content(
   const popup = usePopup('Content');
   const contentRef = useRef<HTMLDivElement>(null);
 
-  useOverlayPosition(contentRef, popup.triggerElement, popup.open);
+  useOverlayPosition(contentRef, popup.triggerElement, popup.open, 'bottom', 4);
 
   const setRef = useMemo(() => composeNativeRefs(contentRef, ref), [ref]);
 
