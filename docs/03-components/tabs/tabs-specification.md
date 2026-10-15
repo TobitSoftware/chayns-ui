@@ -118,6 +118,9 @@ and StrictMode callback de-duplication.
 Both appearances support fixed and editable collections through the existing compound
 API. Omit `onRemove` on an individual `Tabs.Tab` to omit its close affordance and
 Delete/Backspace removal; passing the callback enables removal for that item only.
+The middle mouse button (`auxclick` with `button === 1`) also removes an item with
+`onRemove`, matching browser-tab behavior. `onAuxClick` runs first and may prevent
+the removal; fixed tabs keep their normal native auxiliary-click behavior.
 Omit `Tabs.Add` entirely when adding is unavailable. When allowed, compose `Tabs.Add`
 with a localized `aria-label` and native `onClick`; the application owns its entries.
 The user chose to retain this explicit Add composition instead of introducing List

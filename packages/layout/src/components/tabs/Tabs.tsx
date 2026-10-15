@@ -8,7 +8,7 @@ import type { KeyboardEvent } from 'react';
 import type { TabsAddProps, TabsProps, TabsTabProps } from './Tabs.types.js';
 
 const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
-  { children, className, icon, onKeyDown, onRemove, onClick, value, ...props },
+  { children, className, icon, onAuxClick, onKeyDown, onRemove, onClick, value, ...props },
   ref,
 ) {
   const tabs = useTabs('Tab');
@@ -74,6 +74,12 @@ const Tab = forwardRef<HTMLButtonElement, TabsTabProps>(function Tab(
         if (event.target instanceof Element && event.target.closest('[data-tabs-remove]')) {
           onRemove?.(value);
         } else tabs.select(value);
+      }}
+      onAuxClick={(event) => {
+        onAuxClick?.(event);
+        if (event.defaultPrevented || event.button !== 1 || !onRemove) return;
+        event.preventDefault();
+        onRemove(value);
       }}
       onKeyDown={handleKeyDown}
       ref={setRef}

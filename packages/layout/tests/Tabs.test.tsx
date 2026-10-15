@@ -1,5 +1,5 @@
 import { StrictMode, useState } from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
@@ -137,6 +137,35 @@ describe('Tabs', () => {
     await user.keyboard('{Delete}');
     expect(onKeyDown).toHaveBeenCalledTimes(1);
     expect(onRemove).toHaveBeenCalledTimes(1);
+  });
+  it('closes removable tabs with the middle mouse button and allows consumer cancellation', () => {
+    const onRemove = vi.fn();
+    const onAuxClick = vi.fn((event: React.MouseEvent<HTMLButtonElement>) =>
+      event.preventDefault(),
+    );
+    render(
+      <Tabs defaultValue="removable">
+        <Tabs.List aria-label="Views">
+          <Tabs.Tab onRemove={onRemove} value="removable">
+            Removable
+          </Tabs.Tab>
+          <Tabs.Tab value="fixed">Fixed</Tabs.Tab>
+          <Tabs.Tab onAuxClick={onAuxClick} onRemove={onRemove} value="cancelled">
+            Cancelled
+          </Tabs.Tab>
+        </Tabs.List>
+      </Tabs>,
+    );
+
+    for (const name of ['Removable', 'Fixed', 'Cancelled']) {
+      fireEvent(
+        screen.getByRole('tab', { name }),
+        new MouseEvent('auxclick', { bubbles: true, button: 1, cancelable: true }),
+      );
+    }
+
+    expect(onRemove).toHaveBeenCalledExactlyOnceWith('removable');
+    expect(onAuxClick).toHaveBeenCalledTimes(1);
   });
   it('skips disabled tabs in DOM order after reordering children', async () => {
     const user = userEvent.setup();
