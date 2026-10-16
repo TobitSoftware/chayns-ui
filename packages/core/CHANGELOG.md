@@ -1,5 +1,11 @@
 # @chayns-ui/core
 
+## 0.14.0
+
+### Minor Changes
+
+- 9378c5f: Add the SearchBox `maxItems` limit and position Popup content 4px below its trigger.
+
 ## 0.13.0
 
 ### Minor Changes
