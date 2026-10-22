@@ -35,9 +35,11 @@ import { DateTimePicker, DateTimePickerModes } from '@chayns-ui/core';
 Für einen eingebetteten Termin-Picker werden Datum, Uhrzeit und das Minutenintervall kombiniert:
 
 ```tsx
+import { DateTimePicker, DateTimePickerModes } from '@chayns-ui/core';
+
 <DateTimePicker
   inline
-  mode="date-time"
+  mode={DateTimePickerModes.DateTime}
   value={date}
   onChange={setDate}
   label="Termin"

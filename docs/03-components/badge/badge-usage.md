@@ -33,5 +33,7 @@ die dekorative Hover-Behandlung. Das Badge bleibt dabei weiterhin ein
 nicht-interaktiver Statusindikator.
 
 ```tsx
+import { Badge } from '@chayns-ui/core';
+
 <Badge disableHover>Freigegeben</Badge>
 ```
