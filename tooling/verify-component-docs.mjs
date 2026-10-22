@@ -1,9 +1,10 @@
+import { existsSync } from 'node:fs';
 import { readFile, readdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
-import { verifyUsageExamples } from './verify-usage-examples.mjs';
+import { parseUsageExample, verifyUsageExamples } from './verify-usage-examples.mjs';
 
-const root = resolve(import.meta.dirname, '..');
+const root = resolve(process.argv[2] ?? resolve(import.meta.dirname, '..'));
 const directory = resolve(root, 'docs/03-components');
 const schema = JSON.parse(
   await readFile(resolve(directory, 'schemas/component-specification.schema.json'), 'utf8'),
@@ -55,6 +56,11 @@ const usageGuides = [];
 const storybookPages = new Set();
 const storybookStories = new Set();
 const combinations = [];
+const plannedComponents = new Set();
+const decisions = await readFile(
+  resolve(root, 'docs/01-decisions/ui-decision-register.md'),
+  'utf8',
+);
 for (const entry of await readdir(directory, { withFileTypes: true })) {
   if (!entry.isDirectory() || entry.name === 'schemas') continue;
   if (!(await readdir(resolve(directory, entry.name))).includes(`${entry.name}-specification.md`))
@@ -65,7 +71,28 @@ for (const entry of await readdir(directory, { withFileTypes: true })) {
   if (!match) throw new Error(`${entry.name}: missing JSON-compatible YAML frontmatter`);
   const metadata = JSON.parse(match[1]);
   validate(metadata, schema, entry.name);
-  if (['ready', 'implemented'].includes(metadata.status) && metadata.stories.length === 0)
+  const isPlanned = metadata.preImplementation !== undefined;
+  if (isPlanned) {
+    if (metadata.status === 'implemented')
+      throw new Error(`${entry.name}: implemented components cannot use planned evidence.`);
+    const { plan, decision } = metadata.preImplementation;
+    const confirmed = decisions.split('\n').some((line) => {
+      const cells = line.split('|').map((cell) => cell.trim());
+      return cells[1] === decision && cells[4] === 'CONFIRMED';
+    });
+    if (!confirmed) throw new Error(`${entry.name}: planned evidence needs a confirmed decision.`);
+    if (!metadata.sourceReferences.includes(plan))
+      throw new Error(`${entry.name}: implementation plan must be a source reference.`);
+    const planSource = await readFile(resolve(directory, entry.name, plan), 'utf8');
+    if (!planSource.trim())
+      throw new Error(`${entry.name}: implementation plan must not be empty.`);
+    plannedComponents.add(metadata.name);
+  }
+  if (
+    ['ready', 'implemented'].includes(metadata.status) &&
+    !isPlanned &&
+    metadata.stories.length === 0
+  )
     throw new Error(`${entry.name}: ready/implemented components require Storybook evidence.`);
   if (documented.has(metadata.name)) throw new Error(`Duplicate component ${metadata.name}`);
   documented.add(metadata.name);
@@ -89,7 +116,11 @@ for (const entry of await readdir(directory, { withFileTypes: true })) {
   }
   if (!usage.includes('```tsx\n'))
     throw new Error(`${entry.name}: usage guide requires a composition example.`);
-  usageGuides.push({ name: entry.name, source: usage });
+  if (isPlanned) {
+    for (const example of usage.matchAll(/```tsx\n([\s\S]*?)\n```/g))
+      parseUsageExample(entry.name, example[1]);
+  }
+  usageGuides.push({ name: entry.name, source: usage, isPlanned });
   let hasUsageImport = false;
   for (const story of metadata.stories) {
     const [title, name] = story.split(':');
@@ -106,7 +137,7 @@ for (const entry of await readdir(directory, { withFileTypes: true })) {
     storybookStories.add(`${pageId}--${storyId}`);
     hasUsageImport ||= storySource.includes(`${entry.name}/${entry.name}-usage.md?raw`);
   }
-  if (!hasUsageImport)
+  if (!hasUsageImport && !isPlanned)
     throw new Error(`${entry.name}: Storybook must load its consumer usage guide.`);
   for (const reference of metadata.sourceReferences) {
     if (!reference.startsWith('https://'))
@@ -126,16 +157,26 @@ for (const guide of usageGuides) {
       throw new Error(`${guide.name}: unknown Storybook ${link[1]} target ${link[2]}`);
   }
 }
-const exampleCount = await verifyUsageExamples(root, usageGuides);
-for (const packageName of ['core', 'layout']) {
+const exampleCount = await verifyUsageExamples(
+  root,
+  usageGuides.filter((guide) => !guide.isPlanned),
+);
+const packageNames = ['core', 'layout'];
+if (existsSync(resolve(root, 'packages/business/src/index.ts'))) packageNames.push('business');
+for (const packageName of packageNames) {
   const exports = await readFile(resolve(root, 'packages', packageName, 'src/index.ts'), 'utf8');
   const names = [...exports.matchAll(/export \{ (?:default as )?([A-Z][a-zA-Z]+) \} from/g)].map(
     (match) => match[1],
   );
-  for (const name of names)
+  for (const name of names) {
     if (!documented.has(name))
       throw new Error(`Missing specification for exported component ${name}`);
+    if (plannedComponents.has(name))
+      throw new Error(
+        `${name}: public implementations require actual story and typed-example evidence.`,
+      );
+  }
 }
 console.log(
-  `Validated ${documented.size} component specifications, usage guides, ${exampleCount} typed examples and Storybook references.`,
+  `Validated ${documented.size} component specifications, usage guides, ${exampleCount} typed examples and Storybook references; ${plannedComponents.size} approved preimplementation plans (examples syntax-checked only).`,
 );

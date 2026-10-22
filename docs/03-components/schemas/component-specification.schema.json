@@ -25,7 +25,8 @@
       "type": "string",
       "enum": [
         "@chayns-ui/core",
-        "@chayns-ui/layout"
+        "@chayns-ui/layout",
+        "@chayns-ui/business"
       ]
     },
     "category": {
@@ -93,6 +94,24 @@
       "items": {
         "type": "string",
         "minLength": 1
+      }
+    },
+    "preImplementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan",
+        "decision"
+      ],
+      "properties": {
+        "plan": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "type": "string",
+          "pattern": "^[A-Z]+-[0-9]{3}$"
+        }
       }
     }
   }

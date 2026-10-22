@@ -21,6 +21,27 @@ const applicationBindings = {
   wheelLabels: 'import("@chayns-ui/core").DateTimePickerWheelLabels',
 };
 
+/** Validate imports and syntax without pretending a proposed public API already exists. */
+export function parseUsageExample(name, code, target = ts.ScriptTarget.Latest) {
+  const parsed = ts.createSourceFile('example.tsx', code, target, true, ts.ScriptKind.TSX);
+  const imports = parsed.statements.filter(ts.isImportDeclaration);
+  if (
+    !imports.some((node) => /^@chayns-ui\/(core|layout|business)$/.test(node.moduleSpecifier.text))
+  )
+    throw new Error(`${name}: usage examples must import public components.`);
+  for (const node of imports) {
+    if (
+      !['@chayns-ui/core', '@chayns-ui/layout', '@chayns-ui/business', 'react'].includes(
+        node.moduleSpecifier.text,
+      )
+    )
+      throw new Error(`${name}: unsupported example import ${node.moduleSpecifier.text}`);
+  }
+  if (/@ts-(?:ignore|nocheck|expect-error)\b/.test(code))
+    throw new Error(`${name}: examples must typecheck without error suppression.`);
+  if (parsed.parseDiagnostics.length) throw new Error(`${name}: invalid TSX example syntax.`);
+}
+
 /** Typecheck the actual Markdown examples against the public source exports. */
 export async function verifyUsageExamples(root, guides) {
   const configuration = JSON.parse(await readFile(resolve(root, 'tsconfig.base.json'), 'utf8'));
@@ -32,6 +53,7 @@ export async function verifyUsageExamples(root, guides) {
     paths: {
       '@chayns-ui/core': [resolve(root, 'packages/core/src/index.ts')],
       '@chayns-ui/layout': [resolve(root, 'packages/layout/src/index.ts')],
+      '@chayns-ui/business': [resolve(root, 'packages/business/src/index.ts')],
     },
   };
   const sources = new Map();
@@ -39,22 +61,7 @@ export async function verifyUsageExamples(root, guides) {
     const examples = [...guide.source.matchAll(/```tsx\n([\s\S]*?)\n```/g)];
     for (const [index, example] of examples.entries()) {
       const code = example[1];
-      const parsed = ts.createSourceFile(
-        'example.tsx',
-        code,
-        options.target,
-        true,
-        ts.ScriptKind.TSX,
-      );
-      const imports = parsed.statements.filter(ts.isImportDeclaration);
-      if (!imports.some((node) => /^@chayns-ui\/(core|layout)$/.test(node.moduleSpecifier.text)))
-        throw new Error(`${guide.name}: usage examples must import public components.`);
-      for (const node of imports) {
-        if (!['@chayns-ui/core', '@chayns-ui/layout', 'react'].includes(node.moduleSpecifier.text))
-          throw new Error(`${guide.name}: unsupported example import ${node.moduleSpecifier.text}`);
-      }
-      if (/@ts-(?:ignore|nocheck|expect-error)\b/.test(code))
-        throw new Error(`${guide.name}: examples must typecheck without error suppression.`);
+      parseUsageExample(guide.name, code, options.target);
       const bindings = Object.entries(applicationBindings)
         .filter(([name]) => new RegExp(`\\b${name}\\b`).test(code))
         .map(([name, type]) => `declare const ${name}: ${type};`)
