@@ -19,4 +19,5 @@ framework or modifying workspace documents.
 An explicitly confirmed `preImplementation` decision permits planned examples to
 be syntax/import checked before a component exists, with a referenced nonempty
 acceptance/story plan. Implemented/exported components still require real stories,
-usage imports and public-example typechecks.
+usage imports and public-example typechecks. SIDEKICK-025 authorizes this phase for
+the first editor/composer/Business scope; it is not a blanket READY exemption.

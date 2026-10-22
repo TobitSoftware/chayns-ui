@@ -21,6 +21,23 @@ Screenreader- oder visueller Test. `stories` verwendet `Core/Name:Export` bezieh
 `Layout/Name:Export`. Die Markdown-Specification bleibt normativ; Frontmatter erleichtert
 Auswahl und Auffinden. Die vollständige Specification bleibt der technische Vertrag.
 
+## Approved preimplementation evidence — 2026-10-22
+
+SIDEKICK-025 explicitly accepts source/reuse evidence plus a concrete acceptance and
+Storybook plan for the first READY assessment before new public code exists.
+Metadata may use `preImplementation: { "plan": "relative-plan.md", "decision": "SIDEKICK-025" }`.
+The decision must be CONFIRMED and the nonempty local plan must also appear in
+sourceReferences. The component may not already be publicly exported or marked
+implemented. This is an explicit, scoped exception, not a general relaxation of READY.
+
+The checker validates planned usage examples for TSX syntax, supported public imports
+and absence of type-error suppression; it does not pretend to typecheck nonexistent
+exports. Real stories, usage-guide imports and public API typechecks become mandatory
+when the component is implemented/exported; remove preImplementation then. Existing
+components without this metadata keep all previous checks. Each specification and
+readiness assessment still records exact checked Bodywork sources/date/states/tokens,
+current Storybook evidence and the distinction between planned and executed checks.
+
 ## Consumer documentation in Storybook
 
 Jede Komponente erhält einen `<component>-usage.md`-Leitfaden neben ihrer
