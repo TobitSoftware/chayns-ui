@@ -94,7 +94,7 @@ describe('Tabs panel crossfade', () => {
       return frames.length;
     });
     vi.stubGlobal('cancelAnimationFrame', vi.fn());
-    const { container } = render(
+    render(
       <Tabs appearance="underline" defaultValue="one">
         <Tabs.List aria-label="Unavailable views">
           <Tabs.Tab value="one" disabled>

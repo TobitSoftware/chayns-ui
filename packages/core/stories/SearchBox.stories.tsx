@@ -98,7 +98,7 @@ const RecipientSearchBox = () => {
   );
 };
 
-const meta = {
+const meta: Meta<typeof SearchBox> = {
   title: 'Core/SearchBox',
   component: SearchBox,
   tags: ['autodocs'],
@@ -112,7 +112,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const RecipientSelection: Story = {
-  args: {} as never,
+  args: {},
   render: () => <RecipientSearchBox />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

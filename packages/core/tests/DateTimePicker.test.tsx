@@ -17,7 +17,7 @@ describe('DateTimePicker', () => {
   it('opens its wheel dialog and closes it with Escape', async () => {
     const user = userEvent.setup();
 
-    const { container } = render(
+    render(
       <DateTimePicker
         label="Uhrzeit"
         locale="de-DE"
@@ -151,7 +151,7 @@ describe('DateTimePicker', () => {
     const onChange = vi.fn<(value: Date) => void>();
     const user = userEvent.setup();
 
-    render(
+    const { container } = render(
       <DateTimePicker
         inline
         label="Termin"

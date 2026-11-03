@@ -7,3 +7,5 @@ declare module '*.tsx?raw' {
   const example: string;
   export default example;
 }
+
+declare module '*.css';
