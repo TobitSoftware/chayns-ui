@@ -222,7 +222,7 @@ const Root = forwardRef<HTMLDivElement, AppLayoutProps>(function Root(
       (child.type === Navigation || child.type === Footer || child.type === CollapseToggle),
   );
   const sidebarPartSet = new Set(sidebarParts);
-  let sidebarRendered = false;
+  const firstSidebar = childParts.find((child) => sidebarPartSet.has(child));
   return (
     <LayoutContext.Provider value={{ collapsed: isCollapsed, toggle }}>
       <div
@@ -234,8 +234,7 @@ const Root = forwardRef<HTMLDivElement, AppLayoutProps>(function Root(
       >
         {childParts.map((child) => {
           if (sidebarPartSet.has(child)) {
-            if (sidebarRendered) return null;
-            sidebarRendered = true;
+            if (child !== firstSidebar) return null;
             return (
               <aside className="chayns-app-layout__sidebar" key="sidebar">
                 {sidebarParts}
