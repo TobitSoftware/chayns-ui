@@ -1,0 +1,43 @@
+{
+  "name": "@chayns-ui/business",
+  "version": "0.0.0",
+  "description": "Business components composed from chayns UI Core",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TobitSoftware/chayns-ui.git",
+    "directory": "packages/business"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "@chayns-ui/core": "workspace:^",
+    "react": ">=18 <20"
+  },
+  "devDependencies": {
+    "@chayns-ui/core": "workspace:*"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "vite build && tsc -b tsconfig.build.json --force",
+    "clean": "node ../../tooling/clean-package.mjs business",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

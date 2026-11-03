@@ -1,8 +1,17 @@
 {
   "files": [],
   "references": [
-    { "path": "./packages/core" },
-    { "path": "./packages/layout" },
-    { "path": "./packages/tokens" }
+    {
+      "path": "./packages/core"
+    },
+    {
+      "path": "./packages/layout"
+    },
+    {
+      "path": "./packages/tokens"
+    },
+    {
+      "path": "./packages/business"
+    }
   ]
 }

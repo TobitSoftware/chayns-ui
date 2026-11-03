@@ -23,7 +23,7 @@ function valueSet(values) {
   return JSON.stringify([...values].sort());
 }
 let count = 0;
-for (const packageName of ['core', 'layout']) {
+for (const packageName of ['core', 'layout', 'business']) {
   const sourceDirectory = resolve(root, 'packages', packageName, 'src');
   const barrel = ts.createSourceFile(
     'index.ts',

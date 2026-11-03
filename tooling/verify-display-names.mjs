@@ -22,6 +22,7 @@ let count = 0;
 const files = [
   ...(await sourceFiles(resolve(root, 'packages/core/src'))),
   ...(await sourceFiles(resolve(root, 'packages/layout/src'))),
+  ...(await sourceFiles(resolve(root, 'packages/business/src'))),
   resolve(root, '.storybook/preview.tsx'),
 ];
 for (const file of files) {
