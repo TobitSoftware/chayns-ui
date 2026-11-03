@@ -16,7 +16,9 @@ export default defineConfig({
     },
     minify: false,
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: (id) =>
+        ['react', 'react-dom', 'react/jsx-runtime', 'lexical'].includes(id) ||
+        id.startsWith('@lexical/'),
       output: {
         entryFileNames: '[name].js',
         preserveModules: true,

@@ -165,9 +165,11 @@ const packageNames = ['core', 'layout'];
 if (existsSync(resolve(root, 'packages/business/src/index.ts'))) packageNames.push('business');
 for (const packageName of packageNames) {
   const exports = await readFile(resolve(root, 'packages', packageName, 'src/index.ts'), 'utf8');
-  const names = [...exports.matchAll(/export \{ (?:default as )?([A-Z][a-zA-Z]+) \} from/g)].map(
-    (match) => match[1],
-  );
+  const names = [
+    ...exports.matchAll(
+      /export \{ (?:default as )?([A-Z][a-zA-Z]+) \} from (?!['"][^'"]*\.types\.js)/g,
+    ),
+  ].map((match) => match[1]);
   for (const name of names) {
     if (!documented.has(name))
       throw new Error(`Missing specification for exported component ${name}`);

@@ -49,7 +49,8 @@
     "./slider.css": "./dist/slider.css",
     "./package.json": "./package.json",
     "./stepper.css": "./dist/stepper.css",
-    "./tooltip.css": "./dist/tooltip.css"
+    "./tooltip.css": "./dist/tooltip.css",
+    "./rich-text-editor.css": "./dist/rich-text-editor.css"
   },
   "peerDependencies": {
     "react": ">=18 <20"
@@ -64,5 +65,10 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@lexical/history": "0.52.0",
+    "@lexical/plain-text": "0.52.0",
+    "lexical": "0.52.0"
   }
 }

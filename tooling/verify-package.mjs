@@ -23,6 +23,7 @@ const packages = [
       'package/dist/slider.css',
       'package/dist/stepper.css',
       'package/dist/tooltip.css',
+      'package/dist/rich-text-editor.css',
       'package/dist/styles.css',
     ],
   },
@@ -103,7 +104,16 @@ const coreManifest = JSON.parse(
 if (Object.keys(coreManifest.peerDependencies ?? {}).join(',') !== 'react') {
   throw new Error('Core must expose React as its only peer dependency');
 }
-if (coreManifest.dependencies) throw new Error('Core must not have runtime dependencies');
+const approvedRuntime = {
+  '@lexical/history': '0.52.0',
+  '@lexical/plain-text': '0.52.0',
+  lexical: '0.52.0',
+};
+if (
+  JSON.stringify(Object.entries(coreManifest.dependencies ?? {}).sort()) !==
+  JSON.stringify(Object.entries(approvedRuntime).sort())
+)
+  throw new Error('Core runtime dependencies must exactly match the ADR 0004 Lexical exception');
 
 const layoutManifest = JSON.parse(
   readFileSync(`${repositoryRoot}/packages/layout/package.json`, 'utf8'),

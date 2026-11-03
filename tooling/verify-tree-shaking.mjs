@@ -25,7 +25,11 @@ for (const entry of ['root']) {
   if (output.includes('IconButton') || output.includes('chayns-icon-button')) {
     throw new Error(`${entry} Button-only bundle retained IconButton`);
   }
-  if (/storybook|style-dictionary|testing-library|react-dom/iu.test(output)) {
+  if (
+    /storybook|style-dictionary|testing-library|react-dom|lexical|chayns-rich-text-editor|chayns-message-composer/iu.test(
+      output,
+    )
+  ) {
     throw new Error(`${entry} bundle retained a forbidden development/runtime module`);
   }
 }

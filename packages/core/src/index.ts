@@ -141,3 +141,15 @@ export { STEPPER_PRECISIONS, StepperPrecisions } from './components/stepper/Step
 export type { StepperPrecision, StepperProps } from './components/stepper/Stepper.types.js';
 export { default as Tooltip } from './components/tooltip/Tooltip.js';
 export type { TooltipProps, TooltipTriggerProps } from './components/tooltip/Tooltip.types.js';
+
+export { default as RichTextEditor } from './components/rich-text-editor/RichTextEditor.js';
+export { RichTextNodeTypes } from './components/rich-text-editor/RichTextEditor.types.js';
+export type {
+  RichTextNode,
+  RichTextDocument,
+  MentionItem,
+  MentionQuery,
+  MentionResults,
+  RichTextEditorCommands,
+  RichTextEditorProps,
+} from './components/rich-text-editor/RichTextEditor.types.js';

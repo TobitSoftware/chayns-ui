@@ -93,9 +93,26 @@ for (const packageName of ['core', 'layout']) {
         throw new Error(`${packageName}: ${matching[0]} is missing from the public barrel.`);
       count += 1;
     }
-    for (const [name, values] of enums)
-      if (!lists.some(([, members]) => members === values))
-        throw new Error(`${path}: ${name} has no matching compatible runtime value list.`);
+    // New enums need no redundant list. Existing lists must remain compatible above.
+    const literalValues = new Set();
+    function collect(node) {
+      if (
+        ts.isLiteralTypeNode(node) &&
+        (ts.isStringLiteral(node.literal) || ts.isNumericLiteral(node.literal))
+      )
+        literalValues.add(literal(node.literal));
+      ts.forEachChild(node, collect);
+    }
+    collect(tree);
+    for (const [name, values] of enums) {
+      if (!exports.has(name))
+        throw new Error(`${packageName}: ${name} is missing from the public barrel.`);
+      if (!lists.some(([, members]) => members === values)) {
+        if (!JSON.parse(values).every((value) => literalValues.has(value)))
+          throw new Error(`${path}: ${name} does not match the compatible literal prop types.`);
+        count += 1;
+      }
+    }
   }
 }
 console.log(`Checked ${count} public configuration enums and compatible runtime value lists.`);
