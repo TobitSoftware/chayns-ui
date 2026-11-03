@@ -18,6 +18,10 @@ const applicationBindings = {
   date: 'Date | null',
   setDate: '(value: Date) => void',
   locale: 'string',
+  composerLabels: 'import("@chayns-ui/core").ComposerLabels',
+  consumeDraft: '(draft: import("@chayns-ui/core").RichTextDocument) => void',
+  saveDraftForRetry: '(draft: import("@chayns-ui/business").SideKickDraft) => void',
+  sendSavedDraft: '(draft: import("@chayns-ui/business").SideKickDraft) => void',
   wheelLabels: 'import("@chayns-ui/core").DateTimePickerWheelLabels',
 };
 

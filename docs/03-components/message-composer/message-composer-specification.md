@@ -26,12 +26,20 @@
     "../sidekick-input/sidekick-input-visual-contract.md",
     "../sidekick-input/sidekick-input-acceptance-plan.md"
   ],
-  "checkedOn": "2026-10-22",
-  "stories": [],
-  "preImplementation": {
-    "plan": "../sidekick-input/sidekick-input-acceptance-plan.md",
-    "decision": "SIDEKICK-025"
-  }
+  "checkedOn": "2026-10-23",
+  "stories": [
+    "Core/MessageComposer:DictationRecording",
+    "Core/MessageComposer:DictationPaused",
+    "Core/MessageComposer:DictationCancel",
+    "Core/MessageComposer:DictationDisabled",
+
+    "Core/MessageComposer:TwoLine",
+    "Core/MessageComposer:OneLine",
+    "Core/MessageComposer:PromptActions",
+    "Core/MessageComposer:AddMenu",
+    "Core/MessageComposer:DictationLifecycle",
+    "Core/MessageComposer:VoiceLifecycle"
+  ]
 }
 ---
 # MessageComposer — Component Specification
@@ -41,17 +49,16 @@
 - Component Category: Core
 - Specification Status: READY FOR IMPLEMENTATION
 - Owner / Responsible Area: chayns UI; product/design acceptance by the requesting user
-- Design Reference: Bodywork / Muster / KI & Sidekick; checked 2026-10-22
-- Relevant Decisions: SIDEKICK-001–026, CORE native-prop/composition/a11y/i18n rules, ADR 0004
+- Design Reference: Bodywork / Muster / KI & Sidekick; checked 2026-10-23
+- Relevant Decisions: SIDEKICK-001–030, CORE native-prop/composition/a11y/i18n rules, ADR 0004
 - Foundation Dependencies: existing spacing/density/type/color/focus/overlay patterns;
   scoped token transfer and Lexical integration described in the shared contracts
 - Related Components: RichTextEditor, Button, Avatar, Spinner
-- Last Reviewed: 2026-10-22 (specification/source review; no implementation test claim)
+- Last Reviewed: 2026-10-23 (implementation evidence recorded separately; manual acceptance pending)
 
 SIDEKICK-025 accepts the complete technical/API/distribution/evidence contract
 (R-01). SIDEKICK-026 accepts the bounded functional-first visual treatment (R-02 /
-V-01). These contracts are now normative. Imports in examples remain unavailable
-until implementation; planned tests are not executed evidence. READY authorizes
+V-01). These contracts are now normative. Public exports and executable stories are now implemented. Test evidence and remaining manual checks are recorded in the implementation report. READY authorizes
 only the component-specific scope described here, not unrelated features or release.
 
 ## Purpose
@@ -71,7 +78,7 @@ Do not use for an ordinary labelled form field or for domain services/agent pers
 ## Related Components and Selection Boundaries
 
 The alternatives above are available existing components where implemented; the new
-RichTextEditor/MessageComposer contracts are accepted and not yet implemented. Use the
+RichTextEditor/MessageComposer contracts are implemented. Use the
 smallest component that owns the needed behavior. Business consumes Core only.
 
 ## Anatomy, Composition and Context Dependencies
@@ -140,9 +147,9 @@ adds none. Existing necessary Spinner behavior remains governed by its specifica
 ## Internationalization and Content Contract
 
 All UI, status, error, accessible and item names are already localized consumer data.
-Core has no textstring IDs or translation library; no default language/locale,
-recognition language, timezone, sorting or RTL behavior is inferred. Dictation
-language is explicit. Long strings wrap/scroll without reducing local typography.
+Core has no textstring IDs or translation library; no default locale, timezone, sorting or RTL behavior is inferred. Dictation
+language follows the explicit HTML-lang/browser fallback and optional override
+confirmed in SIDEKICK-028. Long strings wrap/scroll without reducing local typography.
 The full-label accessible name is retained when the visible selector uses shortLabel.
 
 ## Responsive, Layout and Container Interaction
@@ -231,7 +238,7 @@ not an unresolved functional requirement. New ambiguities stop the affected step
 - Semantic / Keyboard / Focus / Accessibility Contract Complete: yes
 - State Matrix / Density / Motion / Internationalization Contract Complete: yes
 - Test / Visual Verification Contract Complete: yes; execution required during implementation
-- Storybook Evidence: existing Core reuse plus approved preimplementation plan; no new stories executed
+- Storybook Evidence: executable public-import stories listed in metadata; see [implementation report](../sidekick-input/sidekick-input-implementation-report.md) for checks and pending manual acceptance.
 - Open Implementation Blockers: 0
 - Specification Status: READY FOR IMPLEMENTATION
 - Detailed gate: [readiness assessment](../sidekick-input/sidekick-input-readiness-assessment.md)
@@ -243,3 +250,13 @@ readiness assessment before code. An implementation-discovered ambiguity stops t
 affected step. Changes to APIs, serialization, event order, semantics, focus, package
 boundaries, tokens or visual exceptions require renewed scoped review and matching
 test/story/type/usage updates. A partially implemented component is not authorization.
+
+## Implementation evidence
+
+See the [implementation report](../sidekick-input/sidekick-input-implementation-report.md).
+READY remains the authorized implementation scope; manual acceptance and final visual approval are not implied by the presence of public exports.
+
+
+The 2026-10-23 capture/default revision in shared contract section 9 is normative
+(SIDEKICK-028–030). Dictation is enabled by default when supported; Voice requires
+a stream callback. Active dictation uses Cancel, microphone Pause/Resume and Check.

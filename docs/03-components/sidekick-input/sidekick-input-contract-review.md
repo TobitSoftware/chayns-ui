@@ -344,14 +344,14 @@ export enum ComposerVoiceStates {
 }
 export type ComposerVoiceState = 'idle' | 'connecting' | 'connected' | 'error';
 export interface DictationOptions {
-  readonly language: string;
+  readonly language?: string;
   readonly disabled?: boolean;
 }
 export interface VoiceOptions {
   readonly disabled?: boolean;
-  readonly state: ComposerVoiceState;
+  readonly state?: ComposerVoiceState;
   readonly onStream: (stream: MediaStream) => void;
-  readonly onEnd: () => void;
+  readonly onEnd?: () => void;
   readonly error?: string;
 }
 export enum ComposerCaptureSources { Dictation = 'dictation', Voice = 'voice' }
@@ -375,7 +375,10 @@ audio player, encoded chunks or speech polyfill is included.
    Start only after user action when enabled, idle and projected text is empty.
 2. Capture the current language for the session; configure interimResults and
    continuous recognition. Native permission/errors may still fail after detection.
-   A changed language cancels the old recognition; no implicit language fallback.
+   An explicit override change cancels the old recognition. Language resolution follows
+   SIDEKICK-028: optional dictation.language, otherwise editor/ancestor/document HTML
+   lang, otherwise navigator.language. Capture this resolved language for the session;
+   resume reuses it. No hardcoded language or locale is introduced.
 3. The session owns committed text plus the current provisional suffix. Emit live
    controlled values containing provisional text; a revised result replaces its
    suffix instead of being appended again. Final results replace/commit that suffix.
@@ -422,7 +425,8 @@ not update React state or emit new document values. Mute cannot start transport.
 ## 6. Labels and localization
 
 All labels are complete resolved strings supplied by the consumer. Core knows no
-textstring IDs and never derives recognition language or RTL from UI language.
+textstring IDs. Recognition language follows SIDEKICK-028; no RTL or other locale
+setting is inferred from it.
 
 ```ts
 export interface ComposerLabels {
@@ -433,6 +437,7 @@ export interface ComposerLabels {
   readonly pauseDictation: string;
   readonly resumeDictation: string;
   readonly endDictation: string;
+  readonly cancelDictation: string;
   readonly dictationStarting: string;
   readonly dictationListening: string;
   readonly dictationPausing: string;
@@ -546,3 +551,53 @@ for preimplementation READY. Actual public-example typechecks, real new stories,
 package/browser/device and manual evidence are mandatory during implementation
 completion. preImplementation metadata identifies this phase; it must be removed
 when public implementation evidence is available. No planned result is called passed.
+
+
+## 9. Confirmed 2026-10-23 capture and default revision — READY
+
+SIDEKICK-028–030 amend the earlier capture presentation/defaults. The live design
+recheck is recorded in sidekick-input-design-recheck.md. All three focused user
+answers are recorded; no interpretation question remains for this revision.
+
+- Omitted dictation enables supported native recognition by default. Existing
+  dictation.disabled=true hides it. An explicitly supplied language must be nonempty;
+  omitted language uses HTML lang / browser language as described above.
+- Voice is hidden without voice.onStream. Within the existing optional voice object,
+  only onStream is required; state defaults to idle and onEnd is optional. Without
+  an external connected state, active capture is announced as connecting. Existing
+  voice.disabled remains compatible, but no new visibility property is introduced.
+- Starting/listening microphone: accent/on-accent, accessible pause name. Starting
+  and listening allow Pause. Paused microphone: existing disabled-bg with text;
+  it stays an enabled native button with the resume name (not aria-disabled).
+  aria-pressed distinguishes listening from paused; the status sentence also names
+  the state. No meaning is conveyed by gray alone.
+- Pausing/ending: microphone disabled while final events settle. Check is enabled
+  during starting/listening/paused, disabled while pausing/ending; its existing
+  endDictation label is presented as accepting the dictation. X remains enabled in
+  all session states. No aria-haspopup/expanded remains on the cancel action.
+- X is present at the left even without add-menu actions, uses cancelDictation,
+  aborts recognition, invalidates late events and restores the normalized document
+  from before this session (empty or insignificant whitespace). It clears the
+  canceled history boundary, unlocks and focuses the editor. It neither sends nor
+  removes attachments. External replacement/disabled/unmount cleanup never restores
+  the old document over newer consumer data.
+- Check calls stop and accepts final recognition results under the existing stop
+  deadline/provisional-result rules. It unlocks/focuses the editor without sending.
+  Pause retains the finalized text; Resume appends, not replaces it.
+- Visible action geometry remains source k28/k30, with the existing 24px minimum.
+  X is a 45-degree plus; microphone k14; check k14, outlined/transparent with text
+  and sk-chip-border. Active microphone uses accent/on-accent; paused uses existing
+  disabled-bg/text. These reuse existing tokens, not new semantic colors.
+- Dictation status is announced through the existing polite live region, visually
+  hidden so its text does not add a new row to the specified composer geometry.
+  Error text remains visible. Voice's functional-first controls/status remain as
+  previously authorized; final voice-connected design remains deferred.
+- Native buttons support Enter/Space, disabled transition buttons are inert, focus
+  stays on the microphone across pause/resume; accept/cancel restore editor focus.
+  Focus indicators, forced colors and reduced motion apply to all three actions.
+- Browser stories must cover default availability, explicit disabling, language
+  inheritance/override, cancel with late events, pause/resume/accept and one undo
+  boundary. A full Business example demonstrates real consumer-owned attachments,
+  prompts, agent/model menus, optional voice and optimistic send. Deterministic
+  recognition examples are identified as simulated; the ordinary example uses real
+  browser APIs.

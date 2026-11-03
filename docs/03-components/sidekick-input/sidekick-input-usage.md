@@ -1,8 +1,6 @@
-# SideKickInput — Verwendung (vor Implementierung)
+# SideKickInput — Verwendung
 
-Status: READY FOR IMPLEMENTATION. Die folgenden Imports/Props sind bestätigt,
-aber noch nicht implementiert und daher noch nicht verfügbar. Dieses Beispiel ist Consumer-Dokumentation vor Implementierung, kein
-Nachweis gegen bereits veröffentlichte Typen.
+Status: implementiert im freigegebenen READY-Scope. Testnachweise und noch ausstehende manuelle Prüfungen stehen im [gemeinsamen Implementierungsbericht](../sidekick-input/sidekick-input-implementation-report.md).
 
 ## Einsatz
 
@@ -14,7 +12,7 @@ Für eine allgemeine Nachrichteneingabe ist MessageComposer vorgesehen. SideKick
 
 ## Alternativen
 
-MessageComposer für fachlich neutrale Komposition mit eigener Anwendungssteuerung. Beide neuen Komponenten sind erst nach Umsetzung verfügbar.
+MessageComposer für fachlich neutrale Komposition mit eigener Anwendungssteuerung.
 
 ## Gut kombinierbar
 
@@ -22,7 +20,7 @@ MessageComposer liefert intern die gesamte UI. Die Anwendung ergänzt ihre Diens
 
 ## Verwendung
 
-Die kleinste geplante Verwendung zeigt kontrollierten Inhalt und eine explizite
+Die kleinste Verwendung zeigt kontrollierten Inhalt und eine explizite
 zugängliche Beschriftung. Anwendungsbeispiele ersetzen die Texte später durch ihre
 aufgelösten Textstrings. `composerLabels` enthält alle bereits aufgelösten vollständigen Texte des Labels-Vertrags. `saveDraftForRetry` und `sendSavedDraft` sind Consumer-Funktionen. Die erste sichert den gesamten Snapshot; die zweite behandelt ihre asynchronen Fehler selbst.
 
@@ -56,3 +54,12 @@ function SideKickComposer() {
 ## Besonderheiten
 
 onSend erhält zuerst einen unabhängigen Snapshot; danach fordert die Komponente die kontrollierte Leerung an. Der Consumer sichert fehlgeschlagene Entwürfe und aktualisiert seine Attachment-Liste. Prompt-Chips verwenden eine eigene Aktion und leeren keinen Entwurf. Recents, Agent und Layout bleiben kontrolliert. Funktionale Audio-/Zusatzdarstellung ist noch keine finale Designfreigabe.
+
+
+### Standardfunktionen und Beispiele
+
+Diktieren ist bei leerem Feld und Browserunterstützung ohne zusätzliche Konfiguration verfügbar. `dictation={{ disabled: true }}` blendet es aus; `dictation={{ language: 'de-DE' }}` überschreibt die automatisch aufgelöste Sprache. Ohne Override gilt HTML-lang des Editors beziehungsweise seiner Umgebung, danach die Browsersprache.
+
+Voice wird nur angeboten, wenn der Consumer `voice={{ onStream: handleStream }}` übergibt. Der Consumer kann zusätzlich `state` und `onEnd` liefern, um Verbindung und Beenden an seinen Transport zu koppeln. Ohne Callback gibt es weder einen Voice-Button noch Mikrofonzugriff dafür.
+
+Business/SideKickInput:Default zeigt die vollständige Oberfläche mit nativen Browser-APIs, externen Prompt-Aktionen, Agent-/Modellwahl und Consumer-eigenem Dateidialog. Attachments zeigt vorausgelieferte Items sowie Auswahl, Entfernen und Snapshot-Übergabe beim Versand. Dateien und Upload bleiben beim Consumer; innerhalb des Feldes übernimmt Core die Anordnung und Entfernen-Steuerung.

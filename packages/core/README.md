@@ -13,7 +13,7 @@ ausdrücklich importiert, damit Tree-Shaking nur das Genutzte ins Bundle nimmt.
 pnpm add @chayns-ui/core @chayns-ui/tokens react
 ```
 
-`react >= 19.2` ist eine Peer Dependency. `@chayns-ui/tokens` liefert die
+`react >=18 <20` ist eine Peer Dependency. `@chayns-ui/tokens` liefert die
 Design-Token-Basis.
 
 ## Verwendung
@@ -44,6 +44,8 @@ import '@chayns-ui/core/button.css';
 | `Accordion`, `AccordionGroup` | `@chayns-ui/core/accordion.css` |
 | `Popup`, `PopupList` | `@chayns-ui/core/popup.css` |
 | `SplitButton` | `@chayns-ui/core/split-button.css` |
+| `RichTextEditor` | `@chayns-ui/core/rich-text-editor.css` |
+| `MessageComposer` | `@chayns-ui/core/message-composer.css` |
 
 Alternativ lädt `@chayns-ui/core/styles.css` das gebündelte CSS aller Komponenten.
 
@@ -61,3 +63,9 @@ des Core-Vertrags. `Badge` ist ein statischer Statusindikator, während
 Die Bibliothek lädt keine Fonts, injiziert kein CSS und kalibriert keine
 Accent-Farbe zur Laufzeit. Farb-, Dichte- und Motion-Eingaben kommen aus den
 Design Tokens der Anwendung.
+
+RichTextEditor verwendet ein kontrolliertes, versioniertes Dokument mit Text,
+Zeilenumbrüchen und atomaren Erwähnungen. MessageComposer ergänzt externe Items,
+Aktionen, Vorschläge und native Audioaufnahme. Lexical ist ein interner Adapter;
+Datenbeschaffung, Nachrichtentransport und Voice-Verbindung bleiben beim Consumer.
+Die fachliche Sidekick-Komposition ist in `@chayns-ui/business` enthalten.

@@ -300,3 +300,8 @@ Existing Bodywork demo omissions are not accepted library behavior. SIDEKICK-012
 explicitly allows functional-first audio UI with final styling deferred; it is not
 blanket permission to guess missing functional/API/accessibility decisions. The normative specifications and READY assessment now close the relevant functional
 OPEN items and record the bounded implementation scope. Final design and release checks remain a later step.
+
+
+2026-10-23 follow-up: the earlier explicit-language requirement is superseded by
+SIDEKICK-028. The current capture/default contract is section 9 of
+sidekick-input-contract-review.md; live findings are in sidekick-input-design-recheck.md.

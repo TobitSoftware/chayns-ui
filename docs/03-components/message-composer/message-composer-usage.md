@@ -1,8 +1,6 @@
-# MessageComposer — Verwendung (vor Implementierung)
+# MessageComposer — Verwendung
 
-Status: READY FOR IMPLEMENTATION. Die folgenden Imports/Props sind bestätigt,
-aber noch nicht implementiert und daher noch nicht verfügbar. Dieses Beispiel ist Consumer-Dokumentation vor Implementierung, kein
-Nachweis gegen bereits veröffentlichte Typen.
+Status: implementiert im freigegebenen READY-Scope. Testnachweise und noch ausstehende manuelle Prüfungen stehen im [gemeinsamen Implementierungsbericht](../sidekick-input/sidekick-input-implementation-report.md).
 
 ## Einsatz
 
@@ -14,7 +12,7 @@ Für ein gewöhnliches Formularfeld TextArea verwenden. Für fachliche Sidekick-
 
 ## Alternativen
 
-RichTextEditor allein für Text mit Erwähnungen ohne Composer-Oberfläche; TextArea für einfache Formulartexte. Neue Editor-/Composer-Komponenten sind noch nicht implementiert.
+RichTextEditor allein für Text mit Erwähnungen ohne Composer-Oberfläche; TextArea für einfache Formulartexte.
 
 ## Gut kombinierbar
 
@@ -22,7 +20,7 @@ RichTextEditor wird intern verwendet. Button, Avatar und Spinner liefern passend
 
 ## Verwendung
 
-Die kleinste geplante Verwendung zeigt kontrollierten Inhalt und eine explizite
+Die kleinste Verwendung zeigt kontrollierten Inhalt und eine explizite
 zugängliche Beschriftung. Anwendungsbeispiele ersetzen die Texte später durch ihre
 aufgelösten Textstrings. `composerLabels` enthält alle bereits aufgelösten vollständigen Texte des Labels-Vertrags. `consumeDraft` ist eine Anwendungsaktion; dieser generische Core-Baustein leert den Entwurf nicht selbst.
 
@@ -52,4 +50,7 @@ function GenericComposer() {
 
 ## Besonderheiten
 
-Native Props/Ref gehen an den Editor; rootProps adressiert ausdrücklich die äußere Hülle. Collections sind extern kontrolliert. Diktierung benötigt eine explizite Erkennungssprache und eine unterstützte Browser-API; Voice gibt einen lebenden MediaStream aus und beendet eigene Tracks. Während aktiver oder pausierter Diktierung bleibt der Editor gesperrt. Alle Texte kommen aufgelöst vom Consumer.
+Native Props/Ref gehen an den Editor; rootProps adressiert ausdrücklich die äußere Hülle. Collections sind extern kontrolliert. Diktierung ist bei leerem Feld und unterstützter Browser-API standardmäßig verfügbar. Mit `dictation={{ disabled: true }}` wird sie ausgeblendet. `dictation.language` überschreibt optional die HTML-/Browsersprache. Voice erscheint nur mit `voice={{ onStream: handleStream }}`; die Komponente gibt einen lebenden MediaStream aus und beendet eigene Tracks. `voice.state` und `voice.onEnd` sind optional. Während aktiver oder pausierter Diktierung bleibt der Editor gesperrt. Alle Texte kommen aufgelöst vom Consumer.
+
+
+X verwirft die gesamte Diktier-Sitzung; der Haken übernimmt den finalen Text ohne Versand. Das Mikrofon pausiert und setzt fort. Die Core-Stories DictationRecording und DictationPaused zeigen diese Zustände mit ausdrücklich simulierter Browser-Erkennung.

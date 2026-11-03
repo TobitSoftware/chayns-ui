@@ -129,3 +129,37 @@ configuration changed. Their required acceptance remains in the plan.
 
 This assessment completes the requested specification/READY task. It does not start
 production implementation, install dependencies, change token output or publish code.
+
+## Implementation follow-up — 2026-10-23
+
+The authorized implementation and executable stories are now present. See the
+[implementation report](../sidekick-input/sidekick-input-implementation-report.md)
+for automated evidence, existing workspace failures and outstanding manual/design
+acceptance. The preceding READY assessment records authorization, not a release approval.
+
+The 2026-10-23 main-story recheck corrects Core TwoLine to the full Bodywork
+composition and forwards Business Default args for capture configuration. The
+design recheck records the source/token mapping, full-composition recognition
+states and 27 passing affected browser stories; manual/release gaps remain explicit.
+
+
+## Capture/default revision — 2026-10-23
+
+**READY** within SIDEKICK-028–030 and section 9 of the shared contract. The user
+confirmed cancel/discard and automatic recognition language, and chose hiding
+Voice when no stream callback exists. The checked reference, actual interactions,
+source token mapping and acceptance gaps are in the live design recheck. The new
+state design replaces generic dictation text buttons; it adds no dependencies.
+All capture revision implementation questions are resolved. Real-device speech,
+screenreader and final visual acceptance remain execution requirements.
+
+
+## Quality follow-up — 2026-10-26
+
+The [quality audit](../sidekick-input/sidekick-input-quality-audit.md) records the
+checked live reference states, source token mapping, 24 geometry comparisons,
+42 passing editor/composer/Business browser stories and targeted motion, reflow,
+focus and performance corrections. The existing READY scope is unchanged. Final
+functional-first designer styling and the documented manual device/screenreader/
+zoom acceptance remain execution and release obligations, not silently completed
+gates or newly invented component decisions.

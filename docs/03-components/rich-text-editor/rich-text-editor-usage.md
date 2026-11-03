@@ -1,8 +1,6 @@
-# RichTextEditor — Verwendung (vor Implementierung)
+# RichTextEditor — Verwendung
 
-Status: READY FOR IMPLEMENTATION. Die folgenden Imports/Props sind bestätigt,
-aber noch nicht implementiert und daher noch nicht verfügbar. Dieses Beispiel ist Consumer-Dokumentation vor Implementierung, kein
-Nachweis gegen bereits veröffentlichte Typen.
+Status: implementiert im freigegebenen READY-Scope. Testnachweise und noch ausstehende manuelle Prüfungen stehen im [gemeinsamen Implementierungsbericht](../sidekick-input/sidekick-input-implementation-report.md).
 
 ## Einsatz
 
@@ -22,7 +20,7 @@ MessageComposer nutzt den Editor intern. Externe Suche liefert zum aktuellen Que
 
 ## Verwendung
 
-Die kleinste geplante Verwendung zeigt kontrollierten Inhalt und eine explizite
+Die kleinste Verwendung zeigt kontrollierten Inhalt und eine explizite
 zugängliche Beschriftung. Anwendungsbeispiele ersetzen die Texte später durch ihre
 aufgelösten Textstrings.
 
