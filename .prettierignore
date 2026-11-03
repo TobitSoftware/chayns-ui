@@ -14,3 +14,5 @@ tooling/README.md
 .node-version
 .npmrc
 .prettierignore
+
+.gitnexus/
