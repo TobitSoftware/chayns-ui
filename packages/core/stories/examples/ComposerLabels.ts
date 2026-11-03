@@ -1,0 +1,25 @@
+import type { ComposerLabels } from '@chayns-ui/core';
+
+export const composerLabels: ComposerLabels = {
+  add: 'Hinzufügen',
+  selector: 'KI-Kontext',
+  send: 'Senden',
+  startDictation: 'Diktieren',
+  pauseDictation: 'Diktierung pausieren',
+  resumeDictation: 'Diktierung fortsetzen',
+  endDictation: 'Diktierung übernehmen',
+  cancelDictation: 'Diktierung verwerfen',
+  dictationStarting: 'Diktierung wird gestartet.',
+  dictationListening: 'Diktierung läuft. Die Texteingabe ist gesperrt.',
+  dictationPausing: 'Letzte Sprachergebnisse werden übernommen.',
+  dictationPaused: 'Diktierung pausiert. Die Texteingabe bleibt gesperrt.',
+  dictationEnding: 'Diktierung wird beendet.',
+  startVoice: 'Voice-Chat starten',
+  endVoice: 'Voice-Chat beenden',
+  muteVoice: 'Mikrofon stummschalten',
+  unmuteVoice: 'Mikrofon einschalten',
+  voiceRequesting: 'Mikrofonfreigabe wird angefragt.',
+  voiceConnecting: 'Voice-Chat wird verbunden.',
+  voiceConnected: 'Voice-Chat verbunden.',
+  captureError: (error) => `Die Audioaufnahme konnte nicht fortgesetzt werden (${error.code}).`,
+};

@@ -24,6 +24,7 @@ const packages = [
       'package/dist/stepper.css',
       'package/dist/tooltip.css',
       'package/dist/rich-text-editor.css',
+      'package/dist/message-composer.css',
       'package/dist/styles.css',
     ],
   },

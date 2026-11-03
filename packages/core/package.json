@@ -50,7 +50,8 @@
     "./package.json": "./package.json",
     "./stepper.css": "./dist/stepper.css",
     "./tooltip.css": "./dist/tooltip.css",
-    "./rich-text-editor.css": "./dist/rich-text-editor.css"
+    "./rich-text-editor.css": "./dist/rich-text-editor.css",
+    "./message-composer.css": "./dist/message-composer.css"
   },
   "peerDependencies": {
     "react": ">=18 <20"

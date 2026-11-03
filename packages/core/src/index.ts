@@ -153,3 +153,24 @@ export type {
   RichTextEditorCommands,
   RichTextEditorProps,
 } from './components/rich-text-editor/RichTextEditor.types.js';
+export { default as MessageComposer } from './components/message-composer/MessageComposer.js';
+export {
+  MessageComposerLayouts,
+  ComposerVoiceStates,
+  ComposerCaptureSources,
+} from './components/message-composer/MessageComposer.types.js';
+export type {
+  MessageComposerLayout,
+  ComposerAction,
+  ComposerSnippet,
+  ComposerAttachment,
+  ComposerSelectionItem,
+  ComposerSelectionGroup,
+  ComposerSelector,
+  MessageComposerProps,
+  ComposerVoiceState,
+  DictationOptions,
+  VoiceOptions,
+  ComposerCaptureError,
+  ComposerLabels,
+} from './components/message-composer/MessageComposer.types.js';
