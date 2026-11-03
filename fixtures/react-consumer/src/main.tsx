@@ -1,3 +1,4 @@
+import SideKickExample from './SideKickExample.js';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Button } from '@chayns-ui/core';
@@ -11,6 +12,7 @@ if (!root) throw new Error('Missing consumer root');
 
 createRoot(root).render(
   <StrictMode>
+    <SideKickExample />
     <Button icon="fa-plus" variant="primary">
       Packed consumer
     </Button>

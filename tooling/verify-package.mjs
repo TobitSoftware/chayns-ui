@@ -41,6 +41,14 @@ const packages = [
     ],
   },
   {
+    directory: 'packages/business',
+    expected: [
+      'package/dist/index.js',
+      'package/dist/index.d.ts',
+      'package/dist/components/sidekick-input/SideKickInput.js',
+    ],
+  },
+  {
     directory: 'packages/tokens',
     expected: [
       'package/dist/baseline.css',
@@ -54,11 +62,13 @@ const packages = [
 ];
 let coreTarball;
 let layoutTarball;
+let businessTarball;
 
 for (const packageDefinition of packages) {
   const tarball = packPackage(packageDefinition.directory, temporaryDirectory);
   if (packageDefinition.directory === 'packages/core') coreTarball = tarball;
   if (packageDefinition.directory === 'packages/layout') layoutTarball = tarball;
+  if (packageDefinition.directory === 'packages/business') businessTarball = tarball;
   const entries = execFileSync('tar', ['-tzf', tarball], { encoding: 'utf8' }).trim().split('\n');
 
   for (const expected of packageDefinition.expected) {
@@ -115,6 +125,38 @@ if (
   JSON.stringify(Object.entries(approvedRuntime).sort())
 )
   throw new Error('Core runtime dependencies must exactly match the ADR 0004 Lexical exception');
+
+const businessManifest = JSON.parse(
+  readFileSync(`${repositoryRoot}/packages/business/package.json`, 'utf8'),
+);
+if (
+  Object.keys(businessManifest.peerDependencies ?? {})
+    .sort()
+    .join(',') !== '@chayns-ui/core,react' ||
+  businessManifest.dependencies
+)
+  throw new Error('Business must depend only on Core and React peers');
+run('corepack', [
+  'pnpm',
+  'exec',
+  'publint',
+  'run',
+  'packages/business',
+  '--strict',
+  '--pack=false',
+]);
+if (!businessTarball) throw new Error('Business tarball was not created');
+run('corepack', [
+  'pnpm',
+  'exec',
+  'attw',
+  businessTarball,
+  '--profile',
+  'esm-only',
+  '--no-definitely-typed',
+  '--entrypoints',
+  '.',
+]);
 
 const layoutManifest = JSON.parse(
   readFileSync(`${repositoryRoot}/packages/layout/package.json`, 'utf8'),
