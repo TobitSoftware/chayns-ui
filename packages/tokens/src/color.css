@@ -19,6 +19,14 @@
 }
 
 :is(.theme-light, .theme-auto) {
+  --sk-input-border: var(--text-3);
+  --sk-chip-border: var(--text-3);
+  --tint: color-mix(in srgb, var(--accent) 14%, #fff);
+  --sk-input-bg: rgb(255 255 255 / 80%);
+  --sk-input-shadow: 0 4px 10px rgb(0 0 0 / 10%);
+  --sk-agent-bg: #f7f7f7;
+  --sk-avatar-border: rgb(0 0 0 / 25%);
+  --sk-placeholder: var(--text-3);
   --page: #f4f6f6;
   --surface: #fff;
   --surface-2: #fbfcfc;
@@ -115,6 +123,9 @@
 }
 
 :is(.theme-light, .theme-auto).theme-high-contrast {
+  --sk-input-bg: var(--surface);
+  --sk-agent-bg: var(--surface);
+  --sk-avatar-border: var(--text);
   --page: #fff;
   --surface: #fff;
   --surface-2: #fff;
@@ -154,6 +165,14 @@
 }
 
 .theme-dark {
+  --sk-input-border: var(--text-3);
+  --sk-chip-border: var(--text-3);
+  --sk-input-bg: rgb(22 36 42 / 80%);
+  --sk-input-shadow: 0 4px 10px rgb(0 0 0 / 35%);
+  --sk-agent-bg: #22333a;
+  --tint: color-mix(in srgb, #1a3138 88%, var(--accent));
+  --sk-avatar-border: rgb(255 255 255 / 25%);
+  --sk-placeholder: var(--text-3);
   --page: #0e171b;
   --surface: #172329;
   --surface-2: #131e22;
@@ -250,6 +269,10 @@
 }
 
 .theme-dark.theme-high-contrast {
+  --tint: color-mix(in srgb, #1a3138 93%, var(--accent));
+  --sk-input-bg: var(--surface);
+  --sk-agent-bg: var(--surface);
+  --sk-avatar-border: var(--text);
   --page: #000;
   --surface: #000;
   --surface-2: #000;
@@ -322,6 +345,14 @@
 
 @media (prefers-color-scheme: dark) {
   .theme-auto {
+    --sk-input-border: var(--text-3);
+    --sk-chip-border: var(--text-3);
+    --sk-input-bg: rgb(22 36 42 / 80%);
+    --sk-input-shadow: 0 4px 10px rgb(0 0 0 / 35%);
+    --sk-agent-bg: #22333a;
+    --tint: color-mix(in srgb, #1a3138 88%, var(--accent));
+    --sk-avatar-border: rgb(255 255 255 / 25%);
+    --sk-placeholder: var(--text-3);
     --page: #0e171b;
     --surface: #172329;
     --surface-2: #131e22;
@@ -418,6 +449,10 @@
   }
 
   .theme-auto.theme-high-contrast {
+    --tint: color-mix(in srgb, #1a3138 93%, var(--accent));
+    --sk-input-bg: var(--surface);
+    --sk-agent-bg: var(--surface);
+    --sk-avatar-border: var(--text);
     --page: #000;
     --surface: #000;
     --surface-2: #000;
