@@ -9,7 +9,9 @@
     "url": "git+https://github.com/TobitSoftware/chayns-ui.git",
     "directory": "packages/business"
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "files": [
     "dist",
     "LICENSE",
@@ -20,7 +22,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./markdown-editor.css": "./dist/markdown-editor.css"
   },
   "peerDependencies": {
     "@chayns-ui/core": "workspace:^",
@@ -33,11 +36,17 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "vite build && tsc -b tsconfig.build.json --force",
+    "build": "vite build && node ../../tooling/copy-business-css.mjs && tsc -b tsconfig.build.json --force",
     "clean": "node ../../tooling/clean-package.mjs business",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@tiptap/core": "3.33.0",
+    "@tiptap/markdown": "3.33.0",
+    "@tiptap/react": "3.33.0",
+    "@tiptap/starter-kit": "3.33.0"
   }
 }

@@ -1,0 +1,20 @@
+.chayns-markdown-editor__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1, 4px);
+}
+
+.chayns-markdown-editor__toolbar button {
+}
+
+.chayns-markdown-editor__content .tiptap {
+  min-height: 1.5em;
+  outline: none;
+  white-space: pre-wrap;
+}
+
+.chayns-markdown-editor__content .tiptap:empty::before {
+  content: attr(data-placeholder);
+  opacity: 0.6;
+  pointer-events: none;
+}
