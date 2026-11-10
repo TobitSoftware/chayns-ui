@@ -9,5 +9,3 @@ declare module '*.tsx?raw' {
 }
 
 declare module '*.css';
-
-declare module '*.css';

@@ -3,6 +3,7 @@ import './markdown-editor.css';
 import StarterKit from '@tiptap/starter-kit';
 import { Markdown } from '@tiptap/markdown';
 import {
+  Fragment,
   forwardRef,
   useEffect,
   useImperativeHandle,
@@ -22,6 +23,7 @@ export const markdownEditorDefaultItems: readonly MarkdownEditorToolbarItem[] = 
     type: 'button',
     id: 'bold',
     label: 'Fett',
+    icon: 'fa-bold',
     shortcut: { key: 'b', ctrlKey: true, metaKey: true },
     onClick: (editor) => editor.chain().focus().toggleBold().run(),
     isActive: (editor) => editor.isActive('bold'),
@@ -30,40 +32,66 @@ export const markdownEditorDefaultItems: readonly MarkdownEditorToolbarItem[] = 
     type: 'button',
     id: 'italic',
     label: 'Kursiv',
+    icon: 'fa-italic',
     shortcut: { key: 'i', ctrlKey: true, metaKey: true },
     onClick: (editor) => editor.chain().focus().toggleItalic().run(),
     isActive: (editor) => editor.isActive('italic'),
   },
   {
     type: 'button',
-    id: 'strike',
-    label: 'Durchgestrichen',
-    onClick: (editor) => editor.chain().focus().toggleStrike().run(),
-    isActive: (editor) => editor.isActive('strike'),
-  },
-  {
-    type: 'button',
     id: 'underline',
     label: 'Unterstrichen',
+    icon: 'fa-underline',
     onClick: (editor) => editor.chain().focus().toggleUnderline().run(),
     isActive: (editor) => editor.isActive('underline'),
   },
   {
     type: 'button',
-    id: 'bullet-list',
-    label: 'Aufzählung',
-    onClick: (editor) => editor.chain().focus().toggleBulletList().run(),
-    isActive: (editor) => editor.isActive('bulletList'),
+    id: 'strike',
+    label: 'Durchgestrichen',
+    icon: 'fa-strikethrough',
+    onClick: (editor) => editor.chain().focus().toggleStrike().run(),
+    isActive: (editor) => editor.isActive('strike'),
   },
   {
     type: 'button',
     id: 'ordered-list',
     label: 'Nummerierte Liste',
+    icon: 'fa-list-ol',
     onClick: (editor) => editor.chain().focus().toggleOrderedList().run(),
     isActive: (editor) => editor.isActive('orderedList'),
   },
-  { type: 'button', id: 'link', label: 'Link', onClick: () => undefined },
+  {
+    type: 'button',
+    id: 'bullet-list',
+    label: 'Aufzählung',
+    icon: 'fa-list-ul',
+    onClick: (editor) => editor.chain().focus().toggleBulletList().run(),
+    isActive: (editor) => editor.isActive('bulletList'),
+  },
+  { type: 'button', id: 'link', label: 'Link', icon: 'fa-link', onClick: () => undefined },
 ];
+
+interface ToolbarIconProps {
+  icon: NonNullable<MarkdownEditorToolbarItem['icon']>;
+  solid: boolean;
+}
+
+function ToolbarIcon({ icon, solid }: ToolbarIconProps) {
+  const isBrandIcon = icon.startsWith('fab ') || icon.startsWith('fa-brands ');
+  const isTokenIcon = icon.startsWith('ts-');
+  const iconClassName = isTokenIcon
+    ? icon
+    : isBrandIcon
+      ? `fab ${icon.replace(/^(fab |fa-brands )/, '')}`
+      : icon.replace(/^(fas |far )/, '');
+
+  return (
+    <span aria-hidden="true" className="chayns-markdown-editor__icon">
+      <i className={`${solid ? 'fas' : 'far'} ${iconClassName.replace(/^(far |fas )/, '')}`} />
+    </span>
+  );
+}
 
 function matchesShortcut(event: KeyboardEvent, shortcut: MarkdownEditorShortcut) {
   return (
@@ -94,6 +122,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorRef, MarkdownEditorProps>(functi
 ) {
   const valueRef = useRef(value);
   const [revision, setRevision] = useState(0);
+  const [hoveredToolbarItem, setHoveredToolbarItem] = useState<string | null>(null);
   const editor = useEditor({
     extensions: [StarterKit, Markdown],
     content: value,
@@ -174,19 +203,46 @@ const MarkdownEditor = forwardRef<MarkdownEditorRef, MarkdownEditorProps>(functi
       data-readonly={readOnly || undefined}
     >
       <div aria-label="Formatierung" className="chayns-markdown-editor__toolbar" role="toolbar">
-        {editorItems.map((item) => (
-          <button
-            aria-label={item.label}
-            aria-pressed={item.isActive?.(editor) ?? false}
-            disabled={disabled || readOnly || item.isDisabled?.(editor) === true}
-            key={item.id}
-            onClick={() => void handleItemClick(item)}
-            title={item.label}
-            type="button"
-          >
-            {item.icon ?? item.label}
-          </button>
-        ))}
+        {editorItems.map((item, index) => {
+          const isActive = item.isActive?.(editor) ?? false;
+
+          return (
+            <Fragment key={item.id}>
+              {editorItems === markdownEditorDefaultItems && (index === 4 || index === 6) ? (
+                <span aria-hidden="true" className="chayns-markdown-editor__separator" />
+              ) : null}
+              <button
+                aria-label={item.label}
+                aria-pressed={isActive}
+                data-selected={isActive ? 'true' : undefined}
+                className={[
+                  'chayns-markdown-editor__toolbar-button',
+                  item.icon
+                    ? 'chayns-markdown-editor__toolbar-button--icon'
+                    : 'chayns-markdown-editor__toolbar-button--text',
+                  isActive ? 'chayns-markdown-editor__toolbar-button--active' : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+                disabled={disabled || readOnly || item.isDisabled?.(editor) === true}
+                onClick={() => void handleItemClick(item)}
+                onMouseEnter={() => setHoveredToolbarItem(item.id)}
+                onMouseLeave={() => setHoveredToolbarItem(null)}
+                title={item.label}
+                type="button"
+              >
+                {item.icon ? (
+                  <ToolbarIcon
+                    icon={item.icon}
+                    solid={isActive || hoveredToolbarItem === item.id}
+                  />
+                ) : (
+                  item.label
+                )}
+              </button>
+            </Fragment>
+          );
+        })}
       </div>
       <div className="chayns-markdown-editor__content">
         <EditorContent

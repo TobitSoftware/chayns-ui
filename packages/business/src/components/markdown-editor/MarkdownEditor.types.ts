@@ -1,5 +1,6 @@
 import type { Editor } from '@tiptap/core';
 import type * as React from 'react';
+type ButtonIcon = `fa-${string}` | `fab fa-${string}` | `ts-${string}`;
 
 export interface MarkdownEditorShortcut {
   readonly key: string;
@@ -13,7 +14,7 @@ export interface MarkdownEditorToolbarButtonItem {
   readonly type: 'button';
   readonly id: string;
   readonly label: string;
-  readonly icon?: string;
+  readonly icon?: ButtonIcon;
   readonly shortcut?: MarkdownEditorShortcut;
   readonly onClick: (editor: Editor) => void;
   readonly isActive?: (editor: Editor) => boolean;

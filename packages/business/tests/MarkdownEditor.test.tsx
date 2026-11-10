@@ -28,6 +28,33 @@ describe('MarkdownEditor', () => {
     expect(document.activeElement).toBe(screen.getByRole('textbox', { name: 'Editor' }));
   });
 
+  it('renders the default toolbar as accessible icon buttons in the reference order', () => {
+    render(<MarkdownEditor aria-label="Editor" value="" onValueChange={() => undefined} />);
+    const buttons = screen.getAllByRole('button');
+    expect(buttons.map((button) => button.getAttribute('aria-label'))).toEqual([
+      'Fett',
+      'Kursiv',
+      'Unterstrichen',
+      'Durchgestrichen',
+      'Nummerierte Liste',
+      'Aufzählung',
+      'Link',
+    ]);
+    expect(buttons.every((button) => button.querySelector('.chayns-markdown-editor__icon'))).toBe(
+      true,
+    );
+    expect(
+      buttons.every(
+        (button) => button.querySelectorAll('.chayns-markdown-editor__icon i').length === 1,
+      ),
+    ).toBe(true);
+    expect(buttons.every((button) => button.tagName.toLowerCase() === 'button')).toBe(true);
+    expect(buttons.every((button) => button.classList.contains('chayns-icon-button'))).toBe(false);
+    expect(
+      screen.getByRole('toolbar').querySelectorAll('.chayns-markdown-editor__separator'),
+    ).toHaveLength(2);
+  });
+
   it('supports custom toolbar items', () => {
     const onClick = vi.fn();
     render(

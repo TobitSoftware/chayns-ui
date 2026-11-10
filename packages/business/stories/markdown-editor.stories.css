@@ -1,0 +1,56 @@
+.chayns-storybook-example-markdown-editor {
+  display: grid;
+  gap: var(--sp-4);
+  max-inline-size: 48rem;
+}
+
+.chayns-storybook-example-markdown-editor__input {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.chayns-storybook-example-markdown-editor__reply {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.chayns-storybook-example-markdown-editor__reply .chayns-markdown-editor__toolbar {
+  inline-size: 100%;
+  border-block-end: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.chayns-storybook-example-markdown-editor__reply .chayns-markdown-editor__content {
+  max-block-size: 9rem;
+  overflow-y: auto;
+  padding: var(--sp-3);
+}
+
+.chayns-storybook-example-markdown-editor__reply [contenteditable='true'] {
+  min-block-size: 8rem;
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+}
+
+.chayns-storybook-example-markdown-editor__output {
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.chayns-storybook-example-markdown-editor__output pre {
+  overflow-wrap: anywhere;
+  margin: 0;
+  padding: var(--sp-2);
+  background: var(--surface-alt);
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+
+.chayns-storybook-example-markdown-editor__output button {
+  justify-self: start;
+}

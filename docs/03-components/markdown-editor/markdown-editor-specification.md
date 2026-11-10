@@ -1,9 +1,5 @@
 ---
-id: markdown-editor-component
-type: module-design
-status: active
-title: MarkdownEditor Component Specification
-tags: [component, business, markdown, tiptap]
+{"id": "markdown-editor-component", "type": "module-design", "title": "MarkdownEditor Component Specification", "name": "MarkdownEditor", "package": "@chayns-ui/business", "category": "Business", "status": "active", "useWhen": ["A controlled Markdown input with an extensible formatting toolbar is needed."], "doNotUseWhen": ["Use TextArea for plain text or RichTextEditor for structured mention documents."], "alternatives": ["TextArea", "RichTextEditor", "MessageComposer"], "combinations": [], "sourceReferences": ["https://tappqa.tobit.com/Bodywork/DesignSystem/", "./markdown-editor-usage.md"], "checkedOn": "2026-10-28", "stories": ["Business/MarkdownEditor:Default", "Business/MarkdownEditor:ReplyDraft", "Business/MarkdownEditor:CustomToolbar", "Business/MarkdownEditor:ReadOnly", "Business/MarkdownEditor:Disabled"], references: [markdown-editor-usage]}
 ---
 
 # MarkdownEditor – Component Specification
@@ -12,33 +8,38 @@ tags: [component, business, markdown, tiptap]
 
 - Component Name: MarkdownEditor
 - Component Category: Business
-- Specification Status: READY FOR IMPLEMENTATION
+- Specification Status: IMPLEMENTED
 - Owner / Responsible Area: chayns UI Business
-- Design Reference: Consumer wrapper owns visual surface; editor owns only structure and interaction
+- Design Reference: Consumer wrapper owns visual surface; compact toolbar follows the supplied reference image
 - Relevant Decision IDs: none
-- Foundation Dependencies: React, Tiptap, existing Core accessibility rules
-- Related Components: Core RichTextEditor, MessageComposer
-- Last Reviewed: 2026-10-06
+- Foundation Dependencies: React, Tiptap, FontAwesome icon CSS, accessibility foundations
+- Related Components: RichTextEditor, MessageComposer
+- Last Reviewed: 2026-10-28
+- Consumer Guide: [markdown-editor-usage.md](./markdown-editor-usage.md)
 
 ## Purpose
 
-Controlled Markdown editing with a small, replaceable button toolbar. The component converts between Markdown input/output and Tiptap's internal document. It does not own business persistence, dialogs, link URL selection, theme surface colors, borders, or background.
+Controlled Markdown editing with a replaceable button toolbar. The component converts Markdown to and from Tiptap's document model. It does not own business persistence, link dialogs, theme surface colors, borders, or background.
 
 ## Use When
 
-Use for a business-layer Markdown input where the application owns the Markdown value and may provide custom toolbar commands.
+Use when the application owns a Markdown string and needs inline formatting controls.
 
 ## Do Not Use When
 
-Do not use for the existing structured `RichTextDocument` contract or for a full message composer with attachments, mentions, or submission behavior.
+Use TextArea for plain text, RichTextEditor for the structured `RichTextDocument` contract, or MessageComposer for a full message workflow with attachments and submit behavior.
+
+## Related Components and Selection Boundaries
+
+MarkdownEditor returns Markdown strings. RichTextEditor returns a structured document with atomic mentions. MessageComposer composes messaging UI and behavior and is not a general Markdown field.
 
 ## Anatomy
 
-The component contains a toolbar of native buttons and a Tiptap contenteditable control. The toolbar is optional in behavior but renders the configured item list. No public compound children are provided.
+A toolbar of native buttons precedes the Tiptap contenteditable control. There are no public compound children. Default order is Bold, Italic, Underline, Strike, divider, ordered list, bullet list, divider, Link. Toolbar controls are locally rendered native buttons with project icon-name rendering, by explicit user-confirmed exception to the usual Business→Core visual-component boundary. Each icon is rendered as one glyph; hover/active switches its regular/solid class. The toolbar spans the full editor width with a uniform alternate-surface background. Buttons have no visible border, shadow, hover fill or pressed fill; only a selected button receives the editor-surface background. Group dividers remain visible. Keyboard focus remains visibly indicated. The public icon-name contract is compatible with Core `ButtonIcon`.
 
 ## Semantic Contract
 
-The editor exposes a contenteditable text control with an accessible name from `aria-label` or `aria-labelledby`. Toolbar actions are native `button` elements. The toolbar uses normal browser Tab order; no roving tabindex is used.
+The editor exposes a contenteditable textbox named through `aria-label` or `aria-labelledby`. Toolbar controls are native buttons within a toolbar. Normal Tab order is preserved; no roving tabindex is used.
 
 ## Variants
 
@@ -46,173 +47,154 @@ No component variants.
 
 ## Local Size Variants
 
-No local size variant. Global density is inherited from the surrounding system.
+No local size variants. Density remains global.
 
 ## States
 
-- default: editable content control and enabled toolbar buttons.
-- read-only: content remains readable; editing and toolbar actions are disabled.
-- disabled: editing and toolbar actions are disabled.
-- active toolbar item: `aria-pressed="true"` when its `isActive` callback reports active.
-- empty: optional placeholder text is shown by the content area.
+- Default: editing and toolbar actions enabled.
+- Read-only: content remains readable; editing and toolbar actions disabled.
+- Disabled: editing and toolbar actions disabled.
+- Active formatting: item state is reflected through `aria-pressed`.
+- Empty: optional placeholder is rendered.
 
 ## State Priority and Combination Matrix
 
-Disabled takes precedence over editable interaction. Read-only also prevents editor and toolbar interaction. Active state is informational and does not override disabled/read-only.
+Disabled and read-only each block editing/actions. Active formatting does not override these states.
 
 ## Public API Contract
 
-- `value`: controlled Markdown string.
-- `onValueChange`: receives the current Markdown string after editor updates.
-- `items`: optional button item list; when provided it replaces the exported defaults.
-- `onRequestLink`: optional sync/async callback receiving selected text and current href, returning a URL or `null`.
-- `placeholder`, `readOnly`, `disabled`: content behavior.
-- Native div props are forwarded to the component root except `children`, `onChange`, and `role`.
-- `ref`: `MarkdownEditorRef` with `getHTML()` and `focus()`.
+- `value: string` is the controlled Markdown value.
+- `onValueChange(value)` reports updates.
+- `items` replaces exported `markdownEditorDefaultItems` when supplied.
+- `onRequestLink({ href, text })` may return a URL or `null`, synchronously or asynchronously.
+- `placeholder`, `readOnly`, `disabled` configure content behavior.
+- Compatible native div props are forwarded to the root; `children`, `onChange`, and `role` are excluded. Accessible name is applied to the contenteditable control.
+- Ref exposes `getHTML()` and `focus()`.
 
-| Öffentliche Oberfläche | Natives Element / Ziel | Ref Target | Weitergereichte Props | Lokal besessene Props | Ausdrücklich ausgelassene oder verbotene Overrides | Event-Komposition |
+| Public surface | Native target | Ref target | Forwarded props | Owned props | Excluded | Event composition |
 |---|---|---|---|---|---|---|
-| MarkdownEditor | root div / nested contenteditable | imperative handle, HTML from Tiptap control | compatible root div props | value, toolbar, editor state | children, onChange, role | consumer `onKeyDown` runs before shortcut handling; defaultPrevented cancels shortcut |
-| toolbar item | button | none | button semantics | label, icon, command, active/disabled callbacks | consumer children | click invokes item command |
+| MarkdownEditor | root div and nested contenteditable | imperative MarkdownEditorRef | compatible root div props | value, editor and toolbar state | children, onChange, role | consumer onKeyDown runs first; defaultPrevented cancels shortcut handling |
+| toolbar item | button | none | native button semantics | label, icon, command, active/disabled callbacks | consumer children | onClick invokes item command |
 
-### Toolbar item
-
-```ts
-interface MarkdownEditorToolbarButtonItem {
-  type: 'button';
-  id: string;
-  label: string;
-  icon?: string;
-  shortcut?: { key: string; ctrlKey?: boolean; metaKey?: boolean; shiftKey?: boolean; altKey?: boolean };
-  onClick: (editor: Editor) => void;
-  isActive?: (editor: Editor) => boolean;
-  isDisabled?: (editor: Editor) => boolean;
-}
-```
+Toolbar items use `type: 'button'`, unique `id`, localized `label`, optional Core `ButtonIcon`, optional shortcut `{ key, ctrlKey?, metaKey?, shiftKey?, altKey? }`, and `onClick(editor)`. Optional `isActive(editor)` and `isDisabled(editor)` provide state. Iconless items display their label.
 
 ## Composition
 
-Composition is through props only. Custom toolbar items are supplied through `items`; no public child parts or compound relationship exists.
+Composition is prop-based through `items`; no public compound parts or children are provided.
 
 ## Context Dependencies
 
-No semantic React context is required. The surrounding wrapper supplies layout and visual theme.
+No semantic React context. The consumer wrapper provides placement and theme.
 
 ## State Ownership
 
-The Markdown value is fully controlled by the consumer. Tiptap owns only its transient editing selection/history; the component emits Markdown changes and never persists business state.
+The consumer owns the controlled Markdown value. Tiptap owns transient selection/history only. Toolbar hover state is local UI state and selects whether a single icon glyph uses its regular or solid Font Awesome class.
 
 ## Design Tokens
 
-The component does not set background, border, or surface color. Toolbar layout uses the existing spacing custom property fallback only for inter-button gap. No raw color or border values are introduced.
+The editor surface owns no background, border, or color. Toolbar button and icon interaction styling is local to MarkdownEditor; foreground colors inherit from the surrounding environment. This is the user-confirmed, toolbar-only exception to the usual Business→Core composition boundary.
 
 ## Density Contract
 
-No local density calculation or size prop. Content and toolbar wrap according to available container width.
+No local density prop or calculation.
 
 ## Color and Theme Contract
 
-Colors, backgrounds, borders, and focus surface treatment are inherited from the wrapper or global environment. The component does not resolve themes.
+Surface, background, border, and text color are inherited from wrapper/environment; the editor does not resolve themes.
 
 ## Typography Contract
 
-Typography is inherited. Labels and placeholder are consumer-provided and must remain localizable.
+Typography is inherited. Placeholder and custom item labels are consumer-localizable.
 
 ## Accessibility Contract
 
-`aria-label` or `aria-labelledby` is required for the editor control. Toolbar controls are native buttons with accessible labels. Focus is visible through inherited/global styles. No color-only state communication is used. Normal Tab order is retained.
+Accessible editor name is required. Icon-only buttons carry localized accessible labels. Native buttons, visible focus, normal Tab sequence, and `aria-pressed` state communication are required.
 
 ## Keyboard Contract
 
-The contenteditable retains Tiptap/native editing behavior. Configured shortcuts match `key`, `ctrlKey`, `metaKey`, `shiftKey`, and `altKey`; matching shortcuts prevent the browser default and invoke the item command. Toolbar buttons use native Enter/Space behavior.
+Native contenteditable behavior remains. Configured shortcuts match exact key and modifier booleans (`ctrlKey`, `metaKey`, `shiftKey`, `altKey`); matches prevent default and invoke the item. Native buttons activate by Enter/Space.
 
 ## Focus Contract
 
-`ref.current.focus()` focuses the Tiptap editor. Toolbar clicks focus the editor through commands supplied by default items. No focus trap or restoration is implemented.
+`ref.current.focus()` focuses the editor. No focus trap or restoration is provided.
 
 ## Motion Contract
 
-No component-specific motion.
+No MarkdownEditor-specific motion. Toolbar buttons use native button behavior and do not add transitions.
 
 ## Internationalization and Content Contract
 
-The component owns no user-facing domain copy. Labels, placeholder, and accessible names are supplied by the consumer. The default item labels are exportable and can be replaced by localized custom items.
+Accessible name, placeholder, and custom item labels come from the consumer. No domain-specific text is introduced.
 
 ## Responsive and Layout Behavior
 
-The root fills its available width through normal wrapper layout. The toolbar wraps. The content control expands with its content and does not impose a background, border, or fixed width.
+Toolbar wraps within available width. Content uses wrapper width without forcing surface treatment or fixed height.
 
 ## Container Interaction
 
-The wrapper owns spacing, surface, border, background, and placement. The editor must remain usable inside differently styled wrappers.
+Wrapper owns spacing, border, background, colors, and placement.
 
 ## Loading and Async Contract
 
-No loading state. Link requests may be asynchronous; while awaiting a link result, no additional request coordination is owned by the component.
+No loading state. Link URL selection may be asynchronous; consumers own dialog and pending UX.
 
 ## Error Contract
 
-No business error UI is owned. A rejected link callback promise propagates to the consumer's async handler.
+No business error display. The consumer owns rejected async link callback errors.
 
 ## Performance Characteristics
 
-Tiptap extensions are imported directly and the package build preserves module boundaries for tree-shaking.
+Tiptap dependencies are imported directly and module boundaries are preserved for tree-shaking.
 
 ## Dependencies
 
-Business depends on React, Tiptap packages, and existing Core conventions. It does not add a Core dependency for the editor implementation.
+Business uses React and Tiptap. MarkdownEditor toolbar controls and icon rendering are local rather than Core UI components; this is the user's explicit exception to the usual Business→Core composition boundary. Icon names remain compatible with the Core `ButtonIcon` string format. Existing Core RichTextEditor is not replaced.
 
 ## Non-Goals
 
-No link dialog, no Markdown preview, no upload handling, no business persistence, no theme surface, and no structured RichTextDocument conversion.
+No Markdown preview, link dialog, upload support, persistence, message submit flow, or structured mention conversion.
 
 ## Escape Hatches and Overrides
 
-Custom `items` replaces the defaults. Custom commands may use the Tiptap editor instance. No arbitrary style or semantic override is exposed.
+Custom `items` replaces defaults. Commands receive Tiptap's editor instance. No arbitrary visual surface override is provided.
 
 ## Examples
 
-```tsx
-<MarkdownEditor
-  aria-label="Markdown bearbeiten"
-  value={markdown}
-  onValueChange={setMarkdown}
-/>
-```
+See controlled value, ref, and toolbar examples in [the Usage Guide](./markdown-editor-usage.md).
 
 ## Do / Don't
 
-- Do pass a controlled Markdown value.
-- Do localize custom item labels.
-- Do use `onRequestLink` for application-owned URL selection.
-- Don't style the editor by relying on internal surface colors or borders.
-- Don't use it where the Core structured document contract is required.
+- Do control and persist Markdown in the application.
+- Do provide localized accessible names.
+- Do delegate link selection through `onRequestLink`.
+- Do not rely on editor-owned background, border, or text color.
+- Do not use this component for structured RichTextEditor documents.
 
 ## Test Contract
 
-Verify controlled updates, Markdown parsing, HTML ref output, focus ref behavior, default and replacement toolbar items, shortcut matching including modifiers, disabled/read-only behavior, accessible naming, link callback handling, and long content wrapping.
+Test controlled Markdown updates/parsing, imperative HTML/focus ref, default/custom toolbar behavior, shortcut modifiers, disabled/read-only, accessible naming, link callback, and long-content wrapping.
 
 ## Visual Verification Contract
 
-Verify inherited wrapper surface styling, toolbar wrapping at narrow widths, visible focus, disabled/read-only affordances, and long localized labels. Bodywork-specific visual geometry is not defined for this component.
+The supplied toolbar reference is the target: compact B/I/U/S controls, divider before list actions, divider before Link. Link remains the final action; emoji insertion is not introduced. The rounded reply container and removal of the text-control focus outline apply only to the ReplyDraft Story and do not alter component styling. Verify wrapper-owned surface, focus, states, and narrow widths.
 
 ## AI Usage Contract
 
 ### Use when
 
-A controlled business Markdown field with optional formatting buttons is needed.
+A controlled Markdown input with a configurable formatting toolbar is needed.
 
 ### Do not use when
 
-Structured mentions, attachments, submit flows, or Core rich-text document values are required.
+Plain text, atomic mentions, attachments, or full message submission are required.
 
 ### Required context
 
-A controlled Markdown state, accessible name, wrapper styling, and optional localized toolbar items.
+Controlled Markdown state, accessible name, wrapper styling, and consumer-owned link UI when needed.
 
 ### Forbidden assumptions
 
-Do not infer a surface color, border, link dialog, Markdown underline syntax, or uncontrolled value behavior.
+Do not invent surface styling, link dialog UI, Markdown underline syntax, or uncontrolled behavior.
 
 ### Related decisions
 
@@ -220,7 +202,7 @@ None.
 
 ## Open Decisions
 
-No component-relevant open decisions for the confirmed first implementation scope.
+No implementation blockers for the confirmed API scope.
 
 ## Readiness Assessment
 
@@ -232,13 +214,13 @@ No component-relevant open decisions for the confirmed first implementation scop
 - Keyboard Contract Complete: yes
 - State Matrix Complete: yes
 - Density Contract Complete: yes
-- Motion Contract Complete: not applicable
+- Motion Contract Complete: yes
 - Internationalization Contract Complete: yes
 - Test Contract Complete: yes
 - Visual Verification Contract Complete: yes
 - Open Implementation Blockers: 0
-- Specification Status: READY FOR IMPLEMENTATION
+- Specification Status: IMPLEMENTED
 
 ## Specification Change Rules
 
-Changes to value format, toolbar item shape, shortcut matching, ref methods, semantics, Markdown serialization, or wrapper styling require specification and readiness review updates before implementation.
+Changes to value format, toolbar API/order, shortcut behavior, ref, accessibility, Markdown serialization, or wrapper visual ownership require a specification/readiness update.

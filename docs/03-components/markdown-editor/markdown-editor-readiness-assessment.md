@@ -1,10 +1,5 @@
 ---
-id: markdown-editor-readiness
-type: module-design
-status: active
-title: MarkdownEditor Readiness Assessment
-tags: [component, readiness, markdown, tiptap]
-implements: [markdown-editor-component]
+{"id": "markdown-editor-readiness", "type": "module-design", "title": "MarkdownEditor Readiness Assessment", "name": "MarkdownEditor", "package": "@chayns-ui/business", "category": "Business", "status": "active", "useWhen": ["Assess implementation readiness of MarkdownEditor."], "doNotUseWhen": ["This assessment is not a separate component for consumer selection."], "alternatives": [], "combinations": [], "sourceReferences": ["./markdown-editor-specification.md"], "checkedOn": "2026-10-28", "stories": ["Business/MarkdownEditor:Default", "Business/MarkdownEditor:ReplyDraft", "Business/MarkdownEditor:CustomToolbar", "Business/MarkdownEditor:ReadOnly", "Business/MarkdownEditor:Disabled"]}
 ---
 
 # MarkdownEditor – Readiness Assessment
@@ -14,17 +9,17 @@ implements: [markdown-editor-component]
 - Component Name: MarkdownEditor
 - Component Category: Business
 - Component Specification: [markdown-editor-specification.md](./markdown-editor-specification.md)
-- Specification Status: READY FOR IMPLEMENTATION
+- Specification Status: IMPLEMENTED
 - Relevant Decision IDs: none
-- Foundation Dependencies: React, Tiptap, Core accessibility rules
+- Foundation Dependencies: React, Tiptap, FontAwesome icon CSS, accessibility foundations
 - Related Components: RichTextEditor, MessageComposer
-- Review Context: user-confirmed implementation scope
-- Gate Date: 2026-10-06
+- Review Context: confirmed component scope and toolbar reference image
+- Gate Date: 2026-10-28
 - Gate Result: READY
 
 ## Gate Checks
 
-All 37 readiness checks are PASS for the confirmed first implementation scope. The component is a Business component, uses native buttons and contenteditable semantics, forwards the controlled Markdown contract, keeps wrapper-owned visual surface styling, and has no unresolved implementation blocker.
+All 37 readiness checks pass for the confirmed implementation scope. The Business component is controlled, uses native button/contenteditable semantics, preserves wrapper-owned editor surface styling, and has no open implementation blockers. Its toolbar intentionally uses locally rendered native buttons and icon markup under the user's explicit exception to the usual Business→Core composition boundary. The full-width toolbar has a uniform contrasting background; inactive buttons have no visible border or background, and only selected buttons receive a contrasting background. Each toolbar icon is rendered once. Storybook documentation demonstrates the consumer API.
 
 ## Blocking Items
 

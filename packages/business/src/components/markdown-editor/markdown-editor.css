@@ -1,19 +1,94 @@
 .chayns-markdown-editor__toolbar {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--sp-1, 4px);
+  align-items: center;
+  gap: 2px;
+  inline-size: 100%;
+  box-sizing: border-box;
+  background: var(--surface);
+  padding: 4px 8px;
 }
 
-.chayns-markdown-editor__toolbar button {
+.chayns-markdown-editor__toolbar-button {
+  display: inline-flex;
+  min-inline-size: 28px;
+  block-size: 28px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  appearance: none;
 }
 
-.chayns-markdown-editor__content .tiptap {
-  min-height: 1.5em;
+.chayns-markdown-editor__toolbar-button--icon {
+  inline-size: 28px;
+  padding: 0;
+}
+
+.chayns-markdown-editor__toolbar-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.chayns-markdown-editor__toolbar-button:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 1px;
+  box-shadow: none;
+}
+
+.chayns-markdown-editor__toolbar-button:not(:disabled):hover,
+.chayns-markdown-editor__toolbar-button:not(:disabled):active {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  outline: none;
+  transform: none;
+  filter: none;
+}
+
+.chayns-markdown-editor__toolbar-button--active,
+.chayns-markdown-editor__toolbar-button--active:hover:not(:disabled),
+.chayns-markdown-editor__toolbar-button--active:active:not(:disabled) {
+  background: var(--surface-alt);
+  border: 0;
+  box-shadow: none;
+  outline: none;
+  transform: none;
+  filter: none;
+}
+
+.chayns-markdown-editor__icon {
+  display: inline-flex;
+  inline-size: 1em;
+  block-size: 1em;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.chayns-markdown-editor__separator {
+  display: inline-block;
+  inline-size: 1px;
+  block-size: 20px;
+  margin-inline: 7px;
+  background: currentcolor;
+  opacity: 0.18;
+}
+
+.chayns-markdown-editor__content [contenteditable='true'] {
+  min-block-size: 1.5em;
   outline: none;
   white-space: pre-wrap;
 }
 
-.chayns-markdown-editor__content .tiptap:empty::before {
+.chayns-markdown-editor__content [contenteditable='true']:empty::before {
   content: attr(data-placeholder);
   opacity: 0.6;
   pointer-events: none;
