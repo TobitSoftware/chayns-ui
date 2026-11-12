@@ -139,7 +139,7 @@ export const ReplyDraft: Story = {
     docs: {
       description: {
         story:
-          'Die Toolbar teilt sich über die volle Breite eine Hintergrundfläche. Inaktive Buttons bleiben ohne Kontur oder Füllung; nur der ausgewählte Button erhält einen Hintergrund.',
+          'Zeigt die benötigten Props: zugänglicher Name, kontrollierter Markdown-Wert, Änderungs-Handler und optionaler Placeholder.',
       },
     },
   },

@@ -215,19 +215,22 @@ const MarkdownEditor = forwardRef<MarkdownEditorRef, MarkdownEditorProps>(functi
                 aria-label={item.label}
                 aria-pressed={isActive}
                 data-selected={isActive ? 'true' : undefined}
+                onMouseEnter={() => setHoveredToolbarItem(item.id)}
+                onMouseLeave={() => setHoveredToolbarItem(null)}
                 className={[
                   'chayns-markdown-editor__toolbar-button',
                   item.icon
                     ? 'chayns-markdown-editor__toolbar-button--icon'
                     : 'chayns-markdown-editor__toolbar-button--text',
                   isActive ? 'chayns-markdown-editor__toolbar-button--active' : '',
+                  hoveredToolbarItem === item.id
+                    ? 'chayns-markdown-editor__toolbar-button--hovered'
+                    : '',
                 ]
                   .filter(Boolean)
                   .join(' ')}
                 disabled={disabled || readOnly || item.isDisabled?.(editor) === true}
                 onClick={() => void handleItemClick(item)}
-                onMouseEnter={() => setHoveredToolbarItem(item.id)}
-                onMouseLeave={() => setHoveredToolbarItem(null)}
                 title={item.label}
                 type="button"
               >

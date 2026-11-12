@@ -19,7 +19,7 @@
 
 ## Gate Checks
 
-All 37 readiness checks pass for the confirmed implementation scope. The Business component is controlled, uses native button/contenteditable semantics, preserves wrapper-owned editor surface styling, and has no open implementation blockers. Its toolbar intentionally uses locally rendered native buttons and icon markup under the user's explicit exception to the usual Business→Core composition boundary. The full-width toolbar has a uniform contrasting background; inactive buttons have no visible border or background, and only selected buttons receive a contrasting background. Each toolbar icon is rendered once. Storybook documentation demonstrates the consumer API.
+All 37 readiness checks pass for the confirmed implementation scope. The Business component is controlled, uses native button/contenteditable semantics, preserves wrapper-owned editor surface styling, and has no open implementation blockers. Its toolbar intentionally uses locally rendered native buttons and icon markup under the user's explicit exception to the usual Business→Core composition boundary. The toolbar background matches the editor surface across the full width. Toolbar buttons have slight corner rounding and no shadow or border. Hover fill appears on all buttons; selected buttons retain their selected fill when hovered. Each toolbar icon is rendered once. Storybook documentation demonstrates the consumer API.
 
 ## Blocking Items
 

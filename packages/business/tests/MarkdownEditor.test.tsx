@@ -55,6 +55,38 @@ describe('MarkdownEditor', () => {
     ).toHaveLength(2);
   });
 
+  it('shows a hover fill on every button and keeps the active fill while hovered', () => {
+    render(
+      <MarkdownEditor
+        aria-label="Editor"
+        items={[
+          {
+            type: 'button',
+            id: 'custom-active',
+            label: 'Aktiv',
+            icon: 'fa-bold',
+            onClick: () => undefined,
+            isActive: () => true,
+          },
+          { type: 'button', id: 'custom-idle', label: 'Inaktiv', onClick: () => undefined },
+        ]}
+        value=""
+        onValueChange={() => undefined}
+      />,
+    );
+    const activeButton = screen.getByRole('button', { name: 'Aktiv' });
+    const inactiveButton = screen.getByRole('button', { name: 'Inaktiv' });
+
+    expect(activeButton).toHaveAttribute('aria-pressed', 'true');
+    fireEvent.mouseEnter(inactiveButton);
+    expect(inactiveButton).toHaveClass('chayns-markdown-editor__toolbar-button--hovered');
+    fireEvent.mouseLeave(inactiveButton);
+    fireEvent.mouseEnter(activeButton);
+    expect(activeButton).toHaveClass('chayns-markdown-editor__toolbar-button--active');
+    expect(activeButton).toHaveClass('chayns-markdown-editor__toolbar-button--hovered');
+    expect(activeButton.querySelector('.chayns-markdown-editor__icon i')).toHaveClass('fas');
+  });
+
   it('supports custom toolbar items', () => {
     const onClick = vi.fn();
     render(

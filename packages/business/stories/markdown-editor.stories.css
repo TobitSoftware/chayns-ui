@@ -5,14 +5,13 @@
 }
 
 .chayns-storybook-example-markdown-editor__input {
-  border: 1px solid var(--border);
   background: var(--surface);
   color: var(--text);
 }
 
 .chayns-storybook-example-markdown-editor__reply {
   overflow: hidden;
-  border: 1px solid var(--border);
+  border: 0;
   border-radius: 8px;
   background: var(--surface);
   color: var(--text);
@@ -20,8 +19,7 @@
 
 .chayns-storybook-example-markdown-editor__reply .chayns-markdown-editor__toolbar {
   inline-size: 100%;
-  border-block-end: 1px solid var(--border);
-  background: var(--surface);
+  background: transparent;
 }
 
 .chayns-storybook-example-markdown-editor__reply .chayns-markdown-editor__content {
