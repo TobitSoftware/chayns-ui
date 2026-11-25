@@ -61,8 +61,8 @@
       rgb(var(--focus-ring-rgb) / var(--focus-ring-alpha-soft));
   }
 
-  .chayns-team-talk-input__composer:hover:not(:focus-within) {
-    border-color: var(--input-border-hover);
+  .chayns-team-talk-input__composer:hover {
+    border-color: var(--accent);
   }
 
   .chayns-team-talk-input__field {
@@ -114,6 +114,155 @@
 
   .chayns-team-talk-input__submit:active:not(:disabled) {
     transform: scale(var(--motion-scale-press-s));
+  }
+
+  .chayns-team-talk-input__people-popup {
+    inline-size: calc(290 * var(--u));
+    max-inline-size: calc(100vw - var(--k16));
+    min-inline-size: 0;
+    max-block-size: min(calc(420 * var(--u)), calc(100vh - var(--k32)));
+    padding: var(--k8);
+  }
+
+  .chayns-team-talk-input__people-search {
+    display: flex;
+    align-items: center;
+    gap: var(--k8);
+    block-size: var(--k36);
+    padding-inline: var(--k12);
+    margin: var(--k2) var(--k2) var(--k6);
+    border: 1px solid var(--input-border);
+    border-radius: 999px;
+    color: var(--text-3);
+    background: var(--surface);
+    transition:
+      border-color var(--dur-micro) var(--ease-enter),
+      box-shadow var(--dur-micro) var(--ease-enter);
+  }
+
+  .chayns-team-talk-input__people-search:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 var(--focus-ring-size)
+      rgb(var(--focus-ring-rgb) / var(--focus-ring-alpha-soft));
+  }
+
+  .chayns-team-talk-input__people-search:hover {
+    border-color: var(--accent);
+  }
+
+  .chayns-team-talk-input__people-search input {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: var(--fs-body);
+  }
+
+  .chayns-team-talk-input__people-search input::placeholder {
+    color: var(--muted);
+  }
+
+  .chayns-team-talk-input__people-list {
+    max-block-size: calc(300 * var(--u));
+    overflow: hidden auto;
+  }
+
+  .chayns-checkbox:has(> .chayns-team-talk-input__person-checkbox) {
+    box-sizing: border-box;
+    display: flex;
+    inline-size: 100%;
+    min-inline-size: 0;
+    align-items: center;
+    gap: var(--k10);
+    padding: var(--k12);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .chayns-checkbox:has(> .chayns-team-talk-input__person-checkbox):hover {
+    background: var(--surface-alt);
+  }
+
+  .chayns-checkbox:has(> .chayns-team-talk-input__person-checkbox:focus-visible) {
+    outline: var(--focus-ring-size) solid rgb(var(--focus-ring-rgb) / var(--focus-ring-alpha-soft));
+    outline-offset: -2px;
+  }
+
+  .chayns-checkbox:has(> .chayns-team-talk-input__person-checkbox) .chayns-checkbox__control {
+    inline-size: var(--k18);
+    block-size: var(--k18);
+    margin-block-start: 0;
+    border-width: 1.5px;
+    border-radius: 5px;
+  }
+
+  .chayns-team-talk-input__person {
+    display: flex;
+    min-inline-size: 0;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: var(--k10);
+  }
+
+  .chayns-team-talk-input__person-avatar {
+    inline-size: var(--k28);
+    block-size: var(--k28);
+    flex: 0 0 auto;
+    color: var(--on-accent);
+    font-size: var(--fs-micro);
+  }
+
+  .chayns-team-talk-input__person-copy {
+    display: flex;
+    min-inline-size: 0;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+
+  .chayns-team-talk-input__person-name {
+    overflow: hidden;
+    color: var(--text);
+    font-size: var(--fs-body);
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .chayns-team-talk-input__person-description {
+    overflow: hidden;
+    color: var(--muted);
+    font-size: var(--fs-caption);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .chayns-team-talk-input__people-status {
+    padding: var(--k10) var(--k12);
+    color: var(--muted);
+    font-size: var(--fs-meta);
+  }
+
+  .chayns-team-talk-input__people-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--k8);
+    padding: var(--k8) var(--k4) var(--k2);
+    margin-top: var(--k4);
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .chayns-team-talk-input__people-count {
+    color: var(--muted);
+    font-size: var(--fs-caption);
+  }
+
+  .chayns-team-talk-input__people-apply {
+    flex: 0 0 auto;
+    border-radius: 999px;
   }
 
   .chayns-team-talk-input__submit .chayns-button-icon i {

@@ -16,6 +16,15 @@ const labels: TeamTalkInputProps['labels'] = {
   agree: 'Zustimmen',
   send: 'Senden',
   addPerson: 'Personen hinzufügen',
+  peopleSearch: 'Personen suchen',
+  peopleSearchPlaceholder: 'Person suchen',
+  peopleLoading: 'Personen werden geladen …',
+  peopleNoResults: 'Keine Personen gefunden.',
+  peopleSelectionCount: (count) =>
+    count === 0
+      ? 'Keine Person ausgewählt'
+      : `${count} ${count === 1 ? 'Person ausgewählt' : 'Personen ausgewählt'}`,
+  peopleApply: 'Hinzufügen',
   leave: 'TeamTalk verlassen',
   participants: (names) => `Im TeamTalk: ${names.join(', ')}`,
 };
@@ -34,6 +43,14 @@ function ControlledTeamTalkInput(props: Partial<TeamTalkInputProps>) {
           { id: 'grace', name: 'Grace Hopper' },
           { id: 'alan', name: 'Alan Turing' },
         ]}
+        peopleSuggestions={[
+          { id: 'marie', name: 'Marie Curie', description: 'Physik' },
+          { id: 'katherine', name: 'Katherine Johnson', description: 'Mathematik' },
+          { id: 'emmy', name: 'Emmy Noether', description: 'Algebra' },
+        ]}
+        peopleQuery=""
+        onPeopleQueryChange={() => undefined}
+        onAddPeople={() => undefined}
         value={value}
         onValueChange={setValue}
         onSend={setLastAction}
@@ -53,6 +70,10 @@ const meta = {
   args: {
     labels,
     members: [],
+    peopleSuggestions: [],
+    peopleQuery: '',
+    onPeopleQueryChange: () => undefined,
+    onAddPeople: () => undefined,
     value: '',
     onValueChange: () => undefined,
     onSend: () => undefined,
@@ -66,8 +87,8 @@ export const EmptyWithoutAgree: Story = {
   render: (args) => <ControlledTeamTalkInput {...args} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole('button', { name: 'Zustimmen' })).toBeDisabled();
-    await expect(canvas.getByRole('button', { name: 'Personen hinzufügen' })).toBeDisabled();
+    await expect(canvas.getByRole('button', { name: 'Senden' })).toBeDisabled();
+    await expect(canvas.getByRole('button', { name: 'Personen hinzufügen' })).toBeEnabled();
   },
 };
 
@@ -90,6 +111,19 @@ export const WithParticipants: Story = {
     ],
   },
   render: (args) => <ControlledTeamTalkInput {...args} />,
+};
+
+export const AddPeople: Story = {
+  render: (args) => <ControlledTeamTalkInput {...args} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Personen hinzufügen' }));
+    const dialog = within(document.body).getByRole('dialog', { name: 'Personen hinzufügen' });
+    await expect(within(dialog).getByRole('searchbox', { name: 'Personen suchen' })).toHaveFocus();
+    const option = within(dialog).getByRole('checkbox', { name: /Marie Curie/ });
+    await userEvent.click(option);
+    await expect(within(dialog).getByRole('button', { name: 'Hinzufügen' })).toBeEnabled();
+  },
 };
 
 export const MessageAndLeave: Story = {
