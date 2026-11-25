@@ -40,6 +40,7 @@ export const storyTrack = {
 export function installCaptureMocks() {
   const recognition = Object.getOwnPropertyDescriptor(window, 'SpeechRecognition');
   const devices = Object.getOwnPropertyDescriptor(navigator, 'mediaDevices');
+  const audioContext = Object.getOwnPropertyDescriptor(window, 'AudioContext');
   StoryRecognition.current = undefined;
   storyTrack.enabled = true;
   storyTrack.stopped = false;
@@ -58,10 +59,46 @@ export function installCaptureMocks() {
         }),
     },
   });
+  Object.defineProperty(window, 'AudioContext', {
+    configurable: true,
+    value: class {
+      state = 'running';
+      createAnalyser() {
+        return {
+          fftSize: 256,
+          getByteTimeDomainData: (samples: Uint8Array) => samples.fill(128),
+          connect() {
+            return undefined;
+          },
+          disconnect() {
+            return undefined;
+          },
+        };
+      }
+      createMediaStreamSource() {
+        return {
+          connect() {
+            return undefined;
+          },
+          disconnect() {
+            return undefined;
+          },
+        };
+      }
+      resume() {
+        return Promise.resolve();
+      }
+      close() {
+        return Promise.resolve();
+      }
+    },
+  });
   return () => {
     if (recognition) Object.defineProperty(window, 'SpeechRecognition', recognition);
     else Reflect.deleteProperty(window, 'SpeechRecognition');
     if (devices) Object.defineProperty(navigator, 'mediaDevices', devices);
     else Reflect.deleteProperty(navigator, 'mediaDevices');
+    if (audioContext) Object.defineProperty(window, 'AudioContext', audioContext);
+    else Reflect.deleteProperty(window, 'AudioContext');
   };
 }

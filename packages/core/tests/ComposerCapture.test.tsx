@@ -23,6 +23,30 @@ function media() {
   } as unknown as MediaStream;
   return { track, stream };
 }
+function audioContext() {
+  class MockAudioContext {
+    state: AudioContextState = 'running';
+    createAnalyser() {
+      return {
+        fftSize: 0,
+        getByteTimeDomainData: (samples: Uint8Array) => samples.fill(140),
+        connect: vi.fn(),
+        disconnect: vi.fn(),
+      };
+    }
+    createMediaStreamSource() {
+      return { connect: vi.fn(), disconnect: vi.fn() };
+    }
+    resume() {
+      return Promise.resolve();
+    }
+    close() {
+      return Promise.resolve();
+    }
+  }
+  vi.stubGlobal('AudioContext', MockAudioContext);
+  vi.stubGlobal('isSecureContext', true);
+}
 function permission() {
   let resolve!: (stream: MediaStream) => void;
   let reject!: (error: Error) => void;
@@ -333,6 +357,56 @@ describe('default capture configuration', () => {
 });
 
 describe('native dictation defaults', () => {
+  it('hands the analysis stream to the consumer and ends it after cleanup', async () => {
+    vi.stubGlobal('SpeechRecognition', StoryRecognition);
+    audioContext();
+    const request = permission();
+    const owned = media();
+    const onStream = vi.fn();
+    const onEnd = vi.fn();
+    const { result } = renderHook(() =>
+      useComposerCapture(
+        { ...base, dictation: { onStream, onEnd } },
+        () => undefined,
+        () => undefined,
+      ),
+    );
+    await waitFor(() => expect(result.current.support.dictation).toBe(true));
+    await act(async () => {
+      const start = result.current.startDictation();
+      request.resolve(owned.stream);
+      await start;
+    });
+    expect(onStream).toHaveBeenCalledExactlyOnceWith(owned.stream);
+    expect(StoryRecognition.current).not.toBeNull();
+    act(() => result.current.endDictation());
+    expect(owned.track.stop).toHaveBeenCalledOnce();
+    expect(onEnd).toHaveBeenCalledOnce();
+  });
+  it('aborts dictation without exposing a stream when microphone permission fails', async () => {
+    vi.stubGlobal('SpeechRecognition', StoryRecognition);
+    audioContext();
+    const request = permission();
+    const onStream = vi.fn();
+    const onCaptureError = vi.fn();
+    const { result } = renderHook(() =>
+      useComposerCapture(
+        { ...base, dictation: { onStream }, onCaptureError },
+        () => undefined,
+        () => undefined,
+      ),
+    );
+    await waitFor(() => expect(result.current.support.dictation).toBe(true));
+    await act(async () => {
+      const start = result.current.startDictation();
+      await Promise.resolve();
+      request.reject(Object.assign(new Error('denied'), { name: 'NotAllowedError' }));
+      await start;
+    });
+    expect(onStream).not.toHaveBeenCalled();
+    expect(result.current.dictationState).toBe('idle');
+    expect(onCaptureError).toHaveBeenCalledWith({ source: 'dictation', code: 'NotAllowedError' });
+  });
   it.each([
     {
       name: 'explicit override',
@@ -359,7 +433,11 @@ describe('native dictation defaults', () => {
     { name: 'browser language', expected: 'en-GB' },
   ])('resolves $name without requiring a dictation configuration', async (test) => {
     vi.stubGlobal('SpeechRecognition', StoryRecognition);
-    vi.stubGlobal('navigator', { language: 'en-GB' });
+    vi.stubGlobal('navigator', {
+      language: 'en-GB',
+      mediaDevices: { getUserMedia: vi.fn(() => Promise.resolve(media().stream)) },
+    });
+    audioContext();
     const previous = document.documentElement.lang;
     const ancestor = document.createElement('div');
     ancestor.lang = 'ancestorLanguage' in test ? test.ancestorLanguage : '';
@@ -381,7 +459,7 @@ describe('native dictation defaults', () => {
         ),
       );
       await waitFor(() => expect(result.current.support.dictation).toBe(true));
-      act(() => result.current.startDictation());
+      await act(async () => result.current.startDictation());
       expect(StoryRecognition.current!.lang).toBe(test.expected);
       act(() => result.current.pause());
       act(() => result.current.resume());

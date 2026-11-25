@@ -285,6 +285,32 @@ export const DictationFinalizesOneUndoStep: Story = {
   },
 };
 
+export const DictationWaveform: Story = {
+  args: {
+    ...TwoLine.args,
+    prompts: [
+      { id: 'explain', label: 'Erklären' },
+      { id: 'summarize', label: 'Zusammenfassen' },
+    ],
+  },
+  beforeEach: () => installCaptureMocks(),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(await canvas.findByRole('button', { name: 'Diktieren' }));
+    await waitFor(() =>
+      expect(
+        canvasElement.querySelector('.chayns-message-composer__dictation-waveform'),
+      ).toBeTruthy(),
+    );
+    await expect(canvas.getByRole('button', { name: 'Diktieren' }).querySelector('i')).toHaveClass(
+      'fa-microphone',
+    );
+    await expect(canvas.queryByRole('button', { name: 'Erklären' })).toBeNull();
+    await expect(canvas.queryByRole('button', { name: /Automatisch/ })).toBeNull();
+    await expect(canvasElement.querySelector('.chayns-message-composer__selector')).toBeNull();
+  },
+};
+
 export const DictationRecording: Story = {
   args: { ...TwoLine.args },
   beforeEach: () => installCaptureMocks(),
@@ -305,6 +331,9 @@ export const DictationRecording: Story = {
       'aria-pressed',
       'true',
     );
+    const listeningButton = canvas.getByRole('button', { name: 'Diktierung pausieren' });
+    await expect(listeningButton).toHaveClass('chayns-message-composer__dictation--listening');
+    await expect(listeningButton.querySelector('i')).toHaveClass('fa-microphone-slash');
   },
 };
 export const DictationPaused: Story = {
@@ -319,6 +348,13 @@ export const DictationPaused: Story = {
       'aria-pressed',
       'false',
     );
+    await expect(canvas.getByRole('button', { name: 'Diktierung fortsetzen' })).toHaveClass(
+      'chayns-message-composer__dictation--paused',
+    );
+    const pausedIcon = canvas
+      .getByRole('button', { name: 'Diktierung fortsetzen' })
+      .querySelector('i');
+    await expect(pausedIcon).toHaveClass('fa-microphone');
     await expect(canvas.getByRole('textbox')).toHaveAttribute('contenteditable', 'false');
   },
 };

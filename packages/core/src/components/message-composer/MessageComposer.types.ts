@@ -79,6 +79,10 @@ export interface DictationOptions {
   /** Overrides inherited HTML lang / browser language for the next session. */
   readonly language?: string;
   readonly disabled?: boolean;
+  /** Receives the composer-owned microphone stream used for the live dictation waveform. */
+  readonly onStream?: (stream: MediaStream) => void;
+  /** Called once after the dictation stream tracks and audio analysis are stopped. */
+  readonly onEnd?: () => void;
 }
 export interface VoiceOptions {
   readonly disabled?: boolean;

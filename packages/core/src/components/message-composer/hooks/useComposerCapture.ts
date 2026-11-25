@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
 import type { RichTextDocument } from '../../rich-text-editor/RichTextEditor.types.js';
 import type { MessageComposerProps, ComposerCaptureError } from '../MessageComposer.types.js';
@@ -9,6 +9,8 @@ import {
 } from '../../rich-text-editor/utils/document.js';
 import { DictationSession, recognitionConstructor } from './speech-recognition.js';
 import type { DictationState } from './speech-recognition.js';
+import { startDictationAudio, supportsDictationAudio } from './dictation-audio.js';
+import type { DictationAudioCapture } from './dictation-audio.js';
 
 export function useComposerCapture(
   props: MessageComposerProps,
@@ -22,6 +24,10 @@ export function useComposerCapture(
   });
   const expectedValue = useRef<string | null>(null);
   const session = useRef<DictationSession | null>(null);
+  const dictationAudio = useRef<DictationAudioCapture | null>(null);
+  const dictationGeneration = useRef(0);
+  const dictationHandedOut = useRef(false);
+  const dictationEnd = useRef<(() => void) | undefined>(undefined);
   const initialDocument = useRef<RichTextDocument | null>(null);
   const sessionLanguage = useRef('');
   const restoreDictationFocus = useRef(false);
@@ -76,16 +82,33 @@ export function useComposerCapture(
     }
   });
 
+  const sampleDictationLevel = useCallback(() => dictationAudio.current?.sample() ?? 0, []);
+
+  function endDictationAudio(notify = true) {
+    ++dictationGeneration.current;
+    const owned = dictationAudio.current;
+    dictationAudio.current = null;
+    try {
+      owned?.dispose();
+    } finally {
+      const callback = dictationHandedOut.current ? dictationEnd.current : undefined;
+      dictationHandedOut.current = false;
+      dictationEnd.current = undefined;
+      if (notify) callback?.();
+    }
+  }
+
   function cancel() {
     cancelling.current = true;
     session.current?.cancel();
     session.current = null;
+    endDictationAudio();
     if (voiceRequested.current || stream.current) endVoice(false);
     expectedValue.current = null;
     cancelling.current = false;
   }
 
-  function startDictation() {
+  async function startDictation() {
     const options = latest.current.dictation;
     if (
       options?.disabled ||
@@ -98,6 +121,8 @@ export function useComposerCapture(
     )
       return;
     setError(null);
+    const token = ++dictationGeneration.current;
+    setDictationState('starting');
     const next = new DictationSession({
       value(text) {
         const document = textDocument(text);
@@ -109,6 +134,7 @@ export function useComposerCapture(
         setDictationState(state);
         if (state === 'idle') {
           session.current = null;
+          endDictationAudio();
           if (!cancelling.current) restoreDictationFocus.current = true;
         }
       },
@@ -135,7 +161,51 @@ export function useComposerCapture(
       expectedValue.current = JSON.stringify(empty);
       latest.current.onValueChange(empty);
     }
-    next.start(sessionLanguage.current);
+    let streamCallbackFailed = false;
+    try {
+      const audio = await startDictationAudio(() => {
+        if (dictationGeneration.current !== token || !mounted.current) return;
+        session.current?.cancel();
+        session.current = null;
+        endDictationAudio();
+        if (mounted.current) report('dictation', 'track-ended');
+      });
+      if (token !== dictationGeneration.current || !mounted.current) {
+        audio.dispose();
+        return;
+      }
+      dictationAudio.current = audio;
+      dictationEnd.current = options?.onEnd;
+      try {
+        dictationHandedOut.current = typeof options?.onStream === 'function';
+        options?.onStream?.(audio.stream);
+        next.start(sessionLanguage.current);
+      } catch (failure) {
+        streamCallbackFailed = true;
+        next.cancel();
+        session.current = null;
+        endDictationAudio();
+        throw failure;
+      }
+    } catch (failure) {
+      if (streamCallbackFailed) throw failure;
+      if (token === dictationGeneration.current && mounted.current) {
+        session.current = null;
+        setDictationState('idle');
+        endDictationAudio();
+        report(
+          'dictation',
+          failure &&
+            typeof failure === 'object' &&
+            'name' in failure &&
+            typeof failure.name === 'string'
+            ? failure.name
+            : failure instanceof Error && failure.message
+              ? failure.message
+              : 'capture-failed',
+        );
+      }
+    }
   }
 
   async function startVoice() {
@@ -202,13 +272,14 @@ export function useComposerCapture(
     queueMicrotask(() => {
       if (mounted.current)
         setSupport({
-          dictation: !!recognitionConstructor(),
+          dictation: !!recognitionConstructor() && supportsDictationAudio(),
           voice: !!window.isSecureContext && !!navigator.mediaDevices?.getUserMedia,
         });
     });
     return () => {
       mounted.current = false;
       session.current?.dispose();
+      endDictationAudio();
       endVoice(false);
     };
   }, []);
@@ -229,11 +300,18 @@ export function useComposerCapture(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.disabled, props.readOnly]);
 
+  const hasDictationStreamCallback = typeof props.dictation?.onStream === 'function';
+  const hasDictationEndCallback = typeof props.dictation?.onEnd === 'function';
   useEffect(() => {
     if (session.current) cancel();
     // The session owns its lifecycle; current props are read through latest.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.dictation?.language, props.dictation?.disabled]);
+  }, [
+    props.dictation?.language,
+    props.dictation?.disabled,
+    hasDictationStreamCallback,
+    hasDictationEndCallback,
+  ]);
 
   useEffect(() => {
     if (
@@ -286,5 +364,6 @@ export function useComposerCapture(
     resume: () => session.current?.start(sessionLanguage.current),
     cancelDictation,
     endDictation: () => session.current?.end(),
+    sampleDictationLevel,
   };
 }

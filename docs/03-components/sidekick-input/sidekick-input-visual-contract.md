@@ -104,8 +104,17 @@ treatment only to the newly requested areas without a Bodywork design:
   the composer owns this relationship rather than each Button adding margins.
 - **Audio controls:** active dictation follows the user-confirmed X/microphone/check
   design in shared contract section 9 (2026-10-23), replacing the initial generic
-  text buttons. Voice mute/end retains the functional-first treatment. No waveform/
-  timer or new color value is invented.
+  text buttons. Voice mute/end retains the functional-first treatment. During dictation,
+  prompt chips and the agent/model selector are replaced by a live amplitude waveform
+  filling the available width between cancel and the dictation actions; it adapts the
+  `/dev/chayns-threads` voice-call Canvas visual and inherits text color,
+  freezes while paused, and fades its sampled history at start/end. The microphone
+  action shows a regular microphone while idle, a struck-through microphone while recording, and a regular microphone while paused.
+  Technical geometry
+  uses a 24px-high, container-width Canvas; the number of 3px bars with 1px gaps is calculated
+  from its measured width, following `/dev/chayns-threads`, with smoothed RMS microphone level
+  from Web Audio API (SIDEKICK-034). Under Reduced Motion, the visual is a steady current
+  level rather than a scrolling history.
 - **Accessibility corrections:** the border/placeholder corrections above; full
   accessible labels; at least 24 by 24 CSS-pixel action hit areas even at density S;
   visible menu-option focus; popup collision/scroll and small-width reflow rules.

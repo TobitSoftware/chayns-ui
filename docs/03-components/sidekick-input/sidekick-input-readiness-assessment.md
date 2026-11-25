@@ -3,7 +3,7 @@
 - Gate Result: **READY**
 - Checked: 2026-10-22
 - Scope: Core RichTextEditor, Core MessageComposer, Business SideKickInput
-- Product / scope decisions: SIDEKICK-001–026; editor boundary ADR 0004
+- Product / scope decisions: SIDEKICK-001–034; editor boundary ADR 0004
 - Open implementation blockers: **0**
 - Specifications: [RichTextEditor](../rich-text-editor/rich-text-editor-specification.md),
   [MessageComposer](../message-composer/message-composer-specification.md),
@@ -48,7 +48,7 @@ It does **not** mean a not-yet-existing runtime or manual test has passed.
 | Check | Result | Evidence |
 | --- | --- | --- |
 | Specification exists and status | PASS | Three normative READY specifications; accepted R-01/R-02 outcome. |
-| Confirmed decisions and responsible review | PASS | SIDEKICK-001–026, ADR 0004, recorded user answers. |
+| Confirmed decisions and responsible review | PASS | SIDEKICK-001–034, ADR 0004, recorded user answers. |
 | Purpose/category/use/not-use boundaries | PASS | Generic editing/composition versus AI context/send orchestration; no service ownership. |
 | Anatomy/composition/Context | PASS | Minimal direct API, named item content and wrapper target; no artificial Parts or public Context. |
 | Native semantics/DOM/ref/props | PASS | Editable div primary control, native action buttons, Core-owned lists/menus; ordinary ref versus commandsRef/rootProps. |
@@ -159,7 +159,19 @@ screenreader and final visual acceptance remain execution requirements.
 The [quality audit](../sidekick-input/sidekick-input-quality-audit.md) records the
 checked live reference states, source token mapping, 24 geometry comparisons,
 42 passing editor/composer/Business browser stories and targeted motion, reflow,
-focus and performance corrections. The existing READY scope is unchanged. Final
-functional-first designer styling and the documented manual device/screenreader/
-zoom acceptance remain execution and release obligations, not silently completed
-gates or newly invented component decisions.
+focus and performance corrections. Final functional-first designer styling and the
+documented manual device/screenreader/zoom acceptance remain execution and release
+obligations, not silently completed gates or newly invented component decisions.
+
+## Dictation waveform extension — 2026-11-25
+
+The user confirmed SIDEKICK-034 and explicitly delegated remaining technical details
+within the agreed scope. This additive MessageComposer/SideKickInput work remains
+inside the existing READY boundary: a live microphone waveform fills the available row width and replaces prompt chips
+and the agent/model selector during dictation; an additional composer-owned `getUserMedia` stream is
+exposed through optional `dictation.onStream` / `dictation.onEnd` callbacks and is
+stopped with the Web Audio analysis context on end, cancel, errors and unmount.
+SpeechRecognition and working Web Audio capture are both required. The acceptance
+plan now includes stream lifecycle and waveform state checks. Automated implementation
+evidence is recorded with the corresponding code change; real microphone/browser,
+keyboard/screenreader, reduced-motion and final designer checks remain outstanding.
