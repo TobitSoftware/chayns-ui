@@ -1,0 +1,143 @@
+@layer chayns.components {
+  .chayns-team-talk-input {
+    min-inline-size: 0;
+  }
+
+  .chayns-team-talk-input__top {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--k2) var(--k8) var(--k6) var(--k16);
+  }
+
+  .chayns-team-talk-input__participants {
+    display: flex;
+  }
+
+  .chayns-team-talk-input__participants .chayns-avatar {
+    inline-size: var(--k26);
+    block-size: var(--k26);
+    color: var(--on-accent);
+    font-size: var(--fs-micro);
+    box-shadow: 0 0 0 2px var(--surface);
+  }
+
+  .chayns-team-talk-input__participants .chayns-avatar + .chayns-avatar {
+    margin-inline-start: calc(-1 * var(--k6));
+  }
+
+  .chayns-team-talk-input__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--k4);
+  }
+
+  .chayns-team-talk-input__action {
+    inline-size: var(--k32);
+    block-size: var(--k32);
+    padding: 0;
+  }
+
+  .chayns-team-talk-input__composer {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: var(--k8);
+    min-block-size: var(--ctrl-h);
+    margin: 0 var(--k16) var(--k12);
+    padding: var(--k4) var(--k6) var(--k4) var(--k12);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    background: var(--surface-2);
+    transition:
+      border-color var(--dur-micro) var(--ease-enter),
+      box-shadow var(--dur-micro) var(--ease-enter);
+  }
+
+  .chayns-team-talk-input__composer:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 var(--focus-ring-size)
+      rgb(var(--focus-ring-rgb) / var(--focus-ring-alpha-soft));
+  }
+
+  .chayns-team-talk-input__composer:hover:not(:focus-within) {
+    border-color: var(--input-border-hover);
+  }
+
+  .chayns-team-talk-input__field {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: var(--fs-body);
+    min-block-size: calc(var(--fs-body) * 1.2);
+    margin-block: var(--k12);
+    line-height: 1.2;
+    resize: none;
+    overflow-y: hidden;
+  }
+
+  .chayns-team-talk-input__field::placeholder {
+    color: var(--muted);
+    opacity: 1;
+  }
+
+  .chayns-team-talk-input__submit {
+    position: relative;
+    flex: 0 0 auto;
+    inline-size: var(--k32);
+    block-size: var(--k32);
+    align-self: flex-end;
+    margin-block-end: var(--k5);
+    padding: 0;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--on-accent);
+    box-shadow: none;
+  }
+
+  .chayns-team-talk-input__submit:disabled {
+    background: var(--disabled-bg);
+    color: var(--disabled-fg);
+  }
+
+  .chayns-team-talk-input__submit:hover:not(:disabled) {
+    background: var(--accent-hover);
+    box-shadow: none;
+    transform: none;
+  }
+
+  .chayns-team-talk-input__submit:active:not(:disabled) {
+    transform: scale(var(--motion-scale-press-s));
+  }
+
+  .chayns-team-talk-input__submit .chayns-button-icon i {
+    transition:
+      opacity var(--dur-micro) var(--ease-enter),
+      transform var(--dur-spring) var(--spring-default);
+  }
+
+  .chayns-team-talk-input__submit .chayns-button-icon i[class~='fa-arrow-up'],
+  .chayns-team-talk-input__submit--send-icon .chayns-button-icon i[class~='fa-thumbs-up'] {
+    opacity: 0;
+    transform: scale(var(--motion-scale-swap));
+  }
+
+  .chayns-team-talk-input__submit--send-icon .chayns-button-icon i[class~='fa-arrow-up'] {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chayns-team-talk-input__composer,
+    .chayns-team-talk-input__submit,
+    .chayns-team-talk-input__submit .chayns-button-icon i {
+      transition: none;
+    }
+  }
+}
