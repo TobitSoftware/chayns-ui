@@ -19,8 +19,8 @@
 }
 
 :is(.theme-light, .theme-auto) {
-  --sk-input-border: var(--text-3);
-  --sk-chip-border: var(--text-3);
+  --sk-input-border: rgba(0, 0, 0, 0.04);
+  --sk-chip-border: rgba(0, 0, 0, 0.1);
   --tint: color-mix(in srgb, var(--accent) 14%, #fff);
   --sk-input-bg: rgb(255 255 255 / 80%);
   --sk-input-shadow: 0 4px 10px rgb(0 0 0 / 10%);
@@ -165,8 +165,8 @@
 }
 
 .theme-dark {
-  --sk-input-border: var(--text-3);
-  --sk-chip-border: var(--text-3);
+  --sk-input-border: rgba(255, 255, 255, 0.08);
+  --sk-chip-border: rgba(255, 255, 255, 0.16);
   --sk-input-bg: rgb(22 36 42 / 80%);
   --sk-input-shadow: 0 4px 10px rgb(0 0 0 / 35%);
   --sk-agent-bg: #22333a;
@@ -345,8 +345,8 @@
 
 @media (prefers-color-scheme: dark) {
   .theme-auto {
-    --sk-input-border: var(--text-3);
-    --sk-chip-border: var(--text-3);
+    --sk-input-border: rgba(255, 255, 255, 0.08);
+    --sk-chip-border: rgba(255, 255, 255, 0.16);
     --sk-input-bg: rgb(22 36 42 / 80%);
     --sk-input-shadow: 0 4px 10px rgb(0 0 0 / 35%);
     --sk-agent-bg: #22333a;
