@@ -106,7 +106,7 @@ const NavigationItem = forwardRef<
   const placement = useContext(NavigationContext);
   if (placement === null)
     throw new Error('AppLayout.Navigation.Item must be rendered within AppLayout.Navigation or AppLayout.Footer.');
-  const { labelsHidden } = useLayout('Navigation.Item');
+  const { collapsed, labelsHidden } = useLayout('Navigation.Item');
   const [expanded, setExpanded] = useState(false);
   const childrenId = useId();
   const hasChildren = children !== undefined;
