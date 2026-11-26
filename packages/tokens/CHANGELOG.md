@@ -1,5 +1,11 @@
 # @chayns-ui/tokens
 
+## 0.9.0
+
+### Minor Changes
+
+- 118e60a: Prepare a coordinated release of the new Business components (MarkdownEditor, TeamTalkInput and SideKickInput), Core RichTextEditor and MessageComposer, the supporting token additions, and the AppLayout sidebar rendering fix. Business now exposes one aggregate `styles.css` entry point for its component styles.
+
 ## 0.8.1
 
 ### Patch Changes

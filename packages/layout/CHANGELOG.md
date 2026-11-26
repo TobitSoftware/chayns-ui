@@ -1,5 +1,13 @@
 # @chayns-ui/layout
 
+## 0.10.1
+
+### Patch Changes
+
+- 118e60a: Prepare a coordinated release of the new Business components (MarkdownEditor, TeamTalkInput and SideKickInput), Core RichTextEditor and MessageComposer, the supporting token additions, and the AppLayout sidebar rendering fix. Business now exposes one aggregate `styles.css` entry point for its component styles.
+- Updated dependencies [118e60a]
+  - @chayns-ui/core@0.15.0
+
 ## 0.10.0
 
 ### Minor Changes
