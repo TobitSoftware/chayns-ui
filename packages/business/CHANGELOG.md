@@ -1,5 +1,11 @@
 # @chayns-ui/business
 
+## 0.1.2
+
+### Patch Changes
+
+- d72fb67: Trigger the business package patch release workflow.
+
 ## 0.1.1
 
 ### Patch Changes
