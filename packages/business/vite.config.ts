@@ -16,7 +16,16 @@ export default defineConfig({
     },
     minify: false,
     rollupOptions: {
-      external: ['@chayns-ui/core', 'react', 'react/jsx-runtime'],
+      external: [
+        '@chayns-ui/core',
+        'react',
+        'react/jsx-runtime',
+        '@tiptap/core',
+        '@tiptap/extension-underline',
+        '@tiptap/markdown',
+        '@tiptap/react',
+        '@tiptap/starter-kit',
+      ],
       output: {
         entryFileNames: '[name].js',
         preserveModules: true,

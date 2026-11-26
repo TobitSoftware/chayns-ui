@@ -1,0 +1,126 @@
+.chayns-markdown-editor__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  inline-size: 100%;
+  box-sizing: border-box;
+  border-block-end: 1px solid var(--border);
+  background: transparent;
+  padding: 4px 8px;
+}
+
+.chayns-markdown-editor__toolbar-button {
+  display: inline-flex;
+  min-inline-size: 28px;
+  block-size: 28px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  appearance: none;
+}
+
+.chayns-markdown-editor__toolbar-button--icon {
+  inline-size: 28px;
+  padding: 0;
+}
+
+.chayns-markdown-editor__toolbar-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.chayns-markdown-editor__toolbar-button:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 1px;
+  box-shadow: none;
+}
+
+.chayns-markdown-editor__toolbar-button:not(:disabled):hover,
+.chayns-markdown-editor__toolbar-button--hovered:not(:disabled) {
+  border-radius: 5px;
+  background: var(--surface-alt);
+  border: 0;
+  box-shadow: none;
+  outline: none;
+  transform: none;
+  filter: none;
+}
+
+.chayns-markdown-editor__toolbar-button:not(:disabled):active {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  outline: none;
+  transform: none;
+  filter: none;
+}
+
+.chayns-markdown-editor__toolbar-button--active,
+.chayns-markdown-editor__toolbar-button--active:hover:not(:disabled),
+.chayns-markdown-editor__toolbar-button--active:active:not(:disabled),
+.chayns-markdown-editor__toolbar-button[aria-pressed='true'],
+.chayns-markdown-editor__toolbar-button[aria-pressed='true']:hover:not(:disabled),
+.chayns-markdown-editor__toolbar-button[aria-pressed='true']:active:not(:disabled) {
+  border-radius: 5px;
+  background: var(--surface-alt);
+  border: 0;
+  box-shadow: none;
+  outline: none;
+  transform: none;
+  filter: none;
+}
+
+.chayns-markdown-editor__icon {
+  display: inline-flex;
+  inline-size: 1em;
+  block-size: 1em;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.chayns-markdown-editor__separator {
+  display: inline-block;
+  inline-size: 1px;
+  block-size: 20px;
+  margin-inline: 7px;
+  background: currentcolor;
+  opacity: 0.18;
+}
+
+.chayns-markdown-editor__link-popup {
+  inline-size: min(22rem, calc(100vw - 2rem));
+}
+
+.chayns-markdown-editor__link-form {
+  display: grid;
+  gap: var(--sp-3);
+}
+
+.chayns-markdown-editor__link-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--sp-2);
+}
+
+.chayns-markdown-editor__content [contenteditable='true'] {
+  min-block-size: 1.5em;
+  outline: none;
+  white-space: pre-wrap;
+}
+
+.chayns-markdown-editor__content [contenteditable='true']:empty::before {
+  content: attr(data-placeholder);
+  opacity: 0.6;
+  pointer-events: none;
+}

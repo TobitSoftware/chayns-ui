@@ -431,6 +431,12 @@ Diese bestätigten Teilentscheidungen ersetzen keine komponentenspezifische READ
 | AI-006 | AI | Markdown bleibt die normative Component Specification. Standardisierte Frontmatter-Felder werden durch ein JSON Schema validiert. | CONFIRMED | User decision, 2026-09-21 | Frontmatter-Felder, Schema-Ablage und Validator im Specification Format festlegen. |
 | AI-007 | AI | Ein KI-Agent muss bei implementierungsrelevanter Mehrdeutigkeit stoppen und eine konkrete Klärungsfrage formulieren; eine plausible Annahme oder Best-Guess-Implementierung ist nicht zulässig. | CONFIRMED | Planning | AI Development Rules |
 
+## Markdown Editor
+
+| ID | Category | Decision | Status | Source | Follow-up |
+|---|---|---|---|---|---|
+| MARKDOWN-001 | MARKDOWN_EDITOR | Link-Toolbar öffnet ein Popup mit Text- und URL-Feld (in dieser Reihenfolge) sowie Abbrechen und Speichern; bestehende Links sind bearbeitbar und zusätzlich entfernbar. URL erhält Fokus. Enter speichert; Escape, Outside-Press und Abbrechen verwerfen den Draft. Linktext ist optional und fällt bei leerem Feld auf die URL zurück. Labels kommen über `linkLabels`. Leere URLs und `javascript:`/`data:` sind unzulässig; andere URLs einschließlich relativer, `mailto:` und `tel:` werden unverändert übernommen. | CONFIRMED | User decisions, 2026-11-26 | MarkdownEditor Specification und Readiness aktualisieren; automatisierte und Accessibility-Verifikation durchführen. |
+
 ## Distribution
 
 | ID | Category | Decision | Status | Source | Follow-up |
