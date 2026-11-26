@@ -1,5 +1,5 @@
 ---
-{"id": "markdown-editor-component", "type": "module-design", "title": "MarkdownEditor Component Specification", "name": "MarkdownEditor", "package": "@chayns-ui/business", "category": "Business", "status": "active", "useWhen": ["A controlled Markdown input with an extensible formatting toolbar is needed."], "doNotUseWhen": ["Use TextArea for plain text or RichTextEditor for structured mention documents."], "alternatives": ["TextArea", "RichTextEditor", "MessageComposer"], "combinations": [], "sourceReferences": ["https://tappqa.tobit.com/Bodywork/DesignSystem/", "./markdown-editor-usage.md"], "checkedOn": "2026-10-28", "stories": ["Business/MarkdownEditor:Default", "Business/MarkdownEditor:ReplyDraft", "Business/MarkdownEditor:CustomToolbar", "Business/MarkdownEditor:ReadOnly", "Business/MarkdownEditor:Disabled"], references: [markdown-editor-usage]}
+{"id": "markdown-editor-component", "type": "module-design", "title": "MarkdownEditor Component Specification", "name": "MarkdownEditor", "package": "@chayns-ui/business", "category": "Business", "status": "implemented", "useWhen": ["A controlled Markdown input with an extensible formatting toolbar is needed."], "doNotUseWhen": ["Use TextArea for plain text or RichTextEditor for structured mention documents."], "alternatives": ["TextArea", "RichTextEditor", "MessageComposer"], "combinations": [], "sourceReferences": ["https://tappqa.tobit.com/Bodywork/DesignSystem/", "./markdown-editor-usage.md"], "checkedOn": "2026-11-26", "stories": ["Business/MarkdownEditor:Default", "Business/MarkdownEditor:ReplyDraft", "Business/MarkdownEditor:CustomToolbar", "Business/MarkdownEditor:ReadOnly", "Business/MarkdownEditor:Disabled"], "references": ["markdown-editor-usage"]}
 ---
 
 # MarkdownEditor – Component Specification
@@ -8,10 +8,10 @@
 
 - Component Name: MarkdownEditor
 - Component Category: Business
-- Specification Status: IMPLEMENTED
+- Specification Status: IMPLEMENTED (link popup verification pending)
 - Owner / Responsible Area: chayns UI Business
 - Design Reference: Consumer wrapper owns visual surface; compact toolbar follows the supplied reference image
-- Relevant Decision IDs: none
+- Relevant Decision IDs: MARKDOWN-001
 - Foundation Dependencies: React, Tiptap, FontAwesome icon CSS, accessibility foundations
 - Related Components: RichTextEditor, MessageComposer
 - Last Reviewed: 2026-10-28
@@ -39,7 +39,7 @@ A toolbar of native buttons precedes the Tiptap contenteditable control. There a
 
 ## Semantic Contract
 
-The editor exposes a contenteditable textbox named through `aria-label` or `aria-labelledby`. Toolbar controls are native buttons within a toolbar. Normal Tab order is preserved; no roving tabindex is used.
+The editor exposes a contenteditable textbox named through `aria-label` or `aria-labelledby`. Toolbar controls are native buttons within a toolbar. Normal Tab order is preserved; no roving tabindex is used. The link popup contains labeled native text inputs in Text-then-URL order and native action buttons.
 
 ## Variants
 
@@ -66,7 +66,11 @@ Disabled and read-only each block editing/actions. Active formatting does not ov
 - `value: string` is the controlled Markdown value.
 - `onValueChange(value)` reports updates.
 - `items` replaces exported `markdownEditorDefaultItems` when supplied.
-- `onRequestLink({ href, text })` may return a URL or `null`, synchronously or asynchronously.
+- Required `linkLabels` provides localized text for the popup's Text, URL, Cancel, Save, Remove Link, and invalid-URL message.
+- The default Link toolbar action opens an editor-owned popup with editable text and URL fields, in that order, followed by Cancel and Save actions. The URL field receives initial focus. When editing an existing link, a Remove Link action is also shown.
+- Link text is optional and defaults to the URL when no text is selected. A new link defaults to the current selection when one exists. When editing an existing link, its current text and URL are prefilled. If the text field is cleared, the URL is used as the link text.
+- Save applies the link; Remove Link unsets it; Cancel, Escape, and outside press discard unsaved changes. Enter in the URL field saves. Popup actions and fields are buttons/inputs with consumer-localized labels through `linkLabels`.
+- Link URL accepts relative URLs and schemes such as HTTP(S), `mailto:`, and `tel:` without normalization; `javascript:` and `data:` schemes are rejected.
 - `placeholder`, `readOnly`, `disabled` configure content behavior.
 - Compatible native div props are forwarded to the root; `children`, `onChange`, and `role` are excluded. Accessible name is applied to the contenteditable control.
 - Ref exposes `getHTML()` and `focus()`.
@@ -104,7 +108,7 @@ Surface, background, border, and text color are inherited from wrapper/environme
 
 ## Typography Contract
 
-Typography is inherited. Placeholder and custom item labels are consumer-localizable.
+Typography is inherited. Placeholder, custom item labels, and required popup labels are consumer-localizable.
 
 ## Accessibility Contract
 
@@ -112,11 +116,11 @@ Accessible editor name is required. Icon-only buttons carry localized accessible
 
 ## Keyboard Contract
 
-Native contenteditable behavior remains. Configured shortcuts match exact key and modifier booleans (`ctrlKey`, `metaKey`, `shiftKey`, `altKey`); matches prevent default and invoke the item. Native buttons activate by Enter/Space.
+Native contenteditable behavior remains. Configured shortcuts match exact key and modifier booleans (`ctrlKey`, `metaKey`, `shiftKey`, `altKey`); matches prevent default and invoke the item. Native buttons activate by Enter/Space. In the link popup, URL receives initial focus, Enter saves from that field, Escape cancels, and normal Tab navigation is preserved.
 
 ## Focus Contract
 
-`ref.current.focus()` focuses the editor. No focus trap or restoration is provided.
+`ref.current.focus()` focuses the editor. The link popup focuses URL when opened; Cancel and Escape restore focus to its trigger through the Core Popup contract. Outside press dismisses and discards the draft without forced focus restoration. No focus trap is provided.
 
 ## Motion Contract
 
@@ -124,7 +128,7 @@ No MarkdownEditor-specific motion. Toolbar buttons use native button behavior an
 
 ## Internationalization and Content Contract
 
-Accessible name, placeholder, and custom item labels come from the consumer. No domain-specific text is introduced.
+Accessible name, placeholder, custom toolbar labels, and all link-popup labels and validation text come from the consumer through `linkLabels`. No domain-specific text is introduced.
 
 ## Responsive and Layout Behavior
 
@@ -136,11 +140,11 @@ Wrapper owns spacing, border, background, colors, and placement.
 
 ## Loading and Async Contract
 
-No loading state. Link URL selection may be asynchronous; consumers own dialog and pending UX.
+No loading state or asynchronous link callback. The editor-owned link popup maintains draft values until Save, Remove Link, or dismissal.
 
 ## Error Contract
 
-No business error display. The consumer owns rejected async link callback errors.
+The URL field is required; an empty or unsafe URL prevents Save. Relative URLs and schemes such as HTTP(S), `mailto:`, and `tel:` are accepted unchanged. `javascript:` and `data:` schemes are rejected, including when ASCII whitespace/control characters are embedded before the colon.
 
 ## Performance Characteristics
 
@@ -148,11 +152,11 @@ Tiptap dependencies are imported directly and module boundaries are preserved fo
 
 ## Dependencies
 
-Business uses React and Tiptap. MarkdownEditor toolbar controls and icon rendering are local rather than Core UI components; this is the user's explicit exception to the usual Business→Core composition boundary. Icon names remain compatible with the Core `ButtonIcon` string format. Existing Core RichTextEditor is not replaced.
+Business uses React, Tiptap, and Core `Popup`, `TextField`, and `Button` for the link editor. Other MarkdownEditor toolbar controls and icon rendering remain local under the explicit toolbar-only exception to the usual Business→Core composition boundary. Icon names remain compatible with the Core `ButtonIcon` string format. Existing Core RichTextEditor is not replaced.
 
 ## Non-Goals
 
-No Markdown preview, link dialog, upload support, persistence, message submit flow, or structured mention conversion.
+No Markdown preview, upload support, persistence, message submit flow, or structured mention conversion.
 
 ## Escape Hatches and Overrides
 
@@ -166,17 +170,17 @@ See controlled value, ref, and toolbar examples in [the Usage Guide](./markdown-
 
 - Do control and persist Markdown in the application.
 - Do provide localized accessible names.
-- Do delegate link selection through `onRequestLink`.
+- Do provide localized `linkLabels` for the editor-owned link popup.
 - Do not rely on editor-owned background, border, or text color.
 - Do not use this component for structured RichTextEditor documents.
 
 ## Test Contract
 
-Test controlled Markdown updates/parsing, imperative HTML/focus ref, default/custom toolbar behavior, shortcut modifiers, disabled/read-only, accessible naming, link callback, and long-content wrapping.
+Test controlled Markdown updates/parsing, imperative HTML/focus ref, default/custom toolbar behavior, shortcut modifiers, disabled/read-only, accessible naming, link popup creation/edit/removal/cancel, required labels and URL validation, and long-content wrapping.
 
 ## Visual Verification Contract
 
-The supplied toolbar reference is the target: compact B/I/U/S controls, divider before list actions, divider before Link. Link remains the final action; emoji insertion is not introduced. The rounded reply container and removal of the text-control focus outline apply only to the ReplyDraft Story and do not alter component styling. Verify wrapper-owned surface, focus, states, and narrow widths.
+The supplied toolbar reference is the target: compact B/I/U/S controls, divider before list actions, divider before Link. Link remains the final action; emoji insertion is not introduced. The rounded reply container and removal of the text-control focus outline apply only to the ReplyDraft Story and do not alter component styling. Verify wrapper-owned surface, focus, states, and narrow widths. No Bodywork reference exists for the link popup; the user-confirmed layout is Text input, URL input, then Cancel and Save buttons, with Remove Link for an existing link. The popup uses existing Core Popup, TextField, and Button styling; no additional geometry or token is inferred.
 
 ## AI Usage Contract
 
@@ -190,23 +194,24 @@ Plain text, atomic mentions, attachments, or full message submission are require
 
 ### Required context
 
-Controlled Markdown state, accessible name, wrapper styling, and consumer-owned link UI when needed.
+Controlled Markdown state, accessible name, wrapper styling, and localized `linkLabels`.
 
 ### Forbidden assumptions
 
-Do not invent surface styling, link dialog UI, Markdown underline syntax, or uncontrolled behavior.
+Do not invent surface styling, Markdown underline syntax, or uncontrolled behavior.
 
 ### Related decisions
 
-None.
+MARKDOWN-001.
 
 ## Open Decisions
 
-No implementation blockers for the confirmed API scope.
+Implementation is complete for the confirmed link popup contract. Re-run the required automated and manual accessibility checks before treating this specification as verified.
 
 ## Readiness Assessment
 
 - Design Rules Complete: yes
+- Verification Status: PENDING (automated checks unavailable in the local environment)
 - Foundation Dependencies Complete: yes
 - API Contract Complete: yes
 - Semantic Contract Complete: yes
@@ -219,7 +224,8 @@ No implementation blockers for the confirmed API scope.
 - Test Contract Complete: yes
 - Visual Verification Contract Complete: yes
 - Open Implementation Blockers: 0
-- Specification Status: IMPLEMENTED
+- Verification Status: PENDING (automated checks unavailable in the local environment)
+- Specification Status: IMPLEMENTED (link popup verification pending)
 
 ## Specification Change Rules
 

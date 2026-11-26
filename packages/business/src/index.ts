@@ -9,7 +9,7 @@ export type {
   MarkdownEditorShortcut,
   MarkdownEditorToolbarItem,
   MarkdownEditorToolbarButtonItem,
-  MarkdownEditorLinkRequest,
+  MarkdownEditorLinkLabels,
 } from './components/markdown-editor/MarkdownEditor.types.js';
 export { SideKickSelectionKinds } from './components/sidekick-input/SideKickInput.types.js';
 export type {

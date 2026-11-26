@@ -97,6 +97,22 @@
   opacity: 0.18;
 }
 
+.chayns-markdown-editor__link-popup {
+  inline-size: min(22rem, calc(100vw - 2rem));
+}
+
+.chayns-markdown-editor__link-form {
+  display: grid;
+  gap: var(--sp-3);
+}
+
+.chayns-markdown-editor__link-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--sp-2);
+}
+
 .chayns-markdown-editor__content [contenteditable='true'] {
   min-block-size: 1.5em;
   outline: none;

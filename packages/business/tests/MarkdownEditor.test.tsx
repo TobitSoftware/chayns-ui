@@ -4,10 +4,26 @@ import { describe, expect, it, vi } from 'vitest';
 import MarkdownEditor from '../src/components/markdown-editor/MarkdownEditor.js';
 import type { MarkdownEditorRef } from '../src/components/markdown-editor/MarkdownEditor.types.js';
 
+const linkLabels = {
+  text: 'Text',
+  url: 'URL',
+  cancel: 'Abbrechen',
+  save: 'Speichern',
+  remove: 'Link entfernen',
+  invalidUrl: 'Bitte eine gültige URL eingeben.',
+};
+
 describe('MarkdownEditor', () => {
   it('keeps the markdown value controlled', async () => {
     const onValueChange = vi.fn();
-    render(<MarkdownEditor aria-label="Editor" value="" onValueChange={onValueChange} />);
+    render(
+      <MarkdownEditor
+        aria-label="Editor"
+        linkLabels={linkLabels}
+        value=""
+        onValueChange={onValueChange}
+      />,
+    );
     const editor = screen.getByRole('textbox', { name: 'Editor' });
     fireEvent.input(editor, { inputType: 'insertText', data: 'Hello' });
     await waitFor(() => expect(onValueChange).toHaveBeenCalled());
@@ -19,6 +35,7 @@ describe('MarkdownEditor', () => {
       <MarkdownEditor
         ref={ref}
         aria-label="Editor"
+        linkLabels={linkLabels}
         value="**Bold**"
         onValueChange={() => undefined}
       />,
@@ -29,7 +46,14 @@ describe('MarkdownEditor', () => {
   });
 
   it('renders the default toolbar as accessible icon buttons in the reference order', () => {
-    render(<MarkdownEditor aria-label="Editor" value="" onValueChange={() => undefined} />);
+    render(
+      <MarkdownEditor
+        aria-label="Editor"
+        linkLabels={linkLabels}
+        value=""
+        onValueChange={() => undefined}
+      />,
+    );
     const buttons = screen.getAllByRole('button');
     expect(buttons.map((button) => button.getAttribute('aria-label'))).toEqual([
       'Fett',
@@ -59,6 +83,7 @@ describe('MarkdownEditor', () => {
     render(
       <MarkdownEditor
         aria-label="Editor"
+        linkLabels={linkLabels}
         items={[
           {
             type: 'button',
@@ -87,11 +112,57 @@ describe('MarkdownEditor', () => {
     expect(activeButton.querySelector('.chayns-markdown-editor__icon i')).toHaveClass('fas');
   });
 
+  it('creates links through the popup and falls back to the URL for empty text', async () => {
+    const onValueChange = vi.fn();
+    render(
+      <MarkdownEditor
+        aria-label="Editor"
+        linkLabels={linkLabels}
+        value=""
+        onValueChange={onValueChange}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Link' }));
+    const textField = screen.getByRole('textbox', { name: 'Text' });
+    const urlField = screen.getByRole('textbox', { name: 'URL' });
+    expect(urlField).toHaveFocus();
+    expect(screen.getByRole('button', { name: 'Link' })).toHaveAttribute('aria-expanded', 'true');
+    fireEvent.change(urlField, { target: { value: 'mailto:hello@example.com' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Speichern' }));
+
+    await waitFor(() =>
+      expect(onValueChange).toHaveBeenCalledWith(
+        '[mailto:hello@example.com](mailto:hello@example.com)',
+      ),
+    );
+    await waitFor(() => expect(textField).not.toBeInTheDocument());
+  });
+
+  it('does not allow empty or unsafe URLs to be saved', () => {
+    render(
+      <MarkdownEditor
+        aria-label="Editor"
+        linkLabels={linkLabels}
+        value=""
+        onValueChange={() => undefined}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Link' }));
+    expect(screen.getByRole('button', { name: 'Speichern' })).toBeDisabled();
+    fireEvent.change(screen.getByRole('textbox', { name: 'URL' }), {
+      target: { value: 'java\nscript:alert(1)' },
+    });
+    expect(screen.getByRole('button', { name: 'Speichern' })).toBeDisabled();
+  });
+
   it('supports custom toolbar items', () => {
     const onClick = vi.fn();
     render(
       <MarkdownEditor
         aria-label="Editor"
+        linkLabels={linkLabels}
         items={[{ type: 'button', id: 'custom', label: 'Custom', onClick }]}
         value=""
         onValueChange={() => undefined}

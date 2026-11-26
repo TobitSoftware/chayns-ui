@@ -6,6 +6,15 @@ import '@chayns-ui/business/markdown-editor.css';
 import './markdown-editor.stories.css';
 import usage from '../../../docs/03-components/markdown-editor/markdown-editor-usage.md?raw';
 
+const defaultLinkLabels = {
+  text: 'Text',
+  url: 'URL',
+  cancel: 'Abbrechen',
+  save: 'Speichern',
+  remove: 'Link entfernen',
+  invalidUrl: 'Bitte eine gültige URL eingeben.',
+};
+
 function ControlledMarkdownEditor(props: Partial<MarkdownEditorProps>) {
   const [value, setValue] = useState(props.value ?? '**Markdown** bearbeiten');
   const [html, setHtml] = useState('');
@@ -20,6 +29,7 @@ function ControlledMarkdownEditor(props: Partial<MarkdownEditorProps>) {
           ref={editorRef}
           value={value}
           onValueChange={setValue}
+          linkLabels={props.linkLabels ?? defaultLinkLabels}
           placeholder={props.placeholder ?? 'Text eingeben'}
         />
       </div>
@@ -47,6 +57,14 @@ function ReplyDraftEditor() {
           aria-label="Antwort verfassen"
           value={value}
           onValueChange={setValue}
+          linkLabels={{
+            text: 'Text',
+            url: 'URL',
+            cancel: 'Abbrechen',
+            save: 'Speichern',
+            remove: 'Link entfernen',
+            invalidUrl: 'Bitte eine gültige URL eingeben.',
+          }}
           placeholder=""
         />
       </div>
@@ -59,6 +77,7 @@ const meta = {
   component: MarkdownEditor,
   tags: ['autodocs'],
   args: {
+    linkLabels: defaultLinkLabels,
     value: '',
     onValueChange: () => undefined,
     placeholder: 'Markdown eingeben',
@@ -89,9 +108,9 @@ const meta = {
       description: 'Replaces default toolbar items. Use exported defaults as a starting point.',
       table: { category: 'Toolbar' },
     },
-    onRequestLink: {
+    linkLabels: {
       control: false,
-      description: 'Requests a link URL for the current selection; return null to remove a link.',
+      description: 'Localized labels for the link popup fields, actions, and validation message.',
       table: { category: 'Toolbar' },
     },
     placeholder: {

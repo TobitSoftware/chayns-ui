@@ -23,14 +23,18 @@ export interface MarkdownEditorToolbarButtonItem {
 
 export type MarkdownEditorToolbarItem = MarkdownEditorToolbarButtonItem;
 
+export interface MarkdownEditorLinkLabels {
+  readonly text: string;
+  readonly url: string;
+  readonly cancel: string;
+  readonly save: string;
+  readonly remove: string;
+  readonly invalidUrl: string;
+}
+
 export interface MarkdownEditorRef {
   getHTML(): string;
   focus(): void;
-}
-
-export interface MarkdownEditorLinkRequest {
-  readonly href: string | null;
-  readonly text: string;
 }
 
 export interface MarkdownEditorProps extends Omit<
@@ -42,7 +46,7 @@ export interface MarkdownEditorProps extends Omit<
   value: string;
   onValueChange: (value: string) => void;
   items?: readonly MarkdownEditorToolbarItem[];
-  onRequestLink?: (request: MarkdownEditorLinkRequest) => string | null | Promise<string | null>;
+  linkLabels?: MarkdownEditorLinkLabels;
   placeholder?: string;
   readOnly?: boolean;
   disabled?: boolean;

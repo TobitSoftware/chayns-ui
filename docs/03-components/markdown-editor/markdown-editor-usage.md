@@ -49,6 +49,14 @@ function ArticleEditor() {
         aria-label="Artikeltext"
         value={markdown}
         onValueChange={setMarkdown}
+        linkLabels={{
+          text: 'Text',
+          url: 'URL',
+          cancel: 'Abbrechen',
+          save: 'Speichern',
+          remove: 'Link entfernen',
+          invalidUrl: 'Bitte eine gültige URL eingeben.',
+        }}
         placeholder="Artikeltext eingeben"
       />
       <button type="button" onClick={() => setHtml(editorRef.current?.getHTML() ?? '')}>
@@ -66,7 +74,7 @@ Die Story `Business/MarkdownEditor:ReplyDraft` zeigt einen längeren Antwortentw
 
 Die Default-Toolbar bietet Fett, Kursiv, Unterstrichen, Durchgestrichen, nummerierte und Aufzählungslisten sowie Link. `markdownEditorDefaultItems` ist exportiert. `items` ersetzt die Default-Liste vollständig. Jedes Item hat `type: 'button'`, eindeutige `id`, lokalisiertes `label`, `onClick(editor)` und optional einen Icon-Namen im mit Core `ButtonIcon` kompatiblen Format. Buttons und Icons rendert MarkdownEditor selbst, ohne Core-Button-Komponente. Shortcuts unterstützen `key`, `ctrlKey`, `metaKey`, `shiftKey` und `altKey`.
 
-`onRequestLink({ href, text })` gibt dem Consumer die aktuelle Auswahl. Der Callback kann synchron oder asynchron eine URL oder `null` zum Entfernen des Links liefern. Der Consumer stellt bei Bedarf selbst einen zugänglichen Linkdialog bereit.
+Die Linkaktion öffnet ein Popup mit den Feldern Linktext und URL sowie den Aktionen Abbrechen, Speichern und – wenn ein bestehender Link bearbeitet wird – Link entfernen. URL erhält beim Öffnen den Fokus. Feld-, Button- und Fehlermeldungstexte müssen über `linkLabels` lokalisiert werden. Der URL-Wert wird unverändert übernommen; leere URLs sowie `javascript:`- und `data:`-URLs können nicht gespeichert werden. Escape, Abbrechen und Klick außerhalb verwerfen den Entwurf.
 
 ## Besonderheiten
 
