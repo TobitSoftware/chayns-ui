@@ -75,8 +75,36 @@ describe('AppLayout', () => {
 
   it('rejects Navigation.Item outside Navigation', () => {
     expect(() => render(<AppLayout.Navigation.Item label="X" />)).toThrow(
-      'AppLayout.Navigation.Item must be rendered within AppLayout.Navigation.',
+      'AppLayout.Navigation.Item must be rendered within AppLayout.Navigation or AppLayout.Footer.',
     );
+  });
+
+  it('renders footer navigation items with icon-only visuals, title labels and isHidden support', () => {
+    render(
+      <AppLayout>
+        <AppLayout.Navigation>
+          <AppLayout.Navigation.Item icon="fa-house" label="Home" />
+          <AppLayout.Navigation.Item href="/calendar" icon="fa-calendar" label={<span>Calendar</span>} />
+        </AppLayout.Navigation>
+        <AppLayout.Footer>
+          <AppLayout.Footer.Item icon="fa-gear" label="Settings" href="/settings" />
+          <AppLayout.Footer.Item icon="fa-circle-question" label="Help" isHidden />
+          <AppLayout.CollapseToggle collapseLabel="Collapse" expandLabel="Expand" />
+        </AppLayout.Footer>
+      </AppLayout>,
+    );
+
+    const footer = document.querySelector('.chayns-app-layout__footer');
+    expect(footer).toContainElement(screen.getByRole('link', { name: 'Settings' }));
+    expect(screen.getByRole('link', { name: 'Settings' })).toHaveAttribute('title', 'Settings');
+    expect(screen.getByRole('link', { name: 'Settings' })).toHaveTextContent('Settings');
+    expect(screen.getByRole('link', { name: 'Settings' }).querySelector('.chayns-app-layout__label')).toHaveClass('chayns-app-layout__label--hidden');
+    expect(screen.queryByRole('button', { name: 'Help' })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Calendar' })).toHaveAttribute('title', 'Calendar');
+    expect(screen.getByRole('link', { name: 'Calendar' }).querySelector('i')).not.toHaveAttribute('title');
+    expect(screen.getByRole('button', { name: 'Home' })).toHaveAttribute('title', 'Home');
+    expect(screen.getByRole('button', { name: 'Home' }).querySelector('.chayns-app-layout__icon')).not.toHaveAttribute('title');
+    expect(screen.getByRole('link', { name: 'Settings' })).toHaveAttribute('title', 'Settings');
   });
 
   it('places Footer content and CollapseToggle in the sidebar footer', async () => {
@@ -91,10 +119,9 @@ describe('AppLayout', () => {
     ).not.toBeNull();
     await user.click(screen.getByRole('button', { name: 'Einklappen' }));
     expect(screen.getByRole('button', { name: 'Ausklappen' })).toBeInTheDocument();
-    expect(
-      document.querySelector(
-        '.chayns-app-layout--collapsed .chayns-app-layout__footer > :not(.chayns-app-layout__collapse)',
-      ),
-    ).toBe(screen.getByRole('button', { name: 'Einstellungen' }));
+    await user.click(screen.getByRole('button', { name: 'Ausklappen' }));
+    expect(onCollapsedChange).toHaveBeenNthCalledWith(2, false);
+    const customFooterChild = document.querySelector('.chayns-app-layout__footer-custom');
+    expect(customFooterChild).toContainElement(screen.getByRole('button', { name: 'Einstellungen' }));
   });
 });

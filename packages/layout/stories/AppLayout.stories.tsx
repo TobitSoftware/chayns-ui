@@ -4,6 +4,7 @@ import { AppLayoutNavigation } from './docs/AppLayoutNavigation.js';
 import { AppLayoutNavigationItem } from './docs/AppLayoutNavigationItem.js';
 import { AppLayoutContent } from './docs/AppLayoutContent.js';
 import { AppLayoutFooter } from './docs/AppLayoutFooter.js';
+import { AppLayoutFooterItem } from './docs/AppLayoutFooterItem.js';
 import { AppLayoutCollapseToggle } from './docs/AppLayoutCollapseToggle.js';
 import usage from '../../../docs/03-components/app-layout/app-layout-usage.md?raw';
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -24,6 +25,7 @@ const meta = {
     'AppLayout.Navigation.Item': AppLayoutNavigationItem as never,
     'AppLayout.Content': AppLayoutContent as never,
     'AppLayout.Footer': AppLayoutFooter as never,
+    'AppLayout.Footer.Item': AppLayoutFooterItem as never,
     'AppLayout.CollapseToggle': AppLayoutCollapseToggle as never,
   },
   tags: ['autodocs'],
@@ -86,6 +88,50 @@ export const MailWorkspace: Story = {
 
     await userEvent.click(disclosure);
     await expect(canvas.getByRole('button', { name: 'Read' })).toBeInTheDocument();
+  },
+};
+
+export const FooterNavigation: Story = {
+  args: { children: null },
+  decorators: [
+    (Story) => (
+      <div className="chayns-storybook-example-layout">
+        <Story />
+      </div>
+    ),
+  ],
+  render: (args) => (
+    <AppLayout {...args}>
+      <AppLayout.Header>
+        <AppLayout.Logo src={logo} />
+      </AppLayout.Header>
+      <AppLayout.Navigation aria-label="Application navigation">
+        <AppLayout.Navigation.Item icon="fa-inbox" label="Inbox" />
+        <AppLayout.Navigation.Item icon="fa-calendar" isActive label="Calendar" />
+        <AppLayout.Navigation.Item icon="fa-address-book" label="Contacts" />
+      </AppLayout.Navigation>
+      <AppLayout.Footer>
+        <AppLayout.Footer.Item icon="fa-gear" label="Settings" href="#settings" />
+        <AppLayout.Footer.Item icon="fa-circle-question" label="Help" href="#help" />
+        <AppLayout.CollapseToggle collapseLabel="Collapse navigation" expandLabel="Expand navigation" />
+      </AppLayout.Footer>
+      <AppLayout.Content>
+        <div style={{ blockSize: '100%', padding: 'var(--sp-6)' }}>
+          <h1 style={{ marginBlockStart: 0 }}>Footer navigation items</h1>
+          <p>Toggle the navigation to see footer actions move from inline to stacked layout.</p>
+        </div>
+      </AppLayout.Content>
+    </AppLayout>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const settings = canvas.getByRole('link', { name: 'Settings' });
+    await expect(settings).toHaveAttribute('title', 'Settings');
+    const toggle = canvas.getByRole('button', { name: 'Collapse navigation', expanded: true });
+    await userEvent.click(toggle);
+    await expect(canvas.getByRole('button', { name: 'Expand navigation', expanded: false })).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: 'Expand navigation', expanded: false }));
+    await expect(canvas.getByRole('button', { name: 'Collapse navigation', expanded: true })).toBeInTheDocument();
   },
 };
 

@@ -27,6 +27,7 @@ import { AppLayout } from '@chayns-ui/layout';
     <AppLayout.Navigation.Item href="/projects" label="Projekte" />
   </AppLayout.Navigation>
   <AppLayout.Footer>
+    <AppLayout.Footer.Item icon="fa-gear" label="Einstellungen" href="/settings" />
     <AppLayout.CollapseToggle
       collapseLabel="Navigation einklappen"
       expandLabel="Navigation ausklappen"
@@ -38,4 +39,4 @@ import { AppLayout } from '@chayns-ui/layout';
 
 ## Besonderheiten
 
-Die Anwendung liefert Ziele und `isActive`. Ohne `href` ist ein Navigation.Item eine Aktion oder ein Disclosure für Untereinträge. `Footer` bildet die durch eine Linie getrennte untere Sidebar-Zone; seine Children gehören der Anwendung. `CollapseToggle` wird dort zusammen mit optionalen eigenen Controls platziert und richtet sich am Inline-Ende aus. `collapsed`/`onCollapsedChange` steuert die Navigation kontrolliert, `defaultCollapsed` ihren Anfangszustand. Ein CollapseToggle benötigt lokalisierte `expandLabel`-/`collapseLabel`-Texte. Routing und Persistenz bleiben in der Anwendung.
+Die Anwendung liefert Ziele und `isActive`. Ohne `href` ist ein Navigation.Item eine Aktion oder ein Disclosure für Untereinträge. `Footer.Item` verwendet dieselbe Link-/Button-API im Footer; dort wird das Label als zugänglicher Name und natives `title` bereitgestellt, visuell erscheint nur das optionale Icon. `isHidden` blendet ein Item unabhängig vom Zustand vollständig aus. Footer-Items stehen ausgefahren nebeneinander und eingeklappt untereinander; der CollapseToggle wechselt vom rechten Rand unter die Items. `onCollapsedChange` meldet beide Richtungen. `collapsed` steuert kontrolliert, `defaultCollapsed` setzt den Anfangszustand. Ein CollapseToggle benötigt lokalisierte `expandLabel`-/`collapseLabel`-Texte. Routing und Persistenz bleiben in der Anwendung.

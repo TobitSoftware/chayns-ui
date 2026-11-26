@@ -5,6 +5,10 @@
 
 The composition hierarchy, recursive label/children contract, native/ref owners, collapse state, disclosure accessibility, fixed narrow layout and verification matrix are explicit. AppLayout is READY for only this contract.
 
+## Footer navigation extension — 2026-11-26
+
+`Footer.Item` is ready as a Footer child that reuses the Navigation.Item native link/button behavior. Footer labels provide the accessible name and native `title`; icons remain optional. `isHidden` always omits the item. Footer Items and CollapseToggle change from inline/right to stacked/below with transform-only FLIP motion (disabled for reduced motion); the root `onCollapsedChange` reports both directions. Existing direct Footer children remain consumer-owned and are hidden while collapsed. The supplied Bodywork clipping was checked on 2026-11-26 for these states and the arrow icons. Storybook evidence: `Layout/AppLayout:FooterNavigation`. No unresolved design-review point remains for this scope.
+
 ## Footer extension — 2026-10-14
 
 `Footer` is READY as a native footer landmark inside AppLayout's sidebar. It owns the lower divider and placement only; consumers compose their own controls and may place the already specified `CollapseToggle` there. The supplied Bodywork footer-rail reference was checked on 2026-10-14 for the divider, lower placement and inline-end toggle. No new token, interaction, accessibility, i18n or responsive decision is required: child controls retain their own semantics, names, focus behavior and keyboard contracts.

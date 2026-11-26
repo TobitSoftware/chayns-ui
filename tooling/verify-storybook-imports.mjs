@@ -67,8 +67,10 @@ const compoundDocs = {
     'AppLayout.Header': ['children'],
     'AppLayout.Logo': ['children'],
     'AppLayout.Navigation': ['children'],
-    'AppLayout.Navigation.Item': ['label', 'icon', 'href', 'isActive'],
+    'AppLayout.Navigation.Item': ['label', 'icon', 'href', 'isActive', 'isHidden'],
+    'AppLayout.Footer.Item': ['label', 'icon', 'href', 'isHidden'],
     'AppLayout.Content': ['children'],
+    'AppLayout.Footer': ['children'],
     'AppLayout.CollapseToggle': ['collapseLabel', 'expandLabel'],
   },
   'layout-tabs': {
@@ -140,7 +142,7 @@ try {
             }
           }
         }
-        console.log(`${name}: verified populated prop tables for all 31 public compound parts.`);
+        console.log(`${name}: verified populated prop tables for all 32 public compound parts.`);
       } finally {
         await docsPage.close();
       }

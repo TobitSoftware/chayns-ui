@@ -15,6 +15,8 @@ export interface NavigationItemContent {
   label: ReactNode;
   children?: ReactNode;
   isActive?: boolean;
+  /** Omit this item from rendering. */
+  isHidden?: boolean;
 }
 export type AppLayoutNavigationItemProps = NavigationItemContent &
   (
@@ -26,6 +28,7 @@ export type AppLayoutNavigationItemProps = NavigationItemContent &
   );
 export type AppLayoutContentProps = ComponentPropsWithRef<'main'>;
 export type AppLayoutFooterProps = ComponentPropsWithRef<'footer'>;
+export type AppLayoutFooterItemProps = AppLayoutNavigationItemProps;
 export interface AppLayoutCollapseToggleProps extends Omit<
   ComponentPropsWithRef<'button'>,
   'children' | 'type' | 'aria-label'
