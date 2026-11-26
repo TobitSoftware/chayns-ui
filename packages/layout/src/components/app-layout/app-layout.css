@@ -237,7 +237,7 @@
 
   .chayns-app-layout--collapsed .chayns-app-layout__footer {
     flex-direction: column;
-    padding-block-start: 0;
+    padding-block-start: var(--sp-2);
   }
 
   .chayns-app-layout--collapsed .chayns-app-layout__footer-items {

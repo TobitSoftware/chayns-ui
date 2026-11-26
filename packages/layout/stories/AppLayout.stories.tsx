@@ -116,7 +116,7 @@ export const FooterNavigation: Story = {
         <AppLayout.CollapseToggle collapseLabel="Collapse navigation" expandLabel="Expand navigation" />
       </AppLayout.Footer>
       <AppLayout.Content>
-        <div style={{ blockSize: '100%', padding: 'var(--sp-6)' }}>
+        <div style={{ blockSize: '100%', padding: 'var(--sp-6)', backgroundColor: 'var(--page)', color: 'var(--text)' }}>
           <h1 style={{ marginBlockStart: 0 }}>Footer navigation items</h1>
           <p>Toggle the navigation to see footer actions move from inline to stacked layout.</p>
         </div>
