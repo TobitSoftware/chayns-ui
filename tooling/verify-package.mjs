@@ -130,13 +130,22 @@ if (
 const businessManifest = JSON.parse(
   readFileSync(`${repositoryRoot}/packages/business/package.json`, 'utf8'),
 );
+const approvedBusinessDependencies = {
+  '@tiptap/core': '3.33.0',
+  '@tiptap/markdown': '3.33.0',
+  '@tiptap/react': '3.33.0',
+  '@tiptap/starter-kit': '3.33.0',
+};
 if (
   Object.keys(businessManifest.peerDependencies ?? {})
     .sort()
     .join(',') !== '@chayns-ui/core,react' ||
-  businessManifest.dependencies
+  JSON.stringify(Object.entries(businessManifest.dependencies ?? {}).sort()) !==
+    JSON.stringify(Object.entries(approvedBusinessDependencies).sort())
 )
-  throw new Error('Business must depend only on Core and React peers');
+  throw new Error(
+    'Business runtime dependencies must exactly match the approved Tiptap integration',
+  );
 run('corepack', [
   'pnpm',
   'exec',

@@ -1,7 +1,6 @@
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { Markdown } from '@tiptap/markdown';
-import './markdown-editor.css';
 import { Button, Popup, TextField } from '@chayns-ui/core';
 import {
   Fragment,
