@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MarkdownEditor, markdownEditorDefaultItems } from '@chayns-ui/business';
 import type { MarkdownEditorProps, MarkdownEditorRef } from '@chayns-ui/business';
-import '@chayns-ui/business/markdown-editor.css';
+import '@chayns-ui/business/styles.css';
 import './markdown-editor.stories.css';
 import usage from '../../../docs/03-components/markdown-editor/markdown-editor-usage.md?raw';
 

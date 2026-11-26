@@ -46,6 +46,7 @@ const packages = [
       'package/dist/index.js',
       'package/dist/index.d.ts',
       'package/dist/components/sidekick-input/SideKickInput.js',
+      'package/dist/styles.css',
     ],
   },
   {

@@ -10,8 +10,7 @@ import { TeamTalkInput } from '@chayns-ui/business';
 import '@chayns-ui/tokens/baseline.css';
 import '@chayns-ui/tokens/patch.css';
 import '@chayns-ui/core/styles.css';
-import '@chayns-ui/business/team-talk-input.css';
-import '@chayns-ui/business/team-talk-input.css';
+import '@chayns-ui/business/styles.css';
 
 const labels = {
   input: 'Kommentar schreiben',

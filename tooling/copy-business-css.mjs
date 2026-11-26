@@ -1,17 +1,29 @@
-import { copyFile, mkdir } from 'node:fs/promises';
-import { resolve } from 'node:path';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { basename, resolve } from 'node:path';
 
 const packageDirectory = resolve(import.meta.dirname, '..', 'packages/business');
 const outputDirectory = resolve(packageDirectory, 'dist');
 
 await mkdir(outputDirectory, { recursive: true });
+const aggregateCss = await readFile(resolve(packageDirectory, 'src/styles.css'), 'utf8');
+const importPattern = /@import url\('([^']+)'\);/g;
+const imports = [...aggregateCss.matchAll(importPattern)].map((match) => match[1]);
+
+let flattenedCss = aggregateCss;
+const copyTasks = imports.map((importPath) => {
+  const fileName = basename(importPath);
+  flattenedCss = flattenedCss.replace(importPath, `./${fileName}`);
+
+  return readFile(resolve(packageDirectory, 'src', importPath), 'utf8').then((source) => {
+    const packagedCss = source.replace(
+      importPattern,
+      (_, dependency) => `@import url('./${basename(dependency)}');`,
+    );
+    return writeFile(resolve(outputDirectory, fileName), packagedCss, 'utf8');
+  });
+});
+
 await Promise.all([
-  copyFile(
-    resolve(packageDirectory, 'src/components/team-talk-input/team-talk-input.css'),
-    resolve(outputDirectory, 'team-talk-input.css'),
-  ),
-  copyFile(
-    resolve(packageDirectory, 'src/components/markdown-editor/markdown-editor.css'),
-    resolve(outputDirectory, 'markdown-editor.css'),
-  ),
+  writeFile(resolve(outputDirectory, 'styles.css'), flattenedCss, 'utf8'),
+  ...copyTasks,
 ]);

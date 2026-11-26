@@ -18,7 +18,7 @@ Mit der umgebenden TeamTalk-Ansicht und Consumer-eigener Versand-/Leave-Logik. T
 
 ## Verwendung
 
-Lade die Tokens und Core Styles sowie `@chayns-ui/business/team-talk-input.css` in deiner Anwendung. Entwurf, Teilnehmer, Suchquery und Suchtreffer werden kontrolliert übergeben; alle Texte sind bereits lokalisiert. Das mehrzeilige Feld startet in TextField-Höhe und wächst mit dem Inhalt; Enter sendet, Shift+Enter fügt einen Zeilenumbruch ein. Das Add-Overlay öffnet die externe Personensuche mit Checkboxen; Auswahl wird erst mit „Hinzufügen“ an den Consumer gemeldet.
+Lade die Tokens und Core Styles sowie `@chayns-ui/business/styles.css` in deiner Anwendung. Entwurf, Teilnehmer, Suchquery und Suchtreffer werden kontrolliert übergeben; alle Texte sind bereits lokalisiert. Das mehrzeilige Feld startet in TextField-Höhe und wächst mit dem Inhalt; Enter sendet, Shift+Enter fügt einen Zeilenumbruch ein. Das Add-Overlay öffnet die externe Personensuche mit Checkboxen; Auswahl wird erst mit „Hinzufügen“ an den Consumer gemeldet.
 
 ```tsx
 import { useState } from 'react';
