@@ -1,5 +1,11 @@
 # @chayns-ui/business
 
+## 0.1.1
+
+### Patch Changes
+
+- a2baf09: Publish a patch release to trigger the business package GitHub Action.
+
 ## 0.1.0
 
 ### Minor Changes

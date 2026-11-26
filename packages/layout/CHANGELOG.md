@@ -1,5 +1,11 @@
 # @chayns-ui/layout
 
+## 0.10.2
+
+### Patch Changes
+
+- a2baf09: Improve AppLayout footer navigation, collapse animations, divider spacing, and navigation label timing.
+
 ## 0.10.1
 
 ### Patch Changes
