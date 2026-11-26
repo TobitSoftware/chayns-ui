@@ -1,5 +1,11 @@
 # @chayns-ui/layout
 
+## 0.10.3
+
+### Patch Changes
+
+- d72fb67: Fix delayed hiding of AppLayout navigation labels during collapse.
+
 ## 0.10.2
 
 ### Patch Changes
