@@ -230,6 +230,11 @@ const Footer = forwardRef<HTMLElement, AppLayoutFooterProps>(function Footer(
       className={['chayns-app-layout__footer', className].filter(Boolean).join(' ')}
       ref={ref}
     >
+      <span
+        aria-hidden="true"
+        className="chayns-app-layout__footer-divider"
+        data-footer-motion-key="divider"
+      />
       {other.map((child, index) => (
         <div className="chayns-app-layout__footer-custom" key={isValidElement(child) ? child.key ?? index : index}>
           {child}

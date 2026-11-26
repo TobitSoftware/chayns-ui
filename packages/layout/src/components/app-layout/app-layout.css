@@ -172,12 +172,21 @@
 
   .chayns-app-layout__footer {
     display: flex;
+    position: relative;
     align-items: center;
     min-inline-size: 0;
     margin-block-start: auto;
     padding-block-start: var(--sp-2);
     overflow: visible;
-    border-block-start: 1px solid color-mix(in srgb, var(--on-accent) 35%, transparent);
+  }
+
+  .chayns-app-layout__footer-divider {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    block-size: 1px;
+    background: color-mix(in srgb, var(--on-accent) 35%, transparent);
+    pointer-events: none;
   }
 
   .chayns-app-layout__footer-items {
