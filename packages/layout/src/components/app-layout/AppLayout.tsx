@@ -29,6 +29,7 @@ interface LayoutState {
 }
 interface LayoutMotionSnapshot {
   rects: Map<string, DOMRect>;
+  columns: string;
 }
 const LayoutContext = createContext<LayoutState | null>(null);
 const NavigationContext = createContext<'navigation' | 'footer' | null>(null);
@@ -290,7 +291,10 @@ const Root = forwardRef<HTMLDivElement, AppLayoutProps>(function Root(
       const key = node.dataset.footerMotionKey;
       if (key) rects.set(key, node.getBoundingClientRect());
     });
-    motionSnapshot.current = { rects };
+    motionSnapshot.current = {
+      rects,
+      columns: root ? window.getComputedStyle(root).gridTemplateColumns : '',
+    };
     const next = !isCollapsed;
     if (collapsed === undefined) setInternal(next);
     onCollapsedChange?.(next);
@@ -303,7 +307,7 @@ const Root = forwardRef<HTMLDivElement, AppLayoutProps>(function Root(
     const reduceMotion =
       typeof window.matchMedia === 'function' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion) return;
+    if (reduceMotion || typeof root.animate !== 'function') return;
     const durationValue = window
       .getComputedStyle(document.documentElement)
       .getPropertyValue('--dur-spring')
@@ -316,6 +320,15 @@ const Root = forwardRef<HTMLDivElement, AppLayoutProps>(function Root(
     const easing =
       window.getComputedStyle(document.documentElement).getPropertyValue('--spring-default').trim() ||
       'ease-out';
+    if (snapshot.columns) {
+      root.animate(
+        [
+          { gridTemplateColumns: snapshot.columns },
+          { gridTemplateColumns: window.getComputedStyle(root).gridTemplateColumns },
+        ],
+        { duration, easing },
+      );
+    }
     root.querySelectorAll<HTMLElement>('[data-footer-motion-key]').forEach((node) => {
       const key = node.dataset.footerMotionKey;
       const previous = key ? snapshot.rects.get(key) : undefined;
