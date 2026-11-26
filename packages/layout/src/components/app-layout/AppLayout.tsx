@@ -25,6 +25,7 @@ import AppLayoutIcon from './app-layout-icon/AppLayoutIcon.js';
 
 interface LayoutState {
   collapsed: boolean;
+  labelsHidden: boolean;
   toggle: () => void;
 }
 interface LayoutMotionSnapshot {
@@ -105,7 +106,7 @@ const NavigationItem = forwardRef<
   const placement = useContext(NavigationContext);
   if (placement === null)
     throw new Error('AppLayout.Navigation.Item must be rendered within AppLayout.Navigation or AppLayout.Footer.');
-  const { collapsed } = useLayout('Navigation.Item');
+  const { labelsHidden } = useLayout('Navigation.Item');
   const [expanded, setExpanded] = useState(false);
   const childrenId = useId();
   const hasChildren = children !== undefined;
@@ -116,7 +117,7 @@ const NavigationItem = forwardRef<
   const content = (
     <span
       id={`${childrenId}-label`}
-      className={`chayns-app-layout__label${collapsed || footerItem ? ' chayns-app-layout__label--hidden' : ''}`}
+      className={`chayns-app-layout__label${labelsHidden || footerItem ? ' chayns-app-layout__label--hidden' : ''}`}
     >
       {label}
     </span>
@@ -286,9 +287,33 @@ const Root = forwardRef<HTMLDivElement, AppLayoutProps>(function Root(
   ref,
 ) {
   const [internal, setInternal] = useState(defaultCollapsed);
+  const [labelsHidden, setLabelsHidden] = useState(collapsed ?? defaultCollapsed);
   const rootElement = useRef<HTMLDivElement>(null);
   const motionSnapshot = useRef<LayoutMotionSnapshot | null>(null);
   const isCollapsed = collapsed ?? internal;
+  useLayoutEffect(() => {
+    if (isCollapsed) {
+      const durationValue = window
+        .getComputedStyle(document.documentElement)
+        .getPropertyValue('--dur-spring')
+        .trim();
+      const duration = durationValue.endsWith('ms')
+        ? Number.parseFloat(durationValue)
+        : durationValue.endsWith('s')
+          ? Number.parseFloat(durationValue) * 1000
+          : Number.parseFloat(durationValue) || 450;
+      const reduceMotion =
+        typeof window.matchMedia === 'function' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) setLabelsHidden(true);
+      else {
+        const timeout = window.setTimeout(() => setLabelsHidden(true), duration);
+        return () => window.clearTimeout(timeout);
+      }
+    } else {
+      setLabelsHidden(false);
+    }
+  }, [isCollapsed]);
   const toggle = () => {
     const root = rootElement.current;
     const rects = new Map<string, DOMRect>();
@@ -361,7 +386,7 @@ const Root = forwardRef<HTMLDivElement, AppLayoutProps>(function Root(
   const sidebarPartSet = new Set(sidebarParts);
   const firstSidebar = childParts.find((child) => sidebarPartSet.has(child));
   return (
-    <LayoutContext.Provider value={{ collapsed: isCollapsed, toggle }}>
+    <LayoutContext.Provider value={{ collapsed: isCollapsed, labelsHidden, toggle }}>
       <div
         {...props}
         className={['chayns-app-layout', isCollapsed && 'chayns-app-layout--collapsed', className]

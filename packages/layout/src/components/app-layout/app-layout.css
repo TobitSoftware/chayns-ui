@@ -141,6 +141,27 @@
     white-space: nowrap;
   }
 
+  .chayns-app-layout__label--hidden {
+    opacity: 0;
+  }
+
+  .chayns-app-layout__footer-item .chayns-app-layout__label--hidden {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    min-inline-size: auto;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .chayns-app-layout__label {
+      transition: opacity var(--dur-micro) var(--ease-exit);
+    }
+
+  }
+
   .chayns-app-layout--collapsed {
     grid-template-columns: calc(var(--ctrl-h) + var(--sp-4)) minmax(0, 1fr);
   }
@@ -345,17 +366,6 @@
 
   .chayns-app-layout--collapsed .chayns-app-layout__footer-custom {
     display: none;
-  }
-
-  .chayns-app-layout__label--hidden {
-    position: absolute;
-    inline-size: 1px;
-    block-size: 1px;
-    min-inline-size: auto;
-    opacity: 0;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
   }
 
   @media (prefers-reduced-motion: no-preference) {
