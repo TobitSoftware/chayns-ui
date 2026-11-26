@@ -1,6 +1,6 @@
 {
   "name": "@chayns-ui/business",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Business components composed from chayns UI Core",
   "license": "MIT",
   "type": "module",
