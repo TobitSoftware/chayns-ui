@@ -34,7 +34,7 @@ document.body. Consumer source uses public imports and shows the actual hooks/da
 | Planned page | Planned stories |
 | --- | --- |
 | Core/RichTextEditor | Basic, AtomicMentions, MentionQueryRace, SelectionAndSnippets, PlainTextClipboard, HistoryAndExternalReset, ReadOnlyAndDisabled, LongLocalizedContent |
-| Core/MessageComposer | TwoLine, OneLine, MultilineOverflow, PromptActions, AttachmentsAndSnippets, GroupedSelector, MenuKeyboard, DictationLifecycle, VoiceLifecycle, UnsupportedCapture, CaptureErrors, ThemesAndDensity, ReducedMotion, NarrowAndZoom |
+| Core/MessageComposer | TwoLine, OneLine, MultilineOverflow, PromptActions, DictationWaveform, AttachmentsAndSnippets, GroupedSelector, MenuKeyboard, DictationLifecycle, VoiceLifecycle, UnsupportedCapture, CaptureErrors, ThemesAndDensity, ReducedMotion, NarrowAndZoom |
 | Business/SideKickInput | ControlledSend, OptimisticFailureAndRetry, NewDraftWhilePending, AgentsAndModels, ExternalMenuActions, ConsumerVoiceConnection |
 
 Capture stories start with deterministic mocks. Mocking is visibly documented as
@@ -48,8 +48,11 @@ Record browser/OS, date, assistive technology/version and results for keyboard-o
 NVDA with a supported Windows browser, and VoiceOver with Safari; verify mention
 reading, caret/deletion, listbox active option, radio menus, mode/error messages,
 capture permission dismissal and restored focus. Verify native dictation where
-available and hidden unavailable controls in browsers without recognition support.
-No claim of universal recognition/browser/offline support is permitted.
+available and hidden unavailable controls in browsers without recognition/audio support.
+Verify waveform update/freeze, full-width layout, prompt and agent/model selector
+replacement, and microphone icon change between recording and pause, plus onStream/onEnd
+and cleanup ordering. No claim of universal
+recognition/browser/offline support is permitted.
 
 Check light/dark, each S/M/L, high contrast/forced colors, color-deficiency modes,
 Reduced Motion, 320px available width, 200% text size, 400% zoom and text spacing.

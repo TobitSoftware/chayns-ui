@@ -1,6 +1,43 @@
 # @chayns-ui/business
 
-SideKickInput composes Core MessageComposer with externally controlled agent/model selection and optimistic message dispatch. It has no service SDK, CSS or additional runtime dependency. Core and React are peers; React 18 and 19 are supported.
+Business components compose Core UI with application-controlled product data and actions. Core and React are peers; React 18 and 19 are supported.
+
+## TeamTalkInput
+
+```tsx
+import { useState } from 'react';
+import { TeamTalkInput } from '@chayns-ui/business';
+import '@chayns-ui/tokens/baseline.css';
+import '@chayns-ui/tokens/patch.css';
+import '@chayns-ui/core/styles.css';
+import '@chayns-ui/business/team-talk-input.css';
+import '@chayns-ui/business/team-talk-input.css';
+
+const labels = {
+  input: 'Kommentar schreiben',
+  placeholder: 'Stimme zu',
+  agree: 'Zustimmen',
+  send: 'Senden',
+  addPerson: 'Personen hinzufügen',
+  leave: 'TeamTalk verlassen',
+  participants: (names: readonly string[]) => `Im TeamTalk: ${names.join(', ')}`,
+};
+
+function TeamCommentInput() {
+  const [value, setValue] = useState('');
+  return <TeamTalkInput
+    labels={labels}
+    members={[{ id: 'ada', name: 'Ada Lovelace', avatarSrc: '/ada.png' }]}
+    value={value}
+    onValueChange={setValue}
+    onSend={(payload) => console.log(payload)}
+    allowAgree
+    onLeave={() => console.log('Leave requested')}
+  />;
+}
+```
+
+The current scope renders participants, the controlled composer, optional Leave and a visible disabled Add button. The person-add overlay is deferred. `onSend` receives `{ type: 'message', text }` for non-empty text or `{ type: 'agree', text: '' }` when agree is enabled and the draft is empty. The consumer owns draft clearing.
 
 ```tsx
 import { useState } from 'react';

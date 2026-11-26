@@ -33,7 +33,10 @@ function ComposerControls({
 }: ComposerControlsProps) {
   const isDictating = capture.dictationState !== 'idle';
   const isPaused = capture.dictationState === 'paused';
-  const isSettling = capture.dictationState === 'pausing' || capture.dictationState === 'ending';
+  const isSettling =
+    capture.dictationState === 'starting' ||
+    capture.dictationState === 'pausing' ||
+    capture.dictationState === 'ending';
   const isVoiceActive = capture.voiceState !== 'idle';
   const canDictate = !dictation?.disabled && capture.support.dictation;
   const canVoice =
@@ -43,7 +46,7 @@ function ComposerControls({
   const microphoneLabel = isPaused ? labels.resumeDictation : labels.pauseDictation;
 
   function handleMicrophone() {
-    if (!isDictating) capture.startDictation();
+    if (!isDictating) void capture.startDictation();
     else if (isPaused) capture.resume();
     else capture.pause();
   }
@@ -61,7 +64,11 @@ function ComposerControls({
     >
       {isVoiceActive ? <CaptureActions capture={capture} labels={labels} /> : null}
       <ComposerActionButton
-        isVisible={isDictating || (!capture.isActive && !canSend && canDictate)}
+        isVisible={
+          capture.dictationState === 'starting' ||
+          isDictating ||
+          (!capture.isActive && !canSend && canDictate)
+        }
         aria-label={isDictating ? microphoneLabel : labels.startDictation}
         aria-pressed={isDictating ? !isPaused : undefined}
         className={[
@@ -77,7 +84,7 @@ function ComposerControls({
         onClick={handleMicrophone}
         type="button"
       >
-        <ButtonIcon icon="fa-microphone" />
+        <ButtonIcon icon={isDictating && !isPaused ? 'fa-microphone-slash' : 'fa-microphone'} />
       </ComposerActionButton>
       <ComposerActionButton
         isVisible={!capture.isActive && canSend}

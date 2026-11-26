@@ -29,6 +29,7 @@
   "checkedOn": "2026-10-23",
   "stories": [
     "Core/MessageComposer:DictationRecording",
+    "Core/MessageComposer:DictationWaveform",
     "Core/MessageComposer:DictationPaused",
     "Core/MessageComposer:DictationCancel",
     "Core/MessageComposer:DictationDisabled",
@@ -50,11 +51,11 @@
 - Specification Status: READY FOR IMPLEMENTATION
 - Owner / Responsible Area: chayns UI; product/design acceptance by the requesting user
 - Design Reference: Bodywork / Muster / KI & Sidekick; checked 2026-10-23
-- Relevant Decisions: SIDEKICK-001–030, CORE native-prop/composition/a11y/i18n rules, ADR 0004
+- Relevant Decisions: SIDEKICK-001–034, CORE native-prop/composition/a11y/i18n rules, ADR 0004
 - Foundation Dependencies: existing spacing/density/type/color/focus/overlay patterns;
   scoped token transfer and Lexical integration described in the shared contracts
 - Related Components: RichTextEditor, Button, Avatar, Spinner
-- Last Reviewed: 2026-10-23 (implementation evidence recorded separately; manual acceptance pending)
+- Last Reviewed: 2026-11-25 — dictation waveform, selector suppression and full-width row behavior under SIDEKICK-034; manual acceptance pending.
 
 SIDEKICK-025 accepts the complete technical/API/distribution/evidence contract
 (R-01). SIDEKICK-026 accepts the bounded functional-first visual treatment (R-02 /

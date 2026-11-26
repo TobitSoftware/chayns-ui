@@ -60,8 +60,8 @@ competing theme. No ThemeConfig option is added.
 | --sk-input-bg | rgba(255,255,255,.8) | rgba(22,36,42,.8) | Preserve alpha; verify on supported page/surface backgrounds. |
 | --sk-input-shadow | 0 4px 10px rgba(0,0,0,.1) | 0 4px 10px rgba(0,0,0,.35) | Preserve source shadow. |
 | --sk-agent-bg | #f7f7f7 | #22333a | Preserve; verify text/icon contrast. |
-| --sk-input-border | source rgba(0,0,0,.04) | source rgba(255,255,255,.08) | Accepted correction to existing text-3 (SIDEKICK-027) for an identifiable control boundary in all modes. Do not ship source alpha as a contrast claim. |
-| --sk-chip-border | source rgba(0,0,0,.1) | source rgba(255,255,255,.16) | Accepted correction to text-3 (SIDEKICK-027) for outlined interactive chips. |
+| --sk-input-border | rgba(0, 0, 0, 0.04) | rgba(255, 255, 255, 0.08) | User-confirmed source values, including low-contrast source alpha; this explicitly supersedes the SIDEKICK-027 correction for this token. |
+| --sk-chip-border | rgba(0, 0, 0, 0.1) | rgba(255, 255, 255, 0.16) | Confirmed source values for outlined interactive chips; `.theme-auto` follows the active light/dark mode. |
 | --sk-avatar-border | rgba(0,0,0,.25) | rgba(255,255,255,.25) | Preserve decorative border; avatar has adjacent identity text. |
 | --sk-placeholder | source rgba(0,0,0,.4) | source rgba(255,255,255,.45) | Accepted correction to text-3, following TextArea's documented AA correction. |
 | --tint | mix accent 14% / white 86% | mix #1a3138 88% / accent 12% | Required checked-row dependency already specified above. Exact live applyTheme calculation checked 2026-10-23; dark high contrast uses base 93% / accent 7%. Consume the resolved accent; preserve the check icon as the noncolor indicator. |
@@ -104,8 +104,17 @@ treatment only to the newly requested areas without a Bodywork design:
   the composer owns this relationship rather than each Button adding margins.
 - **Audio controls:** active dictation follows the user-confirmed X/microphone/check
   design in shared contract section 9 (2026-10-23), replacing the initial generic
-  text buttons. Voice mute/end retains the functional-first treatment. No waveform/
-  timer or new color value is invented.
+  text buttons. Voice mute/end retains the functional-first treatment. During dictation,
+  prompt chips and the agent/model selector are replaced by a live amplitude waveform
+  filling the available width between cancel and the dictation actions; it adapts the
+  `/dev/chayns-threads` voice-call Canvas visual and inherits text color,
+  freezes while paused, and fades its sampled history at start/end. The microphone
+  action shows a regular microphone while idle, a struck-through microphone while recording, and a regular microphone while paused.
+  Technical geometry
+  uses a 24px-high, container-width Canvas; the number of 3px bars with 1px gaps is calculated
+  from its measured width, following `/dev/chayns-threads`, with smoothed RMS microphone level
+  from Web Audio API (SIDEKICK-034). Under Reduced Motion, the visual is a steady current
+  level rather than a scrolling history.
 - **Accessibility corrections:** the border/placeholder corrections above; full
   accessible labels; at least 24 by 24 CSS-pixel action hit areas even at density S;
   visible menu-option focus; popup collision/scroll and small-width reflow rules.

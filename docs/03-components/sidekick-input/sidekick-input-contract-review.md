@@ -346,6 +346,10 @@ export type ComposerVoiceState = 'idle' | 'connecting' | 'connected' | 'error';
 export interface DictationOptions {
   readonly language?: string;
   readonly disabled?: boolean;
+  /** Receives the composer-owned stream for dictation waveform analysis. */
+  readonly onStream?: (stream: MediaStream) => void;
+  /** Called once after stream/analysis cleanup, if onStream was called. */
+  readonly onEnd?: () => void;
 }
 export interface VoiceOptions {
   readonly disabled?: boolean;
@@ -370,9 +374,10 @@ audio player, encoded chunks or speech polyfill is included.
 
 ### Dictation state machine
 
-1. Detect SpeechRecognition or webkitSpeechRecognition after client mount, with an
-   initially absent start action during SSR/hydration. Check again on activation.
-   Start only after user action when enabled, idle and projected text is empty.
+1. Detect SpeechRecognition or webkitSpeechRecognition, secure-context getUserMedia,
+   and Web Audio AudioContext after client mount, with an initially absent start action
+   during SSR/hydration. Check again on activation. Start only after user action when
+   enabled, idle and projected text is empty; recognition and audio analysis are required.
 2. Capture the current language for the session; configure interimResults and
    continuous recognition. Native permission/errors may still fail after detection.
    An explicit override change cancels the old recognition. Language resolution follows
@@ -394,9 +399,14 @@ audio player, encoded chunks or speech polyfill is included.
    final text, display/report code `stop-timeout` and unlock. This deadline is a
    accepted technical fail-safe, not a new public timing configuration.
 6. An error ends the session, preserves final text, discards provisional text and
-   announces/reports the error once. User can edit or start again if the draft is
-   empty. A generation token prevents late results resurrecting stopped sessions.
-   Unmount aborts without delivering further document changes or callbacks.
+   announces/reports the error once. Audio permission/analysis failure also aborts
+   dictation and reports source `dictation`; the stream callback runs only after
+   analysis starts. MessageComposer stops owned tracks and closes AudioContext before
+   calling optional `dictation.onEnd` exactly once after a handed-out stream. User can
+   edit or start again if the draft is empty. A generation token prevents late results
+   resurrecting stopped sessions. Unmount aborts without delivering further
+   recognition/value callbacks; handed-out analysis streams are still stopped and
+   optional `dictation.onEnd` is called after owned audio cleanup.
 
 Interim changes create no individual Undo entries. The finished dictation is one
 undoable insertion. Pause does not unlock editing. Undo becomes available after

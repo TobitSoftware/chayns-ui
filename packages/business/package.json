@@ -9,7 +9,9 @@
     "url": "git+https://github.com/TobitSoftware/chayns-ui.git",
     "directory": "packages/business"
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "files": [
     "dist",
     "LICENSE",
@@ -20,6 +22,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./team-talk-input.css": "./dist/team-talk-input.css",
     "./package.json": "./package.json"
   },
   "peerDependencies": {
@@ -33,7 +36,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "vite build && tsc -b tsconfig.build.json --force",
+    "build": "vite build && node ../../tooling/copy-business-css.mjs && tsc -b tsconfig.build.json --force",
     "clean": "node ../../tooling/clean-package.mjs business",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

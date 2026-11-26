@@ -166,21 +166,25 @@ const MessageComposer = forwardRef<HTMLDivElement, MessageComposerProps>(
                 ? [addElement, editorElement]
                 : [editorElement, addElement]}
               <ComposerPrompts
+                isDictating={isDictating}
+                capture={capture}
                 prompts={prompts}
                 isLocked={isLocked}
                 pending={pending}
                 onPrompt={onPrompt}
                 preserveRemovedFocus={preserveRemovedFocus}
               />
-              <ComposerSelector
-                selector={selector}
-                labels={labels}
-                isOpen={menu?.kind === 'selector'}
-                isLocked={isLocked}
-                isEmpty={selectorEmpty}
-                onOpen={(trigger) => openMenu('selector', trigger)}
-                onKeyDown={(event) => menuKeys('selector', event)}
-              />
+              {!isDictating ? (
+                <ComposerSelector
+                  selector={selector}
+                  labels={labels}
+                  isOpen={menu?.kind === 'selector'}
+                  isLocked={isLocked}
+                  isEmpty={selectorEmpty}
+                  onOpen={(trigger) => openMenu('selector', trigger)}
+                  onKeyDown={(event) => menuKeys('selector', event)}
+                />
+              ) : null}
               <ComposerControls
                 capture={capture}
                 labels={labels}
