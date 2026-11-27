@@ -114,7 +114,7 @@ Shadows werden zentral definiert. Unterschiedliche Elevation-Regeln benötigen z
 
 # 19. Motion Tokens
 
-Motion-Dauern und Easings sind systemweite Werte; Komponenten erfinden keine durations, delays oder easings. Davon getrennt gelten als animierbare Eigenschaften `transform`, `opacity` und `grid-template-rows` als Ausnahme. Der Katalog folgt in `motion.md` ohne hier erfundene Werte.
+Motion-Dauern, Easings, Spring-Kurven, Versätze und Skalierungen sind systemweite Werte; Komponenten erfinden keine durations, delays, easings oder Bewegungswerte. Die bestätigten Bodywork-Tokens sind zentral in `packages/tokens/src/motion.css` definiert, separat als `motion.css` verfügbar und werden in der generierten Baseline ausgegeben. Davon getrennt gelten als animierbare Eigenschaften `transform`, `opacity` und `grid-template-rows` als Ausnahme. Der vollständige Katalog ist in `motion.md` dokumentiert.
 
 # 20. Token Consumption by Components
 

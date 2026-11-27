@@ -8,6 +8,7 @@ import { cssVar, resolveThemeColors } from '@chayns-ui/tokens';
 import '@chayns-ui/tokens/baseline.css';
 import '@chayns-ui/tokens/color.css';
 import '@chayns-ui/tokens/scale.css';
+import '@chayns-ui/tokens/motion.css';
 import '@chayns-ui/tokens/patch.css';
 
 const themeColors = resolveThemeColors('#005eb8');
