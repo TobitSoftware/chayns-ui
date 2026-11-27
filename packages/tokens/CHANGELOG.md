@@ -1,5 +1,11 @@
 # @chayns-ui/tokens
 
+## 0.10.0
+
+### Minor Changes
+
+- 15e9438: Add Bodywork motion CSS variables to the token package, including the standalone `motion.css` export and baseline CSS output.
+
 ## 0.9.0
 
 ### Minor Changes
